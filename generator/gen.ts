@@ -85,7 +85,7 @@ export class Generator {
         this.type2TypeName[key] = newType;
         if (pveType.type === 'string') {
             if (pveType.enum) {
-                const fullType = `export type ${newType} = '${pveType.enum.join("'| '")}';`;
+                const fullType = `export type ${newType} = '${pveType.enum.join("' | '")}';`;
                 this.usedNamed[newType] = fullType;
                 return newType;
             }
@@ -164,7 +164,7 @@ export class Generator {
                     }
                     let pTxt = '';
                     if (params.length)
-                        pTxt = `param${allOptional}: {${params.join(', ')}}`;
+                        pTxt = `param${allOptional}: { ${params.join(', ')} }`;
 
                     let returnType = 'any';
 
