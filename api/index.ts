@@ -512,7 +512,7 @@ export interface Proxmox {
                  */
                 $put(param: {comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_40, disable?: Tdisable, id: pvereplicationjobid, rate?: Trate, remove_job?: Tremove_job, schedule?: pvecalendarevent, source?: pvenode}): Promise<null>;
             };
-        }
+        },
         config: {
             /**
              * Directory index.
@@ -530,7 +530,7 @@ export interface Proxmox {
                  * GET /cluster/config/apiversion
                  */
                 $get(): Promise<number>;
-            }
+            },
             nodes: {
                 /**
                  * Corosync node list.
@@ -549,7 +549,7 @@ export interface Proxmox {
                      */
                     $post(param: {apiversion?: integer, force?: Tdisable, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, new_node_ip?: ip, node: pvenode, nodeid?: integer_Min1, votes?: integer_Min0}): Promise<object>;
                 };
-            }
+            },
             join: {
                 /**
                  * Get information needed to join this cluster over the connected node.
@@ -561,22 +561,22 @@ export interface Proxmox {
                  * POST /cluster/config/join
                  */
                 $post(param: {fingerprint: Tfingerprint, force?: Tdisable, hostname: string, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, password: String0_128, votes?: integer_Min0}): Promise<string>;
-            }
+            },
             totem: {
                 /**
                  * Get corosync totem protocol settings.
                  * GET /cluster/config/totem
                  */
                 $get(): Promise<object>;
-            }
+            },
             qdevice: {
                 /**
                  * Get QDevice status
                  * GET /cluster/config/qdevice
                  */
                 $get(): Promise<object>;
-            }
-        }
+            },
+        },
         firewall: {
             /**
              * Directory index.
@@ -628,7 +628,7 @@ export interface Proxmox {
                         $put(param: {action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, group: Tgroup, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1}): Promise<null>;
                     };
                 };
-            }
+            },
             rules: {
                 /**
                  * List rules.
@@ -657,7 +657,7 @@ export interface Proxmox {
                      */
                     $put(param?: {action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1}): Promise<null>;
                 };
-            }
+            },
             ipset: {
                 /**
                  * List IPSets
@@ -703,7 +703,7 @@ export interface Proxmox {
                         $put(param: {cidr: IPorCIDRorAlias, comment?: string, digest?: String0_40, name: Tname, nomatch?: Tdisable}): Promise<null>;
                     };
                 };
-            }
+            },
             aliases: {
                 /**
                  * List aliases
@@ -732,7 +732,7 @@ export interface Proxmox {
                      */
                     $put(param: {cidr: IPorCIDR, comment?: string, digest?: String0_40, name: Tname, rename?: Tname}): Promise<null>;
                 };
-            }
+            },
             options: {
                 /**
                  * Get Firewall options.
@@ -744,22 +744,22 @@ export interface Proxmox {
                  * PUT /cluster/firewall/options
                  */
                 $put(param?: {delete?: pveconfigidlist_1, digest?: String0_40, ebtables?: Tdisable, enable?: integer_Min0, log_ratelimit?: Tlog_ratelimit, policy_in?: Tpolicy_in, policy_out?: Tpolicy_in}): Promise<null>;
-            }
+            },
             macros: {
                 /**
                  * List available macros
                  * GET /cluster/firewall/macros
                  */
                 $get(): Promise<any[]>;
-            }
+            },
             refs: {
                 /**
                  * Lists possible IPSet/Alias reference which are allowed in source/dest properties.
                  * GET /cluster/firewall/refs
                  */
                 $get(param?: {type?: Ttype_2}): Promise<any[]>;
-            }
-        }
+            },
+        },
         backup: {
             /**
              * List vzdump backup schedule.
@@ -793,9 +793,9 @@ export interface Proxmox {
                      * GET /cluster/backup/{id}/included_volumes
                      */
                     $get(param: {id: String0_50}): Promise<object>;
-                }
+                },
             };
-        }
+        },
         backupinfo: {
             /**
              * Stub, waits for future use.
@@ -808,8 +808,8 @@ export interface Proxmox {
                  * GET /cluster/backupinfo/not_backed_up
                  */
                 $get(): Promise<any[]>;
-            }
-        }
+            },
+        },
         ha: {
             /**
              * Directory index.
@@ -849,16 +849,16 @@ export interface Proxmox {
                          * POST /cluster/ha/resources/{sid}/migrate
                          */
                         $post(param: {node: pvenode, sid: pveharesourceorvmid}): Promise<null>;
-                    }
+                    },
                     relocate: {
                         /**
                          * Request resource relocatzion to another node. This stops the service on the old node, and restarts it on the target node.
                          * POST /cluster/ha/resources/{sid}/relocate
                          */
                         $post(param: {node: pvenode, sid: pveharesourceorvmid}): Promise<null>;
-                    }
+                    },
                 };
-            }
+            },
             groups: {
                 /**
                  * Get HA groups.
@@ -887,7 +887,7 @@ export interface Proxmox {
                      */
                     $put(param: {comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_40, group: pveconfigid, nodes?: pvehagroupnodelist, nofailback?: Tdisable, restricted?: Trestricted}): Promise<null>;
                 };
-            }
+            },
             status: {
                 /**
                  * Directory index.
@@ -900,16 +900,16 @@ export interface Proxmox {
                      * GET /cluster/ha/status/current
                      */
                     $get(): Promise<any[]>;
-                }
+                },
                 manager_status: {
                     /**
                      * Get full HA manger status, including LRM status.
                      * GET /cluster/ha/status/manager_status
                      */
                     $get(): Promise<object>;
-                }
-            }
-        }
+                },
+            },
+        },
         acme: {
             /**
              * ACMEAccount index.
@@ -944,7 +944,7 @@ export interface Proxmox {
                      */
                     $put(param: {api?: Tapi, data?: string, delete?: pveconfigidlist, digest?: String0_40, disable?: Tdisable, id: pveconfigid, nodes?: pvenodelist, 'validation-delay'?: integer0_172800}): Promise<null>;
                 };
-            }
+            },
             account: {
                 /**
                  * ACMEAccount index.
@@ -973,29 +973,29 @@ export interface Proxmox {
                      */
                     $put(param?: {contact?: emaillist, name?: pveconfigid}): Promise<string>;
                 };
-            }
+            },
             tos: {
                 /**
                  * Retrieve ACME TermsOfService URL from CA.
                  * GET /cluster/acme/tos
                  */
                 $get(param?: {directory?: Tdirectory}): Promise<string>;
-            }
+            },
             directories: {
                 /**
                  * Get named known ACME directory endpoints.
                  * GET /cluster/acme/directories
                  */
                 $get(): Promise<any[]>;
-            }
+            },
             'challenge-schema': {
                 /**
                  * Get schema of ACME challenge types.
                  * GET /cluster/acme/challenge-schema
                  */
                 $get(): Promise<any[]>;
-            }
-        }
+            },
+        },
         ceph: {
             /**
              * Cluster ceph index.
@@ -1008,14 +1008,14 @@ export interface Proxmox {
                  * GET /cluster/ceph/metadata
                  */
                 $get(param?: {scope?: Tscope}): Promise<object>;
-            }
+            },
             status: {
                 /**
                  * Get ceph status.
                  * GET /cluster/ceph/status
                  */
                 $get(): Promise<object>;
-            }
+            },
             flags: {
                 /**
                  * get the status of all ceph flags
@@ -1039,8 +1039,8 @@ export interface Proxmox {
                      */
                     $put(param: {flag: Tflag, value: Tdisable}): Promise<null>;
                 };
-            }
-        }
+            },
+        },
         sdn: {
             /**
              * Directory index.
@@ -1080,7 +1080,7 @@ export interface Proxmox {
                      */
                     $put(param: {alias?: string, delete?: pveconfigidlist, digest?: String0_40, ipv4?: CIDRv4, ipv6?: CIDRv6, mac?: macaddr, tag?: integer, vlanaware?: Tdisable, vnet: pvesdnvnetid, zone?: string}): Promise<null>;
                 };
-            }
+            },
             zones: {
                 /**
                  * SDN zones index.
@@ -1109,7 +1109,7 @@ export interface Proxmox {
                      */
                     $put(param: {bridge?: string, controller?: string, delete?: pveconfigidlist, digest?: String0_40, 'dp-id'?: integer, mtu?: integer, nodes?: pvenodelist, peers?: iplist, tag?: integer_Min0, 'vlan-protocol'?: Tvlanprotocol, 'vrf-vxlan'?: integer, zone: pvesdnzoneid}): Promise<null>;
                 };
-            }
+            },
             controllers: {
                 /**
                  * SDN controllers index.
@@ -1138,29 +1138,29 @@ export interface Proxmox {
                      */
                     $put(param: {asn?: integer, controller: pvesdncontrollerid, delete?: pveconfigidlist, digest?: String0_40, 'gateway-external-peers'?: iplist, 'gateway-nodes'?: pvenodelist, peers?: iplist}): Promise<null>;
                 };
-            }
-        }
+            },
+        },
         log: {
             /**
              * Read cluster log
              * GET /cluster/log
              */
             $get(param?: {max?: integer_Min1}): Promise<any[]>;
-        }
+        },
         resources: {
             /**
              * Resources index (cluster wide).
              * GET /cluster/resources
              */
             $get(param?: {type?: Ttype_9}): Promise<any[]>;
-        }
+        },
         tasks: {
             /**
              * List recent tasks (cluster wide).
              * GET /cluster/tasks
              */
             $get(): Promise<any[]>;
-        }
+        },
         options: {
             /**
              * Get datacenter options.
@@ -1172,22 +1172,22 @@ export interface Proxmox {
              * PUT /cluster/options
              */
             $put(param?: {bwlimit?: Tbwlimit, console?: Tconsole, delete?: pveconfigidlist_1, email_from?: emailopt, fencing?: Tfencing, ha?: Tha, http_proxy?: Thttp_proxy, keyboard?: Tkeyboard, language?: Tlanguage, mac_prefix?: macprefix, max_workers?: integer_Min1, migration?: Tmigration, migration_unsecure?: Tdisable, u2f?: Tu2f}): Promise<null>;
-        }
+        },
         status: {
             /**
              * Get cluster status information.
              * GET /cluster/status
              */
             $get(): Promise<any[]>;
-        }
+        },
         nextid: {
             /**
              * Get next free VMID. If you pass an VMID it will raise an error if the ID is already used.
              * GET /cluster/nextid
              */
             $get(param?: {vmid?: pvevmid}): Promise<number>;
-        }
-    }
+        },
+    },
     nodes: {
         /**
          * Cluster node index.
@@ -1256,7 +1256,7 @@ export interface Proxmox {
                                  */
                                 $put(param: {action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, node: pvenode, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1, vmid: pvevmid}): Promise<null>;
                             };
-                        }
+                        },
                         aliases: {
                             /**
                              * List aliases
@@ -1285,7 +1285,7 @@ export interface Proxmox {
                                  */
                                 $put(param: {cidr: IPorCIDR, comment?: string, digest?: String0_40, name: Tname, node: pvenode, rename?: Tname, vmid: pvevmid}): Promise<null>;
                             };
-                        }
+                        },
                         ipset: {
                             /**
                              * List IPSets
@@ -1331,7 +1331,7 @@ export interface Proxmox {
                                     $put(param: {cidr: IPorCIDRorAlias, comment?: string, digest?: String0_40, name: Tname, node: pvenode, nomatch?: Tdisable, vmid: pvevmid}): Promise<null>;
                                 };
                             };
-                        }
+                        },
                         options: {
                             /**
                              * Get VM firewall options.
@@ -1343,22 +1343,22 @@ export interface Proxmox {
                              * PUT /nodes/{node}/qemu/{vmid}/firewall/options
                              */
                             $put(param: {delete?: pveconfigidlist_1, dhcp?: Tdisable, digest?: String0_40, enable?: Tdisable, ipfilter?: Tdisable, log_level_in?: Tlog, log_level_out?: Tlog, macfilter?: Tdisable, ndp?: Tdisable, node: pvenode, policy_in?: Tpolicy_in, policy_out?: Tpolicy_in, radv?: Tdisable, vmid: pvevmid}): Promise<null>;
-                        }
+                        },
                         log: {
                             /**
                              * Read firewall log
                              * GET /nodes/{node}/qemu/{vmid}/firewall/log
                              */
                             $get(param: {limit?: integer_Min0, node: pvenode, start?: integer_Min0, vmid: pvevmid}): Promise<any[]>;
-                        }
+                        },
                         refs: {
                             /**
                              * Lists possible IPSet/Alias reference which are allowed in source/dest properties.
                              * GET /nodes/{node}/qemu/{vmid}/firewall/refs
                              */
                             $get(param: {node: pvenode, type?: Ttype_2, vmid: pvevmid}): Promise<any[]>;
-                        }
-                    }
+                        },
+                    },
                     agent: {
                         /**
                          * Qemu Agent command index.
@@ -1376,190 +1376,190 @@ export interface Proxmox {
                              * POST /nodes/{node}/qemu/{vmid}/agent/fsfreeze-freeze
                              */
                             $post(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'fsfreeze-status': {
                             /**
                              * Execute fsfreeze-status.
                              * POST /nodes/{node}/qemu/{vmid}/agent/fsfreeze-status
                              */
                             $post(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'fsfreeze-thaw': {
                             /**
                              * Execute fsfreeze-thaw.
                              * POST /nodes/{node}/qemu/{vmid}/agent/fsfreeze-thaw
                              */
                             $post(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         fstrim: {
                             /**
                              * Execute fstrim.
                              * POST /nodes/{node}/qemu/{vmid}/agent/fstrim
                              */
                             $post(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'get-fsinfo': {
                             /**
                              * Execute get-fsinfo.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-fsinfo
                              */
                             $get(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'get-host-name': {
                             /**
                              * Execute get-host-name.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-host-name
                              */
                             $get(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'get-memory-block-info': {
                             /**
                              * Execute get-memory-block-info.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-memory-block-info
                              */
                             $get(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'get-memory-blocks': {
                             /**
                              * Execute get-memory-blocks.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-memory-blocks
                              */
                             $get(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'get-osinfo': {
                             /**
                              * Execute get-osinfo.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-osinfo
                              */
                             $get(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'get-time': {
                             /**
                              * Execute get-time.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-time
                              */
                             $get(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'get-timezone': {
                             /**
                              * Execute get-timezone.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-timezone
                              */
                             $get(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'get-users': {
                             /**
                              * Execute get-users.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-users
                              */
                             $get(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'get-vcpus': {
                             /**
                              * Execute get-vcpus.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-vcpus
                              */
                             $get(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         info: {
                             /**
                              * Execute info.
                              * GET /nodes/{node}/qemu/{vmid}/agent/info
                              */
                             $get(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'network-get-interfaces': {
                             /**
                              * Execute network-get-interfaces.
                              * GET /nodes/{node}/qemu/{vmid}/agent/network-get-interfaces
                              */
                             $get(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         ping: {
                             /**
                              * Execute ping.
                              * POST /nodes/{node}/qemu/{vmid}/agent/ping
                              */
                             $post(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         shutdown: {
                             /**
                              * Execute shutdown.
                              * POST /nodes/{node}/qemu/{vmid}/agent/shutdown
                              */
                             $post(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'suspend-disk': {
                             /**
                              * Execute suspend-disk.
                              * POST /nodes/{node}/qemu/{vmid}/agent/suspend-disk
                              */
                             $post(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'suspend-hybrid': {
                             /**
                              * Execute suspend-hybrid.
                              * POST /nodes/{node}/qemu/{vmid}/agent/suspend-hybrid
                              */
                             $post(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'suspend-ram': {
                             /**
                              * Execute suspend-ram.
                              * POST /nodes/{node}/qemu/{vmid}/agent/suspend-ram
                              */
                             $post(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'set-user-password': {
                             /**
                              * Sets the password for the given user to the given password
                              * POST /nodes/{node}/qemu/{vmid}/agent/set-user-password
                              */
                             $post(param: {crypted?: Tdisable, node: pvenode, password: String5_1024, username: string, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         exec: {
                             /**
                              * Executes the given command in the vm via the guest-agent and returns an object with the pid.
                              * POST /nodes/{node}/qemu/{vmid}/agent/exec
                              */
                             $post(param: {command?: stringalist, 'input-data'?: String0_65536, node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'exec-status': {
                             /**
                              * Gets the status of the given pid started by the guest-agent
                              * GET /nodes/{node}/qemu/{vmid}/agent/exec-status
                              */
                             $get(param: {node: pvenode, pid: integer, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'file-read': {
                             /**
                              * Reads the given file via guest agent. Is limited to 16777216 bytes.
                              * GET /nodes/{node}/qemu/{vmid}/agent/file-read
                              */
                             $get(param: {file: string, node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         'file-write': {
                             /**
                              * Writes the given file via guest agent.
                              * POST /nodes/{node}/qemu/{vmid}/agent/file-write
                              */
                             $post(param: {content: String0_61440, file: string, node: pvenode, vmid: pvevmid}): Promise<null>;
-                        }
-                    }
+                        },
+                    },
                     rrd: {
                         /**
                          * Read VM RRD statistics (returns PNG)
                          * GET /nodes/{node}/qemu/{vmid}/rrd
                          */
                         $get(param: {cf?: Tcf, ds: pveconfigidlist_1, node: pvenode, timeframe: Ttimeframe, vmid: pvevmid}): Promise<object>;
-                    }
+                    },
                     rrddata: {
                         /**
                          * Read VM RRD statistics
                          * GET /nodes/{node}/qemu/{vmid}/rrddata
                          */
                         $get(param: {cf?: Tcf, node: pvenode, timeframe: Ttimeframe, vmid: pvevmid}): Promise<any[]>;
-                    }
+                    },
                     config: {
                         /**
                          * Get the virtual machine configuration with pending configuration changes applied. Set the 'current' parameter to get the current configuration instead.
@@ -1576,49 +1576,49 @@ export interface Proxmox {
                          * PUT /nodes/{node}/qemu/{vmid}/config
                          */
                         $put(param: {acpi?: Tdisable, agent?: Tagent, arch?: Tarch, args?: Targs, audio0?: Taudio0, autostart?: Tdisable, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, efidisk0?: Tefidisk0, force?: Tdisable, freeze?: Tdisable, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: Tdisable, localtime?: Tdisable, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, node: pvenode, numa?: Tdisable, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: Tdisable, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: Tdisable, reboot?: Tdisable, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: Tdisable, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: Ttablet, tags?: pvetaglist, tdf?: Tdisable, template?: Tdisable, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmid: pvevmid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog}): Promise<null>;
-                    }
+                    },
                     pending: {
                         /**
                          * Get the virtual machine configuration with both current and pending values.
                          * GET /nodes/{node}/qemu/{vmid}/pending
                          */
                         $get(param: {node: pvenode, vmid: pvevmid}): Promise<any[]>;
-                    }
+                    },
                     unlink: {
                         /**
                          * Unlink/delete disk images.
                          * PUT /nodes/{node}/qemu/{vmid}/unlink
                          */
                         $put(param: {force?: Tdisable, idlist: pveconfigidlist_1, node: pvenode, vmid: pvevmid}): Promise<null>;
-                    }
+                    },
                     vncproxy: {
                         /**
                          * Creates a TCP VNC proxy connections.
                          * POST /nodes/{node}/qemu/{vmid}/vncproxy
                          */
                         $post(param: {'generate-password'?: Tdisable, node: pvenode, vmid: pvevmid, websocket?: Tdisable}): Promise<any>;
-                    }
+                    },
                     termproxy: {
                         /**
                          * Creates a TCP proxy connections.
                          * POST /nodes/{node}/qemu/{vmid}/termproxy
                          */
                         $post(param: {node: pvenode, serial?: Tserial_1, vmid: pvevmid}): Promise<any>;
-                    }
+                    },
                     vncwebsocket: {
                         /**
                          * Opens a weksocket for VNC traffic.
                          * GET /nodes/{node}/qemu/{vmid}/vncwebsocket
                          */
                         $get(param: {node: pvenode, port: integer5900_5999, vmid: pvevmid, vncticket: String0_512}): Promise<object>;
-                    }
+                    },
                     spiceproxy: {
                         /**
                          * Returns a SPICE configuration to connect to the VM.
                          * POST /nodes/{node}/qemu/{vmid}/spiceproxy
                          */
                         $post(param: {node: pvenode, proxy?: address, vmid: pvevmid}): Promise<any>;
-                    }
+                    },
                     status: {
                         /**
                          * Directory index
@@ -1631,85 +1631,85 @@ export interface Proxmox {
                              * GET /nodes/{node}/qemu/{vmid}/status/current
                              */
                             $get(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         start: {
                             /**
                              * Start virtual machine.
                              * POST /nodes/{node}/qemu/{vmid}/status/start
                              */
                             $post(param: {'force-cpu'?: string, machine?: Tmachine, migratedfrom?: pvenode, migration_network?: CIDR, migration_type?: Tmigration_type, node: pvenode, skiplock?: Tdisable, stateuri?: String0_128, targetstorage?: storagepairlist, timeout?: integer_Min0, vmid: pvevmid}): Promise<string>;
-                        }
+                        },
                         stop: {
                             /**
                              * Stop virtual machine. The qemu process will exit immediately. Thisis akin to pulling the power plug of a running computer and may damage the VM data
                              * POST /nodes/{node}/qemu/{vmid}/status/stop
                              */
                             $post(param: {keepActive?: Tdisable, migratedfrom?: pvenode, node: pvenode, skiplock?: Tdisable, timeout?: integer_Min0, vmid: pvevmid}): Promise<string>;
-                        }
+                        },
                         reset: {
                             /**
                              * Reset virtual machine.
                              * POST /nodes/{node}/qemu/{vmid}/status/reset
                              */
                             $post(param: {node: pvenode, skiplock?: Tdisable, vmid: pvevmid}): Promise<string>;
-                        }
+                        },
                         shutdown: {
                             /**
                              * Shutdown virtual machine. This is similar to pressing the power button on a physical machine.This will send an ACPI event for the guest OS, which should then proceed to a clean shutdown.
                              * POST /nodes/{node}/qemu/{vmid}/status/shutdown
                              */
                             $post(param: {forceStop?: Tdisable, keepActive?: Tdisable, node: pvenode, skiplock?: Tdisable, timeout?: integer_Min0, vmid: pvevmid}): Promise<string>;
-                        }
+                        },
                         reboot: {
                             /**
                              * Reboot the VM by shutting it down, and starting it again. Applies pending changes.
                              * POST /nodes/{node}/qemu/{vmid}/status/reboot
                              */
                             $post(param: {node: pvenode, timeout?: integer_Min0, vmid: pvevmid}): Promise<string>;
-                        }
+                        },
                         suspend: {
                             /**
                              * Suspend virtual machine.
                              * POST /nodes/{node}/qemu/{vmid}/status/suspend
                              */
                             $post(param: {node: pvenode, skiplock?: Tdisable, statestorage?: pvestorageid, todisk?: Tdisable, vmid: pvevmid}): Promise<string>;
-                        }
+                        },
                         resume: {
                             /**
                              * Resume virtual machine.
                              * POST /nodes/{node}/qemu/{vmid}/status/resume
                              */
                             $post(param: {nocheck?: Tdisable, node: pvenode, skiplock?: Tdisable, vmid: pvevmid}): Promise<string>;
-                        }
-                    }
+                        },
+                    },
                     sendkey: {
                         /**
                          * Send key event to virtual machine.
                          * PUT /nodes/{node}/qemu/{vmid}/sendkey
                          */
                         $put(param: {key: string, node: pvenode, skiplock?: Tdisable, vmid: pvevmid}): Promise<null>;
-                    }
+                    },
                     feature: {
                         /**
                          * Check if feature for virtual machine is available.
                          * GET /nodes/{node}/qemu/{vmid}/feature
                          */
                         $get(param: {feature: Tfeature, node: pvenode, snapname?: pveconfigid_3, vmid: pvevmid}): Promise<object>;
-                    }
+                    },
                     clone: {
                         /**
                          * Create a copy of virtual machine/template.
                          * POST /nodes/{node}/qemu/{vmid}/clone
                          */
                         $post(param: {bwlimit?: integer_Min0, description?: string, format?: Tformat, full?: Tdisable, name?: dnsname, newid: pvevmid, node: pvenode, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode, vmid: pvevmid}): Promise<string>;
-                    }
+                    },
                     move_disk: {
                         /**
                          * Move volume to different storage.
                          * POST /nodes/{node}/qemu/{vmid}/move_disk
                          */
                         $post(param: {bwlimit?: integer_Min0, delete?: Tdisable, digest?: String0_40, disk: Tdisk, format?: Tformat, node: pvenode, storage: pvestorageid, vmid: pvevmid}): Promise<string>;
-                    }
+                    },
                     migrate: {
                         /**
                          * Get preconditions for migration.
@@ -1721,21 +1721,21 @@ export interface Proxmox {
                          * POST /nodes/{node}/qemu/{vmid}/migrate
                          */
                         $post(param: {bwlimit?: integer_Min0, force?: Tdisable, migration_network?: CIDR, migration_type?: Tmigration_type, node: pvenode, online?: Tdisable, target: pvenode, targetstorage?: storagepairlist, vmid: pvevmid, 'with-local-disks'?: Tdisable}): Promise<string>;
-                    }
+                    },
                     monitor: {
                         /**
                          * Execute Qemu monitor commands.
                          * POST /nodes/{node}/qemu/{vmid}/monitor
                          */
                         $post(param: {command: string, node: pvenode, vmid: pvevmid}): Promise<string>;
-                    }
+                    },
                     resize: {
                         /**
                          * Extend volume size.
                          * PUT /nodes/{node}/qemu/{vmid}/resize
                          */
                         $put(param: {digest?: String0_40, disk: Tdisk, node: pvenode, size: Tsize, skiplock?: Tdisable, vmid: pvevmid}): Promise<null>;
-                    }
+                    },
                     snapshot: {
                         /**
                          * List all snapshots.
@@ -1768,23 +1768,23 @@ export interface Proxmox {
                                  * PUT /nodes/{node}/qemu/{vmid}/snapshot/{snapname}/config
                                  */
                                 $put(param: {description?: string, node: pvenode, snapname: pveconfigid_3, vmid: pvevmid}): Promise<null>;
-                            }
+                            },
                             rollback: {
                                 /**
                                  * Rollback VM state to specified snapshot.
                                  * POST /nodes/{node}/qemu/{vmid}/snapshot/{snapname}/rollback
                                  */
                                 $post(param: {node: pvenode, snapname: pveconfigid_3, vmid: pvevmid}): Promise<string>;
-                            }
+                            },
                         };
-                    }
+                    },
                     template: {
                         /**
                          * Create a Template.
                          * POST /nodes/{node}/qemu/{vmid}/template
                          */
                         $post(param: {disk?: Tdisk, node: pvenode, vmid: pvevmid}): Promise<null>;
-                    }
+                    },
                     cloudinit: {
                         dump: {
                             /**
@@ -1792,17 +1792,17 @@ export interface Proxmox {
                              * GET /nodes/{node}/qemu/{vmid}/cloudinit/dump
                              */
                             $get(param: {node: pvenode, type: Ttype_10, vmid: pvevmid}): Promise<string>;
-                        }
-                    }
+                        },
+                    },
                 };
-            }
+            },
             cpu: {
                 /**
                  * List all custom and default CPU models.
                  * GET /nodes/{node}/cpu
                  */
                 $get(param: {node: pvenode}): Promise<any[]>;
-            }
+            },
             lxc: {
                 /**
                  * LXC container index (per node).
@@ -1836,7 +1836,7 @@ export interface Proxmox {
                          * PUT /nodes/{node}/lxc/{vmid}/config
                          */
                         $put(param: {arch?: Tarch_1, cmode?: Tcmode, console?: Tdisable, cores?: integer1_128, cpulimit?: Tcpulimit_1, cpuunits?: integer0_500000, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, features?: Tfeatures, hookscript?: pvevolumeid, hostname?: dnsname_1, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: addresslist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, node: pvenode, onboot?: Tdisable, ostype?: Tostype_1, protection?: Tdisable, revert?: pveconfigidlist_1, rootfs?: Trootfs, searchdomain?: dnsnamelist, startup?: pvestartuporder, swap?: integer_Min0, tags?: pvetaglist, template?: Tdisable, timezone?: pvecttimezone, tty?: integer0_6, unprivileged?: Tdisable, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1, vmid: pvevmid}): Promise<null>;
-                    }
+                    },
                     status: {
                         /**
                          * Directory index
@@ -1849,50 +1849,50 @@ export interface Proxmox {
                              * GET /nodes/{node}/lxc/{vmid}/status/current
                              */
                             $get(param: {node: pvenode, vmid: pvevmid}): Promise<object>;
-                        }
+                        },
                         start: {
                             /**
                              * Start the container.
                              * POST /nodes/{node}/lxc/{vmid}/status/start
                              */
                             $post(param: {node: pvenode, skiplock?: Tdisable, vmid: pvevmid}): Promise<string>;
-                        }
+                        },
                         stop: {
                             /**
                              * Stop the container. This will abruptly stop all processes running in the container.
                              * POST /nodes/{node}/lxc/{vmid}/status/stop
                              */
                             $post(param: {node: pvenode, skiplock?: Tdisable, vmid: pvevmid}): Promise<string>;
-                        }
+                        },
                         shutdown: {
                             /**
                              * Shutdown the container. This will trigger a clean shutdown of the container, see lxc-stop(1) for details.
                              * POST /nodes/{node}/lxc/{vmid}/status/shutdown
                              */
                             $post(param: {forceStop?: Tdisable, node: pvenode, timeout?: integer_Min0, vmid: pvevmid}): Promise<string>;
-                        }
+                        },
                         suspend: {
                             /**
                              * Suspend the container.
                              * POST /nodes/{node}/lxc/{vmid}/status/suspend
                              */
                             $post(param: {node: pvenode, vmid: pvevmid}): Promise<string>;
-                        }
+                        },
                         resume: {
                             /**
                              * Resume the container.
                              * POST /nodes/{node}/lxc/{vmid}/status/resume
                              */
                             $post(param: {node: pvenode, vmid: pvevmid}): Promise<string>;
-                        }
+                        },
                         reboot: {
                             /**
                              * Reboot the container by shutting it down, and starting it again. Applies pending changes.
                              * POST /nodes/{node}/lxc/{vmid}/status/reboot
                              */
                             $post(param: {node: pvenode, timeout?: integer_Min0, vmid: pvevmid}): Promise<string>;
-                        }
-                    }
+                        },
+                    },
                     snapshot: {
                         /**
                          * List all snapshots.
@@ -1920,7 +1920,7 @@ export interface Proxmox {
                                  * POST /nodes/{node}/lxc/{vmid}/snapshot/{snapname}/rollback
                                  */
                                 $post(param: {node: pvenode, snapname: pveconfigid_3, vmid: pvevmid}): Promise<string>;
-                            }
+                            },
                             config: {
                                 /**
                                  * Get snapshot configuration
@@ -1932,9 +1932,9 @@ export interface Proxmox {
                                  * PUT /nodes/{node}/lxc/{vmid}/snapshot/{snapname}/config
                                  */
                                 $put(param: {description?: string, node: pvenode, snapname: pveconfigid_3, vmid: pvevmid}): Promise<null>;
-                            }
+                            },
                         };
-                    }
+                    },
                     firewall: {
                         /**
                          * Directory index.
@@ -1969,7 +1969,7 @@ export interface Proxmox {
                                  */
                                 $put(param: {action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, node: pvenode, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1, vmid: pvevmid}): Promise<null>;
                             };
-                        }
+                        },
                         aliases: {
                             /**
                              * List aliases
@@ -1998,7 +1998,7 @@ export interface Proxmox {
                                  */
                                 $put(param: {cidr: IPorCIDR, comment?: string, digest?: String0_40, name: Tname, node: pvenode, rename?: Tname, vmid: pvevmid}): Promise<null>;
                             };
-                        }
+                        },
                         ipset: {
                             /**
                              * List IPSets
@@ -2044,7 +2044,7 @@ export interface Proxmox {
                                     $put(param: {cidr: IPorCIDRorAlias, comment?: string, digest?: String0_40, name: Tname, node: pvenode, nomatch?: Tdisable, vmid: pvevmid}): Promise<null>;
                                 };
                             };
-                        }
+                        },
                         options: {
                             /**
                              * Get VM firewall options.
@@ -2056,115 +2056,115 @@ export interface Proxmox {
                              * PUT /nodes/{node}/lxc/{vmid}/firewall/options
                              */
                             $put(param: {delete?: pveconfigidlist_1, dhcp?: Tdisable, digest?: String0_40, enable?: Tdisable, ipfilter?: Tdisable, log_level_in?: Tlog, log_level_out?: Tlog, macfilter?: Tdisable, ndp?: Tdisable, node: pvenode, policy_in?: Tpolicy_in, policy_out?: Tpolicy_in, radv?: Tdisable, vmid: pvevmid}): Promise<null>;
-                        }
+                        },
                         log: {
                             /**
                              * Read firewall log
                              * GET /nodes/{node}/lxc/{vmid}/firewall/log
                              */
                             $get(param: {limit?: integer_Min0, node: pvenode, start?: integer_Min0, vmid: pvevmid}): Promise<any[]>;
-                        }
+                        },
                         refs: {
                             /**
                              * Lists possible IPSet/Alias reference which are allowed in source/dest properties.
                              * GET /nodes/{node}/lxc/{vmid}/firewall/refs
                              */
                             $get(param: {node: pvenode, type?: Ttype_2, vmid: pvevmid}): Promise<any[]>;
-                        }
-                    }
+                        },
+                    },
                     rrd: {
                         /**
                          * Read VM RRD statistics (returns PNG)
                          * GET /nodes/{node}/lxc/{vmid}/rrd
                          */
                         $get(param: {cf?: Tcf, ds: pveconfigidlist_1, node: pvenode, timeframe: Ttimeframe, vmid: pvevmid}): Promise<object>;
-                    }
+                    },
                     rrddata: {
                         /**
                          * Read VM RRD statistics
                          * GET /nodes/{node}/lxc/{vmid}/rrddata
                          */
                         $get(param: {cf?: Tcf, node: pvenode, timeframe: Ttimeframe, vmid: pvevmid}): Promise<any[]>;
-                    }
+                    },
                     vncproxy: {
                         /**
                          * Creates a TCP VNC proxy connections.
                          * POST /nodes/{node}/lxc/{vmid}/vncproxy
                          */
                         $post(param: {height?: integer16_2160, node: pvenode, vmid: pvevmid, websocket?: Tdisable, width?: integer16_4096}): Promise<any>;
-                    }
+                    },
                     termproxy: {
                         /**
                          * Creates a TCP proxy connection.
                          * POST /nodes/{node}/lxc/{vmid}/termproxy
                          */
                         $post(param: {node: pvenode, vmid: pvevmid}): Promise<any>;
-                    }
+                    },
                     vncwebsocket: {
                         /**
                          * Opens a weksocket for VNC traffic.
                          * GET /nodes/{node}/lxc/{vmid}/vncwebsocket
                          */
                         $get(param: {node: pvenode, port: integer5900_5999, vmid: pvevmid, vncticket: String0_512}): Promise<object>;
-                    }
+                    },
                     spiceproxy: {
                         /**
                          * Returns a SPICE configuration to connect to the CT.
                          * POST /nodes/{node}/lxc/{vmid}/spiceproxy
                          */
                         $post(param: {node: pvenode, proxy?: address, vmid: pvevmid}): Promise<any>;
-                    }
+                    },
                     migrate: {
                         /**
                          * Migrate the container to another node. Creates a new migration task.
                          * POST /nodes/{node}/lxc/{vmid}/migrate
                          */
                         $post(param: {bwlimit?: Tmigrate_downtime, force?: Tdisable, node: pvenode, online?: Tdisable, restart?: Tdisable, target: pvenode, timeout?: integer, vmid: pvevmid}): Promise<string>;
-                    }
+                    },
                     feature: {
                         /**
                          * Check if feature for virtual machine is available.
                          * GET /nodes/{node}/lxc/{vmid}/feature
                          */
                         $get(param: {feature: Tfeature, node: pvenode, snapname?: pveconfigid_3, vmid: pvevmid}): Promise<object>;
-                    }
+                    },
                     template: {
                         /**
                          * Create a Template.
                          * POST /nodes/{node}/lxc/{vmid}/template
                          */
                         $post(param: {node: pvenode, vmid: pvevmid}): Promise<null>;
-                    }
+                    },
                     clone: {
                         /**
                          * Create a container clone/copy
                          * POST /nodes/{node}/lxc/{vmid}/clone
                          */
                         $post(param: {bwlimit?: Tmigrate_downtime, description?: string, full?: Tdisable, hostname?: dnsname, newid: pvevmid, node: pvenode, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode, vmid: pvevmid}): Promise<string>;
-                    }
+                    },
                     resize: {
                         /**
                          * Resize a container mount point.
                          * PUT /nodes/{node}/lxc/{vmid}/resize
                          */
                         $put(param: {digest?: String0_40, disk: Tdisk_1, node: pvenode, size: Tsize, vmid: pvevmid}): Promise<string>;
-                    }
+                    },
                     move_volume: {
                         /**
                          * Move a rootfs-/mp-volume to a different storage
                          * POST /nodes/{node}/lxc/{vmid}/move_volume
                          */
                         $post(param: {bwlimit?: Tmigrate_downtime, delete?: Tdisable, digest?: String0_40, node: pvenode, storage: pvestorageid, vmid: pvevmid, volume: Tdisk_1}): Promise<string>;
-                    }
+                    },
                     pending: {
                         /**
                          * Get container configuration, including pending changes.
                          * GET /nodes/{node}/lxc/{vmid}/pending
                          */
                         $get(param: {node: pvenode, vmid: pvevmid}): Promise<any[]>;
-                    }
+                    },
                 };
-            }
+            },
             ceph: {
                 /**
                  * Directory index.
@@ -2194,23 +2194,23 @@ export interface Proxmox {
                              * POST /nodes/{node}/ceph/osd/{osdid}/in
                              */
                             $post(param: {node: pvenode, osdid: integer}): Promise<null>;
-                        }
+                        },
                         out: {
                             /**
                              * ceph osd out
                              * POST /nodes/{node}/ceph/osd/{osdid}/out
                              */
                             $post(param: {node: pvenode, osdid: integer}): Promise<null>;
-                        }
+                        },
                         scrub: {
                             /**
                              * Instruct the OSD to scrub.
                              * POST /nodes/{node}/ceph/osd/{osdid}/scrub
                              */
                             $post(param: {deep?: Tdisable, node: pvenode, osdid: integer}): Promise<null>;
-                        }
+                        },
                     };
-                }
+                },
                 mds: {
                     /**
                      * MDS directory index.
@@ -2229,7 +2229,7 @@ export interface Proxmox {
                          */
                         $post(param: {hotstandby?: Tdisable, name?: Tname_2, node: pvenode}): Promise<string>;
                     };
-                }
+                },
                 mgr: {
                     /**
                      * MGR directory index.
@@ -2248,7 +2248,7 @@ export interface Proxmox {
                          */
                         $post(param: {id?: Tname_2, node: pvenode}): Promise<string>;
                     };
-                }
+                },
                 mon: {
                     /**
                      * Get Ceph monitor list.
@@ -2267,7 +2267,7 @@ export interface Proxmox {
                          */
                         $post(param: {'mon-address'?: ip, monid?: Tname_2, node: pvenode}): Promise<string>;
                     };
-                }
+                },
                 fs: {
                     /**
                      * Directory index.
@@ -2281,63 +2281,63 @@ export interface Proxmox {
                          */
                         $post(param: {'add-storage'?: Tdisable, name?: string, node: pvenode, pg_num?: integer8_32768}): Promise<string>;
                     };
-                }
+                },
                 disks: {
                     /**
                      * List local disks.
                      * GET /nodes/{node}/ceph/disks
                      */
                     $get(param: {node: pvenode, type?: Ttype_11}): Promise<any[]>;
-                }
+                },
                 config: {
                     /**
                      * Get Ceph configuration.
                      * GET /nodes/{node}/ceph/config
                      */
                     $get(param: {node: pvenode}): Promise<string>;
-                }
+                },
                 configdb: {
                     /**
                      * Get Ceph configuration database.
                      * GET /nodes/{node}/ceph/configdb
                      */
                     $get(param: {node: pvenode}): Promise<any[]>;
-                }
+                },
                 init: {
                     /**
                      * Create initial ceph default configuration and setup symlinks.
                      * POST /nodes/{node}/ceph/init
                      */
                     $post(param: {'cluster-network'?: CIDR_1, disable_cephx?: Tdisable, min_size?: integer1_7, network?: CIDR_1, node: pvenode, pg_bits?: integer6_14, size?: integer1_7}): Promise<null>;
-                }
+                },
                 stop: {
                     /**
                      * Stop ceph services.
                      * POST /nodes/{node}/ceph/stop
                      */
                     $post(param: {node: pvenode, service?: Tservice}): Promise<string>;
-                }
+                },
                 start: {
                     /**
                      * Start ceph services.
                      * POST /nodes/{node}/ceph/start
                      */
                     $post(param: {node: pvenode, service?: Tservice}): Promise<string>;
-                }
+                },
                 restart: {
                     /**
                      * Restart ceph services.
                      * POST /nodes/{node}/ceph/restart
                      */
                     $post(param: {node: pvenode, service?: Tservice_1}): Promise<string>;
-                }
+                },
                 status: {
                     /**
                      * Get ceph status.
                      * GET /nodes/{node}/ceph/status
                      */
                     $get(param: {node: pvenode}): Promise<object>;
-                }
+                },
                 pools: {
                     /**
                      * List all pools.
@@ -2356,7 +2356,7 @@ export interface Proxmox {
                          */
                         $delete(param: {force?: Tdisable, name: string, node: pvenode, remove_storages?: Tdisable}): Promise<string>;
                     };
-                }
+                },
                 flags: {
                     /**
                      * get all set ceph flags
@@ -2375,29 +2375,29 @@ export interface Proxmox {
                          */
                         $post(param: {flag: Tflag, node: pvenode}): Promise<null>;
                     };
-                }
+                },
                 crush: {
                     /**
                      * Get OSD crush map
                      * GET /nodes/{node}/ceph/crush
                      */
                     $get(param: {node: pvenode}): Promise<string>;
-                }
+                },
                 log: {
                     /**
                      * Read ceph log
                      * GET /nodes/{node}/ceph/log
                      */
                     $get(param: {limit?: integer_Min0, node: pvenode, start?: integer_Min0}): Promise<any[]>;
-                }
+                },
                 rules: {
                     /**
                      * List ceph rules.
                      * GET /nodes/{node}/ceph/rules
                      */
                     $get(param: {node: pvenode}): Promise<any[]>;
-                }
-            }
+                },
+            },
             vzdump: {
                 /**
                  * Create backup.
@@ -2410,8 +2410,8 @@ export interface Proxmox {
                      * GET /nodes/{node}/vzdump/extractconfig
                      */
                     $get(param: {node: pvenode, volume: string}): Promise<string>;
-                }
-            }
+                },
+            },
             services: {
                 /**
                  * Service list.
@@ -2430,37 +2430,37 @@ export interface Proxmox {
                          * GET /nodes/{node}/services/{service}/state
                          */
                         $get(param: {node: pvenode, service: Tservice_2}): Promise<object>;
-                    }
+                    },
                     start: {
                         /**
                          * Start service.
                          * POST /nodes/{node}/services/{service}/start
                          */
                         $post(param: {node: pvenode, service: Tservice_2}): Promise<string>;
-                    }
+                    },
                     stop: {
                         /**
                          * Stop service.
                          * POST /nodes/{node}/services/{service}/stop
                          */
                         $post(param: {node: pvenode, service: Tservice_2}): Promise<string>;
-                    }
+                    },
                     restart: {
                         /**
                          * Restart service.
                          * POST /nodes/{node}/services/{service}/restart
                          */
                         $post(param: {node: pvenode, service: Tservice_2}): Promise<string>;
-                    }
+                    },
                     reload: {
                         /**
                          * Reload service.
                          * POST /nodes/{node}/services/{service}/reload
                          */
                         $post(param: {node: pvenode, service: Tservice_2}): Promise<string>;
-                    }
+                    },
                 };
-            }
+            },
             subscription: {
                 /**
                  * Delete subscription key of this node.
@@ -2482,7 +2482,7 @@ export interface Proxmox {
                  * PUT /nodes/{node}/subscription
                  */
                 $put(param: {key: Tkey, node: pvenode}): Promise<null>;
-            }
+            },
             network: {
                 /**
                  * Revert network configuration changes.
@@ -2521,7 +2521,7 @@ export interface Proxmox {
                      */
                     $put(param: {address?: ipv4, address6?: ipv6, autostart?: Tdisable, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vlan_aware?: Tdisable, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, delete?: pveconfigidlist_1, gateway?: ipv4, gateway6?: ipv6, iface: pveiface, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, node: pvenode, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_13, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1}): Promise<null>;
                 };
-            }
+            },
             tasks: {
                 /**
                  * Read task list for one node (finished tasks).
@@ -2544,16 +2544,16 @@ export interface Proxmox {
                          * GET /nodes/{node}/tasks/{upid}/log
                          */
                         $get(param: {limit?: integer_Min0, node: pvenode, start?: integer_Min0, upid: string}): Promise<any[]>;
-                    }
+                    },
                     status: {
                         /**
                          * Read task status.
                          * GET /nodes/{node}/tasks/{upid}/status
                          */
                         $get(param: {node: pvenode, upid: string}): Promise<object>;
-                    }
+                    },
                 };
-            }
+            },
             scan: {
                 /**
                  * Index of available scan methods
@@ -2566,57 +2566,57 @@ export interface Proxmox {
                      * GET /nodes/{node}/scan/zfs
                      */
                     $get(param: {node: pvenode}): Promise<any[]>;
-                }
+                },
                 nfs: {
                     /**
                      * Scan remote NFS server.
                      * GET /nodes/{node}/scan/nfs
                      */
                     $get(param: {node: pvenode, server: pvestorageserver}): Promise<any[]>;
-                }
+                },
                 cifs: {
                     /**
                      * Scan remote CIFS server.
                      * GET /nodes/{node}/scan/cifs
                      */
                     $get(param: {domain?: string, node: pvenode, password?: string, server: pvestorageserver, username?: string}): Promise<any[]>;
-                }
+                },
                 glusterfs: {
                     /**
                      * Scan remote GlusterFS server.
                      * GET /nodes/{node}/scan/glusterfs
                      */
                     $get(param: {node: pvenode, server: pvestorageserver}): Promise<any[]>;
-                }
+                },
                 iscsi: {
                     /**
                      * Scan remote iSCSI server.
                      * GET /nodes/{node}/scan/iscsi
                      */
                     $get(param: {node: pvenode, portal: pvestorageportaldns}): Promise<any[]>;
-                }
+                },
                 lvm: {
                     /**
                      * List local LVM volume groups.
                      * GET /nodes/{node}/scan/lvm
                      */
                     $get(param: {node: pvenode}): Promise<any[]>;
-                }
+                },
                 lvmthin: {
                     /**
                      * List local LVM Thin Pools.
                      * GET /nodes/{node}/scan/lvmthin
                      */
                     $get(param: {node: pvenode, vg: Tvg}): Promise<any[]>;
-                }
+                },
                 usb: {
                     /**
                      * List local USB devices.
                      * GET /nodes/{node}/scan/usb
                      */
                     $get(param: {node: pvenode}): Promise<any[]>;
-                }
-            }
+                },
+            },
             hardware: {
                 /**
                  * Index of hardware types
@@ -2641,10 +2641,10 @@ export interface Proxmox {
                              * GET /nodes/{node}/hardware/pci/{pciid}/mdev
                              */
                             $get(param: {node: pvenode, pciid: Tpciid}): Promise<any[]>;
-                        }
+                        },
                     };
-                }
-            }
+                },
+            },
             storage: {
                 /**
                  * Get status for all datastores.
@@ -2684,37 +2684,37 @@ export interface Proxmox {
                              */
                             $post(param: {node: pvenode, storage?: pvestorageid, target: string, target_node?: pvenode, volume: string}): Promise<string>;
                         };
-                    }
+                    },
                     status: {
                         /**
                          * Read storage status.
                          * GET /nodes/{node}/storage/{storage}/status
                          */
                         $get(param: {node: pvenode, storage: pvestorageid}): Promise<object>;
-                    }
+                    },
                     rrd: {
                         /**
                          * Read storage RRD statistics (returns PNG).
                          * GET /nodes/{node}/storage/{storage}/rrd
                          */
                         $get(param: {cf?: Tcf, ds: pveconfigidlist_1, node: pvenode, storage: pvestorageid, timeframe: Ttimeframe}): Promise<object>;
-                    }
+                    },
                     rrddata: {
                         /**
                          * Read storage RRD statistics.
                          * GET /nodes/{node}/storage/{storage}/rrddata
                          */
                         $get(param: {cf?: Tcf, node: pvenode, storage: pvestorageid, timeframe: Ttimeframe}): Promise<any[]>;
-                    }
+                    },
                     upload: {
                         /**
                          * Upload templates and ISO images.
                          * POST /nodes/{node}/storage/{storage}/upload
                          */
                         $post(param: {content: pvestoragecontent, filename: string, node: pvenode, storage: pvestorageid, tmpfilename?: string}): Promise<string>;
-                    }
+                    },
                 };
-            }
+            },
             disks: {
                 /**
                  * Node index.
@@ -2732,7 +2732,7 @@ export interface Proxmox {
                      * POST /nodes/{node}/disks/lvm
                      */
                     $post(param: {add_storage?: Tdisable, device: string, name: pvestorageid, node: pvenode}): Promise<string>;
-                }
+                },
                 lvmthin: {
                     /**
                      * List LVM thinpools
@@ -2744,7 +2744,7 @@ export interface Proxmox {
                      * POST /nodes/{node}/disks/lvmthin
                      */
                     $post(param: {add_storage?: Tdisable, device: string, name: pvestorageid, node: pvenode}): Promise<string>;
-                }
+                },
                 directory: {
                     /**
                      * PVE Managed Directory storages.
@@ -2756,7 +2756,7 @@ export interface Proxmox {
                      * POST /nodes/{node}/disks/directory
                      */
                     $post(param: {add_storage?: Tdisable, device: string, filesystem?: Tfilesystem, name: pvestorageid, node: pvenode}): Promise<string>;
-                }
+                },
                 zfs: {
                     /**
                      * List Zpools.
@@ -2775,29 +2775,29 @@ export interface Proxmox {
                          */
                         $get(param: {name: pvestorageid, node: pvenode}): Promise<object>;
                     };
-                }
+                },
                 list: {
                     /**
                      * List local disks.
                      * GET /nodes/{node}/disks/list
                      */
                     $get(param: {node: pvenode, skipsmart?: Tdisable, type?: Ttype_11}): Promise<any[]>;
-                }
+                },
                 smart: {
                     /**
                      * Get SMART Health of a disk.
                      * GET /nodes/{node}/disks/smart
                      */
                     $get(param: {disk: Tdisk_2, healthonly?: Tdisable, node: pvenode}): Promise<object>;
-                }
+                },
                 initgpt: {
                     /**
                      * Initialize Disk with GPT
                      * POST /nodes/{node}/disks/initgpt
                      */
                     $post(param: {disk: Tdisk_2, node: pvenode, uuid?: Tuuid}): Promise<string>;
-                }
-            }
+                },
+            },
             apt: {
                 /**
                  * Directory index for apt (Advanced Package Tool).
@@ -2815,22 +2815,22 @@ export interface Proxmox {
                      * POST /nodes/{node}/apt/update
                      */
                     $post(param: {node: pvenode, notify?: Tdisable, quiet?: Tdisable}): Promise<string>;
-                }
+                },
                 changelog: {
                     /**
                      * Get package changelogs.
                      * GET /nodes/{node}/apt/changelog
                      */
                     $get(param: {name: string, node: pvenode, version?: string}): Promise<string>;
-                }
+                },
                 versions: {
                     /**
                      * Get package information for important Proxmox packages.
                      * GET /nodes/{node}/apt/versions
                      */
                     $get(param: {node: pvenode}): Promise<any[]>;
-                }
-            }
+                },
+            },
             firewall: {
                 /**
                  * Directory index.
@@ -2865,7 +2865,7 @@ export interface Proxmox {
                          */
                         $put(param: {action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, node: pvenode, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1}): Promise<null>;
                     };
-                }
+                },
                 options: {
                     /**
                      * Get host firewall options.
@@ -2877,15 +2877,15 @@ export interface Proxmox {
                      * PUT /nodes/{node}/firewall/options
                      */
                     $put(param: {delete?: pveconfigidlist_1, digest?: String0_40, enable?: Tdisable, log_level_in?: Tlog, log_level_out?: Tlog, log_nf_conntrack?: Tdisable, ndp?: Tdisable, nf_conntrack_allow_invalid?: Tdisable, nf_conntrack_max?: integer_Min32768, nf_conntrack_tcp_timeout_established?: integer_Min7875, nf_conntrack_tcp_timeout_syn_recv?: integer30_60, node: pvenode, nosmurfs?: Tdisable, protection_synflood?: Tdisable, protection_synflood_burst?: integer, protection_synflood_rate?: integer, smurf_log_level?: Tlog, tcp_flags_log_level?: Tlog, tcpflags?: Tdisable}): Promise<null>;
-                }
+                },
                 log: {
                     /**
                      * Read firewall log
                      * GET /nodes/{node}/firewall/log
                      */
                     $get(param: {limit?: integer_Min0, node: pvenode, start?: integer_Min0}): Promise<any[]>;
-                }
-            }
+                },
+            },
             replication: {
                 /**
                  * List status of all replication jobs on this node.
@@ -2904,23 +2904,23 @@ export interface Proxmox {
                          * GET /nodes/{node}/replication/{id}/status
                          */
                         $get(param: {id: pvereplicationjobid, node: pvenode}): Promise<object>;
-                    }
+                    },
                     log: {
                         /**
                          * Read replication job log.
                          * GET /nodes/{node}/replication/{id}/log
                          */
                         $get(param: {id: pvereplicationjobid, limit?: integer_Min0, node: pvenode, start?: integer_Min0}): Promise<any[]>;
-                    }
+                    },
                     schedule_now: {
                         /**
                          * Schedule replication job to start as soon as possible.
                          * POST /nodes/{node}/replication/{id}/schedule_now
                          */
                         $post(param: {id: pvereplicationjobid, node: pvenode}): Promise<string>;
-                    }
+                    },
                 };
-            }
+            },
             certificates: {
                 /**
                  * Node index.
@@ -2949,15 +2949,15 @@ export interface Proxmox {
                          * PUT /nodes/{node}/certificates/acme/certificate
                          */
                         $put(param: {force?: Tdisable, node: pvenode}): Promise<string>;
-                    }
-                }
+                    },
+                },
                 info: {
                     /**
                      * Get information about node's certificates.
                      * GET /nodes/{node}/certificates/info
                      */
                     $get(param: {node: pvenode}): Promise<any[]>;
-                }
+                },
                 custom: {
                     /**
                      * DELETE custom certificate chain and key.
@@ -2969,8 +2969,8 @@ export interface Proxmox {
                      * POST /nodes/{node}/certificates/custom
                      */
                     $post(param: {certificates: pemcertificatechain, force?: Tdisable, key?: pemstring, node: pvenode, restart?: Tdisable}): Promise<object>;
-                }
-            }
+                },
+            },
             config: {
                 /**
                  * Get node configuration options.
@@ -2982,7 +2982,7 @@ export interface Proxmox {
                  * PUT /nodes/{node}/config
                  */
                 $put(param: {acme?: Tacme, acmedomain0?: Tacmedomain, acmedomain1?: Tacmedomain, acmedomain2?: Tacmedomain, acmedomain3?: Tacmedomain, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, node: pvenode, 'startall-onboot-delay'?: integer0_300, wakeonlan?: macaddr}): Promise<null>;
-            }
+            },
             sdn: {
                 /**
                  * SDN index.
@@ -3006,17 +3006,17 @@ export interface Proxmox {
                              * GET /nodes/{node}/sdn/zones/{zone}/content
                              */
                             $get(param: {node: pvenode, zone: pvesdnzoneid}): Promise<any[]>;
-                        }
+                        },
                     };
-                }
-            }
+                },
+            },
             version: {
                 /**
                  * API version details
                  * GET /nodes/{node}/version
                  */
                 $get(param: {node: pvenode}): Promise<object>;
-            }
+            },
             status: {
                 /**
                  * Read node status
@@ -3028,84 +3028,84 @@ export interface Proxmox {
                  * POST /nodes/{node}/status
                  */
                 $post(param: {command: Tcommand_1, node: pvenode}): Promise<null>;
-            }
+            },
             netstat: {
                 /**
                  * Read tap/vm network device interface counters
                  * GET /nodes/{node}/netstat
                  */
                 $get(param: {node: pvenode}): Promise<any[]>;
-            }
+            },
             execute: {
                 /**
                  * Execute multiple commands in order.
                  * POST /nodes/{node}/execute
                  */
                 $post(param: {commands: string, node: pvenode}): Promise<any[]>;
-            }
+            },
             wakeonlan: {
                 /**
                  * Try to wake a node via 'wake on LAN' network packet.
                  * POST /nodes/{node}/wakeonlan
                  */
                 $post(param: {node: pvenode}): Promise<string>;
-            }
+            },
             rrd: {
                 /**
                  * Read node RRD statistics (returns PNG)
                  * GET /nodes/{node}/rrd
                  */
                 $get(param: {cf?: Tcf, ds: pveconfigidlist_1, node: pvenode, timeframe: Ttimeframe}): Promise<object>;
-            }
+            },
             rrddata: {
                 /**
                  * Read node RRD statistics
                  * GET /nodes/{node}/rrddata
                  */
                 $get(param: {cf?: Tcf, node: pvenode, timeframe: Ttimeframe}): Promise<any[]>;
-            }
+            },
             syslog: {
                 /**
                  * Read system log
                  * GET /nodes/{node}/syslog
                  */
                 $get(param: {limit?: integer_Min0, node: pvenode, service?: String0_128, since?: Tsince, start?: integer_Min0, until?: Tsince}): Promise<any[]>;
-            }
+            },
             journal: {
                 /**
                  * Read Journal
                  * GET /nodes/{node}/journal
                  */
                 $get(param: {endcursor?: string, lastentries?: integer_Min0, node: pvenode, since?: integer_Min0, startcursor?: string, until?: integer_Min0}): Promise<any[]>;
-            }
+            },
             vncshell: {
                 /**
                  * Creates a VNC Shell proxy.
                  * POST /nodes/{node}/vncshell
                  */
                 $post(param: {cmd?: Tcmd, height?: integer16_2160, node: pvenode, upgrade?: Tdisable, websocket?: Tdisable, width?: integer16_4096}): Promise<any>;
-            }
+            },
             termproxy: {
                 /**
                  * Creates a VNC Shell proxy.
                  * POST /nodes/{node}/termproxy
                  */
                 $post(param: {cmd?: Tcmd, node: pvenode, upgrade?: Tdisable}): Promise<any>;
-            }
+            },
             vncwebsocket: {
                 /**
                  * Opens a weksocket for VNC traffic.
                  * GET /nodes/{node}/vncwebsocket
                  */
                 $get(param: {node: pvenode, port: integer5900_5999, vncticket: String0_512}): Promise<object>;
-            }
+            },
             spiceshell: {
                 /**
                  * Creates a SPICE shell.
                  * POST /nodes/{node}/spiceshell
                  */
                 $post(param: {cmd?: Tcmd, node: pvenode, proxy?: address, upgrade?: Tdisable}): Promise<any>;
-            }
+            },
             dns: {
                 /**
                  * Read DNS settings.
@@ -3117,7 +3117,7 @@ export interface Proxmox {
                  * PUT /nodes/{node}/dns
                  */
                 $put(param: {dns1?: ip, dns2?: ip, dns3?: ip, node: pvenode, search: string}): Promise<null>;
-            }
+            },
             time: {
                 /**
                  * Read server time and time zone settings.
@@ -3129,7 +3129,7 @@ export interface Proxmox {
                  * PUT /nodes/{node}/time
                  */
                 $put(param: {node: pvenode, timezone: string}): Promise<null>;
-            }
+            },
             aplinfo: {
                 /**
                  * Get list of appliances.
@@ -3141,35 +3141,35 @@ export interface Proxmox {
                  * POST /nodes/{node}/aplinfo
                  */
                 $post(param: {node: pvenode, storage: pvestorageid, template: String0_255}): Promise<string>;
-            }
+            },
             report: {
                 /**
                  * Gather various systems information about a node
                  * GET /nodes/{node}/report
                  */
                 $get(param: {node: pvenode}): Promise<string>;
-            }
+            },
             startall: {
                 /**
                  * Start all VMs and containers located on this node (by default only those with onboot=1).
                  * POST /nodes/{node}/startall
                  */
                 $post(param: {force?: Tdisable, node: pvenode, vms?: pvevmidlist}): Promise<string>;
-            }
+            },
             stopall: {
                 /**
                  * Stop all VMs and Containers.
                  * POST /nodes/{node}/stopall
                  */
                 $post(param: {node: pvenode, vms?: pvevmidlist}): Promise<string>;
-            }
+            },
             migrateall: {
                 /**
                  * Migrate all VMs and Containers.
                  * POST /nodes/{node}/migrateall
                  */
                 $post(param: {maxworkers?: integer_Min1, node: pvenode, target: pvenode, vms?: pvevmidlist, 'with-local-disks'?: Tdisable}): Promise<string>;
-            }
+            },
             hosts: {
                 /**
                  * Get the content of /etc/hosts.
@@ -3181,9 +3181,9 @@ export interface Proxmox {
                  * POST /nodes/{node}/hosts
                  */
                 $post(param: {data: string, digest?: String0_40, node: pvenode}): Promise<null>;
-            }
+            },
         };
-    }
+    },
     storage: {
         /**
          * Storage index.
@@ -3212,7 +3212,7 @@ export interface Proxmox {
              */
             $put(param: {blocksize?: string, bwlimit?: Tbwlimit, comstar_hg?: string, comstar_tg?: string, content?: pvestoragecontentlist, delete?: pveconfigidlist, digest?: String0_40, disable?: Tdisable, domain?: String0_256, 'encryption-key'?: string, fingerprint?: Tfingerprint, format?: pvestorageformat, fuse?: Tdisable, is_mountpoint?: string, krbd?: Tdisable, lio_tpg?: string, maxfiles?: integer_Min0, mkdir?: Tdisable, monhost?: pvestorageportaldnslist, mountpoint?: pvestoragepath, nodes?: pvenodelist, nowritecache?: Tdisable, options?: pvestorageoptions, password?: String0_256, pool?: string, redundancy?: integer1_16, saferemove?: Tdisable, saferemove_throughput?: string, server?: pvestorageserver, server2?: pvestorageserver, shared?: Tdisable, smbversion?: Tsmbversion, sparse?: Tdisable, storage: pvestorageid, subdir?: pvestoragepath, tagged_only?: Tdisable, transport?: Ttransport, username?: string}): Promise<null>;
         };
-    }
+    },
     access: {
         /**
          * Directory index.
@@ -3252,7 +3252,7 @@ export interface Proxmox {
                      * GET /access/users/{userid}/tfa
                      */
                     $get(param: {userid: pveuserid}): Promise<object>;
-                }
+                },
                 token: {
                     /**
                      * Get user API tokens.
@@ -3281,9 +3281,9 @@ export interface Proxmox {
                          */
                         $put(param: {comment?: string, expire?: integer_Min0, privsep?: Tdisable, tokenid: Ttokenid, userid: pveuserid}): Promise<object>;
                     };
-                }
+                },
             };
-        }
+        },
         groups: {
             /**
              * Group index.
@@ -3312,7 +3312,7 @@ export interface Proxmox {
                  */
                 $put(param: {comment?: string, groupid: pvegroupid}): Promise<null>;
             };
-        }
+        },
         roles: {
             /**
              * Role index.
@@ -3341,7 +3341,7 @@ export interface Proxmox {
                  */
                 $put(param: {append?: Tdisable, privs?: pveprivlist, roleid: pveroleid}): Promise<null>;
             };
-        }
+        },
         acl: {
             /**
              * Get Access Control List (ACLs).
@@ -3353,7 +3353,7 @@ export interface Proxmox {
              * PUT /access/acl
              */
             $put(param: {delete?: Tdisable, groups?: pvegroupidlist, path: string, propagate?: Tdisable, roles: pveroleidlist, tokens?: pvetokenidlist, users?: pveuseridlist}): Promise<null>;
-        }
+        },
         domains: {
             /**
              * Authentication domain index.
@@ -3387,9 +3387,9 @@ export interface Proxmox {
                      * POST /access/domains/{realm}/sync
                      */
                     $post(param: {'dry-run'?: Tdisable, 'enable-new'?: Tdisable, full?: Tdisable, purge?: Tdisable, realm: pverealm, scope?: Tscope_1}): Promise<string>;
-                }
+                },
             };
-        }
+        },
         ticket: {
             /**
              * Dummy. Useful for formatters which want to provide a login page.
@@ -3401,14 +3401,14 @@ export interface Proxmox {
              * POST /access/ticket
              */
             $post(param: {otp?: string, password: string, path?: String0_64, privs?: pveprivlist_1, realm?: pverealm, username: String0_64}): Promise<object>;
-        }
+        },
         password: {
             /**
              * Change user password.
              * PUT /access/password
              */
             $put(param: {password: String5_64, userid: pveuserid}): Promise<null>;
-        }
+        },
         tfa: {
             /**
              * Finish a u2f challenge.
@@ -3420,15 +3420,15 @@ export interface Proxmox {
              * PUT /access/tfa
              */
             $put(param: {action: Taction_1, config?: pvetfaconfig, key?: pvetfasecret, password?: String5_64, response?: string, userid: pveuserid}): Promise<object>;
-        }
+        },
         permissions: {
             /**
              * Retrieve effective permissions of given user/token.
              * GET /access/permissions
              */
             $get(param?: {path?: string, userid?: Tuserid}): Promise<object>;
-        }
-    }
+        },
+    },
     pools: {
         /**
          * Pool index.
@@ -3457,12 +3457,12 @@ export interface Proxmox {
              */
             $put(param: {comment?: string, delete?: Tdisable, poolid: pvepoolid, storage?: pvestorageidlist, vms?: pvevmidlist}): Promise<null>;
         };
-    }
+    },
     version: {
         /**
          * API version details. The result also includes the global datacenter confguration.
          * GET /version
          */
         $get(): Promise<object>;
-    }
+    },
 }

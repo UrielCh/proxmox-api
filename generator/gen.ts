@@ -115,7 +115,7 @@ export class Generator {
 
     generate(node: pveApiNode, lineOffset0: string) {
         const { info, children, path, text } = node;
-        let extraSemicon = '';
+        let extraSemicon = ',';
         if (text.startsWith('{')) {
             let varname = text.replace(/[{}]/g, '');
             this.code.push(`${lineOffset0}$(${varname}: string): {`);
@@ -166,7 +166,7 @@ export class Generator {
                     if (params.length)
                         pTxt = `param${allOptional}: {${params.join(', ')}}`;
 
-                    let returnType = 'any'
+                    let returnType = 'any';
 
                     if (theInfo.returns && theInfo.returns.type) {
                         returnType = theInfo.returns.type;
