@@ -37,20 +37,36 @@ export class Generator {
         delete typeCopy["default_key"];
         delete typeCopy["description"];
         delete typeCopy["format_description"];
+        delete typeCopy["verbose_description"];
         delete typeCopy["title"];
         delete typeCopy["requires"]; // 3544 lines
         delete typeCopy["optional"];
         delete typeCopy["typetext"];
 
         const key = JSON.stringify(typeCopy);
-        //if (key === '{"maxLength":128,"type":"string"}')
-        //    console.log('aaa');
 
         const oldType = this.type2TypeName[key];
         if (oldType)
             return oldType;
 
+
         let newTypePrefix = `T${name}`;
+
+        const docs: string[] = [];
+
+        for (const k of ['pattern', 'format', 'minimum', 'maximum', 'minLength', 'maxLength', 'type']) {
+            if (typeof((pveType as any)[k]) !== 'undefined') {
+                let v: any = (pveType as any)[k];
+                if (typeof(v) !== 'string' )
+                    v = JSON.stringify(v);
+                docs.push(`@${k} ${v}`);
+            }
+            delete typeCopy[k];
+        }
+
+        const key2 = JSON.stringify(typeCopy);
+        if (key2.length > 10)
+            docs.push(`key: ${key2}`);
 
         // {"maxLength":40,"type":"string","typetext":"<string>"}
         if (typeof((pveType as any).format) === 'string') {
@@ -91,8 +107,17 @@ export class Generator {
             }
         }
         const tsType = this.mapType(pveType.type || 'string');
-        if (newType != tsType)
-            this.usedNamed[newType] = `// ${key}${EOL}export type ${newType} = ${tsType};`;
+        if (newType != tsType) {
+            let declaration = [] as string[];
+            if (docs.length) {
+                declaration.push('/**');
+                for (const doc of docs)
+                    declaration.push(` * ${doc}`);
+                declaration.push(' */');
+            }
+            declaration.push(`export type ${newType} = ${tsType};`);
+            this.usedNamed[newType] = declaration.join(EOL);
+        }
         return newType;
     }
 
