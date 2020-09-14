@@ -198,11 +198,6 @@ export type Tstarttime = string;
  * @type string
  */
 export type pvestorageid = string;
-/**
- * @maxLength 50
- * @type string
- */
-export type String0_50 = string;
 export type Ttype_3 = 'ct' | 'vm';
 /**
  * @format pve-configid
@@ -245,7 +240,6 @@ export type emaillist = string;
  */
 export type Tdirectory = string;
 export type Tscope = 'all' | 'versions';
-export type Tflag = 'nobackfill' | 'nodeep-scrub' | 'nodown' | 'noin' | 'noout' | 'norebalance' | 'norecover' | 'noscrub' | 'notieragent' | 'noup' | 'pause';
 /**
  * @format CIDRv4
  * @type string
@@ -716,17 +710,6 @@ export type Tdisk_1 = 'rootfs' | 'mp0' | 'mp1' | 'mp2' | 'mp3' | 'mp4' | 'mp5' |
  */
 export type Twal_size = number;
 /**
- * @pattern [a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?
- * @type string
- */
-export type Tname_1 = string;
-/**
- * @pattern [a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?
- * @maxLength 200
- * @type string
- */
-export type Tname_2 = string;
-/**
  * @minimum 8
  * @maximum 32768
  * @type integer
@@ -762,7 +745,6 @@ export type Tservice = string;
  */
 export type Tservice_1 = string;
 export type Tapplication = 'rbd' | 'cephfs' | 'rgw';
-export type Tservice_2 = 'pveproxy' | 'pvedaemon' | 'spiceproxy' | 'pvestatd' | 'pve-cluster' | 'corosync' | 'pve-firewall' | 'pvefw-logger' | 'pve-ha-crm' | 'pve-ha-lrm' | 'sshd' | 'syslog' | 'cron' | 'postfix' | 'ksmtuned' | 'systemd-timesyncd';
 /**
  * @pattern pve([1248])([cbsp])-[0-9a-f]{10}
  * @maxLength 32
@@ -838,11 +820,6 @@ export type pvestorageportaldns = string;
  * @type string
  */
 export type Tvg = string;
-/**
- * @pattern (?:[0-9a-fA-F]{4}:)?[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\.[0-9a-fA-F]
- * @type string
- */
-export type Tpciid = string;
 /**
  * @format pve-storage-content-list
  * @type string
@@ -986,11 +963,6 @@ export type String5_64 = string;
  */
 export type pveuserid = string;
 /**
- * @pattern (?^:[A-Za-z][A-Za-z0-9\.\-_]+)
- * @type string
- */
-export type Ttokenid = string;
-/**
  * @format pve-groupid
  * @type string
  */
@@ -1119,155 +1091,3619 @@ export type Tuserid = string;
  * @type string
  */
 export type pvestorageidlist = string;
+export interface ret_clusterGET {
+};
+export interface ret_cluster_replicationGET {
+};
+export type ret_cluster_replication_idGET = any;
+export interface ret_cluster_configGET {
+};
+export type ret_cluster_configPOST = any;
+export type ret_cluster_config_apiversionGET = any;
+export interface ret_cluster_config_nodesGET {
+    /**
+     */
+    node: string;
+};
+export interface ret_cluster_config_nodes_nodePOST {
+    /**
+     */
+    corosync_authkey: string;
+    /**
+     */
+    corosync_conf: string;
+    /**
+     */
+    warnings: string[];
+};
+export interface ret_cluster_config_joinGET {
+    /**
+     */
+    config_digest: string;
+    /**
+     */
+    nodelist: {
+    /**
+     * The cluster node name.
+     */
+    name: string;
+    /**
+     * Node id for this node.
+     */
+    nodeid?: number;
+    /**
+     */
+    pve_addr: string;
+    /**
+     * Certificate SHA 256 fingerprint.
+     */
+    pve_fp: string;
+    /**
+     */
+    quorum_votes: number;
+    /**
+     * Address and priority information of a single corosync link. (up to 8 links supported; link0..link7)
+     */
+    ring0_addr?: string;
+}[];
+    /**
+     * The cluster node name.
+     */
+    preferred_node: string;
+    /**
+     */
+    totem: any;
+};
+export type ret_cluster_config_joinPOST = any;
+export type ret_cluster_config_totemGET = any;
+export type ret_cluster_config_qdeviceGET = any;
+export interface ret_cluster_firewallGET {
+};
+export interface ret_cluster_firewall_groupsGET {
+    /**
+     */
+    comment?: string;
+    /**
+     * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+     */
+    digest: string;
+    /**
+     * Security Group name.
+     */
+    group: string;
+};
+export interface ret_cluster_firewall_groups_groupGET {
+    /**
+     */
+    pos: number;
+};
+export interface ret_cluster_firewall_groups_group_posGET {
+    /**
+     */
+    action: string;
+    /**
+     */
+    comment?: string;
+    /**
+     */
+    dest?: string;
+    /**
+     */
+    dport?: string;
+    /**
+     */
+    enable?: number;
+    /**
+     */
+    iface?: string;
+    /**
+     */
+    ipversion?: number;
+    /**
+     * Log level for firewall rule
+     */
+    log?: string;
+    /**
+     */
+    macro?: string;
+    /**
+     */
+    pos: number;
+    /**
+     */
+    proto?: string;
+    /**
+     */
+    source?: string;
+    /**
+     */
+    sport?: string;
+    /**
+     */
+    type: string;
+};
+export interface ret_cluster_firewall_rulesGET {
+    /**
+     */
+    pos: number;
+};
+export interface ret_cluster_firewall_rules_posGET {
+    /**
+     */
+    action: string;
+    /**
+     */
+    comment?: string;
+    /**
+     */
+    dest?: string;
+    /**
+     */
+    dport?: string;
+    /**
+     */
+    enable?: number;
+    /**
+     */
+    iface?: string;
+    /**
+     */
+    ipversion?: number;
+    /**
+     * Log level for firewall rule
+     */
+    log?: string;
+    /**
+     */
+    macro?: string;
+    /**
+     */
+    pos: number;
+    /**
+     */
+    proto?: string;
+    /**
+     */
+    source?: string;
+    /**
+     */
+    sport?: string;
+    /**
+     */
+    type: string;
+};
+export interface ret_cluster_firewall_ipsetGET {
+    /**
+     */
+    comment?: string;
+    /**
+     * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+     */
+    digest: string;
+    /**
+     * IP set name.
+     */
+    name: string;
+};
+export interface ret_cluster_firewall_ipset_nameGET {
+    /**
+     */
+    cidr: string;
+    /**
+     */
+    comment?: string;
+    /**
+     * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+     */
+    digest: string;
+    /**
+     */
+    nomatch?: boolean;
+};
+export type ret_cluster_firewall_ipset_name_cidrGET = any;
+export interface ret_cluster_firewall_aliasesGET {
+    /**
+     */
+    cidr: string;
+    /**
+     */
+    comment?: string;
+    /**
+     * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+     */
+    digest: string;
+    /**
+     */
+    name: string;
+};
+export type ret_cluster_firewall_aliases_nameGET = any;
+export interface ret_cluster_firewall_optionsGET {
+    /**
+     * Enable ebtables rules cluster wide.
+     */
+    ebtables?: boolean;
+    /**
+     * Enable or disable the firewall cluster wide.
+     */
+    enable?: number;
+    /**
+     * Log ratelimiting settings
+     */
+    log_ratelimit?: string;
+    /**
+     * Input policy.
+     */
+    policy_in?: string;
+    /**
+     * Output policy.
+     */
+    policy_out?: string;
+};
+export interface ret_cluster_firewall_macrosGET {
+    /**
+     * More verbose description (if available).
+     */
+    descr: string;
+    /**
+     * Macro name.
+     */
+    macro: string;
+};
+export interface ret_cluster_firewall_refsGET {
+    /**
+     */
+    comment?: string;
+    /**
+     */
+    name: string;
+    /**
+     */
+    ref: string;
+    /**
+     */
+    type: string;
+};
+export interface ret_cluster_backupGET {
+    /**
+     * The job ID.
+     */
+    id: string;
+};
+export type ret_cluster_backup_idGET = any;
+export interface ret_cluster_backup_id_included_volumesGET {
+    /**
+     */
+    children: {
+    /**
+     * The volumes of the guest with the information if they will be included in backups.
+     */
+    children?: {
+    /**
+     * Configuration key of the volume.
+     */
+    id: string;
+    /**
+     * Whether the volume is included in the backup or not.
+     */
+    included: boolean;
+    /**
+     * Name of the volume.
+     */
+    name: string;
+    /**
+     * The reason why the volume is included (or excluded).
+     */
+    reason: string;
+}[];
+    /**
+     * VMID of the guest.
+     */
+    id: number;
+    /**
+     * Name of the guest
+     */
+    name?: string;
+    /**
+     * Type of the guest, VM, CT or unknown for removed but not purged guests.
+     */
+    type: string;
+}[];
+};
+export type ret_cluster_backupinfoGET = any;
+export interface ret_cluster_backupinfo_not_backed_upGET {
+    /**
+     * Name of the guest
+     */
+    name?: string;
+    /**
+     * Type of the guest.
+     */
+    type: string;
+    /**
+     * VMID of the guest.
+     */
+    vmid: number;
+};
+export interface ret_cluster_haGET {
+    /**
+     */
+    id: string;
+};
+export interface ret_cluster_ha_resourcesGET {
+    /**
+     */
+    sid: string;
+};
+export interface ret_cluster_ha_resources_sidGET {
+    /**
+     * Description.
+     */
+    comment?: string;
+    /**
+     * Can be used to prevent concurrent modifications.
+     */
+    digest: string;
+    /**
+     * The HA group identifier.
+     */
+    group?: string;
+    /**
+     * Maximal number of service relocate tries when a service failes to start.
+     */
+    max_relocate?: number;
+    /**
+     * Maximal number of tries to restart the service on a node after its start failed.
+     */
+    max_restart?: number;
+    /**
+     * HA resource ID. This consists of a resource type followed by a resource specific name, separated with colon (example: vm:100 / ct:100). For virtual machines and containers, you can simply use the VM or CT id as a shortcut (example: 100).
+     */
+    sid: string;
+    /**
+     * Requested resource state.
+     */
+    state?: string;
+    /**
+     * The type of the resources.
+     */
+    type: string;
+};
+export interface ret_cluster_ha_groupsGET {
+    /**
+     */
+    group: string;
+};
+export type ret_cluster_ha_groups_groupGET = any;
+export interface ret_cluster_ha_statusGET {
+};
+export type ret_cluster_ha_status_manager_statusGET = any;
+export interface ret_cluster_acmeGET {
+};
+export interface ret_cluster_acme_pluginsGET {
+    /**
+     * Unique identifier for ACME plugin instance.
+     */
+    plugin: string;
+};
+export type ret_cluster_acme_plugins_idGET = any;
+export interface ret_cluster_acme_accountGET {
+};
+export type ret_cluster_acme_accountPOST = any;
+export type ret_cluster_acme_account_nameDELETE = any;
+export interface ret_cluster_acme_account_nameGET {
+    /**
+     */
+    account?: any;
+    /**
+     * URL of ACME CA directory endpoint.
+     */
+    directory?: string;
+    /**
+     */
+    location?: string;
+    /**
+     */
+    tos?: string;
+};
+export type ret_cluster_acme_account_namePUT = any;
+export type ret_cluster_acme_tosGET = any;
+export interface ret_cluster_acme_directoriesGET {
+    /**
+     */
+    name: string;
+    /**
+     * URL of ACME CA directory endpoint.
+     */
+    url: string;
+};
+export interface ret_cluster_acme_challenge_schemaGET {
+    /**
+     */
+    id: string;
+    /**
+     * Human readable name, falls back to id
+     */
+    name: string;
+    /**
+     */
+    schema: any;
+    /**
+     */
+    type: string;
+};
+export interface ret_cluster_cephGET {
+};
+export type ret_cluster_ceph_metadataGET = any;
+export type ret_cluster_ceph_statusGET = any;
+export interface ret_cluster_ceph_flagsGET {
+    /**
+     * Flag name.
+     */
+    name: string;
+};
+export type ret_cluster_ceph_flagsPUT = any;
+export type ret_cluster_ceph_flags_flagGET = any;
+export interface ret_cluster_sdnGET {
+    /**
+     */
+    id: string;
+};
+export type ret_cluster_sdnPUT = any;
+export interface ret_cluster_sdn_vnetsGET {
+};
+export type ret_cluster_sdn_vnets_vnetGET = any;
+export interface ret_cluster_sdn_zonesGET {
+    /**
+     */
+    type: string;
+    /**
+     */
+    zone: string;
+};
+export type ret_cluster_sdn_zones_zoneGET = any;
+export interface ret_cluster_sdn_controllersGET {
+    /**
+     */
+    controller: string;
+    /**
+     */
+    type: string;
+};
+export type ret_cluster_sdn_controllers_controllerGET = any;
+export interface ret_cluster_logGET {
+};
+export interface ret_cluster_resourcesGET {
+    /**
+     * CPU utilization (when type in node,qemu,lxc).
+     */
+    cpu?: number;
+    /**
+     * Used disk space in bytes (when type in storage), used root image spave for VMs (type in qemu,lxc).
+     */
+    disk?: string;
+    /**
+     * HA service status (for HA managed VMs).
+     */
+    hastate?: string;
+    /**
+     */
+    id: string;
+    /**
+     * Support level (when type == node).
+     */
+    level?: string;
+    /**
+     * Number of available CPUs (when type in node,qemu,lxc).
+     */
+    maxcpu?: number;
+    /**
+     * Storage size in bytes (when type in storage), root image size for VMs (type in qemu,lxc).
+     */
+    maxdisk?: number;
+    /**
+     * Number of available memory in bytes (when type in node,qemu,lxc).
+     */
+    maxmem?: number;
+    /**
+     * Used memory in bytes (when type in node,qemu,lxc).
+     */
+    mem?: string;
+    /**
+     * The cluster node name (when type in node,storage,qemu,lxc).
+     */
+    node?: string;
+    /**
+     * The pool name (when type in pool,qemu,lxc).
+     */
+    pool?: string;
+    /**
+     * Resource type dependent status.
+     */
+    status?: string;
+    /**
+     * The storage identifier (when type == storage).
+     */
+    storage?: string;
+    /**
+     * Resource type.
+     */
+    type: string;
+    /**
+     * Node uptime in seconds (when type in node,qemu,lxc).
+     */
+    uptime?: number;
+};
+export interface ret_cluster_tasksGET {
+    /**
+     */
+    upid: string;
+};
+export type ret_cluster_optionsGET = any;
+export interface ret_cluster_statusGET {
+    /**
+     */
+    id: string;
+    /**
+     * [node] IP of the resolved nodename.
+     */
+    ip?: string;
+    /**
+     * [node] Proxmox VE Subscription level, indicates if eligible for enterprise support as well as access to the stable Proxmox VE Enterprise Repository.
+     */
+    level?: string;
+    /**
+     * [node] Indicates if this is the responding node.
+     */
+    local?: boolean;
+    /**
+     */
+    name: string;
+    /**
+     * [node] ID of the node from the corosync configuration.
+     */
+    nodeid?: number;
+    /**
+     * [cluster] Nodes count, including offline nodes.
+     */
+    nodes?: number;
+    /**
+     * [node] Indicates if the node is online or offline.
+     */
+    online?: boolean;
+    /**
+     * [cluster] Indicates if there is a majority of nodes online to make decisions
+     */
+    quorate?: boolean;
+    /**
+     * Indicates the type, either cluster or node. The type defines the object properties e.g. quorate available for type cluster.
+     */
+    type: string;
+    /**
+     * [cluster] Current version of the corosync configuration file.
+     */
+    version?: number;
+};
+export type ret_cluster_nextidGET = any;
+export interface ret_nodesGET {
+    /**
+     * CPU utilization.
+     */
+    cpu?: number;
+    /**
+     * Support level.
+     */
+    level?: string;
+    /**
+     * Number of available CPUs.
+     */
+    maxcpu?: number;
+    /**
+     * Number of available memory in bytes.
+     */
+    maxmem?: number;
+    /**
+     * Used memory in bytes.
+     */
+    mem?: number;
+    /**
+     * The cluster node name.
+     */
+    node: string;
+    /**
+     * The SSL fingerprint for the node certificate.
+     */
+    ssl_fingerprint?: string;
+    /**
+     * Node status.
+     */
+    status: string;
+    /**
+     * Node uptime in seconds.
+     */
+    uptime?: number;
+};
+export interface ret_nodes_nodeGET {
+};
+export interface ret_nodes_node_qemuGET {
+    /**
+     * Maximum usable CPUs.
+     */
+    cpus?: number;
+    /**
+     * The current config lock, if any.
+     */
+    lock?: string;
+    /**
+     * Root disk size in bytes.
+     */
+    maxdisk?: number;
+    /**
+     * Maximum memory in bytes.
+     */
+    maxmem?: number;
+    /**
+     * VM name.
+     */
+    name?: string;
+    /**
+     * PID of running qemu process.
+     */
+    pid?: number;
+    /**
+     * Qemu QMP agent status.
+     */
+    qmpstatus?: string;
+    /**
+     * Qemu process status.
+     */
+    status: string;
+    /**
+     * The current configured tags, if any
+     */
+    tags?: string;
+    /**
+     * Uptime.
+     */
+    uptime?: number;
+    /**
+     * The (unique) ID of the VM.
+     */
+    vmid: number;
+};
+export type ret_nodes_node_qemuPOST = any;
+export type ret_nodes_node_qemu_vmidDELETE = any;
+export interface ret_nodes_node_qemu_vmidGET {
+    /**
+     */
+    subdir: string;
+};
+export interface ret_nodes_node_qemu_vmid_firewallGET {
+};
+export interface ret_nodes_node_qemu_vmid_firewall_rulesGET {
+    /**
+     */
+    pos: number;
+};
+export interface ret_nodes_node_qemu_vmid_firewall_rules_posGET {
+    /**
+     */
+    action: string;
+    /**
+     */
+    comment?: string;
+    /**
+     */
+    dest?: string;
+    /**
+     */
+    dport?: string;
+    /**
+     */
+    enable?: number;
+    /**
+     */
+    iface?: string;
+    /**
+     */
+    ipversion?: number;
+    /**
+     * Log level for firewall rule
+     */
+    log?: string;
+    /**
+     */
+    macro?: string;
+    /**
+     */
+    pos: number;
+    /**
+     */
+    proto?: string;
+    /**
+     */
+    source?: string;
+    /**
+     */
+    sport?: string;
+    /**
+     */
+    type: string;
+};
+export interface ret_nodes_node_qemu_vmid_firewall_aliasesGET {
+    /**
+     */
+    cidr: string;
+    /**
+     */
+    comment?: string;
+    /**
+     * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+     */
+    digest: string;
+    /**
+     */
+    name: string;
+};
+export type ret_nodes_node_qemu_vmid_firewall_aliases_nameGET = any;
+export interface ret_nodes_node_qemu_vmid_firewall_ipsetGET {
+    /**
+     */
+    comment?: string;
+    /**
+     * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+     */
+    digest: string;
+    /**
+     * IP set name.
+     */
+    name: string;
+};
+export interface ret_nodes_node_qemu_vmid_firewall_ipset_nameGET {
+    /**
+     */
+    cidr: string;
+    /**
+     */
+    comment?: string;
+    /**
+     * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+     */
+    digest: string;
+    /**
+     */
+    nomatch?: boolean;
+};
+export type ret_nodes_node_qemu_vmid_firewall_ipset_name_cidrGET = any;
+export interface ret_nodes_node_qemu_vmid_firewall_optionsGET {
+    /**
+     * Enable DHCP.
+     */
+    dhcp?: boolean;
+    /**
+     * Enable/disable firewall rules.
+     */
+    enable?: boolean;
+    /**
+     * Enable default IP filters. This is equivalent to adding an empty ipfilter-net<id> ipset for every interface. Such ipsets implicitly contain sane default restrictions such as restricting IPv6 link local addresses to the one derived from the interface's MAC address. For containers the configured IP addresses will be implicitly added.
+     */
+    ipfilter?: boolean;
+    /**
+     * Log level for incoming traffic.
+     */
+    log_level_in?: string;
+    /**
+     * Log level for outgoing traffic.
+     */
+    log_level_out?: string;
+    /**
+     * Enable/disable MAC address filter.
+     */
+    macfilter?: boolean;
+    /**
+     * Enable NDP (Neighbor Discovery Protocol).
+     */
+    ndp?: boolean;
+    /**
+     * Input policy.
+     */
+    policy_in?: string;
+    /**
+     * Output policy.
+     */
+    policy_out?: string;
+    /**
+     * Allow sending Router Advertisement.
+     */
+    radv?: boolean;
+};
+export interface ret_nodes_node_qemu_vmid_firewall_logGET {
+    /**
+     * Line number
+     */
+    n: number;
+    /**
+     * Line text
+     */
+    t: string;
+};
+export interface ret_nodes_node_qemu_vmid_firewall_refsGET {
+    /**
+     */
+    comment?: string;
+    /**
+     */
+    name: string;
+    /**
+     */
+    type: string;
+};
+export interface ret_nodes_node_qemu_vmid_agentGET {
+};
+export type ret_nodes_node_qemu_vmid_agentPOST = any;
+export type ret_nodes_node_qemu_vmid_agent_fsfreeze_freezePOST = any;
+export type ret_nodes_node_qemu_vmid_agent_fsfreeze_statusPOST = any;
+export type ret_nodes_node_qemu_vmid_agent_fsfreeze_thawPOST = any;
+export type ret_nodes_node_qemu_vmid_agent_fstrimPOST = any;
+export type ret_nodes_node_qemu_vmid_agent_get_fsinfoGET = any;
+export type ret_nodes_node_qemu_vmid_agent_get_host_nameGET = any;
+export type ret_nodes_node_qemu_vmid_agent_get_memory_block_infoGET = any;
+export type ret_nodes_node_qemu_vmid_agent_get_memory_blocksGET = any;
+export type ret_nodes_node_qemu_vmid_agent_get_osinfoGET = any;
+export type ret_nodes_node_qemu_vmid_agent_get_timeGET = any;
+export type ret_nodes_node_qemu_vmid_agent_get_timezoneGET = any;
+export type ret_nodes_node_qemu_vmid_agent_get_usersGET = any;
+export type ret_nodes_node_qemu_vmid_agent_get_vcpusGET = any;
+export type ret_nodes_node_qemu_vmid_agent_infoGET = any;
+export type ret_nodes_node_qemu_vmid_agent_network_get_interfacesGET = any;
+export type ret_nodes_node_qemu_vmid_agent_pingPOST = any;
+export type ret_nodes_node_qemu_vmid_agent_shutdownPOST = any;
+export type ret_nodes_node_qemu_vmid_agent_suspend_diskPOST = any;
+export type ret_nodes_node_qemu_vmid_agent_suspend_hybridPOST = any;
+export type ret_nodes_node_qemu_vmid_agent_suspend_ramPOST = any;
+export type ret_nodes_node_qemu_vmid_agent_set_user_passwordPOST = any;
+export interface ret_nodes_node_qemu_vmid_agent_execPOST {
+    /**
+     * The PID of the process started by the guest-agent.
+     */
+    pid: number;
+};
+export interface ret_nodes_node_qemu_vmid_agent_exec_statusGET {
+    /**
+     * stderr of the process
+     */
+    'err-data'?: string;
+    /**
+     * true if stderr was not fully captured
+     */
+    'err-truncated'?: boolean;
+    /**
+     * process exit code if it was normally terminated.
+     */
+    exitcode?: number;
+    /**
+     * Tells if the given command has exited yet.
+     */
+    exited: boolean;
+    /**
+     * stdout of the process
+     */
+    'out-data'?: string;
+    /**
+     * true if stdout was not fully captured
+     */
+    'out-truncated'?: boolean;
+    /**
+     * signal number or exception code if the process was abnormally terminated.
+     */
+    signal?: number;
+};
+export interface ret_nodes_node_qemu_vmid_agent_file_readGET {
+    /**
+     * The content of the file, maximum 16777216
+     */
+    content: string;
+    /**
+     * If set to 1, the output is truncated and not complete
+     */
+    truncated?: boolean;
+};
+export interface ret_nodes_node_qemu_vmid_rrdGET {
+    /**
+     */
+    filename: string;
+};
+export interface ret_nodes_node_qemu_vmid_rrddataGET {
+};
+export interface ret_nodes_node_qemu_vmid_configGET {
+    /**
+     * Enable/disable ACPI.
+     */
+    acpi?: boolean;
+    /**
+     * Enable/disable Qemu GuestAgent and its properties.
+     */
+    agent?: string;
+    /**
+     * Virtual processor architecture. Defaults to the host.
+     */
+    arch?: string;
+    /**
+     * Arbitrary arguments passed to kvm.
+     * Arbitrary arguments passed to kvm, for example:     * args: -no-reboot -no-hpet     * NOTE: this option is for experts only.     * 
+     */
+    args?: string;
+    /**
+     * Configure a audio device, useful in combination with QXL/Spice.
+     */
+    audio0?: string;
+    /**
+     * Automatic restart after crash (currently ignored).
+     */
+    autostart?: boolean;
+    /**
+     * Amount of target RAM for the VM in MB. Using zero disables the ballon driver.
+     */
+    balloon?: number;
+    /**
+     * Select BIOS implementation.
+     */
+    bios?: string;
+    /**
+     * Boot on floppy (a), hard disk (c), CD-ROM (d), or network (n).
+     */
+    boot?: string;
+    /**
+     * Enable booting from specified disk.
+     */
+    bootdisk?: string;
+    /**
+     * This is an alias for option -ide2
+     */
+    cdrom?: string;
+    /**
+     * cloud-init: Specify custom files to replace the automatically generated ones at start.
+     */
+    cicustom?: string;
+    /**
+     * cloud-init: Password to assign the user. Using this is generally not recommended. Use ssh keys instead. Also note that older cloud-init versions do not support hashed passwords.
+     */
+    cipassword?: string;
+    /**
+     * Specifies the cloud-init configuration format. The default depends on the configured operating system type (`ostype`. We use the `nocloud` format for Linux, and `configdrive2` for windows.
+     */
+    citype?: string;
+    /**
+     * cloud-init: User name to change ssh keys and password for instead of the image's configured default user.
+     */
+    ciuser?: string;
+    /**
+     * The number of cores per socket.
+     */
+    cores?: number;
+    /**
+     * Emulated CPU type.
+     */
+    cpu?: string;
+    /**
+     * Limit of CPU usage.
+     * Limit of CPU usage.     * NOTE: If the computer has 2 CPUs, it has total of '2' CPU time. Value '0' indicates no CPU limit.
+     */
+    cpulimit?: number;
+    /**
+     * CPU weight for a VM.
+     * CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to weights of all the other running VMs.
+     */
+    cpuunits?: number;
+    /**
+     * Description for the VM. Only used on the configuration web interface. This is saved as comment inside the configuration file.
+     */
+    description?: string;
+    /**
+     * SHA1 digest of configuration file. This can be used to prevent concurrent modifications.
+     */
+    digest: string;
+    /**
+     * Configure a Disk for storing EFI vars
+     */
+    efidisk0?: string;
+    /**
+     * Freeze CPU at startup (use 'c' monitor command to start execution).
+     */
+    freeze?: boolean;
+    /**
+     * Script that will be executed during various steps in the vms lifetime.
+     */
+    hookscript?: string;
+    /**
+     * Map host PCI devices into guest.
+     * Map host PCI devices into guest.     * NOTE: This option allows direct access to host hardware. So it is no longer     * possible to migrate such machines - use with special care.     * CAUTION: Experimental! User reported problems with this option.     * 
+     */
+    hostpci0?: string;
+    hostpci1?: string;
+    hostpci2?: string;
+    hostpci3?: string;
+    hostpci4?: string;
+    hostpci5?: string;
+    hostpci6?: string;
+    hostpci7?: string;
+    /**
+     * Selectively enable hotplug features. This is a comma separated list of hotplug features: 'network', 'disk', 'cpu', 'memory' and 'usb'. Use '0' to disable hotplug completely. Value '1' is an alias for the default 'network,disk,usb'.
+     */
+    hotplug?: string;
+    /**
+     * Enable/disable hugepages memory.
+     */
+    hugepages?: string;
+    /**
+     * Use volume as IDE hard disk or CD-ROM (n is 0 to 3).
+     */
+    ide0?: string;
+    ide1?: string;
+    ide2?: string;
+    ide3?: string;
+    /**
+     * cloud-init: Specify IP addresses and gateways for the corresponding interface.     * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.     * 
+     */
+    ipconfig0?: string;
+    ipconfig1?: string;
+    ipconfig2?: string;
+    ipconfig3?: string;
+    ipconfig4?: string;
+    ipconfig5?: string;
+    ipconfig6?: string;
+    ipconfig7?: string;
+    /**
+     * Inter-VM shared memory. Useful for direct communication between VMs, or to the host.
+     */
+    ivshmem?: string;
+    /**
+     * Keybord layout for vnc server. Default is read from the '/etc/pve/datacenter.cfg' configuration file.It should not be necessary to set it.
+     */
+    keyboard?: string;
+    /**
+     * Enable/disable KVM hardware virtualization.
+     */
+    kvm?: boolean;
+    /**
+     * Set the real time clock to local time. This is enabled by default if ostype indicates a Microsoft OS.
+     */
+    localtime?: boolean;
+    /**
+     * Lock/unlock the VM.
+     */
+    lock?: string;
+    /**
+     * Specifies the Qemu machine type.
+     */
+    machine?: string;
+    /**
+     * Amount of RAM for the VM in MB. This is the maximum available memory when you use the balloon device.
+     */
+    memory?: number;
+    /**
+     * Set maximum tolerated downtime (in seconds) for migrations.
+     */
+    migrate_downtime?: number;
+    /**
+     * Set maximum speed (in MB/s) for migrations. Value 0 is no limit.
+     */
+    migrate_speed?: number;
+    /**
+     * Set a name for the VM. Only used on the configuration web interface.
+     */
+    name?: string;
+    /**
+     * cloud-init: Sets DNS server IP address for a container. Create will automatically use the setting from the host if neither searchdomain nor nameserver are set.
+     */
+    nameserver?: string;
+    /**
+     * Specify network devices.
+     */
+    net0?: string;
+    net1?: string;
+    net2?: string;
+    net3?: string;
+    /**
+     * Enable/disable NUMA.
+     */
+    numa?: boolean;
+    /**
+     * NUMA topology.
+     */
+    numa0?: string;
+    numa1?: string;
+    numa2?: string;
+    numa3?: string;
+    /**
+     * Specifies whether a VM will be started during system bootup.
+     */
+    onboot?: boolean;
+    /**
+     * Specify guest operating system.
+     * Specify guest operating system. This is used to enable special     * optimization/features for specific operating systems:     * [horizontal]     * other;; unspecified OS     * wxp;; Microsoft Windows XP     * w2k;; Microsoft Windows 2000     * w2k3;; Microsoft Windows 2003     * w2k8;; Microsoft Windows 2008     * wvista;; Microsoft Windows Vista     * win7;; Microsoft Windows 7     * win8;; Microsoft Windows 8/2012/2012r2     * win10;; Microsoft Windows 10/2016     * l24;; Linux 2.4 Kernel     * l26;; Linux 2.6 - 5.X Kernel     * solaris;; Solaris/OpenSolaris/OpenIndiania kernel     * 
+     */
+    ostype?: string;
+    /**
+     * Map host parallel devices (n is 0 to 2).
+     * Map host parallel devices (n is 0 to 2).     * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.     * CAUTION: Experimental! User reported problems with this option.     * 
+     */
+    parallel0?: string;
+    parallel1?: string;
+    parallel2?: string;
+    parallel3?: string;
+    /**
+     * Sets the protection flag of the VM. This will disable the remove VM and remove disk operations.
+     */
+    protection?: boolean;
+    /**
+     * Allow reboot. If set to '0' the VM exit on reboot.
+     */
+    reboot?: boolean;
+    /**
+     * Configure a VirtIO-based Random Number Generator.
+     */
+    rng0?: string;
+    /**
+     * Use volume as SATA hard disk or CD-ROM (n is 0 to 5).
+     */
+    sata0?: string;
+    sata1?: string;
+    sata2?: string;
+    sata3?: string;
+    /**
+     * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30).
+     */
+    scsi0?: string;
+    scsi1?: string;
+    scsi2?: string;
+    scsi3?: string;
+    /**
+     * SCSI controller model
+     */
+    scsihw?: string;
+    /**
+     * cloud-init: Sets DNS search domains for a container. Create will automatically use the setting from the host if neither searchdomain nor nameserver are set.
+     */
+    searchdomain?: string;
+    /**
+     * Create a serial device inside the VM (n is 0 to 3)
+     * Create a serial device inside the VM (n is 0 to 3), and pass through a     * host serial device (i.e. /dev/ttyS0), or create a unix socket on the     * host side (use 'qm terminal' to open a terminal connection).     * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.     * CAUTION: Experimental! User reported problems with this option.     * 
+     */
+    serial0?: string;
+    serial1?: string;
+    serial2?: string;
+    serial3?: string;
+    /**
+     * Amount of memory shares for auto-ballooning. The larger the number is, the more memory this VM gets. Number is relative to weights of all other running VMs. Using zero disables auto-ballooning. Auto-ballooning is done by pvestatd.
+     */
+    shares?: number;
+    /**
+     * Specify SMBIOS type 1 fields.
+     */
+    smbios1?: string;
+    /**
+     * The number of CPUs. Please use option -sockets instead.
+     */
+    smp?: number;
+    /**
+     * The number of CPU sockets.
+     */
+    sockets?: number;
+    /**
+     * Configure additional enhancements for SPICE.
+     */
+    spice_enhancements?: string;
+    /**
+     * cloud-init: Setup public SSH keys (one key per line, OpenSSH format).
+     */
+    sshkeys?: string;
+    /**
+     * Set the initial date of the real time clock. Valid format for date are: 'now' or '2006-06-17T16:01:21' or '2006-06-17'.
+     */
+    startdate?: string;
+    /**
+     * Startup and shutdown behavior. Order is a non-negative number defining the general startup order. Shutdown in done with reverse ordering. Additionally you can set the 'up' or 'down' delay in seconds, which specifies a delay to wait before the next VM is started or stopped.
+     */
+    startup?: string;
+    /**
+     * Enable/disable the USB tablet device.
+     * Enable/disable the USB tablet device. This device is usually needed to allow absolute mouse positioning with VNC. Else the mouse runs out of sync with normal VNC clients. If you're running lots of console-only guests on one host, you may consider disabling this to save some context switches. This is turned off by default if you use spice (-vga=qxl).
+     */
+    tablet?: boolean;
+    /**
+     * Tags of the VM. This is only meta information.
+     */
+    tags?: string;
+    /**
+     * Enable/disable time drift fix.
+     */
+    tdf?: boolean;
+    /**
+     * Enable/disable Template.
+     */
+    template?: boolean;
+    /**
+     * Reference to unused volumes. This is used internally, and should not be modified manually.
+     */
+    unused0?: string;
+    unused1?: string;
+    unused2?: string;
+    unused3?: string;
+    /**
+     * Configure an USB device (n is 0 to 4).
+     */
+    usb0?: string;
+    usb1?: string;
+    usb2?: string;
+    usb3?: string;
+    /**
+     * Number of hotplugged vcpus.
+     */
+    vcpus?: number;
+    /**
+     * Configure the VGA hardware.
+     * Configure the VGA Hardware. If you want to use high resolution modes (>= 1280x1024x16) you may need to increase the vga memory option. Since QEMU 2.9 the default VGA display type is 'std' for all OS types besides some Windows versions (XP and older) which use 'cirrus'. The 'qxl' option enables the SPICE display server. For win* OS you can select how many independent displays you want, Linux guests can add displays them self.     * You can also run without any graphic card, using a serial device as terminal.
+     */
+    vga?: string;
+    /**
+     * Use volume as VIRTIO hard disk (n is 0 to 15).
+     */
+    virtio0?: string;
+    virtio1?: string;
+    virtio2?: string;
+    virtio3?: string;
+    /**
+     * Set VM Generation ID. Use '1' to autogenerate on create or update, pass '0' to disable explicitly.
+     * The VM generation ID (vmgenid) device exposes a 128-bit integer value identifier to the guest OS. This allows to notify the guest operating system when the virtual machine is executed with a different configuration (e.g. snapshot execution or creation from a template). The guest operating system notices the change, and is then able to react as appropriate by marking its copies of distributed databases as dirty, re-initializing its random number generator, etc.     * Note that auto-creation only works when done throug API/CLI create or update methods, but not when manually editing the config file.
+     */
+    vmgenid?: string;
+    /**
+     * Default storage for VM state volumes/files.
+     */
+    vmstatestorage?: string;
+    /**
+     * Create a virtual hardware watchdog device.
+     * Create a virtual hardware watchdog device. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified)
+     */
+    watchdog?: string;
+};
+export type ret_nodes_node_qemu_vmid_configPOST = any;
+export interface ret_nodes_node_qemu_vmid_pendingGET {
+    /**
+     * Indicates a pending delete request if present and not 0. The value 2 indicates a force-delete request.
+     */
+    delete?: number;
+    /**
+     * Configuration option name.
+     */
+    key: string;
+    /**
+     * Pending value.
+     */
+    pending?: string;
+    /**
+     * Current value.
+     */
+    value?: string;
+};
+export type ret_nodes_node_qemu_vmid_vncproxyPOST = any;
+export type ret_nodes_node_qemu_vmid_termproxyPOST = any;
+export interface ret_nodes_node_qemu_vmid_vncwebsocketGET {
+    /**
+     */
+    port: string;
+};
+export type ret_nodes_node_qemu_vmid_spiceproxyPOST = any;
+export interface ret_nodes_node_qemu_vmid_statusGET {
+    /**
+     */
+    subdir: string;
+};
+export interface ret_nodes_node_qemu_vmid_status_currentGET {
+    /**
+     * Qemu GuestAgent enabled in config.
+     */
+    agent?: boolean;
+    /**
+     * Maximum usable CPUs.
+     */
+    cpus?: number;
+    /**
+     * HA manager service status.
+     */
+    ha: any;
+    /**
+     * The current config lock, if any.
+     */
+    lock?: string;
+    /**
+     * Root disk size in bytes.
+     */
+    maxdisk?: number;
+    /**
+     * Maximum memory in bytes.
+     */
+    maxmem?: number;
+    /**
+     * VM name.
+     */
+    name?: string;
+    /**
+     * PID of running qemu process.
+     */
+    pid?: number;
+    /**
+     * Qemu QMP agent status.
+     */
+    qmpstatus?: string;
+    /**
+     * Qemu VGA configuration supports spice.
+     */
+    spice?: boolean;
+    /**
+     * Qemu process status.
+     */
+    status: string;
+    /**
+     * The current configured tags, if any
+     */
+    tags?: string;
+    /**
+     * Uptime.
+     */
+    uptime?: number;
+    /**
+     * The (unique) ID of the VM.
+     */
+    vmid: number;
+};
+export type ret_nodes_node_qemu_vmid_status_startPOST = any;
+export type ret_nodes_node_qemu_vmid_status_stopPOST = any;
+export type ret_nodes_node_qemu_vmid_status_resetPOST = any;
+export type ret_nodes_node_qemu_vmid_status_shutdownPOST = any;
+export type ret_nodes_node_qemu_vmid_status_rebootPOST = any;
+export type ret_nodes_node_qemu_vmid_status_suspendPOST = any;
+export type ret_nodes_node_qemu_vmid_status_resumePOST = any;
+export interface ret_nodes_node_qemu_vmid_featureGET {
+    /**
+     */
+    hasFeature: boolean;
+    /**
+     */
+    nodes: string[];
+};
+export type ret_nodes_node_qemu_vmid_clonePOST = any;
+export type ret_nodes_node_qemu_vmid_move_diskPOST = any;
+export interface ret_nodes_node_qemu_vmid_migrateGET {
+    /**
+     * List nodes allowed for offline migration, only passed if VM is offline
+     */
+    allowed_nodes?: string[];
+    /**
+     * List local disks including CD-Rom, unsused and not referenced disks
+     */
+    local_disks: string[];
+    /**
+     * List local resources e.g. pci, usb
+     */
+    local_resources: string[];
+    /**
+     * List not allowed nodes with additional informations, only passed if VM is offline
+     */
+    not_allowed_nodes?: any;
+    /**
+     */
+    running: boolean;
+};
+export type ret_nodes_node_qemu_vmid_migratePOST = any;
+export type ret_nodes_node_qemu_vmid_monitorPOST = any;
+export interface ret_nodes_node_qemu_vmid_snapshotGET {
+    /**
+     * Snapshot description.
+     */
+    description: string;
+    /**
+     * Snapshot identifier. Value 'current' identifies the current VM.
+     */
+    name: string;
+    /**
+     * Parent snapshot identifier.
+     */
+    parent?: string;
+    /**
+     * Snapshot creation time
+     */
+    snaptime?: number;
+    /**
+     * Snapshot includes RAM.
+     */
+    vmstate?: boolean;
+};
+export type ret_nodes_node_qemu_vmid_snapshotPOST = any;
+export type ret_nodes_node_qemu_vmid_snapshot_snapnameDELETE = any;
+export interface ret_nodes_node_qemu_vmid_snapshot_snapnameGET {
+};
+export type ret_nodes_node_qemu_vmid_snapshot_snapname_configGET = any;
+export type ret_nodes_node_qemu_vmid_snapshot_snapname_rollbackPOST = any;
+export type ret_nodes_node_qemu_vmid_cloudinit_dumpGET = any;
+export interface ret_nodes_node_cpuGET {
+    /**
+     * True if this is a custom CPU model.
+     */
+    custom: boolean;
+    /**
+     * Name of the CPU model. Identifies it for subsequent API calls. Prefixed with 'custom-' for custom models.
+     */
+    name: string;
+    /**
+     * CPU vendor visible to the guest when this model is selected. Vendor of 'reported-model' in case of custom models.
+     */
+    vendor: string;
+};
+export interface ret_nodes_node_lxcGET {
+    /**
+     * Maximum usable CPUs.
+     */
+    cpus?: number;
+    /**
+     * The current config lock, if any.
+     */
+    lock?: string;
+    /**
+     * Root disk size in bytes.
+     */
+    maxdisk?: number;
+    /**
+     * Maximum memory in bytes.
+     */
+    maxmem?: number;
+    /**
+     * Maximum SWAP memory in bytes.
+     */
+    maxswap?: number;
+    /**
+     * Container name.
+     */
+    name?: string;
+    /**
+     * LXC Container status.
+     */
+    status: string;
+    /**
+     * The current configured tags, if any.
+     */
+    tags?: string;
+    /**
+     * Uptime.
+     */
+    uptime?: number;
+    /**
+     * The (unique) ID of the VM.
+     */
+    vmid: number;
+};
+export type ret_nodes_node_lxcPOST = any;
+export type ret_nodes_node_lxc_vmidDELETE = any;
+export interface ret_nodes_node_lxc_vmidGET {
+    /**
+     */
+    subdir: string;
+};
+export interface ret_nodes_node_lxc_vmid_configGET {
+    /**
+     * OS architecture type.
+     */
+    arch?: string;
+    /**
+     * Console mode. By default, the console command tries to open a connection to one of the available tty devices. By setting cmode to 'console' it tries to attach to /dev/console instead. If you set cmode to 'shell', it simply invokes a shell inside the container (no login).
+     */
+    cmode?: string;
+    /**
+     * Attach a console device (/dev/console) to the container.
+     */
+    console?: boolean;
+    /**
+     * The number of cores assigned to the container. A container can use all available cores by default.
+     */
+    cores?: number;
+    /**
+     * Limit of CPU usage.     * NOTE: If the computer has 2 CPUs, it has a total of '2' CPU time. Value '0' indicates no CPU limit.
+     */
+    cpulimit?: number;
+    /**
+     * CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to the weights of all the other running VMs.     * NOTE: You can disable fair-scheduler configuration by setting this to 0.
+     */
+    cpuunits?: number;
+    /**
+     * Container description. Only used on the configuration web interface.
+     */
+    description?: string;
+    /**
+     * SHA1 digest of configuration file. This can be used to prevent concurrent modifications.
+     */
+    digest: string;
+    /**
+     * Allow containers access to advanced features.
+     */
+    features?: string;
+    /**
+     * Script that will be exectued during various steps in the containers lifetime.
+     */
+    hookscript?: string;
+    /**
+     * Set a host name for the container.
+     */
+    hostname?: string;
+    /**
+     * Lock/unlock the VM.
+     */
+    lock?: string;
+    /**
+     * Array of lxc low-level configurations ([[key1, value1], [key2, value2] ...]).
+     */
+    lxc?: string[][];
+    /**
+     * Amount of RAM for the VM in MB.
+     */
+    memory?: number;
+    /**
+     * Use volume as container mount point.
+     */
+    mp0?: string;
+    mp1?: string;
+    mp2?: string;
+    mp3?: string;
+    /**
+     * Sets DNS server IP address for a container. Create will automatically use the setting from the host if you neither set searchdomain nor nameserver.
+     */
+    nameserver?: string;
+    /**
+     * Specifies network interfaces for the container.
+     */
+    net0?: string;
+    net1?: string;
+    net2?: string;
+    net3?: string;
+    /**
+     * Specifies whether a VM will be started during system bootup.
+     */
+    onboot?: boolean;
+    /**
+     * OS type. This is used to setup configuration inside the container, and corresponds to lxc setup scripts in /usr/share/lxc/config/<ostype>.common.conf. Value 'unmanaged' can be used to skip and OS specific setup.
+     */
+    ostype?: string;
+    /**
+     * Sets the protection flag of the container. This will prevent the CT or CT's disk remove/update operation.
+     */
+    protection?: boolean;
+    /**
+     * Use volume as container root.
+     */
+    rootfs?: string;
+    /**
+     * Sets DNS search domains for a container. Create will automatically use the setting from the host if you neither set searchdomain nor nameserver.
+     */
+    searchdomain?: string;
+    /**
+     * Startup and shutdown behavior. Order is a non-negative number defining the general startup order. Shutdown in done with reverse ordering. Additionally you can set the 'up' or 'down' delay in seconds, which specifies a delay to wait before the next VM is started or stopped.
+     */
+    startup?: string;
+    /**
+     * Amount of SWAP for the VM in MB.
+     */
+    swap?: number;
+    /**
+     * Tags of the Container. This is only meta information.
+     */
+    tags?: string;
+    /**
+     * Enable/disable Template.
+     */
+    template?: boolean;
+    /**
+     * Time zone to use in the container. If option isn't set, then nothing will be done. Can be set to 'host' to match the host time zone, or an arbitrary time zone option from /usr/share/zoneinfo/zone.tab
+     */
+    timezone?: string;
+    /**
+     * Specify the number of tty available to the container
+     */
+    tty?: number;
+    /**
+     * Makes the container run as unprivileged user. (Should not be modified manually.)
+     */
+    unprivileged?: boolean;
+    /**
+     * Reference to unused volumes. This is used internally, and should not be modified manually.
+     */
+    unused0?: string;
+    unused1?: string;
+    unused2?: string;
+    unused3?: string;
+};
+export interface ret_nodes_node_lxc_vmid_statusGET {
+    /**
+     */
+    subdir: string;
+};
+export interface ret_nodes_node_lxc_vmid_status_currentGET {
+    /**
+     * Maximum usable CPUs.
+     */
+    cpus?: number;
+    /**
+     * HA manager service status.
+     */
+    ha: any;
+    /**
+     * The current config lock, if any.
+     */
+    lock?: string;
+    /**
+     * Root disk size in bytes.
+     */
+    maxdisk?: number;
+    /**
+     * Maximum memory in bytes.
+     */
+    maxmem?: number;
+    /**
+     * Maximum SWAP memory in bytes.
+     */
+    maxswap?: number;
+    /**
+     * Container name.
+     */
+    name?: string;
+    /**
+     * LXC Container status.
+     */
+    status: string;
+    /**
+     * The current configured tags, if any.
+     */
+    tags?: string;
+    /**
+     * Uptime.
+     */
+    uptime?: number;
+    /**
+     * The (unique) ID of the VM.
+     */
+    vmid: number;
+};
+export type ret_nodes_node_lxc_vmid_status_startPOST = any;
+export type ret_nodes_node_lxc_vmid_status_stopPOST = any;
+export type ret_nodes_node_lxc_vmid_status_shutdownPOST = any;
+export type ret_nodes_node_lxc_vmid_status_suspendPOST = any;
+export type ret_nodes_node_lxc_vmid_status_resumePOST = any;
+export type ret_nodes_node_lxc_vmid_status_rebootPOST = any;
+export interface ret_nodes_node_lxc_vmid_snapshotGET {
+    /**
+     * Snapshot description.
+     */
+    description: string;
+    /**
+     * Snapshot identifier. Value 'current' identifies the current VM.
+     */
+    name: string;
+    /**
+     * Parent snapshot identifier.
+     */
+    parent?: string;
+    /**
+     * Snapshot creation time
+     */
+    snaptime?: number;
+};
+export type ret_nodes_node_lxc_vmid_snapshotPOST = any;
+export type ret_nodes_node_lxc_vmid_snapshot_snapnameDELETE = any;
+export interface ret_nodes_node_lxc_vmid_snapshot_snapnameGET {
+};
+export type ret_nodes_node_lxc_vmid_snapshot_snapname_rollbackPOST = any;
+export type ret_nodes_node_lxc_vmid_snapshot_snapname_configGET = any;
+export interface ret_nodes_node_lxc_vmid_firewallGET {
+};
+export interface ret_nodes_node_lxc_vmid_firewall_rulesGET {
+    /**
+     */
+    pos: number;
+};
+export interface ret_nodes_node_lxc_vmid_firewall_rules_posGET {
+    /**
+     */
+    action: string;
+    /**
+     */
+    comment?: string;
+    /**
+     */
+    dest?: string;
+    /**
+     */
+    dport?: string;
+    /**
+     */
+    enable?: number;
+    /**
+     */
+    iface?: string;
+    /**
+     */
+    ipversion?: number;
+    /**
+     * Log level for firewall rule
+     */
+    log?: string;
+    /**
+     */
+    macro?: string;
+    /**
+     */
+    pos: number;
+    /**
+     */
+    proto?: string;
+    /**
+     */
+    source?: string;
+    /**
+     */
+    sport?: string;
+    /**
+     */
+    type: string;
+};
+export interface ret_nodes_node_lxc_vmid_firewall_aliasesGET {
+    /**
+     */
+    cidr: string;
+    /**
+     */
+    comment?: string;
+    /**
+     * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+     */
+    digest: string;
+    /**
+     */
+    name: string;
+};
+export type ret_nodes_node_lxc_vmid_firewall_aliases_nameGET = any;
+export interface ret_nodes_node_lxc_vmid_firewall_ipsetGET {
+    /**
+     */
+    comment?: string;
+    /**
+     * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+     */
+    digest: string;
+    /**
+     * IP set name.
+     */
+    name: string;
+};
+export interface ret_nodes_node_lxc_vmid_firewall_ipset_nameGET {
+    /**
+     */
+    cidr: string;
+    /**
+     */
+    comment?: string;
+    /**
+     * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+     */
+    digest: string;
+    /**
+     */
+    nomatch?: boolean;
+};
+export type ret_nodes_node_lxc_vmid_firewall_ipset_name_cidrGET = any;
+export interface ret_nodes_node_lxc_vmid_firewall_optionsGET {
+    /**
+     * Enable DHCP.
+     */
+    dhcp?: boolean;
+    /**
+     * Enable/disable firewall rules.
+     */
+    enable?: boolean;
+    /**
+     * Enable default IP filters. This is equivalent to adding an empty ipfilter-net<id> ipset for every interface. Such ipsets implicitly contain sane default restrictions such as restricting IPv6 link local addresses to the one derived from the interface's MAC address. For containers the configured IP addresses will be implicitly added.
+     */
+    ipfilter?: boolean;
+    /**
+     * Log level for incoming traffic.
+     */
+    log_level_in?: string;
+    /**
+     * Log level for outgoing traffic.
+     */
+    log_level_out?: string;
+    /**
+     * Enable/disable MAC address filter.
+     */
+    macfilter?: boolean;
+    /**
+     * Enable NDP (Neighbor Discovery Protocol).
+     */
+    ndp?: boolean;
+    /**
+     * Input policy.
+     */
+    policy_in?: string;
+    /**
+     * Output policy.
+     */
+    policy_out?: string;
+    /**
+     * Allow sending Router Advertisement.
+     */
+    radv?: boolean;
+};
+export interface ret_nodes_node_lxc_vmid_firewall_logGET {
+    /**
+     * Line number
+     */
+    n: number;
+    /**
+     * Line text
+     */
+    t: string;
+};
+export interface ret_nodes_node_lxc_vmid_firewall_refsGET {
+    /**
+     */
+    comment?: string;
+    /**
+     */
+    name: string;
+    /**
+     */
+    type: string;
+};
+export interface ret_nodes_node_lxc_vmid_rrdGET {
+    /**
+     */
+    filename: string;
+};
+export interface ret_nodes_node_lxc_vmid_rrddataGET {
+};
+export type ret_nodes_node_lxc_vmid_vncproxyPOST = any;
+export type ret_nodes_node_lxc_vmid_termproxyPOST = any;
+export interface ret_nodes_node_lxc_vmid_vncwebsocketGET {
+    /**
+     */
+    port: string;
+};
+export type ret_nodes_node_lxc_vmid_spiceproxyPOST = any;
+export type ret_nodes_node_lxc_vmid_migratePOST = any;
+export interface ret_nodes_node_lxc_vmid_featureGET {
+    /**
+     */
+    hasFeature: boolean;
+};
+export type ret_nodes_node_lxc_vmid_clonePOST = any;
+export type ret_nodes_node_lxc_vmid_resizePUT = any;
+export type ret_nodes_node_lxc_vmid_move_volumePOST = any;
+export interface ret_nodes_node_lxc_vmid_pendingGET {
+    /**
+     * Indicates a pending delete request if present and not 0.
+     */
+    delete?: number;
+    /**
+     * Configuration option name.
+     */
+    key: string;
+    /**
+     * Pending value.
+     */
+    pending?: string;
+    /**
+     * Current value.
+     */
+    value?: string;
+};
+export interface ret_nodes_node_cephGET {
+};
+export type ret_nodes_node_ceph_osdGET = any;
+export type ret_nodes_node_ceph_osdPOST = any;
+export type ret_nodes_node_ceph_osd_osdidDELETE = any;
+export interface ret_nodes_node_ceph_mdsGET {
+    /**
+     */
+    addr?: string;
+    /**
+     */
+    host?: string;
+    /**
+     * The name (ID) for the MDS
+     */
+    name: string;
+    /**
+     */
+    rank?: number;
+    /**
+     * If true, the standby MDS is polling the active MDS for faster recovery (hot standby).
+     */
+    standby_replay?: boolean;
+    /**
+     * State of the MDS
+     */
+    state: string;
+};
+export type ret_nodes_node_ceph_mds_nameDELETE = any;
+export type ret_nodes_node_ceph_mds_namePOST = any;
+export interface ret_nodes_node_ceph_mgrGET {
+    /**
+     */
+    addr?: string;
+    /**
+     */
+    host?: string;
+    /**
+     * The name (ID) for the MGR
+     */
+    name: string;
+    /**
+     * State of the MGR
+     */
+    state: string;
+};
+export type ret_nodes_node_ceph_mgr_idDELETE = any;
+export type ret_nodes_node_ceph_mgr_idPOST = any;
+export interface ret_nodes_node_ceph_monGET {
+    /**
+     */
+    addr?: string;
+    /**
+     */
+    host?: string;
+    /**
+     */
+    name: string;
+};
+export type ret_nodes_node_ceph_mon_monidDELETE = any;
+export type ret_nodes_node_ceph_mon_monidPOST = any;
+export interface ret_nodes_node_ceph_fsGET {
+    /**
+     * The name of the data pool.
+     */
+    data_pool: string;
+    /**
+     * The name of the metadata pool.
+     */
+    metadata_pool: string;
+    /**
+     * The ceph filesystem name.
+     */
+    name: string;
+};
+export type ret_nodes_node_ceph_fs_namePOST = any;
+export interface ret_nodes_node_ceph_disksGET {
+    /**
+     */
+    dev: string;
+    /**
+     */
+    gpt: boolean;
+    /**
+     */
+    model?: string;
+    /**
+     */
+    osdid: number;
+    /**
+     */
+    serial?: string;
+    /**
+     */
+    size: number;
+    /**
+     */
+    used?: string;
+    /**
+     */
+    vendor?: string;
+};
+export type ret_nodes_node_ceph_configGET = any;
+export interface ret_nodes_node_ceph_configdbGET {
+    /**
+     */
+    can_update_at_runtime: boolean;
+    /**
+     */
+    level: string;
+    /**
+     */
+    mask: string;
+    /**
+     */
+    name: string;
+    /**
+     */
+    section: string;
+    /**
+     */
+    value: string;
+};
+export type ret_nodes_node_ceph_stopPOST = any;
+export type ret_nodes_node_ceph_startPOST = any;
+export type ret_nodes_node_ceph_restartPOST = any;
+export type ret_nodes_node_ceph_statusGET = any;
+export interface ret_nodes_node_ceph_poolsGET {
+    /**
+     */
+    bytes_used: number;
+    /**
+     */
+    crush_rule: number;
+    /**
+     */
+    crush_rule_name: string;
+    /**
+     */
+    min_size: number;
+    /**
+     */
+    percent_used: number;
+    /**
+     */
+    pg_autoscale_mode?: string;
+    /**
+     */
+    pg_num: number;
+    /**
+     */
+    pool: number;
+    /**
+     */
+    pool_name: string;
+    /**
+     */
+    size: number;
+};
+export type ret_nodes_node_ceph_poolsPOST = any;
+export type ret_nodes_node_ceph_pools_nameDELETE = any;
+export type ret_nodes_node_ceph_flagsGET = any;
+export type ret_nodes_node_ceph_crushGET = any;
+export interface ret_nodes_node_ceph_logGET {
+    /**
+     * Line number
+     */
+    n: number;
+    /**
+     * Line text
+     */
+    t: string;
+};
+export interface ret_nodes_node_ceph_rulesGET {
+};
+export type ret_nodes_node_vzdumpPOST = any;
+export type ret_nodes_node_vzdump_extractconfigGET = any;
+export interface ret_nodes_node_servicesGET {
+};
+export interface ret_nodes_node_services_serviceGET {
+    /**
+     */
+    subdir: string;
+};
+export type ret_nodes_node_services_service_stateGET = any;
+export type ret_nodes_node_services_service_startPOST = any;
+export type ret_nodes_node_services_service_stopPOST = any;
+export type ret_nodes_node_services_service_restartPOST = any;
+export type ret_nodes_node_services_service_reloadPOST = any;
+export type ret_nodes_node_subscriptionGET = any;
+export interface ret_nodes_node_networkGET {
+};
+export type ret_nodes_node_networkPUT = any;
+export interface ret_nodes_node_network_ifaceGET {
+    /**
+     */
+    method: string;
+    /**
+     */
+    type: string;
+};
+export interface ret_nodes_node_tasksGET {
+    /**
+     */
+    endtime?: number;
+    /**
+     */
+    id: string;
+    /**
+     */
+    node: string;
+    /**
+     */
+    pid: number;
+    /**
+     */
+    pstart: number;
+    /**
+     */
+    starttime: number;
+    /**
+     */
+    status?: string;
+    /**
+     */
+    type: string;
+    /**
+     */
+    upid: string;
+    /**
+     */
+    user: string;
+};
+export interface ret_nodes_node_tasks_upidGET {
+};
+export interface ret_nodes_node_tasks_upid_logGET {
+    /**
+     * Line number
+     */
+    n: number;
+    /**
+     * Line text
+     */
+    t: string;
+};
+export interface ret_nodes_node_tasks_upid_statusGET {
+    /**
+     */
+    pid: number;
+    /**
+     */
+    status: string;
+};
+export interface ret_nodes_node_scanGET {
+    /**
+     */
+    method: string;
+};
+export interface ret_nodes_node_scan_zfsGET {
+    /**
+     * ZFS pool name.
+     */
+    pool: string;
+};
+export interface ret_nodes_node_scan_nfsGET {
+    /**
+     * NFS export options.
+     */
+    options: string;
+    /**
+     * The exported path.
+     */
+    path: string;
+};
+export interface ret_nodes_node_scan_cifsGET {
+    /**
+     * Descriptive text from server.
+     */
+    description: string;
+    /**
+     * The cifs share name.
+     */
+    share: string;
+};
+export interface ret_nodes_node_scan_glusterfsGET {
+    /**
+     * The volume name.
+     */
+    volname: string;
+};
+export interface ret_nodes_node_scan_iscsiGET {
+    /**
+     * The iSCSI portal name.
+     */
+    portal: string;
+    /**
+     * The iSCSI target name.
+     */
+    target: string;
+};
+export interface ret_nodes_node_scan_lvmGET {
+    /**
+     * The LVM logical volume group name.
+     */
+    vg: string;
+};
+export interface ret_nodes_node_scan_lvmthinGET {
+    /**
+     * The LVM Thin Pool name (LVM logical volume).
+     */
+    lv: string;
+};
+export interface ret_nodes_node_scan_usbGET {
+    /**
+     */
+    busnum: number;
+    /**
+     */
+    class: number;
+    /**
+     */
+    devnum: number;
+    /**
+     */
+    level: number;
+    /**
+     */
+    manufacturer?: string;
+    /**
+     */
+    port: number;
+    /**
+     */
+    prodid: string;
+    /**
+     */
+    product?: string;
+    /**
+     */
+    serial?: string;
+    /**
+     */
+    speed: string;
+    /**
+     */
+    usbpath?: string;
+    /**
+     */
+    vendid: string;
+};
+export interface ret_nodes_node_hardwareGET {
+    /**
+     */
+    type: string;
+};
+export interface ret_nodes_node_hardware_pciGET {
+    /**
+     * The PCI Class of the device.
+     */
+    class: string;
+    /**
+     * The Device ID.
+     */
+    device: string;
+    /**
+     */
+    device_name?: string;
+    /**
+     * The PCI ID.
+     */
+    id: string;
+    /**
+     * The IOMMU group in which the device is in. If no IOMMU group is detected, it is set to -1.
+     */
+    iommugroup: number;
+    /**
+     * If set, marks that the device is capable of creating mediated devices.
+     */
+    mdev?: boolean;
+    /**
+     * The Subsystem Device ID.
+     */
+    subsystem_device?: string;
+    /**
+     */
+    subsystem_device_name?: string;
+    /**
+     * The Subsystem Vendor ID.
+     */
+    subsystem_vendor?: string;
+    /**
+     */
+    subsystem_vendor_name?: string;
+    /**
+     * The Vendor ID.
+     */
+    vendor: string;
+    /**
+     */
+    vendor_name?: string;
+};
+export interface ret_nodes_node_hardware_pci_pciidGET {
+    /**
+     */
+    method: string;
+};
+export interface ret_nodes_node_hardware_pci_pciid_mdevGET {
+    /**
+     * The number of still available instances of this type.
+     */
+    available: number;
+    /**
+     */
+    description: string;
+    /**
+     * The name of the mdev type.
+     */
+    type: string;
+};
+export interface ret_nodes_node_storageGET {
+    /**
+     * Set when storage is accessible.
+     */
+    active?: boolean;
+    /**
+     * Available storage space in bytes.
+     */
+    avail?: number;
+    /**
+     * Allowed storage content types.
+     */
+    content: string;
+    /**
+     * Set when storage is enabled (not disabled).
+     */
+    enabled?: boolean;
+    /**
+     * Shared flag from storage configuration.
+     */
+    shared?: boolean;
+    /**
+     * The storage identifier.
+     */
+    storage: string;
+    /**
+     * Total storage space in bytes.
+     */
+    total?: number;
+    /**
+     * Storage type.
+     */
+    type: string;
+    /**
+     * Used storage space in bytes.
+     */
+    used?: number;
+    /**
+     * Used fraction (used/total).
+     */
+    used_fraction?: number;
+};
+export interface ret_nodes_node_storage_storageGET {
+    /**
+     */
+    subdir: string;
+};
+export interface ret_nodes_node_storage_storage_contentGET {
+    /**
+     * Creation time (seconds since the UNIX Epoch).
+     */
+    ctime?: number;
+    /**
+     * Format identifier ('raw', 'qcow2', 'subvol', 'iso', 'tgz' ...)
+     */
+    format: string;
+    /**
+     * Volume identifier of parent (for linked cloned).
+     */
+    parent?: string;
+    /**
+     * Volume size in bytes.
+     */
+    size: number;
+    /**
+     * Used space. Please note that most storage plugins do not report anything useful here.
+     */
+    used?: number;
+    /**
+     * Associated Owner VMID.
+     */
+    vmid?: number;
+    /**
+     * Volume identifier.
+     */
+    volid: string;
+};
+export type ret_nodes_node_storage_storage_contentPOST = any;
+export type ret_nodes_node_storage_storage_content_volumeDELETE = any;
+export type ret_nodes_node_storage_storage_content_volumeGET = any;
+export type ret_nodes_node_storage_storage_content_volumePOST = any;
+export type ret_nodes_node_storage_storage_statusGET = any;
+export interface ret_nodes_node_storage_storage_rrdGET {
+    /**
+     */
+    filename: string;
+};
+export interface ret_nodes_node_storage_storage_rrddataGET {
+};
+export type ret_nodes_node_storage_storage_uploadPOST = any;
+export interface ret_nodes_node_disksGET {
+};
+export interface ret_nodes_node_disks_lvmGET {
+    /**
+     */
+    children: {
+    /**
+     * The underlying physical volumes
+     */
+    children?: {
+    /**
+     * The free bytes in the physical volume
+     */
+    free: number;
+    /**
+     */
+    leaf: boolean;
+    /**
+     * The name of the physical volume
+     */
+    name: string;
+    /**
+     * The size of the physical volume in bytes
+     */
+    size: number;
+}[];
+    /**
+     * The free bytes in the volume group
+     */
+    free: number;
+    /**
+     */
+    leaf: boolean;
+    /**
+     * The name of the volume group
+     */
+    name: string;
+    /**
+     * The size of the volume group in bytes
+     */
+    size: number;
+}[];
+    /**
+     */
+    leaf: boolean;
+};
+export type ret_nodes_node_disks_lvmPOST = any;
+export interface ret_nodes_node_disks_lvmthinGET {
+    /**
+     * The name of the thinpool.
+     */
+    lv: string;
+    /**
+     * The size of the thinpool in bytes.
+     */
+    lv_size: number;
+    /**
+     * The size of the metadata lv in bytes.
+     */
+    metadata_size: number;
+    /**
+     * The used bytes of the metadata lv.
+     */
+    metadata_used: number;
+    /**
+     * The used bytes of the thinpool.
+     */
+    used: number;
+};
+export type ret_nodes_node_disks_lvmthinPOST = any;
+export interface ret_nodes_node_disks_directoryGET {
+    /**
+     * The mounted device.
+     */
+    device: string;
+    /**
+     * The mount options.
+     */
+    options: string;
+    /**
+     * The mount path.
+     */
+    path: string;
+    /**
+     * The filesystem type.
+     */
+    type: string;
+    /**
+     * The path of the mount unit.
+     */
+    unitfile: string;
+};
+export type ret_nodes_node_disks_directoryPOST = any;
+export interface ret_nodes_node_disks_zfsGET {
+    /**
+     */
+    alloc: number;
+    /**
+     */
+    dedup: number;
+    /**
+     */
+    frag: number;
+    /**
+     */
+    free: number;
+    /**
+     */
+    health: string;
+    /**
+     */
+    name: string;
+    /**
+     */
+    size: number;
+};
+export type ret_nodes_node_disks_zfsPOST = any;
+export interface ret_nodes_node_disks_zfs_nameGET {
+    /**
+     * Information about the recommended action to fix the state.
+     */
+    action?: string;
+    /**
+     * The pool configuration information, including the vdevs for each section (e.g. spares, cache), may be nested.
+     */
+    children: {
+    /**
+     */
+    cksum?: number;
+    /**
+     * An optional message about the vdev.
+     */
+    msg: string;
+    /**
+     * The name of the vdev or section.
+     */
+    name: string;
+    /**
+     */
+    read?: number;
+    /**
+     * The state of the vdev.
+     */
+    state?: string;
+    /**
+     */
+    write?: number;
+}[];
+    /**
+     * Information about the errors on the zpool.
+     */
+    errors: string;
+    /**
+     * The name of the zpool.
+     */
+    name: string;
+    /**
+     * Information about the last/current scrub.
+     */
+    scan: string;
+    /**
+     * The state of the zpool.
+     */
+    state: string;
+    /**
+     * Information about the state of the zpool.
+     */
+    status?: string;
+};
+export interface ret_nodes_node_disks_listGET {
+    /**
+     * The device path
+     */
+    devpath: string;
+    /**
+     */
+    gpt: boolean;
+    /**
+     */
+    health?: string;
+    /**
+     */
+    model?: string;
+    /**
+     */
+    osdid: number;
+    /**
+     */
+    serial?: string;
+    /**
+     */
+    size: number;
+    /**
+     */
+    used?: string;
+    /**
+     */
+    vendor?: string;
+    /**
+     */
+    wwn?: string;
+};
+export interface ret_nodes_node_disks_smartGET {
+    /**
+     */
+    attributes?: string[];
+    /**
+     */
+    health: string;
+    /**
+     */
+    text?: string;
+    /**
+     */
+    type?: string;
+};
+export type ret_nodes_node_disks_initgptPOST = any;
+export interface ret_nodes_node_aptGET {
+    /**
+     */
+    id: string;
+};
+export interface ret_nodes_node_apt_updateGET {
+};
+export type ret_nodes_node_apt_updatePOST = any;
+export type ret_nodes_node_apt_changelogGET = any;
+export interface ret_nodes_node_apt_versionsGET {
+};
+export interface ret_nodes_node_firewallGET {
+};
+export interface ret_nodes_node_firewall_rulesGET {
+    /**
+     */
+    pos: number;
+};
+export interface ret_nodes_node_firewall_rules_posGET {
+    /**
+     */
+    action: string;
+    /**
+     */
+    comment?: string;
+    /**
+     */
+    dest?: string;
+    /**
+     */
+    dport?: string;
+    /**
+     */
+    enable?: number;
+    /**
+     */
+    iface?: string;
+    /**
+     */
+    ipversion?: number;
+    /**
+     * Log level for firewall rule
+     */
+    log?: string;
+    /**
+     */
+    macro?: string;
+    /**
+     */
+    pos: number;
+    /**
+     */
+    proto?: string;
+    /**
+     */
+    source?: string;
+    /**
+     */
+    sport?: string;
+    /**
+     */
+    type: string;
+};
+export interface ret_nodes_node_firewall_optionsGET {
+    /**
+     * Enable host firewall rules.
+     */
+    enable?: boolean;
+    /**
+     * Log level for incoming traffic.
+     */
+    log_level_in?: string;
+    /**
+     * Log level for outgoing traffic.
+     */
+    log_level_out?: string;
+    /**
+     * Enable logging of conntrack information.
+     */
+    log_nf_conntrack?: boolean;
+    /**
+     * Enable NDP (Neighbor Discovery Protocol).
+     */
+    ndp?: boolean;
+    /**
+     * Allow invalid packets on connection tracking.
+     */
+    nf_conntrack_allow_invalid?: boolean;
+    /**
+     * Maximum number of tracked connections.
+     */
+    nf_conntrack_max?: number;
+    /**
+     * Conntrack established timeout.
+     */
+    nf_conntrack_tcp_timeout_established?: number;
+    /**
+     * Conntrack syn recv timeout.
+     */
+    nf_conntrack_tcp_timeout_syn_recv?: number;
+    /**
+     * Enable SMURFS filter.
+     */
+    nosmurfs?: boolean;
+    /**
+     * Enable synflood protection
+     */
+    protection_synflood?: boolean;
+    /**
+     * Synflood protection rate burst by ip src.
+     */
+    protection_synflood_burst?: number;
+    /**
+     * Synflood protection rate syn/sec by ip src.
+     */
+    protection_synflood_rate?: number;
+    /**
+     * Log level for SMURFS filter.
+     */
+    smurf_log_level?: string;
+    /**
+     * Log level for illegal tcp flags filter.
+     */
+    tcp_flags_log_level?: string;
+    /**
+     * Filter illegal combinations of TCP flags.
+     */
+    tcpflags?: boolean;
+};
+export interface ret_nodes_node_firewall_logGET {
+    /**
+     * Line number
+     */
+    n: number;
+    /**
+     * Line text
+     */
+    t: string;
+};
+export interface ret_nodes_node_replicationGET {
+    /**
+     */
+    id: string;
+};
+export interface ret_nodes_node_replication_idGET {
+};
+export type ret_nodes_node_replication_id_statusGET = any;
+export interface ret_nodes_node_replication_id_logGET {
+    /**
+     * Line number
+     */
+    n: number;
+    /**
+     * Line text
+     */
+    t: string;
+};
+export type ret_nodes_node_replication_id_schedule_nowPOST = any;
+export interface ret_nodes_node_certificatesGET {
+};
+export interface ret_nodes_node_certificates_acmeGET {
+};
+export type ret_nodes_node_certificates_acme_certificateDELETE = any;
+export type ret_nodes_node_certificates_acme_certificatePOST = any;
+export type ret_nodes_node_certificates_acme_certificatePUT = any;
+export interface ret_nodes_node_certificates_infoGET {
+    /**
+     */
+    filename?: string;
+    /**
+     * Certificate SHA 256 fingerprint.
+     */
+    fingerprint?: string;
+    /**
+     * Certificate issuer name.
+     */
+    issuer?: string;
+    /**
+     * Certificate's notAfter timestamp (UNIX epoch).
+     */
+    notafter?: number;
+    /**
+     * Certificate's notBefore timestamp (UNIX epoch).
+     */
+    notbefore?: number;
+    /**
+     * Certificate in PEM format
+     */
+    pem?: string;
+    /**
+     * Certificate's public key size
+     */
+    'public-key-bits'?: number;
+    /**
+     * Certificate's public key algorithm
+     */
+    'public-key-type'?: string;
+    /**
+     * List of Certificate's SubjectAlternativeName entries.
+     */
+    san?: string[];
+    /**
+     * Certificate subject name.
+     */
+    subject?: string;
+};
+export interface ret_nodes_node_certificates_customPOST {
+    /**
+     */
+    filename?: string;
+    /**
+     * Certificate SHA 256 fingerprint.
+     */
+    fingerprint?: string;
+    /**
+     * Certificate issuer name.
+     */
+    issuer?: string;
+    /**
+     * Certificate's notAfter timestamp (UNIX epoch).
+     */
+    notafter?: number;
+    /**
+     * Certificate's notBefore timestamp (UNIX epoch).
+     */
+    notbefore?: number;
+    /**
+     * Certificate in PEM format
+     */
+    pem?: string;
+    /**
+     * Certificate's public key size
+     */
+    'public-key-bits'?: number;
+    /**
+     * Certificate's public key algorithm
+     */
+    'public-key-type'?: string;
+    /**
+     * List of Certificate's SubjectAlternativeName entries.
+     */
+    san?: string[];
+    /**
+     * Certificate subject name.
+     */
+    subject?: string;
+};
+export type ret_nodes_node_configGET = any;
+export interface ret_nodes_node_sdnGET {
+};
+export interface ret_nodes_node_sdn_zonesGET {
+    /**
+     * Status of zone
+     */
+    status: string;
+    /**
+     * The SDN zone object identifier.
+     */
+    zone: string;
+};
+export interface ret_nodes_node_sdn_zones_zoneGET {
+    /**
+     */
+    subdir: string;
+};
+export interface ret_nodes_node_sdn_zones_zone_contentGET {
+    /**
+     * Status.
+     */
+    status?: string;
+    /**
+     * Status details
+     */
+    statusmsg?: string;
+    /**
+     * Vnet identifier.
+     */
+    vnet: string;
+};
+export interface ret_nodes_node_versionGET {
+    /**
+     * The current installed Proxmox VE Release
+     */
+    release: string;
+    /**
+     * The short git commit hash ID from which this version was build
+     */
+    repoid: string;
+    /**
+     * The current installed pve-manager package version
+     */
+    version: string;
+};
+export type ret_nodes_node_statusGET = any;
+export interface ret_nodes_node_netstatGET {
+};
+export type ret_nodes_node_wakeonlanPOST = any;
+export interface ret_nodes_node_rrdGET {
+    /**
+     */
+    filename: string;
+};
+export interface ret_nodes_node_rrddataGET {
+};
+export interface ret_nodes_node_syslogGET {
+    /**
+     * Line number
+     */
+    n: number;
+    /**
+     * Line text
+     */
+    t: string;
+};
+export type ret_nodes_node_vncshellPOST = any;
+export type ret_nodes_node_termproxyPOST = any;
+export interface ret_nodes_node_vncwebsocketGET {
+    /**
+     */
+    port: string;
+};
+export type ret_nodes_node_spiceshellPOST = any;
+export interface ret_nodes_node_dnsGET {
+    /**
+     * First name server IP address.
+     */
+    dns1?: string;
+    /**
+     * Second name server IP address.
+     */
+    dns2?: string;
+    /**
+     * Third name server IP address.
+     */
+    dns3?: string;
+    /**
+     * Search domain for host-name lookup.
+     */
+    search?: string;
+};
+export interface ret_nodes_node_timeGET {
+    /**
+     * Seconds since 1970-01-01 00:00:00 (local time)
+     */
+    localtime: number;
+    /**
+     * Seconds since 1970-01-01 00:00:00 UTC.
+     */
+    time: number;
+    /**
+     * Time zone
+     */
+    timezone: string;
+};
+export interface ret_nodes_node_aplinfoGET {
+};
+export type ret_nodes_node_aplinfoPOST = any;
+export type ret_nodes_node_reportGET = any;
+export type ret_nodes_node_startallPOST = any;
+export type ret_nodes_node_stopallPOST = any;
+export type ret_nodes_node_migrateallPOST = any;
+export interface ret_nodes_node_hostsGET {
+    /**
+     * The content of /etc/hosts.
+     */
+    data: string;
+    /**
+     * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+     */
+    digest?: string;
+};
+export interface ret_storageGET {
+    /**
+     */
+    storage: string;
+};
+export type ret_storage_storageGET = any;
+export interface ret_accessGET {
+    /**
+     */
+    subdir: string;
+};
+export interface ret_access_usersGET {
+    /**
+     */
+    comment?: string;
+    /**
+     */
+    email?: string;
+    /**
+     * Enable the account (default). You can set this to '0' to disable the account
+     */
+    enable?: boolean;
+    /**
+     * Account expiration date (seconds since epoch). '0' means no expiration date.
+     */
+    expire?: number;
+    /**
+     */
+    firstname?: string;
+    /**
+     */
+    groups?: string;
+    /**
+     * Keys for two factor auth (yubico).
+     */
+    keys?: string;
+    /**
+     */
+    lastname?: string;
+    /**
+     */
+    tokens?: {
+    /**
+     */
+    comment?: string;
+    /**
+     * API token expiration date (seconds since epoch). '0' means no expiration date.
+     */
+    expire?: number;
+    /**
+     * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
+     */
+    privsep?: boolean;
+    /**
+     * User-specific token identifier.
+     */
+    tokenid: string;
+}[];
+    /**
+     * User ID
+     */
+    userid: string;
+};
+export interface ret_access_users_useridGET {
+    /**
+     */
+    comment?: string;
+    /**
+     */
+    email?: string;
+    /**
+     * Enable the account (default). You can set this to '0' to disable the account
+     */
+    enable?: boolean;
+    /**
+     * Account expiration date (seconds since epoch). '0' means no expiration date.
+     */
+    expire?: number;
+    /**
+     */
+    firstname?: string;
+    /**
+     */
+    groups?: string[];
+    /**
+     * Keys for two factor auth (yubico).
+     */
+    keys?: string;
+    /**
+     */
+    lastname?: string;
+    /**
+     */
+    tokens?: any;
+};
+export interface ret_access_users_userid_tfaGET {
+    /**
+     * The type of TFA the users realm has set, if any.
+     */
+    realm?: string;
+    /**
+     * The type of TFA the user has set, if any.
+     */
+    user?: string;
+};
+export interface ret_access_users_userid_tokenGET {
+    /**
+     */
+    comment?: string;
+    /**
+     * API token expiration date (seconds since epoch). '0' means no expiration date.
+     */
+    expire?: number;
+    /**
+     * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
+     */
+    privsep?: boolean;
+    /**
+     * User-specific token identifier.
+     */
+    tokenid: string;
+};
+export interface ret_access_users_userid_token_tokenidGET {
+    /**
+     */
+    comment?: string;
+    /**
+     * API token expiration date (seconds since epoch). '0' means no expiration date.
+     */
+    expire?: number;
+    /**
+     * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
+     */
+    privsep?: boolean;
+};
+export interface ret_access_users_userid_token_tokenidPOST {
+    /**
+     * The full token id.
+     */
+    'full-tokenid': string;
+    /**
+     */
+    info: {
+            /**
+             */
+            comment?: string;
+            /**
+             * API token expiration date (seconds since epoch). '0' means no expiration date.
+             */
+            expire?: number;
+            /**
+             * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
+             */
+            privsep?: boolean;
+};
+    /**
+     * API token value used for authentication.
+     */
+    value: string;
+};
+export interface ret_access_users_userid_token_tokenidPUT {
+    /**
+     */
+    comment?: string;
+    /**
+     * API token expiration date (seconds since epoch). '0' means no expiration date.
+     */
+    expire?: number;
+    /**
+     * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
+     */
+    privsep?: boolean;
+};
+export interface ret_access_groupsGET {
+    /**
+     */
+    comment?: string;
+    /**
+     */
+    groupid: string;
+    /**
+     * list of users which form this group
+     */
+    users?: string;
+};
+export interface ret_access_groups_groupidGET {
+    /**
+     */
+    comment?: string;
+    /**
+     */
+    members: string[];
+};
+export interface ret_access_rolesGET {
+    /**
+     */
+    privs?: string;
+    /**
+     */
+    roleid: string;
+    /**
+     */
+    special?: boolean;
+};
+export interface ret_access_roles_roleidGET {
+    /**
+     */
+    'Datastore.Allocate'?: boolean;
+    /**
+     */
+    'Datastore.AllocateSpace'?: boolean;
+    /**
+     */
+    'Datastore.AllocateTemplate'?: boolean;
+    /**
+     */
+    'Datastore.Audit'?: boolean;
+    /**
+     */
+    'Group.Allocate'?: boolean;
+    /**
+     */
+    'Permissions.Modify'?: boolean;
+    /**
+     */
+    'Pool.Allocate'?: boolean;
+    /**
+     */
+    'Realm.Allocate'?: boolean;
+    /**
+     */
+    'Realm.AllocateUser'?: boolean;
+    /**
+     */
+    'SDN.Allocate'?: boolean;
+    /**
+     */
+    'SDN.Audit'?: boolean;
+    /**
+     */
+    'Sys.Audit'?: boolean;
+    /**
+     */
+    'Sys.Console'?: boolean;
+    /**
+     */
+    'Sys.Modify'?: boolean;
+    /**
+     */
+    'Sys.PowerMgmt'?: boolean;
+    /**
+     */
+    'Sys.Syslog'?: boolean;
+    /**
+     */
+    'User.Modify'?: boolean;
+    /**
+     */
+    'VM.Allocate'?: boolean;
+    /**
+     */
+    'VM.Audit'?: boolean;
+    /**
+     */
+    'VM.Backup'?: boolean;
+    /**
+     */
+    'VM.Clone'?: boolean;
+    /**
+     */
+    'VM.Config.CDROM'?: boolean;
+    /**
+     */
+    'VM.Config.CPU'?: boolean;
+    /**
+     */
+    'VM.Config.Cloudinit'?: boolean;
+    /**
+     */
+    'VM.Config.Disk'?: boolean;
+    /**
+     */
+    'VM.Config.HWType'?: boolean;
+    /**
+     */
+    'VM.Config.Memory'?: boolean;
+    /**
+     */
+    'VM.Config.Network'?: boolean;
+    /**
+     */
+    'VM.Config.Options'?: boolean;
+    /**
+     */
+    'VM.Console'?: boolean;
+    /**
+     */
+    'VM.Migrate'?: boolean;
+    /**
+     */
+    'VM.Monitor'?: boolean;
+    /**
+     */
+    'VM.PowerMgmt'?: boolean;
+    /**
+     */
+    'VM.Snapshot'?: boolean;
+    /**
+     */
+    'VM.Snapshot.Rollback'?: boolean;
+};
+export interface ret_access_aclGET {
+    /**
+     * Access control path
+     */
+    path: string;
+    /**
+     * Allow to propagate (inherit) permissions.
+     */
+    propagate?: boolean;
+    /**
+     */
+    roleid: string;
+    /**
+     */
+    type: string;
+    /**
+     */
+    ugid: string;
+};
+export interface ret_access_domainsGET {
+    /**
+     * A comment. The GUI use this text when you select a domain (Realm) on the login window.
+     */
+    comment?: string;
+    /**
+     */
+    realm: string;
+    /**
+     * Two-factor authentication provider.
+     */
+    tfa?: string;
+    /**
+     */
+    type: string;
+};
+export type ret_access_domains_realmGET = any;
+export type ret_access_domains_realm_syncPOST = any;
+export interface ret_access_ticketPOST {
+    /**
+     */
+    CSRFPreventionToken?: string;
+    /**
+     */
+    clustername?: string;
+    /**
+     */
+    ticket?: string;
+    /**
+     */
+    username: string;
+};
+export interface ret_access_tfaPOST {
+    /**
+     */
+    ticket: string;
+};
+export type ret_access_tfaPUT = any;
+export type ret_access_permissionsGET = any;
+export interface ret_poolsGET {
+    /**
+     */
+    poolid: string;
+};
+export interface ret_pools_poolidGET {
+    /**
+     */
+    comment?: string;
+    /**
+     */
+    members: {
+    /**
+     */
+    id: string;
+    /**
+     */
+    node: string;
+    /**
+     */
+    storage?: string;
+    /**
+     */
+    type: string;
+    /**
+     */
+    vmid?: number;
+}[];
+};
+export interface ret_versionGET {
+    /**
+     */
+    release: string;
+    /**
+     */
+    repoid: string;
+    /**
+     */
+    version: string;
+};
 export interface Proxmox {
     cluster: {
         /**
          * Cluster index.
          * GET /cluster
+         * @allowtoken 1
+         * @permissions {"user":"all"}
          */
-        $get(): Promise<any[]>;
+        $get(): Promise<ret_clusterGET[]>;
         replication: {
             /**
              * List replication jobs.
              * GET /cluster/replication
+             * @allowtoken 1
+             * @permissions {"description":"Requires the VM.Audit permission on /vms/<vmid>.","user":"all"}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_cluster_replicationGET[]>;
             /**
              * Create a new replication job
              * POST /cluster/replication
+             * @allowtoken 1
+             * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
              */
             $post(param: { comment?: String0_4096, disable?: Tdisable, id: pvereplicationjobid, rate?: Trate, remove_job?: Tremove_job, schedule?: pvecalendarevent, source?: pvenode, target: pvenode, type: Ttype }): Promise<null>;
             $(id: string): {
                 /**
                  * Mark replication job for removal.
                  * DELETE /cluster/replication/{id}
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                  */
-                $delete(param: { force?: Tdisable, id: pvereplicationjobid, keep?: Tdisable }): Promise<null>;
+                $delete(param?: { force?: Tdisable, keep?: Tdisable }): Promise<null>;
                 /**
                  * Read replication job configuration.
                  * GET /cluster/replication/{id}
+                 * @allowtoken 1
+                 * @permissions {"description":"Requires the VM.Audit permission on /vms/<vmid>.","user":"all"}
                  */
-                $get(param: { id: pvereplicationjobid }): Promise<object>;
+                $get(): Promise<ret_cluster_replication_idGET>;
                 /**
                  * Update replication job configuration.
                  * PUT /cluster/replication/{id}
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                  */
-                $put(param: { comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_40, disable?: Tdisable, id: pvereplicationjobid, rate?: Trate, remove_job?: Tremove_job, schedule?: pvecalendarevent, source?: pvenode }): Promise<null>;
+                $put(param?: { comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_40, disable?: Tdisable, rate?: Trate, remove_job?: Tremove_job, schedule?: pvecalendarevent, source?: pvenode }): Promise<null>;
             };
         },
         config: {
             /**
              * Directory index.
              * GET /cluster/config
+             * @allowtoken 1
+             * @permissions {"check":["perm","/",["Sys.Audit"]]}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_cluster_configGET[]>;
             /**
              * Generate new cluster configuration. If no links given, default to local IP address as link0.
              * POST /cluster/config
+             * @allowtoken 1
              */
-            $post(param: { clustername: pvenode_1, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, votes?: integer_Min1 }): Promise<string>;
+            $post(param: { clustername: pvenode_1, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, votes?: integer_Min1 }): Promise<ret_cluster_configPOST>;
             apiversion: {
                 /**
                  * Return the version of the cluster join API available on this node.
                  * GET /cluster/config/apiversion
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<number>;
+                $get(): Promise<ret_cluster_config_apiversionGET>;
             },
             nodes: {
                 /**
                  * Corosync node list.
                  * GET /cluster/config/nodes
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_config_nodesGET[]>;
                 $(node: string): {
                     /**
                      * Removes a node from the cluster configuration.
                      * DELETE /cluster/config/nodes/{node}
+                     * @allowtoken 1
                      */
-                    $delete(param: { node: pvenode }): Promise<null>;
+                    $delete(): Promise<null>;
                     /**
                      * Adds a node to the cluster configuration. This call is for internal use.
                      * POST /cluster/config/nodes/{node}
+                     * @allowtoken 1
                      */
-                    $post(param: { apiversion?: integer, force?: Tdisable, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, new_node_ip?: ip, node: pvenode, nodeid?: integer_Min1, votes?: integer_Min0 }): Promise<object>;
+                    $post(param?: { apiversion?: integer, force?: Tdisable, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, new_node_ip?: ip, nodeid?: integer_Min1, votes?: integer_Min0 }): Promise<ret_cluster_config_nodes_nodePOST>;
                 };
             },
             join: {
                 /**
                  * Get information needed to join this cluster over the connected node.
                  * GET /cluster/config/join
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(param?: { node?: pvenode }): Promise<object>;
+                $get(param?: { node?: pvenode }): Promise<ret_cluster_config_joinGET>;
                 /**
                  * Joins this node into an existing cluster. If no links are given, default to IP resolved by node's hostname on single link (fallback fails for clusters with multiple links).
                  * POST /cluster/config/join
+                 * @allowtoken 1
                  */
-                $post(param: { fingerprint: Tfingerprint, force?: Tdisable, hostname: string, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, password: String0_128, votes?: integer_Min0 }): Promise<string>;
+                $post(param: { fingerprint: Tfingerprint, force?: Tdisable, hostname: string, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, password: String0_128, votes?: integer_Min0 }): Promise<ret_cluster_config_joinPOST>;
             },
             totem: {
                 /**
                  * Get corosync totem protocol settings.
                  * GET /cluster/config/totem
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<object>;
+                $get(): Promise<ret_cluster_config_totemGET>;
             },
             qdevice: {
                 /**
                  * Get QDevice status
                  * GET /cluster/config/qdevice
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<object>;
+                $get(): Promise<ret_cluster_config_qdeviceGET>;
             },
         },
         firewall: {
             /**
              * Directory index.
              * GET /cluster/firewall
+             * @allowtoken 1
+             * @permissions {"user":"all"}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_cluster_firewallGET[]>;
             groups: {
                 /**
                  * List security groups.
                  * GET /cluster/firewall/groups
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_firewall_groupsGET[]>;
                 /**
                  * Create new security group.
                  * POST /cluster/firewall/groups
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Modify"]]}
                  */
                 $post(param: { comment?: string, digest?: String0_40, group: Tgroup, rename?: Tgroup }): Promise<null>;
                 $(group: string): {
                     /**
                      * Delete security group.
                      * DELETE /cluster/firewall/groups/{group}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $delete(param: { group: Tgroup }): Promise<null>;
+                    $delete(): Promise<null>;
                     /**
                      * List rules.
                      * GET /cluster/firewall/groups/{group}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(param: { group: Tgroup }): Promise<any[]>;
+                    $get(): Promise<ret_cluster_firewall_groups_groupGET[]>;
                     /**
                      * Create new rule.
                      * POST /cluster/firewall/groups/{group}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, group: Tgroup, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
+                    $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
                     $(pos: string): {
                         /**
                          * Delete rule.
                          * DELETE /cluster/firewall/groups/{group}/{pos}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $delete(param: { digest?: String0_40, group: Tgroup, pos?: integer_Min0 }): Promise<null>;
+                        $delete(param?: { digest?: String0_40 }): Promise<null>;
                         /**
                          * Get single rule data.
                          * GET /cluster/firewall/groups/{group}/{pos}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
-                        $get(param: { group: Tgroup, pos?: integer_Min0 }): Promise<object>;
+                        $get(): Promise<ret_cluster_firewall_groups_group_posGET>;
                         /**
                          * Modify rule data.
                          * PUT /cluster/firewall/groups/{group}/{pos}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $put(param: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, group: Tgroup, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
+                        $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
                     };
                 };
             },
@@ -1275,74 +4711,100 @@ export interface Proxmox {
                 /**
                  * List rules.
                  * GET /cluster/firewall/rules
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_firewall_rulesGET[]>;
                 /**
                  * Create new rule.
                  * POST /cluster/firewall/rules
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Modify"]]}
                  */
                 $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
                 $(pos: string): {
                     /**
                      * Delete rule.
                      * DELETE /cluster/firewall/rules/{pos}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $delete(param?: { digest?: String0_40, pos?: integer_Min0 }): Promise<null>;
+                    $delete(param?: { digest?: String0_40 }): Promise<null>;
                     /**
                      * Get single rule data.
                      * GET /cluster/firewall/rules/{pos}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(param?: { pos?: integer_Min0 }): Promise<object>;
+                    $get(): Promise<ret_cluster_firewall_rules_posGET>;
                     /**
                      * Modify rule data.
                      * PUT /cluster/firewall/rules/{pos}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
+                    $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
                 };
             },
             ipset: {
                 /**
                  * List IPSets
                  * GET /cluster/firewall/ipset
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_firewall_ipsetGET[]>;
                 /**
                  * Create new IPSet
                  * POST /cluster/firewall/ipset
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Modify"]]}
                  */
                 $post(param: { comment?: string, digest?: String0_40, name: Tname, rename?: Tname }): Promise<null>;
                 $(name: string): {
                     /**
                      * Delete IPSet
                      * DELETE /cluster/firewall/ipset/{name}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $delete(param: { name: Tname }): Promise<null>;
+                    $delete(): Promise<null>;
                     /**
                      * List IPSet content
                      * GET /cluster/firewall/ipset/{name}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(param: { name: Tname }): Promise<any[]>;
+                    $get(): Promise<ret_cluster_firewall_ipset_nameGET[]>;
                     /**
                      * Add IP or Network to IPSet.
                      * POST /cluster/firewall/ipset/{name}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param: { cidr: IPorCIDRorAlias, comment?: string, name: Tname, nomatch?: Tdisable }): Promise<null>;
+                    $post(param: { cidr: IPorCIDRorAlias, comment?: string, nomatch?: Tdisable }): Promise<null>;
                     $(cidr: string): {
                         /**
                          * Remove IP or Network from IPSet.
                          * DELETE /cluster/firewall/ipset/{name}/{cidr}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $delete(param: { cidr: IPorCIDRorAlias, digest?: String0_40, name: Tname }): Promise<null>;
+                        $delete(param?: { digest?: String0_40 }): Promise<null>;
                         /**
                          * Read IP or Network settings from IPSet.
                          * GET /cluster/firewall/ipset/{name}/{cidr}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
-                        $get(param: { cidr: IPorCIDRorAlias, name: Tname }): Promise<object>;
+                        $get(): Promise<ret_cluster_firewall_ipset_name_cidrGET>;
                         /**
                          * Update IP or Network settings
                          * PUT /cluster/firewall/ipset/{name}/{cidr}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $put(param: { cidr: IPorCIDRorAlias, comment?: string, digest?: String0_40, name: Tname, nomatch?: Tdisable }): Promise<null>;
+                        $put(param?: { comment?: string, digest?: String0_40, nomatch?: Tdisable }): Promise<null>;
                     };
                 };
             },
@@ -1350,40 +4812,54 @@ export interface Proxmox {
                 /**
                  * List aliases
                  * GET /cluster/firewall/aliases
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_firewall_aliasesGET[]>;
                 /**
                  * Create IP or Network Alias.
                  * POST /cluster/firewall/aliases
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Modify"]]}
                  */
                 $post(param: { cidr: IPorCIDR, comment?: string, name: Tname }): Promise<null>;
                 $(name: string): {
                     /**
                      * Remove IP or Network alias.
                      * DELETE /cluster/firewall/aliases/{name}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $delete(param: { digest?: String0_40, name: Tname }): Promise<null>;
+                    $delete(param?: { digest?: String0_40 }): Promise<null>;
                     /**
                      * Read alias.
                      * GET /cluster/firewall/aliases/{name}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(param: { name: Tname }): Promise<object>;
+                    $get(): Promise<ret_cluster_firewall_aliases_nameGET>;
                     /**
                      * Update IP or Network alias.
                      * PUT /cluster/firewall/aliases/{name}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $put(param: { cidr: IPorCIDR, comment?: string, digest?: String0_40, name: Tname, rename?: Tname }): Promise<null>;
+                    $put(param: { cidr: IPorCIDR, comment?: string, digest?: String0_40, rename?: Tname }): Promise<null>;
                 };
             },
             options: {
                 /**
                  * Get Firewall options.
                  * GET /cluster/firewall/options
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<object>;
+                $get(): Promise<ret_cluster_firewall_optionsGET>;
                 /**
                  * Set Firewall options.
                  * PUT /cluster/firewall/options
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Modify"]]}
                  */
                 $put(param?: { delete?: pveconfigidlist_1, digest?: String0_40, ebtables?: Tdisable, enable?: integer_Min0, log_ratelimit?: Tlog_ratelimit, policy_in?: Tpolicy_in, policy_out?: Tpolicy_in }): Promise<null>;
             },
@@ -1391,50 +4867,66 @@ export interface Proxmox {
                 /**
                  * List available macros
                  * GET /cluster/firewall/macros
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_firewall_macrosGET[]>;
             },
             refs: {
                 /**
                  * Lists possible IPSet/Alias reference which are allowed in source/dest properties.
                  * GET /cluster/firewall/refs
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(param?: { type?: Ttype_2 }): Promise<any[]>;
+                $get(param?: { type?: Ttype_2 }): Promise<ret_cluster_firewall_refsGET[]>;
             },
         },
         backup: {
             /**
              * List vzdump backup schedule.
              * GET /cluster/backup
+             * @allowtoken 1
+             * @permissions {"check":["perm","/",["Sys.Audit"]]}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_cluster_backupGET[]>;
             /**
              * Create new vzdump backup job.
              * POST /cluster/backup
+             * @allowtoken 1
+             * @permissions {"check":["perm","/",["Sys.Modify"]],"description":"The 'tmpdir', 'dumpdir' and 'script' parameters are additionally restricted to the 'root@pam' user."}
              */
             $post(param: { all?: Tdisable, bwlimit?: integer_Min0, compress?: Tcompress, dow?: pvedayofweeklist, dumpdir?: string, enabled?: Tdisable, exclude?: pvevmidlist, 'exclude-path'?: stringalist, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: stringlist, maxfiles?: integer_Min1, mode?: Tmode, node?: pvenode, pigz?: integer, pool?: string, quiet?: Tdisable, remove?: Tdisable, script?: string, size?: integer_Min500, starttime: Tstarttime, stdexcludes?: Tdisable, stop?: Tdisable, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<null>;
             $(id: string): {
                 /**
                  * Delete vzdump backup job definition.
                  * DELETE /cluster/backup/{id}
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Modify"]]}
                  */
-                $delete(param: { id: String0_50 }): Promise<null>;
+                $delete(): Promise<null>;
                 /**
                  * Read vzdump backup job definition.
                  * GET /cluster/backup/{id}
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(param: { id: String0_50 }): Promise<object>;
+                $get(): Promise<ret_cluster_backup_idGET>;
                 /**
                  * Update vzdump backup job definition.
                  * PUT /cluster/backup/{id}
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Modify"]],"description":"The 'tmpdir', 'dumpdir' and 'script' parameters are additionally restricted to the 'root@pam' user."}
                  */
-                $put(param: { all?: Tdisable, bwlimit?: integer_Min0, compress?: Tcompress, delete?: pveconfigidlist_1, dow?: pvedayofweeklist, dumpdir?: string, enabled?: Tdisable, exclude?: pvevmidlist, 'exclude-path'?: stringalist, id: String0_50, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: stringlist, maxfiles?: integer_Min1, mode?: Tmode, node?: pvenode, pigz?: integer, pool?: string, quiet?: Tdisable, remove?: Tdisable, script?: string, size?: integer_Min500, starttime: Tstarttime, stdexcludes?: Tdisable, stop?: Tdisable, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<null>;
+                $put(param: { all?: Tdisable, bwlimit?: integer_Min0, compress?: Tcompress, delete?: pveconfigidlist_1, dow?: pvedayofweeklist, dumpdir?: string, enabled?: Tdisable, exclude?: pvevmidlist, 'exclude-path'?: stringalist, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: stringlist, maxfiles?: integer_Min1, mode?: Tmode, node?: pvenode, pigz?: integer, pool?: string, quiet?: Tdisable, remove?: Tdisable, script?: string, size?: integer_Min500, starttime: Tstarttime, stdexcludes?: Tdisable, stop?: Tdisable, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<null>;
                 included_volumes: {
                     /**
                      * Returns included guests and the backup status of their disks. Optimized to be used in ExtJS tree views.
                      * GET /cluster/backup/{id}/included_volumes
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(param: { id: String0_50 }): Promise<object>;
+                    $get(): Promise<ret_cluster_backup_id_included_volumesGET>;
                 },
             };
         },
@@ -1442,62 +4934,81 @@ export interface Proxmox {
             /**
              * Stub, waits for future use.
              * GET /cluster/backupinfo
+             * @allowtoken 1
              */
-            $get(): Promise<string>;
+            $get(): Promise<ret_cluster_backupinfoGET>;
             not_backed_up: {
                 /**
                  * Shows all guests which are not covered by any backup job.
                  * GET /cluster/backupinfo/not_backed_up
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_backupinfo_not_backed_upGET[]>;
             },
         },
         ha: {
             /**
              * Directory index.
              * GET /cluster/ha
+             * @allowtoken 1
+             * @permissions {"check":["perm","/",["Sys.Audit"]]}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_cluster_haGET[]>;
             resources: {
                 /**
                  * List HA resources.
                  * GET /cluster/ha/resources
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(param?: { type?: Ttype_3 }): Promise<any[]>;
+                $get(param?: { type?: Ttype_3 }): Promise<ret_cluster_ha_resourcesGET[]>;
                 /**
                  * Create a new HA resource.
                  * POST /cluster/ha/resources
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Console"]]}
                  */
                 $post(param: { comment?: String0_4096, group?: pveconfigid, max_relocate?: integer_Min0, max_restart?: integer_Min0, sid: pveharesourceorvmid, state?: Tstate, type?: Ttype_3 }): Promise<null>;
                 $(sid: string): {
                     /**
                      * Delete resource configuration.
                      * DELETE /cluster/ha/resources/{sid}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Console"]]}
                      */
-                    $delete(param: { sid: pveharesourceorvmid }): Promise<null>;
+                    $delete(): Promise<null>;
                     /**
                      * Read resource configuration.
                      * GET /cluster/ha/resources/{sid}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(param: { sid: pveharesourceorvmid }): Promise<object>;
+                    $get(): Promise<ret_cluster_ha_resources_sidGET>;
                     /**
                      * Update resource configuration.
                      * PUT /cluster/ha/resources/{sid}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Console"]]}
                      */
-                    $put(param: { comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_40, group?: pveconfigid, max_relocate?: integer_Min0, max_restart?: integer_Min0, sid: pveharesourceorvmid, state?: Tstate }): Promise<null>;
+                    $put(param?: { comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_40, group?: pveconfigid, max_relocate?: integer_Min0, max_restart?: integer_Min0, state?: Tstate }): Promise<null>;
                     migrate: {
                         /**
                          * Request resource migration (online) to another node.
                          * POST /cluster/ha/resources/{sid}/migrate
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Console"]]}
                          */
-                        $post(param: { node: pvenode, sid: pveharesourceorvmid }): Promise<null>;
+                        $post(param: { node: pvenode }): Promise<null>;
                     },
                     relocate: {
                         /**
                          * Request resource relocatzion to another node. This stops the service on the old node, and restarts it on the target node.
                          * POST /cluster/ha/resources/{sid}/relocate
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Console"]]}
                          */
-                        $post(param: { node: pvenode, sid: pveharesourceorvmid }): Promise<null>;
+                        $post(param: { node: pvenode }): Promise<null>;
                     },
                 };
             },
@@ -1505,50 +5016,66 @@ export interface Proxmox {
                 /**
                  * Get HA groups.
                  * GET /cluster/ha/groups
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_ha_groupsGET[]>;
                 /**
                  * Create a new HA group.
                  * POST /cluster/ha/groups
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Console"]]}
                  */
                 $post(param: { comment?: String0_4096, group: pveconfigid, nodes: pvehagroupnodelist, nofailback?: Tdisable, restricted?: Tdisable, type?: Ttype_4 }): Promise<null>;
                 $(group: string): {
                     /**
                      * Delete ha group configuration.
                      * DELETE /cluster/ha/groups/{group}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Console"]]}
                      */
-                    $delete(param: { group: pveconfigid }): Promise<null>;
+                    $delete(): Promise<null>;
                     /**
                      * Read ha group configuration.
                      * GET /cluster/ha/groups/{group}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(param: { group: pveconfigid }): Promise<any>;
+                    $get(): Promise<ret_cluster_ha_groups_groupGET>;
                     /**
                      * Update ha group configuration.
                      * PUT /cluster/ha/groups/{group}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Console"]]}
                      */
-                    $put(param: { comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_40, group: pveconfigid, nodes?: pvehagroupnodelist, nofailback?: Tdisable, restricted?: Tdisable }): Promise<null>;
+                    $put(param?: { comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_40, nodes?: pvehagroupnodelist, nofailback?: Tdisable, restricted?: Tdisable }): Promise<null>;
                 };
             },
             status: {
                 /**
                  * Directory index.
                  * GET /cluster/ha/status
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_ha_statusGET[]>;
                 current: {
                     /**
                      * Get HA manger status.
                      * GET /cluster/ha/status/current
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(): Promise<any[]>;
+                    $get(): Promise<string[]>;
                 },
                 manager_status: {
                     /**
                      * Get full HA manger status, including LRM status.
                      * GET /cluster/ha/status/manager_status
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(): Promise<object>;
+                    $get(): Promise<ret_cluster_ha_status_manager_statusGET>;
                 },
             },
         },
@@ -1556,130 +5083,168 @@ export interface Proxmox {
             /**
              * ACMEAccount index.
              * GET /cluster/acme
+             * @allowtoken 1
+             * @permissions {"user":"all"}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_cluster_acmeGET[]>;
             plugins: {
                 /**
                  * ACME plugin index.
                  * GET /cluster/acme/plugins
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Modify"]]}
                  */
-                $get(param?: { type?: Ttype_5 }): Promise<any[]>;
+                $get(param?: { type?: Ttype_5 }): Promise<ret_cluster_acme_pluginsGET[]>;
                 /**
                  * Add ACME plugin configuration.
                  * POST /cluster/acme/plugins
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Modify"]]}
                  */
                 $post(param: { api?: Tapi, data?: string, disable?: Tdisable, id: pveconfigid, nodes?: pvenodelist, type: Ttype_5, 'validation-delay'?: integer0_172800 }): Promise<null>;
                 $(id: string): {
                     /**
                      * Delete ACME plugin configuration.
                      * DELETE /cluster/acme/plugins/{id}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $delete(param: { id: pveconfigid }): Promise<null>;
+                    $delete(): Promise<null>;
                     /**
                      * Get ACME plugin configuration.
                      * GET /cluster/acme/plugins/{id}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $get(param: { id: pveconfigid }): Promise<object>;
+                    $get(): Promise<ret_cluster_acme_plugins_idGET>;
                     /**
                      * Update ACME plugin configuration.
                      * PUT /cluster/acme/plugins/{id}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $put(param: { api?: Tapi, data?: string, delete?: pveconfigidlist, digest?: String0_40, disable?: Tdisable, id: pveconfigid, nodes?: pvenodelist, 'validation-delay'?: integer0_172800 }): Promise<null>;
+                    $put(param?: { api?: Tapi, data?: string, delete?: pveconfigidlist, digest?: String0_40, disable?: Tdisable, nodes?: pvenodelist, 'validation-delay'?: integer0_172800 }): Promise<null>;
                 };
             },
             account: {
                 /**
                  * ACMEAccount index.
                  * GET /cluster/acme/account
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_acme_accountGET[]>;
                 /**
                  * Register a new ACME account with CA.
                  * POST /cluster/acme/account
+                 * @allowtoken 1
                  */
-                $post(param: { contact: emaillist, directory?: Tdirectory, name?: pveconfigid, tos_url?: string }): Promise<string>;
+                $post(param: { contact: emaillist, directory?: Tdirectory, name?: pveconfigid, tos_url?: string }): Promise<ret_cluster_acme_accountPOST>;
                 $(name: string): {
                     /**
                      * Deactivate existing ACME account at CA.
                      * DELETE /cluster/acme/account/{name}
+                     * @allowtoken 1
                      */
-                    $delete(param?: { name?: pveconfigid }): Promise<string>;
+                    $delete(): Promise<ret_cluster_acme_account_nameDELETE>;
                     /**
                      * Return existing ACME account information.
                      * GET /cluster/acme/account/{name}
+                     * @allowtoken 1
                      */
-                    $get(param?: { name?: pveconfigid }): Promise<object>;
+                    $get(): Promise<ret_cluster_acme_account_nameGET>;
                     /**
                      * Update existing ACME account information with CA. Note: not specifying any new account information triggers a refresh.
                      * PUT /cluster/acme/account/{name}
+                     * @allowtoken 1
                      */
-                    $put(param?: { contact?: emaillist, name?: pveconfigid }): Promise<string>;
+                    $put(param?: { contact?: emaillist }): Promise<ret_cluster_acme_account_namePUT>;
                 };
             },
             tos: {
                 /**
                  * Retrieve ACME TermsOfService URL from CA.
                  * GET /cluster/acme/tos
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(param?: { directory?: Tdirectory }): Promise<string>;
+                $get(param?: { directory?: Tdirectory }): Promise<ret_cluster_acme_tosGET>;
             },
             directories: {
                 /**
                  * Get named known ACME directory endpoints.
                  * GET /cluster/acme/directories
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_acme_directoriesGET[]>;
             },
             'challenge-schema': {
                 /**
                  * Get schema of ACME challenge types.
                  * GET /cluster/acme/challenge-schema
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_acme_challenge_schemaGET[]>;
             },
         },
         ceph: {
             /**
              * Cluster ceph index.
              * GET /cluster/ceph
+             * @allowtoken 1
+             * @permissions {"user":"all"}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_cluster_cephGET[]>;
             metadata: {
                 /**
                  * Get ceph metadata.
                  * GET /cluster/ceph/metadata
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                  */
-                $get(param?: { scope?: Tscope }): Promise<object>;
+                $get(param?: { scope?: Tscope }): Promise<ret_cluster_ceph_metadataGET>;
             },
             status: {
                 /**
                  * Get ceph status.
                  * GET /cluster/ceph/status
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                  */
-                $get(): Promise<object>;
+                $get(): Promise<ret_cluster_ceph_statusGET>;
             },
             flags: {
                 /**
                  * get the status of all ceph flags
                  * GET /cluster/ceph/flags
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_ceph_flagsGET[]>;
                 /**
                  * Set/Unset multiple ceph flags at once.
                  * PUT /cluster/ceph/flags
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Modify"]]}
                  */
-                $put(param?: { nobackfill?: Tdisable, 'nodeep-scrub'?: Tdisable, nodown?: Tdisable, noin?: Tdisable, noout?: Tdisable, norebalance?: Tdisable, norecover?: Tdisable, noscrub?: Tdisable, notieragent?: Tdisable, noup?: Tdisable, pause?: Tdisable }): Promise<string>;
+                $put(param?: { nobackfill?: Tdisable, 'nodeep-scrub'?: Tdisable, nodown?: Tdisable, noin?: Tdisable, noout?: Tdisable, norebalance?: Tdisable, norecover?: Tdisable, noscrub?: Tdisable, notieragent?: Tdisable, noup?: Tdisable, pause?: Tdisable }): Promise<ret_cluster_ceph_flagsPUT>;
                 $(flag: string): {
                     /**
                      * Get the status of a specific ceph flag.
                      * GET /cluster/ceph/flags/{flag}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(param: { flag: Tflag }): Promise<boolean>;
+                    $get(): Promise<ret_cluster_ceph_flags_flagGET>;
                     /**
                      * Set or clear (unset) a specific ceph flag
                      * PUT /cluster/ceph/flags/{flag}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $put(param: { flag: Tflag, value: Tdisable }): Promise<null>;
+                    $put(param: { value: Tdisable }): Promise<null>;
                 };
             },
         },
@@ -1687,98 +5252,132 @@ export interface Proxmox {
             /**
              * Directory index.
              * GET /cluster/sdn
+             * @allowtoken 1
+             * @permissions {"check":["perm","/",["SDN.Audit"]]}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_cluster_sdnGET[]>;
             /**
              * Apply sdn controller changes && reload.
              * PUT /cluster/sdn
+             * @allowtoken 1
+             * @permissions {"check":["perm","/sdn",["SDN.Allocate"]]}
              */
-            $put(): Promise<string>;
+            $put(): Promise<ret_cluster_sdnPUT>;
             vnets: {
                 /**
                  * SDN vnets index.
                  * GET /cluster/sdn/vnets
+                 * @allowtoken 1
+                 * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/vnets/<vnet>'","user":"all"}
                  */
-                $get(): Promise<any[]>;
+                $get(): Promise<ret_cluster_sdn_vnetsGET[]>;
                 /**
                  * Create a new sdn vnet object.
                  * POST /cluster/sdn/vnets
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/sdn/vnets",["SDN.Allocate"]]}
                  */
                 $post(param: { alias?: string, ipv4?: CIDRv4, ipv6?: CIDRv6, mac?: macaddr, tag?: integer, type?: Ttype_6, vlanaware?: Tdisable, vnet: pvesdnvnetid, zone: string }): Promise<null>;
                 $(vnet: string): {
                     /**
                      * Delete sdn vnet object configuration.
                      * DELETE /cluster/sdn/vnets/{vnet}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn/vnets",["SDN.Allocate"]]}
                      */
-                    $delete(param: { vnet: pvesdnvnetid }): Promise<null>;
+                    $delete(): Promise<null>;
                     /**
                      * Read sdn vnet configuration.
                      * GET /cluster/sdn/vnets/{vnet}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn/vnets/{vnet}",["SDN.Allocate"]]}
                      */
-                    $get(param: { vnet: pvesdnvnetid }): Promise<object>;
+                    $get(): Promise<ret_cluster_sdn_vnets_vnetGET>;
                     /**
                      * Update sdn vnet object configuration.
                      * PUT /cluster/sdn/vnets/{vnet}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn/vnets",["SDN.Allocate"]]}
                      */
-                    $put(param: { alias?: string, delete?: pveconfigidlist, digest?: String0_40, ipv4?: CIDRv4, ipv6?: CIDRv6, mac?: macaddr, tag?: integer, vlanaware?: Tdisable, vnet: pvesdnvnetid, zone?: string }): Promise<null>;
+                    $put(param?: { alias?: string, delete?: pveconfigidlist, digest?: String0_40, ipv4?: CIDRv4, ipv6?: CIDRv6, mac?: macaddr, tag?: integer, vlanaware?: Tdisable, zone?: string }): Promise<null>;
                 };
             },
             zones: {
                 /**
                  * SDN zones index.
                  * GET /cluster/sdn/zones
+                 * @allowtoken 1
+                 * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/zones/<zone>'","user":"all"}
                  */
-                $get(param?: { type?: Ttype_7 }): Promise<any[]>;
+                $get(param?: { type?: Ttype_7 }): Promise<ret_cluster_sdn_zonesGET[]>;
                 /**
                  * Create a new sdn zone object.
                  * POST /cluster/sdn/zones
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/sdn/zones",["SDN.Allocate"]]}
                  */
                 $post(param: { bridge?: string, controller?: string, 'dp-id'?: integer, mtu?: integer, nodes?: pvenodelist, peers?: iplist, tag?: integer_Min0, type: pveconfigid_1, 'vlan-protocol'?: Tvlanprotocol, 'vrf-vxlan'?: integer, zone: pvesdnzoneid }): Promise<null>;
                 $(zone: string): {
                     /**
                      * Delete sdn zone object configuration.
                      * DELETE /cluster/sdn/zones/{zone}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn/zones",["SDN.Allocate"]]}
                      */
-                    $delete(param: { zone: pvesdnzoneid }): Promise<null>;
+                    $delete(): Promise<null>;
                     /**
                      * Read sdn zone configuration.
                      * GET /cluster/sdn/zones/{zone}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Allocate"]]}
                      */
-                    $get(param: { zone: pvesdnzoneid }): Promise<object>;
+                    $get(): Promise<ret_cluster_sdn_zones_zoneGET>;
                     /**
                      * Update sdn zone object configuration.
                      * PUT /cluster/sdn/zones/{zone}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn/zones",["SDN.Allocate"]]}
                      */
-                    $put(param: { bridge?: string, controller?: string, delete?: pveconfigidlist, digest?: String0_40, 'dp-id'?: integer, mtu?: integer, nodes?: pvenodelist, peers?: iplist, tag?: integer_Min0, 'vlan-protocol'?: Tvlanprotocol, 'vrf-vxlan'?: integer, zone: pvesdnzoneid }): Promise<null>;
+                    $put(param?: { bridge?: string, controller?: string, delete?: pveconfigidlist, digest?: String0_40, 'dp-id'?: integer, mtu?: integer, nodes?: pvenodelist, peers?: iplist, tag?: integer_Min0, 'vlan-protocol'?: Tvlanprotocol, 'vrf-vxlan'?: integer }): Promise<null>;
                 };
             },
             controllers: {
                 /**
                  * SDN controllers index.
                  * GET /cluster/sdn/controllers
+                 * @allowtoken 1
+                 * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/controllers/<controller>'","user":"all"}
                  */
-                $get(param?: { type?: Ttype_8 }): Promise<any[]>;
+                $get(param?: { type?: Ttype_8 }): Promise<ret_cluster_sdn_controllersGET[]>;
                 /**
                  * Create a new sdn controller object.
                  * POST /cluster/sdn/controllers
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/sdn/controllers",["SDN.Allocate"]]}
                  */
                 $post(param: { asn?: integer, controller: pvesdncontrollerid, 'gateway-external-peers'?: iplist, 'gateway-nodes'?: pvenodelist, peers?: iplist, type: pveconfigid_2 }): Promise<null>;
                 $(controller: string): {
                     /**
                      * Delete sdn controller object configuration.
                      * DELETE /cluster/sdn/controllers/{controller}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn/controllers",["SDN.Allocate"]]}
                      */
-                    $delete(param: { controller: pvesdncontrollerid }): Promise<null>;
+                    $delete(): Promise<null>;
                     /**
                      * Read sdn controller configuration.
                      * GET /cluster/sdn/controllers/{controller}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn/controllers/{controller}",["SDN.Allocate"]]}
                      */
-                    $get(param: { controller: pvesdncontrollerid }): Promise<object>;
+                    $get(): Promise<ret_cluster_sdn_controllers_controllerGET>;
                     /**
                      * Update sdn controller object configuration.
                      * PUT /cluster/sdn/controllers/{controller}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn/controllers",["SDN.Allocate"]]}
                      */
-                    $put(param: { asn?: integer, controller: pvesdncontrollerid, delete?: pveconfigidlist, digest?: String0_40, 'gateway-external-peers'?: iplist, 'gateway-nodes'?: pvenodelist, peers?: iplist }): Promise<null>;
+                    $put(param?: { asn?: integer, delete?: pveconfigidlist, digest?: String0_40, 'gateway-external-peers'?: iplist, 'gateway-nodes'?: pvenodelist, peers?: iplist }): Promise<null>;
                 };
             },
         },
@@ -1786,32 +5385,42 @@ export interface Proxmox {
             /**
              * Read cluster log
              * GET /cluster/log
+             * @allowtoken 1
+             * @permissions {"user":"all"}
              */
-            $get(param?: { max?: integer_Min1 }): Promise<any[]>;
+            $get(param?: { max?: integer_Min1 }): Promise<ret_cluster_logGET[]>;
         },
         resources: {
             /**
              * Resources index (cluster wide).
              * GET /cluster/resources
+             * @allowtoken 1
+             * @permissions {"user":"all"}
              */
-            $get(param?: { type?: Ttype_9 }): Promise<any[]>;
+            $get(param?: { type?: Ttype_9 }): Promise<ret_cluster_resourcesGET[]>;
         },
         tasks: {
             /**
              * List recent tasks (cluster wide).
              * GET /cluster/tasks
+             * @allowtoken 1
+             * @permissions {"user":"all"}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_cluster_tasksGET[]>;
         },
         options: {
             /**
              * Get datacenter options.
              * GET /cluster/options
+             * @allowtoken 1
+             * @permissions {"check":["perm","/",["Sys.Audit"]]}
              */
-            $get(): Promise<object>;
+            $get(): Promise<ret_cluster_optionsGET>;
             /**
              * Set datacenter options.
              * PUT /cluster/options
+             * @allowtoken 1
+             * @permissions {"check":["perm","/",["Sys.Modify"]]}
              */
             $put(param?: { bwlimit?: Tbwlimit, console?: Tconsole, delete?: pveconfigidlist_1, email_from?: emailopt, fencing?: Tfencing, ha?: Tha, http_proxy?: Thttp_proxy, keyboard?: Tkeyboard, language?: Tlanguage, mac_prefix?: macprefix, max_workers?: integer_Min1, migration?: Tmigration, migration_unsecure?: Tdisable, u2f?: Tu2f }): Promise<null>;
         },
@@ -1819,158 +5428,212 @@ export interface Proxmox {
             /**
              * Get cluster status information.
              * GET /cluster/status
+             * @allowtoken 1
+             * @permissions {"check":["perm","/",["Sys.Audit"]]}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_cluster_statusGET[]>;
         },
         nextid: {
             /**
              * Get next free VMID. If you pass an VMID it will raise an error if the ID is already used.
              * GET /cluster/nextid
+             * @allowtoken 1
+             * @permissions {"user":"all"}
              */
-            $get(param?: { vmid?: pvevmid }): Promise<number>;
+            $get(param?: { vmid?: pvevmid }): Promise<ret_cluster_nextidGET>;
         },
     },
     nodes: {
         /**
          * Cluster node index.
          * GET /nodes
+         * @allowtoken 1
+         * @permissions {"user":"all"}
          */
-        $get(): Promise<any[]>;
+        $get(): Promise<ret_nodesGET[]>;
         $(node: string): {
             /**
              * Node index.
              * GET /nodes/{node}
+             * @allowtoken 1
+             * @permissions {"user":"all"}
              */
-            $get(param: { node: pvenode }): Promise<any[]>;
+            $get(): Promise<ret_nodes_nodeGET[]>;
             qemu: {
                 /**
                  * Virtual machine index (per node).
                  * GET /nodes/{node}/qemu
+                 * @allowtoken 1
+                 * @permissions {"description":"Only list VMs where you have VM.Audit permissons on /vms/<vmid>.","user":"all"}
                  */
-                $get(param: { full?: Tdisable, node: pvenode }): Promise<any[]>;
+                $get(param?: { full?: Tdisable }): Promise<ret_nodes_node_qemuGET[]>;
                 /**
                  * Create or restore a virtual machine.
                  * POST /nodes/{node}/qemu
+                 * @allowtoken 1
+                 * @permissions {"description":"You need 'VM.Allocate' permissions on /vms/{vmid} or on the VM pool /pool/{pool}. For restore (option 'archive'), it is enough if the user has 'VM.Backup' permission and the VM already exists. If you create disks you need 'Datastore.AllocateSpace' on any used storage.","user":"all"}
                  */
-                $post(param: { acpi?: Tdisable, agent?: Tagent, arch?: Tarch, archive?: String0_255, args?: string, audio0?: Taudio0, autostart?: Tdisable, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, bwlimit?: integer_Min0, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, description?: string, efidisk0?: Tefidisk0, force?: Tdisable, freeze?: Tdisable, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: Tdisable, localtime?: Tdisable, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, node: pvenode, numa?: Tdisable, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: Tdisable, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, pool?: pvepoolid, protection?: Tdisable, reboot?: Tdisable, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, start?: Tdisable, startdate?: Tstartdate, startup?: pvestartuporder, storage?: pvestorageid, tablet?: Tdisable, tags?: pvetaglist, tdf?: Tdisable, template?: Tdisable, unique?: Tdisable, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmid: pvevmid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<string>;
-                $(vmid: string): {
+                $post(param: { acpi?: Tdisable, agent?: Tagent, arch?: Tarch, archive?: String0_255, args?: string, audio0?: Taudio0, autostart?: Tdisable, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, bwlimit?: integer_Min0, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, description?: string, efidisk0?: Tefidisk0, force?: Tdisable, freeze?: Tdisable, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: Tdisable, localtime?: Tdisable, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: Tdisable, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: Tdisable, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, pool?: pvepoolid, protection?: Tdisable, reboot?: Tdisable, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, start?: Tdisable, startdate?: Tstartdate, startup?: pvestartuporder, storage?: pvestorageid, tablet?: Tdisable, tags?: pvetaglist, tdf?: Tdisable, template?: Tdisable, unique?: Tdisable, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmid: pvevmid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<ret_nodes_node_qemuPOST>;
+                $(vmid: number): {
                     /**
                      * Destroy the vm (also delete all used/owned volumes).
                      * DELETE /nodes/{node}/qemu/{vmid}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]]}
                      */
-                    $delete(param: { node: pvenode, purge?: Tdisable, skiplock?: Tdisable, vmid: pvevmid }): Promise<string>;
+                    $delete(param?: { purge?: Tdisable, skiplock?: Tdisable }): Promise<ret_nodes_node_qemu_vmidDELETE>;
                     /**
                      * Directory index
                      * GET /nodes/{node}/qemu/{vmid}
+                     * @allowtoken 1
+                     * @permissions {"user":"all"}
                      */
-                    $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_qemu_vmidGET[]>;
                     firewall: {
                         /**
                          * Directory index.
                          * GET /nodes/{node}/qemu/{vmid}/firewall
+                         * @allowtoken 1
+                         * @permissions {"user":"all"}
                          */
-                        $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                        $get(): Promise<ret_nodes_node_qemu_vmid_firewallGET[]>;
                         rules: {
                             /**
                              * List rules.
                              * GET /nodes/{node}/qemu/{vmid}/firewall/rules
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_firewall_rulesGET[]>;
                             /**
                              * Create new rule.
                              * POST /nodes/{node}/qemu/{vmid}/firewall/rules
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                              */
-                            $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, node: pvenode, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1, vmid: pvevmid }): Promise<null>;
+                            $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
                             $(pos: string): {
                                 /**
                                  * Delete rule.
                                  * DELETE /nodes/{node}/qemu/{vmid}/firewall/rules/{pos}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $delete(param: { digest?: String0_40, node: pvenode, pos?: integer_Min0, vmid: pvevmid }): Promise<null>;
+                                $delete(param?: { digest?: String0_40 }): Promise<null>;
                                 /**
                                  * Get single rule data.
                                  * GET /nodes/{node}/qemu/{vmid}/firewall/rules/{pos}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
-                                $get(param: { node: pvenode, pos?: integer_Min0, vmid: pvevmid }): Promise<object>;
+                                $get(): Promise<ret_nodes_node_qemu_vmid_firewall_rules_posGET>;
                                 /**
                                  * Modify rule data.
                                  * PUT /nodes/{node}/qemu/{vmid}/firewall/rules/{pos}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $put(param: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, node: pvenode, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1, vmid: pvevmid }): Promise<null>;
+                                $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
                             };
                         },
                         aliases: {
                             /**
                              * List aliases
                              * GET /nodes/{node}/qemu/{vmid}/firewall/aliases
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_firewall_aliasesGET[]>;
                             /**
                              * Create IP or Network Alias.
                              * POST /nodes/{node}/qemu/{vmid}/firewall/aliases
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                              */
-                            $post(param: { cidr: IPorCIDR, comment?: string, name: Tname, node: pvenode, vmid: pvevmid }): Promise<null>;
+                            $post(param: { cidr: IPorCIDR, comment?: string, name: Tname }): Promise<null>;
                             $(name: string): {
                                 /**
                                  * Remove IP or Network alias.
                                  * DELETE /nodes/{node}/qemu/{vmid}/firewall/aliases/{name}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $delete(param: { digest?: String0_40, name: Tname, node: pvenode, vmid: pvevmid }): Promise<null>;
+                                $delete(param?: { digest?: String0_40 }): Promise<null>;
                                 /**
                                  * Read alias.
                                  * GET /nodes/{node}/qemu/{vmid}/firewall/aliases/{name}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
-                                $get(param: { name: Tname, node: pvenode, vmid: pvevmid }): Promise<object>;
+                                $get(): Promise<ret_nodes_node_qemu_vmid_firewall_aliases_nameGET>;
                                 /**
                                  * Update IP or Network alias.
                                  * PUT /nodes/{node}/qemu/{vmid}/firewall/aliases/{name}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $put(param: { cidr: IPorCIDR, comment?: string, digest?: String0_40, name: Tname, node: pvenode, rename?: Tname, vmid: pvevmid }): Promise<null>;
+                                $put(param: { cidr: IPorCIDR, comment?: string, digest?: String0_40, rename?: Tname }): Promise<null>;
                             };
                         },
                         ipset: {
                             /**
                              * List IPSets
                              * GET /nodes/{node}/qemu/{vmid}/firewall/ipset
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_firewall_ipsetGET[]>;
                             /**
                              * Create new IPSet
                              * POST /nodes/{node}/qemu/{vmid}/firewall/ipset
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                              */
-                            $post(param: { comment?: string, digest?: String0_40, name: Tname, node: pvenode, rename?: Tname, vmid: pvevmid }): Promise<null>;
+                            $post(param: { comment?: string, digest?: String0_40, name: Tname, rename?: Tname }): Promise<null>;
                             $(name: string): {
                                 /**
                                  * Delete IPSet
                                  * DELETE /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $delete(param: { name: Tname, node: pvenode, vmid: pvevmid }): Promise<null>;
+                                $delete(): Promise<null>;
                                 /**
                                  * List IPSet content
                                  * GET /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
-                                $get(param: { name: Tname, node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                                $get(): Promise<ret_nodes_node_qemu_vmid_firewall_ipset_nameGET[]>;
                                 /**
                                  * Add IP or Network to IPSet.
                                  * POST /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $post(param: { cidr: IPorCIDRorAlias, comment?: string, name: Tname, node: pvenode, nomatch?: Tdisable, vmid: pvevmid }): Promise<null>;
+                                $post(param: { cidr: IPorCIDRorAlias, comment?: string, nomatch?: Tdisable }): Promise<null>;
                                 $(cidr: string): {
                                     /**
                                      * Remove IP or Network from IPSet.
                                      * DELETE /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}/{cidr}
+                                     * @allowtoken 1
+                                     * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
-                                    $delete(param: { cidr: IPorCIDRorAlias, digest?: String0_40, name: Tname, node: pvenode, vmid: pvevmid }): Promise<null>;
+                                    $delete(param?: { digest?: String0_40 }): Promise<null>;
                                     /**
                                      * Read IP or Network settings from IPSet.
                                      * GET /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}/{cidr}
+                                     * @allowtoken 1
+                                     * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                      */
-                                    $get(param: { cidr: IPorCIDRorAlias, name: Tname, node: pvenode, vmid: pvevmid }): Promise<object>;
+                                    $get(): Promise<ret_nodes_node_qemu_vmid_firewall_ipset_name_cidrGET>;
                                     /**
                                      * Update IP or Network settings
                                      * PUT /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}/{cidr}
+                                     * @allowtoken 1
+                                     * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
-                                    $put(param: { cidr: IPorCIDRorAlias, comment?: string, digest?: String0_40, name: Tname, node: pvenode, nomatch?: Tdisable, vmid: pvevmid }): Promise<null>;
+                                    $put(param?: { comment?: string, digest?: String0_40, nomatch?: Tdisable }): Promise<null>;
                                 };
                             };
                         },
@@ -1978,445 +5641,577 @@ export interface Proxmox {
                             /**
                              * Get VM firewall options.
                              * GET /nodes/{node}/qemu/{vmid}/firewall/options
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_firewall_optionsGET>;
                             /**
                              * Set Firewall options.
                              * PUT /nodes/{node}/qemu/{vmid}/firewall/options
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                              */
-                            $put(param: { delete?: pveconfigidlist_1, dhcp?: Tdisable, digest?: String0_40, enable?: Tdisable, ipfilter?: Tdisable, log_level_in?: Tlog, log_level_out?: Tlog, macfilter?: Tdisable, ndp?: Tdisable, node: pvenode, policy_in?: Tpolicy_in, policy_out?: Tpolicy_in, radv?: Tdisable, vmid: pvevmid }): Promise<null>;
+                            $put(param?: { delete?: pveconfigidlist_1, dhcp?: Tdisable, digest?: String0_40, enable?: Tdisable, ipfilter?: Tdisable, log_level_in?: Tlog, log_level_out?: Tlog, macfilter?: Tdisable, ndp?: Tdisable, policy_in?: Tpolicy_in, policy_out?: Tpolicy_in, radv?: Tdisable }): Promise<null>;
                         },
                         log: {
                             /**
                              * Read firewall log
                              * GET /nodes/{node}/qemu/{vmid}/firewall/log
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
-                            $get(param: { limit?: integer_Min0, node: pvenode, start?: integer_Min0, vmid: pvevmid }): Promise<any[]>;
+                            $get(param?: { limit?: integer_Min0, start?: integer_Min0 }): Promise<ret_nodes_node_qemu_vmid_firewall_logGET[]>;
                         },
                         refs: {
                             /**
                              * Lists possible IPSet/Alias reference which are allowed in source/dest properties.
                              * GET /nodes/{node}/qemu/{vmid}/firewall/refs
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { node: pvenode, type?: Ttype_2, vmid: pvevmid }): Promise<any[]>;
+                            $get(param?: { type?: Ttype_2 }): Promise<ret_nodes_node_qemu_vmid_firewall_refsGET[]>;
                         },
                     },
                     agent: {
                         /**
                          * Qemu Agent command index.
                          * GET /nodes/{node}/qemu/{vmid}/agent
+                         * @allowtoken 1
+                         * @permissions {"user":"all"}
                          */
-                        $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                        $get(): Promise<ret_nodes_node_qemu_vmid_agentGET[]>;
                         /**
                          * Execute Qemu Guest Agent commands.
                          * POST /nodes/{node}/qemu/{vmid}/agent
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                          */
-                        $post(param: { command: Tcommand, node: pvenode, vmid: pvevmid }): Promise<object>;
+                        $post(param: { command: Tcommand }): Promise<ret_nodes_node_qemu_vmid_agentPOST>;
                         'fsfreeze-freeze': {
                             /**
                              * Execute fsfreeze-freeze.
                              * POST /nodes/{node}/qemu/{vmid}/agent/fsfreeze-freeze
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_fsfreeze_freezePOST>;
                         },
                         'fsfreeze-status': {
                             /**
                              * Execute fsfreeze-status.
                              * POST /nodes/{node}/qemu/{vmid}/agent/fsfreeze-status
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_fsfreeze_statusPOST>;
                         },
                         'fsfreeze-thaw': {
                             /**
                              * Execute fsfreeze-thaw.
                              * POST /nodes/{node}/qemu/{vmid}/agent/fsfreeze-thaw
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_fsfreeze_thawPOST>;
                         },
                         fstrim: {
                             /**
                              * Execute fstrim.
                              * POST /nodes/{node}/qemu/{vmid}/agent/fstrim
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_fstrimPOST>;
                         },
                         'get-fsinfo': {
                             /**
                              * Execute get-fsinfo.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-fsinfo
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_fsinfoGET>;
                         },
                         'get-host-name': {
                             /**
                              * Execute get-host-name.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-host-name
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_host_nameGET>;
                         },
                         'get-memory-block-info': {
                             /**
                              * Execute get-memory-block-info.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-memory-block-info
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_memory_block_infoGET>;
                         },
                         'get-memory-blocks': {
                             /**
                              * Execute get-memory-blocks.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-memory-blocks
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_memory_blocksGET>;
                         },
                         'get-osinfo': {
                             /**
                              * Execute get-osinfo.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-osinfo
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_osinfoGET>;
                         },
                         'get-time': {
                             /**
                              * Execute get-time.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-time
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_timeGET>;
                         },
                         'get-timezone': {
                             /**
                              * Execute get-timezone.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-timezone
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_timezoneGET>;
                         },
                         'get-users': {
                             /**
                              * Execute get-users.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-users
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_usersGET>;
                         },
                         'get-vcpus': {
                             /**
                              * Execute get-vcpus.
                              * GET /nodes/{node}/qemu/{vmid}/agent/get-vcpus
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_vcpusGET>;
                         },
                         info: {
                             /**
                              * Execute info.
                              * GET /nodes/{node}/qemu/{vmid}/agent/info
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_infoGET>;
                         },
                         'network-get-interfaces': {
                             /**
                              * Execute network-get-interfaces.
                              * GET /nodes/{node}/qemu/{vmid}/agent/network-get-interfaces
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_network_get_interfacesGET>;
                         },
                         ping: {
                             /**
                              * Execute ping.
                              * POST /nodes/{node}/qemu/{vmid}/agent/ping
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_pingPOST>;
                         },
                         shutdown: {
                             /**
                              * Execute shutdown.
                              * POST /nodes/{node}/qemu/{vmid}/agent/shutdown
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_shutdownPOST>;
                         },
                         'suspend-disk': {
                             /**
                              * Execute suspend-disk.
                              * POST /nodes/{node}/qemu/{vmid}/agent/suspend-disk
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_suspend_diskPOST>;
                         },
                         'suspend-hybrid': {
                             /**
                              * Execute suspend-hybrid.
                              * POST /nodes/{node}/qemu/{vmid}/agent/suspend-hybrid
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_suspend_hybridPOST>;
                         },
                         'suspend-ram': {
                             /**
                              * Execute suspend-ram.
                              * POST /nodes/{node}/qemu/{vmid}/agent/suspend-ram
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_suspend_ramPOST>;
                         },
                         'set-user-password': {
                             /**
                              * Sets the password for the given user to the given password
                              * POST /nodes/{node}/qemu/{vmid}/agent/set-user-password
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(param: { crypted?: Tdisable, node: pvenode, password: String5_1024, username: string, vmid: pvevmid }): Promise<object>;
+                            $post(param: { crypted?: Tdisable, password: String5_1024, username: string }): Promise<ret_nodes_node_qemu_vmid_agent_set_user_passwordPOST>;
                         },
                         exec: {
                             /**
                              * Executes the given command in the vm via the guest-agent and returns an object with the pid.
                              * POST /nodes/{node}/qemu/{vmid}/agent/exec
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(param: { command?: stringalist, 'input-data'?: String0_65536, node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $post(param?: { command?: stringalist, 'input-data'?: String0_65536 }): Promise<ret_nodes_node_qemu_vmid_agent_execPOST>;
                         },
                         'exec-status': {
                             /**
                              * Gets the status of the given pid started by the guest-agent
                              * GET /nodes/{node}/qemu/{vmid}/agent/exec-status
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(param: { node: pvenode, pid: integer, vmid: pvevmid }): Promise<object>;
+                            $get(param: { pid: integer }): Promise<ret_nodes_node_qemu_vmid_agent_exec_statusGET>;
                         },
                         'file-read': {
                             /**
                              * Reads the given file via guest agent. Is limited to 16777216 bytes.
                              * GET /nodes/{node}/qemu/{vmid}/agent/file-read
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(param: { file: string, node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(param: { file: string }): Promise<ret_nodes_node_qemu_vmid_agent_file_readGET>;
                         },
                         'file-write': {
                             /**
                              * Writes the given file via guest agent.
                              * POST /nodes/{node}/qemu/{vmid}/agent/file-write
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(param: { content: String0_61440, file: string, node: pvenode, vmid: pvevmid }): Promise<null>;
+                            $post(param: { content: String0_61440, file: string }): Promise<null>;
                         },
                     },
                     rrd: {
                         /**
                          * Read VM RRD statistics (returns PNG)
                          * GET /nodes/{node}/qemu/{vmid}/rrd
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                          */
-                        $get(param: { cf?: Tcf, ds: pveconfigidlist_1, node: pvenode, timeframe: Ttimeframe, vmid: pvevmid }): Promise<object>;
+                        $get(param: { cf?: Tcf, ds: pveconfigidlist_1, timeframe: Ttimeframe }): Promise<ret_nodes_node_qemu_vmid_rrdGET>;
                     },
                     rrddata: {
                         /**
                          * Read VM RRD statistics
                          * GET /nodes/{node}/qemu/{vmid}/rrddata
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                          */
-                        $get(param: { cf?: Tcf, node: pvenode, timeframe: Ttimeframe, vmid: pvevmid }): Promise<any[]>;
+                        $get(param: { cf?: Tcf, timeframe: Ttimeframe }): Promise<ret_nodes_node_qemu_vmid_rrddataGET[]>;
                     },
                     config: {
                         /**
                          * Get the virtual machine configuration with pending configuration changes applied. Set the 'current' parameter to get the current configuration instead.
                          * GET /nodes/{node}/qemu/{vmid}/config
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                          */
-                        $get(param: { current?: Tdisable, node: pvenode, snapshot?: pveconfigid_3, vmid: pvevmid }): Promise<object>;
+                        $get(param?: { current?: Tdisable, snapshot?: pveconfigid_3 }): Promise<ret_nodes_node_qemu_vmid_configGET>;
                         /**
                          * Set virtual machine options (asynchrounous API).
                          * POST /nodes/{node}/qemu/{vmid}/config
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CDROM","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.HWType","VM.Config.Options","VM.Config.Cloudinit"],"any",1]}
                          */
-                        $post(param: { acpi?: Tdisable, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: Tdisable, background_delay?: integer1_30, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, efidisk0?: Tefidisk0, force?: Tdisable, freeze?: Tdisable, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: Tdisable, localtime?: Tdisable, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, node: pvenode, numa?: Tdisable, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: Tdisable, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: Tdisable, reboot?: Tdisable, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: Tdisable, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: Tdisable, tags?: pvetaglist, tdf?: Tdisable, template?: Tdisable, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmid: pvevmid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<string>;
+                        $post(param?: { acpi?: Tdisable, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: Tdisable, background_delay?: integer1_30, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, efidisk0?: Tefidisk0, force?: Tdisable, freeze?: Tdisable, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: Tdisable, localtime?: Tdisable, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: Tdisable, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: Tdisable, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: Tdisable, reboot?: Tdisable, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: Tdisable, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: Tdisable, tags?: pvetaglist, tdf?: Tdisable, template?: Tdisable, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<ret_nodes_node_qemu_vmid_configPOST>;
                         /**
                          * Set virtual machine options (synchrounous API) - You should consider using the POST method instead for any actions involving hotplug or storage allocation.
                          * PUT /nodes/{node}/qemu/{vmid}/config
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CDROM","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.HWType","VM.Config.Options","VM.Config.Cloudinit"],"any",1]}
                          */
-                        $put(param: { acpi?: Tdisable, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: Tdisable, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, efidisk0?: Tefidisk0, force?: Tdisable, freeze?: Tdisable, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: Tdisable, localtime?: Tdisable, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, node: pvenode, numa?: Tdisable, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: Tdisable, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: Tdisable, reboot?: Tdisable, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: Tdisable, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: Tdisable, tags?: pvetaglist, tdf?: Tdisable, template?: Tdisable, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmid: pvevmid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<null>;
+                        $put(param?: { acpi?: Tdisable, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: Tdisable, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, efidisk0?: Tefidisk0, force?: Tdisable, freeze?: Tdisable, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: Tdisable, localtime?: Tdisable, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: Tdisable, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: Tdisable, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: Tdisable, reboot?: Tdisable, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: Tdisable, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: Tdisable, tags?: pvetaglist, tdf?: Tdisable, template?: Tdisable, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<null>;
                     },
                     pending: {
                         /**
                          * Get the virtual machine configuration with both current and pending values.
                          * GET /nodes/{node}/qemu/{vmid}/pending
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                          */
-                        $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                        $get(): Promise<ret_nodes_node_qemu_vmid_pendingGET[]>;
                     },
                     unlink: {
                         /**
                          * Unlink/delete disk images.
                          * PUT /nodes/{node}/qemu/{vmid}/unlink
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"]]}
                          */
-                        $put(param: { force?: Tdisable, idlist: pveconfigidlist_1, node: pvenode, vmid: pvevmid }): Promise<null>;
+                        $put(param: { force?: Tdisable, idlist: pveconfigidlist_1 }): Promise<null>;
                     },
                     vncproxy: {
                         /**
                          * Creates a TCP VNC proxy connections.
                          * POST /nodes/{node}/qemu/{vmid}/vncproxy
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                          */
-                        $post(param: { 'generate-password'?: Tdisable, node: pvenode, vmid: pvevmid, websocket?: Tdisable }): Promise<any>;
+                        $post(param?: { 'generate-password'?: Tdisable, websocket?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_vncproxyPOST>;
                     },
                     termproxy: {
                         /**
                          * Creates a TCP proxy connections.
                          * POST /nodes/{node}/qemu/{vmid}/termproxy
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                          */
-                        $post(param: { node: pvenode, serial?: Tserial_1, vmid: pvevmid }): Promise<any>;
+                        $post(param?: { serial?: Tserial_1 }): Promise<ret_nodes_node_qemu_vmid_termproxyPOST>;
                     },
                     vncwebsocket: {
                         /**
                          * Opens a weksocket for VNC traffic.
                          * GET /nodes/{node}/qemu/{vmid}/vncwebsocket
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]],"description":"You also need to pass a valid ticket (vncticket)."}
                          */
-                        $get(param: { node: pvenode, port: integer5900_5999, vmid: pvevmid, vncticket: String0_512 }): Promise<object>;
+                        $get(param: { port: integer5900_5999, vncticket: String0_512 }): Promise<ret_nodes_node_qemu_vmid_vncwebsocketGET>;
                     },
                     spiceproxy: {
                         /**
                          * Returns a SPICE configuration to connect to the VM.
                          * POST /nodes/{node}/qemu/{vmid}/spiceproxy
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                          */
-                        $post(param: { node: pvenode, proxy?: address, vmid: pvevmid }): Promise<any>;
+                        $post(param?: { proxy?: address }): Promise<ret_nodes_node_qemu_vmid_spiceproxyPOST>;
                     },
                     status: {
                         /**
                          * Directory index
                          * GET /nodes/{node}/qemu/{vmid}/status
+                         * @allowtoken 1
+                         * @permissions {"user":"all"}
                          */
-                        $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                        $get(): Promise<ret_nodes_node_qemu_vmid_statusGET[]>;
                         current: {
                             /**
                              * Get virtual machine status.
                              * GET /nodes/{node}/qemu/{vmid}/status/current
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_status_currentGET>;
                         },
                         start: {
                             /**
                              * Start virtual machine.
                              * POST /nodes/{node}/qemu/{vmid}/status/start
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param: { 'force-cpu'?: string, machine?: Tmachine, migratedfrom?: pvenode, migration_network?: CIDR, migration_type?: Tmigration_type, node: pvenode, skiplock?: Tdisable, stateuri?: String0_128, targetstorage?: storagepairlist, timeout?: integer_Min0, vmid: pvevmid }): Promise<string>;
+                            $post(param?: { 'force-cpu'?: string, machine?: Tmachine, migratedfrom?: pvenode, migration_network?: CIDR, migration_type?: Tmigration_type, skiplock?: Tdisable, stateuri?: String0_128, targetstorage?: storagepairlist, timeout?: integer_Min0 }): Promise<ret_nodes_node_qemu_vmid_status_startPOST>;
                         },
                         stop: {
                             /**
                              * Stop virtual machine. The qemu process will exit immediately. Thisis akin to pulling the power plug of a running computer and may damage the VM data
                              * POST /nodes/{node}/qemu/{vmid}/status/stop
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param: { keepActive?: Tdisable, migratedfrom?: pvenode, node: pvenode, skiplock?: Tdisable, timeout?: integer_Min0, vmid: pvevmid }): Promise<string>;
+                            $post(param?: { keepActive?: Tdisable, migratedfrom?: pvenode, skiplock?: Tdisable, timeout?: integer_Min0 }): Promise<ret_nodes_node_qemu_vmid_status_stopPOST>;
                         },
                         reset: {
                             /**
                              * Reset virtual machine.
                              * POST /nodes/{node}/qemu/{vmid}/status/reset
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param: { node: pvenode, skiplock?: Tdisable, vmid: pvevmid }): Promise<string>;
+                            $post(param?: { skiplock?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_status_resetPOST>;
                         },
                         shutdown: {
                             /**
                              * Shutdown virtual machine. This is similar to pressing the power button on a physical machine.This will send an ACPI event for the guest OS, which should then proceed to a clean shutdown.
                              * POST /nodes/{node}/qemu/{vmid}/status/shutdown
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param: { forceStop?: Tdisable, keepActive?: Tdisable, node: pvenode, skiplock?: Tdisable, timeout?: integer_Min0, vmid: pvevmid }): Promise<string>;
+                            $post(param?: { forceStop?: Tdisable, keepActive?: Tdisable, skiplock?: Tdisable, timeout?: integer_Min0 }): Promise<ret_nodes_node_qemu_vmid_status_shutdownPOST>;
                         },
                         reboot: {
                             /**
                              * Reboot the VM by shutting it down, and starting it again. Applies pending changes.
                              * POST /nodes/{node}/qemu/{vmid}/status/reboot
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param: { node: pvenode, timeout?: integer_Min0, vmid: pvevmid }): Promise<string>;
+                            $post(param?: { timeout?: integer_Min0 }): Promise<ret_nodes_node_qemu_vmid_status_rebootPOST>;
                         },
                         suspend: {
                             /**
                              * Suspend virtual machine.
                              * POST /nodes/{node}/qemu/{vmid}/status/suspend
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]],"description":"You need 'VM.PowerMgmt' on /vms/{vmid}, and if you have set 'todisk', you need also 'VM.Config.Disk' on /vms/{vmid} and 'Datastore.AllocateSpace' on the storage for the vmstate."}
                              */
-                            $post(param: { node: pvenode, skiplock?: Tdisable, statestorage?: pvestorageid, todisk?: Tdisable, vmid: pvevmid }): Promise<string>;
+                            $post(param?: { skiplock?: Tdisable, statestorage?: pvestorageid, todisk?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_status_suspendPOST>;
                         },
                         resume: {
                             /**
                              * Resume virtual machine.
                              * POST /nodes/{node}/qemu/{vmid}/status/resume
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param: { nocheck?: Tdisable, node: pvenode, skiplock?: Tdisable, vmid: pvevmid }): Promise<string>;
+                            $post(param?: { nocheck?: Tdisable, skiplock?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_status_resumePOST>;
                         },
                     },
                     sendkey: {
                         /**
                          * Send key event to virtual machine.
                          * PUT /nodes/{node}/qemu/{vmid}/sendkey
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                          */
-                        $put(param: { key: string, node: pvenode, skiplock?: Tdisable, vmid: pvevmid }): Promise<null>;
+                        $put(param: { key: string, skiplock?: Tdisable }): Promise<null>;
                     },
                     feature: {
                         /**
                          * Check if feature for virtual machine is available.
                          * GET /nodes/{node}/qemu/{vmid}/feature
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                          */
-                        $get(param: { feature: Tfeature, node: pvenode, snapname?: pveconfigid_3, vmid: pvevmid }): Promise<object>;
+                        $get(param: { feature: Tfeature, snapname?: pveconfigid_3 }): Promise<ret_nodes_node_qemu_vmid_featureGET>;
                     },
                     clone: {
                         /**
                          * Create a copy of virtual machine/template.
                          * POST /nodes/{node}/qemu/{vmid}/clone
+                         * @allowtoken 1
+                         * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Clone"]],["or",["perm","/vms/{newid}",["VM.Allocate"]],["perm","/pool/{pool}",["VM.Allocate"],"require_param","pool"]]],"description":"You need 'VM.Clone' permissions on /vms/{vmid}, and 'VM.Allocate' permissions on /vms/{newid} (or on the VM pool /pool/{pool}). You also need 'Datastore.AllocateSpace' on any used storage."}
                          */
-                        $post(param: { bwlimit?: integer_Min0, description?: string, format?: Tformat, full?: Tdisable, name?: dnsname, newid: pvevmid, node: pvenode, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode, vmid: pvevmid }): Promise<string>;
+                        $post(param: { bwlimit?: integer_Min0, description?: string, format?: Tformat, full?: Tdisable, name?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode }): Promise<ret_nodes_node_qemu_vmid_clonePOST>;
                     },
                     move_disk: {
                         /**
                          * Move volume to different storage.
                          * POST /nodes/{node}/qemu/{vmid}/move_disk
+                         * @allowtoken 1
+                         * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Config.Disk"]],["perm","/storage/{storage}",["Datastore.AllocateSpace"]]],"description":"You need 'VM.Config.Disk' permissions on /vms/{vmid}, and 'Datastore.AllocateSpace' permissions on the storage."}
                          */
-                        $post(param: { bwlimit?: integer_Min0, delete?: Tdisable, digest?: String0_40, disk: Tdisk, format?: Tformat, node: pvenode, storage: pvestorageid, vmid: pvevmid }): Promise<string>;
+                        $post(param: { bwlimit?: integer_Min0, delete?: Tdisable, digest?: String0_40, disk: Tdisk, format?: Tformat, storage: pvestorageid }): Promise<ret_nodes_node_qemu_vmid_move_diskPOST>;
                     },
                     migrate: {
                         /**
                          * Get preconditions for migration.
                          * GET /nodes/{node}/qemu/{vmid}/migrate
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
                          */
-                        $get(param: { node: pvenode, target?: pvenode, vmid: pvevmid }): Promise<object>;
+                        $get(param?: { target?: pvenode }): Promise<ret_nodes_node_qemu_vmid_migrateGET>;
                         /**
                          * Migrate virtual machine. Creates a new migration task.
                          * POST /nodes/{node}/qemu/{vmid}/migrate
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
                          */
-                        $post(param: { bwlimit?: integer_Min0, force?: Tdisable, migration_network?: CIDR, migration_type?: Tmigration_type, node: pvenode, online?: Tdisable, target: pvenode, targetstorage?: storagepairlist, vmid: pvevmid, 'with-local-disks'?: Tdisable }): Promise<string>;
+                        $post(param: { bwlimit?: integer_Min0, force?: Tdisable, migration_network?: CIDR, migration_type?: Tmigration_type, online?: Tdisable, target: pvenode, targetstorage?: storagepairlist, 'with-local-disks'?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_migratePOST>;
                     },
                     monitor: {
                         /**
                          * Execute Qemu monitor commands.
                          * POST /nodes/{node}/qemu/{vmid}/monitor
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]],"description":"Sys.Modify is required for (sub)commands which are not read-only ('info *' and 'help')"}
                          */
-                        $post(param: { command: string, node: pvenode, vmid: pvevmid }): Promise<string>;
+                        $post(param: { command: string }): Promise<ret_nodes_node_qemu_vmid_monitorPOST>;
                     },
                     resize: {
                         /**
                          * Extend volume size.
                          * PUT /nodes/{node}/qemu/{vmid}/resize
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"]]}
                          */
-                        $put(param: { digest?: String0_40, disk: Tdisk, node: pvenode, size: Tsize, skiplock?: Tdisable, vmid: pvevmid }): Promise<null>;
+                        $put(param: { digest?: String0_40, disk: Tdisk, size: Tsize, skiplock?: Tdisable }): Promise<null>;
                     },
                     snapshot: {
                         /**
                          * List all snapshots.
                          * GET /nodes/{node}/qemu/{vmid}/snapshot
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                          */
-                        $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                        $get(): Promise<ret_nodes_node_qemu_vmid_snapshotGET[]>;
                         /**
                          * Snapshot a VM.
                          * POST /nodes/{node}/qemu/{vmid}/snapshot
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                          */
-                        $post(param: { description?: string, node: pvenode, snapname: pveconfigid_3, vmid: pvevmid, vmstate?: Tdisable }): Promise<string>;
+                        $post(param: { description?: string, snapname: pveconfigid_3, vmstate?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_snapshotPOST>;
                         $(snapname: string): {
                             /**
                              * Delete a VM snapshot.
                              * DELETE /nodes/{node}/qemu/{vmid}/snapshot/{snapname}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                              */
-                            $delete(param: { force?: Tdisable, node: pvenode, snapname: pveconfigid_3, vmid: pvevmid }): Promise<string>;
+                            $delete(param?: { force?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_snapshot_snapnameDELETE>;
                             /**
                              * 
+                             * @allowtoken 1
+                             * @permissions {"user":"all"}
                              */
-                            $get(param: { node: pvenode, snapname: pveconfigid_3, vmid: pvevmid }): Promise<any[]>;
+                            $get(): Promise<ret_nodes_node_qemu_vmid_snapshot_snapnameGET[]>;
                             config: {
                                 /**
                                  * Get snapshot configuration
                                  * GET /nodes/{node}/qemu/{vmid}/snapshot/{snapname}/config
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback","VM.Audit"],"any",1]}
                                  */
-                                $get(param: { node: pvenode, snapname: pveconfigid_3, vmid: pvevmid }): Promise<object>;
+                                $get(): Promise<ret_nodes_node_qemu_vmid_snapshot_snapname_configGET>;
                                 /**
                                  * Update snapshot metadata.
                                  * PUT /nodes/{node}/qemu/{vmid}/snapshot/{snapname}/config
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                                  */
-                                $put(param: { description?: string, node: pvenode, snapname: pveconfigid_3, vmid: pvevmid }): Promise<null>;
+                                $put(param?: { description?: string }): Promise<null>;
                             },
                             rollback: {
                                 /**
                                  * Rollback VM state to specified snapshot.
                                  * POST /nodes/{node}/qemu/{vmid}/snapshot/{snapname}/rollback
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback"],"any",1]}
                                  */
-                                $post(param: { node: pvenode, snapname: pveconfigid_3, vmid: pvevmid }): Promise<string>;
+                                $post(): Promise<ret_nodes_node_qemu_vmid_snapshot_snapname_rollbackPOST>;
                             },
                         };
                     },
@@ -2424,16 +6219,20 @@ export interface Proxmox {
                         /**
                          * Create a Template.
                          * POST /nodes/{node}/qemu/{vmid}/template
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]],"description":"You need 'VM.Allocate' permissions on /vms/{vmid}"}
                          */
-                        $post(param: { disk?: Tdisk, node: pvenode, vmid: pvevmid }): Promise<null>;
+                        $post(param?: { disk?: Tdisk }): Promise<null>;
                     },
                     cloudinit: {
                         dump: {
                             /**
                              * Get automatically generated cloudinit config.
                              * GET /nodes/{node}/qemu/{vmid}/cloudinit/dump
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { node: pvenode, type: Ttype_10, vmid: pvevmid }): Promise<string>;
+                            $get(param: { type: Ttype_10 }): Promise<ret_nodes_node_qemu_vmid_cloudinit_dumpGET>;
                         },
                     },
                 };
@@ -2442,138 +6241,182 @@ export interface Proxmox {
                 /**
                  * List all custom and default CPU models.
                  * GET /nodes/{node}/cpu
+                 * @allowtoken 1
+                 * @permissions {"description":"Only returns custom models when the current user has Sys.Audit on /nodes.","user":"all"}
                  */
-                $get(param: { node: pvenode }): Promise<any[]>;
+                $get(): Promise<ret_nodes_node_cpuGET[]>;
             },
             lxc: {
                 /**
                  * LXC container index (per node).
                  * GET /nodes/{node}/lxc
+                 * @allowtoken 1
+                 * @permissions {"description":"Only list CTs where you have VM.Audit permissons on /vms/<vmid>.","user":"all"}
                  */
-                $get(param: { node: pvenode }): Promise<any[]>;
+                $get(): Promise<ret_nodes_node_lxcGET[]>;
                 /**
                  * Create or restore a container.
                  * POST /nodes/{node}/lxc
+                 * @allowtoken 1
+                 * @permissions {"description":"You need 'VM.Allocate' permissions on /vms/{vmid} or on the VM pool /pool/{pool}. For restore, it is enough if the user has 'VM.Backup' permission and the VM already exists. You also need 'Datastore.AllocateSpace' permissions on the storage.","user":"all"}
                  */
-                $post(param: { arch?: Tarch_1, bwlimit?: Tmigrate_downtime, cmode?: Tcmode, console?: Tdisable, cores?: integer1_128, cpulimit?: Tcpulimit, cpuunits?: integer0_500000, description?: string, features?: Tfeatures, force?: Tdisable, hookscript?: pvevolumeid, hostname?: dnsname_1, 'ignore-unpack-errors'?: Tdisable, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: addresslist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, node: pvenode, onboot?: Tdisable, ostemplate: String0_255, ostype?: Tostype_1, password?: Tpassword, pool?: pvepoolid, protection?: Tdisable, restore?: Tdisable, rootfs?: Trootfs, searchdomain?: dnsnamelist, 'ssh-public-keys'?: string, start?: Tdisable, startup?: pvestartuporder, storage?: pvestorageid, swap?: integer_Min0, tags?: pvetaglist, template?: Tdisable, timezone?: pvecttimezone, tty?: integer0_6, unique?: Tdisable, unprivileged?: Tdisable, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1, vmid: pvevmid }): Promise<string>;
-                $(vmid: string): {
+                $post(param: { arch?: Tarch_1, bwlimit?: Tmigrate_downtime, cmode?: Tcmode, console?: Tdisable, cores?: integer1_128, cpulimit?: Tcpulimit, cpuunits?: integer0_500000, description?: string, features?: Tfeatures, force?: Tdisable, hookscript?: pvevolumeid, hostname?: dnsname_1, 'ignore-unpack-errors'?: Tdisable, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: addresslist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: Tdisable, ostemplate: String0_255, ostype?: Tostype_1, password?: Tpassword, pool?: pvepoolid, protection?: Tdisable, restore?: Tdisable, rootfs?: Trootfs, searchdomain?: dnsnamelist, 'ssh-public-keys'?: string, start?: Tdisable, startup?: pvestartuporder, storage?: pvestorageid, swap?: integer_Min0, tags?: pvetaglist, template?: Tdisable, timezone?: pvecttimezone, tty?: integer0_6, unique?: Tdisable, unprivileged?: Tdisable, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1, vmid: pvevmid }): Promise<ret_nodes_node_lxcPOST>;
+                $(vmid: number): {
                     /**
                      * Destroy the container (also delete all uses files).
                      * DELETE /nodes/{node}/lxc/{vmid}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]]}
                      */
-                    $delete(param: { force?: Tdisable, node: pvenode, purge?: Tdisable, vmid: pvevmid }): Promise<string>;
+                    $delete(param?: { force?: Tdisable, purge?: Tdisable }): Promise<ret_nodes_node_lxc_vmidDELETE>;
                     /**
                      * Directory index
                      * GET /nodes/{node}/lxc/{vmid}
+                     * @allowtoken 1
+                     * @permissions {"user":"all"}
                      */
-                    $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_lxc_vmidGET[]>;
                     config: {
                         /**
                          * Get container configuration.
                          * GET /nodes/{node}/lxc/{vmid}/config
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                          */
-                        $get(param: { current?: Tdisable, node: pvenode, snapshot?: pveconfigid_3, vmid: pvevmid }): Promise<object>;
+                        $get(param?: { current?: Tdisable, snapshot?: pveconfigid_3 }): Promise<ret_nodes_node_lxc_vmid_configGET>;
                         /**
                          * Set container options.
                          * PUT /nodes/{node}/lxc/{vmid}/config
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.Options"],"any",1],"description":"non-volume mount points in rootfs and mp[n] are restricted to root@pam"}
                          */
-                        $put(param: { arch?: Tarch_1, cmode?: Tcmode, console?: Tdisable, cores?: integer1_128, cpulimit?: Tcpulimit, cpuunits?: integer0_500000, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, features?: Tfeatures, hookscript?: pvevolumeid, hostname?: dnsname_1, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: addresslist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, node: pvenode, onboot?: Tdisable, ostype?: Tostype_1, protection?: Tdisable, revert?: pveconfigidlist_1, rootfs?: Trootfs, searchdomain?: dnsnamelist, startup?: pvestartuporder, swap?: integer_Min0, tags?: pvetaglist, template?: Tdisable, timezone?: pvecttimezone, tty?: integer0_6, unprivileged?: Tdisable, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1, vmid: pvevmid }): Promise<null>;
+                        $put(param?: { arch?: Tarch_1, cmode?: Tcmode, console?: Tdisable, cores?: integer1_128, cpulimit?: Tcpulimit, cpuunits?: integer0_500000, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, features?: Tfeatures, hookscript?: pvevolumeid, hostname?: dnsname_1, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: addresslist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: Tdisable, ostype?: Tostype_1, protection?: Tdisable, revert?: pveconfigidlist_1, rootfs?: Trootfs, searchdomain?: dnsnamelist, startup?: pvestartuporder, swap?: integer_Min0, tags?: pvetaglist, template?: Tdisable, timezone?: pvecttimezone, tty?: integer0_6, unprivileged?: Tdisable, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1 }): Promise<null>;
                     },
                     status: {
                         /**
                          * Directory index
                          * GET /nodes/{node}/lxc/{vmid}/status
+                         * @allowtoken 1
+                         * @permissions {"user":"all"}
                          */
-                        $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                        $get(): Promise<ret_nodes_node_lxc_vmid_statusGET[]>;
                         current: {
                             /**
                              * Get virtual machine status.
                              * GET /nodes/{node}/lxc/{vmid}/status/current
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_lxc_vmid_status_currentGET>;
                         },
                         start: {
                             /**
                              * Start the container.
                              * POST /nodes/{node}/lxc/{vmid}/status/start
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param: { node: pvenode, skiplock?: Tdisable, vmid: pvevmid }): Promise<string>;
+                            $post(param?: { skiplock?: Tdisable }): Promise<ret_nodes_node_lxc_vmid_status_startPOST>;
                         },
                         stop: {
                             /**
                              * Stop the container. This will abruptly stop all processes running in the container.
                              * POST /nodes/{node}/lxc/{vmid}/status/stop
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param: { node: pvenode, skiplock?: Tdisable, vmid: pvevmid }): Promise<string>;
+                            $post(param?: { skiplock?: Tdisable }): Promise<ret_nodes_node_lxc_vmid_status_stopPOST>;
                         },
                         shutdown: {
                             /**
                              * Shutdown the container. This will trigger a clean shutdown of the container, see lxc-stop(1) for details.
                              * POST /nodes/{node}/lxc/{vmid}/status/shutdown
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param: { forceStop?: Tdisable, node: pvenode, timeout?: integer_Min0, vmid: pvevmid }): Promise<string>;
+                            $post(param?: { forceStop?: Tdisable, timeout?: integer_Min0 }): Promise<ret_nodes_node_lxc_vmid_status_shutdownPOST>;
                         },
                         suspend: {
                             /**
                              * Suspend the container.
                              * POST /nodes/{node}/lxc/{vmid}/status/suspend
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param: { node: pvenode, vmid: pvevmid }): Promise<string>;
+                            $post(): Promise<ret_nodes_node_lxc_vmid_status_suspendPOST>;
                         },
                         resume: {
                             /**
                              * Resume the container.
                              * POST /nodes/{node}/lxc/{vmid}/status/resume
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param: { node: pvenode, vmid: pvevmid }): Promise<string>;
+                            $post(): Promise<ret_nodes_node_lxc_vmid_status_resumePOST>;
                         },
                         reboot: {
                             /**
                              * Reboot the container by shutting it down, and starting it again. Applies pending changes.
                              * POST /nodes/{node}/lxc/{vmid}/status/reboot
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param: { node: pvenode, timeout?: integer_Min0, vmid: pvevmid }): Promise<string>;
+                            $post(param?: { timeout?: integer_Min0 }): Promise<ret_nodes_node_lxc_vmid_status_rebootPOST>;
                         },
                     },
                     snapshot: {
                         /**
                          * List all snapshots.
                          * GET /nodes/{node}/lxc/{vmid}/snapshot
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                          */
-                        $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                        $get(): Promise<ret_nodes_node_lxc_vmid_snapshotGET[]>;
                         /**
                          * Snapshot a container.
                          * POST /nodes/{node}/lxc/{vmid}/snapshot
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                          */
-                        $post(param: { description?: string, node: pvenode, snapname: pveconfigid_3, vmid: pvevmid }): Promise<string>;
+                        $post(param: { description?: string, snapname: pveconfigid_3 }): Promise<ret_nodes_node_lxc_vmid_snapshotPOST>;
                         $(snapname: string): {
                             /**
                              * Delete a LXC snapshot.
                              * DELETE /nodes/{node}/lxc/{vmid}/snapshot/{snapname}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                              */
-                            $delete(param: { force?: Tdisable, node: pvenode, snapname: pveconfigid_3, vmid: pvevmid }): Promise<string>;
+                            $delete(param?: { force?: Tdisable }): Promise<ret_nodes_node_lxc_vmid_snapshot_snapnameDELETE>;
                             /**
                              * 
+                             * @allowtoken 1
+                             * @permissions {"user":"all"}
                              */
-                            $get(param: { node: pvenode, snapname: pveconfigid_3, vmid: pvevmid }): Promise<any[]>;
+                            $get(): Promise<ret_nodes_node_lxc_vmid_snapshot_snapnameGET[]>;
                             rollback: {
                                 /**
                                  * Rollback LXC state to specified snapshot.
                                  * POST /nodes/{node}/lxc/{vmid}/snapshot/{snapname}/rollback
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback"],"any",1]}
                                  */
-                                $post(param: { node: pvenode, snapname: pveconfigid_3, vmid: pvevmid }): Promise<string>;
+                                $post(): Promise<ret_nodes_node_lxc_vmid_snapshot_snapname_rollbackPOST>;
                             },
                             config: {
                                 /**
                                  * Get snapshot configuration
                                  * GET /nodes/{node}/lxc/{vmid}/snapshot/{snapname}/config
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback","VM.Audit"],"any",1]}
                                  */
-                                $get(param: { node: pvenode, snapname: pveconfigid_3, vmid: pvevmid }): Promise<object>;
+                                $get(): Promise<ret_nodes_node_lxc_vmid_snapshot_snapname_configGET>;
                                 /**
                                  * Update snapshot metadata.
                                  * PUT /nodes/{node}/lxc/{vmid}/snapshot/{snapname}/config
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                                  */
-                                $put(param: { description?: string, node: pvenode, snapname: pveconfigid_3, vmid: pvevmid }): Promise<null>;
+                                $put(param?: { description?: string }): Promise<null>;
                             },
                         };
                     },
@@ -2581,109 +6424,147 @@ export interface Proxmox {
                         /**
                          * Directory index.
                          * GET /nodes/{node}/lxc/{vmid}/firewall
+                         * @allowtoken 1
+                         * @permissions {"user":"all"}
                          */
-                        $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                        $get(): Promise<ret_nodes_node_lxc_vmid_firewallGET[]>;
                         rules: {
                             /**
                              * List rules.
                              * GET /nodes/{node}/lxc/{vmid}/firewall/rules
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                            $get(): Promise<ret_nodes_node_lxc_vmid_firewall_rulesGET[]>;
                             /**
                              * Create new rule.
                              * POST /nodes/{node}/lxc/{vmid}/firewall/rules
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                              */
-                            $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, node: pvenode, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1, vmid: pvevmid }): Promise<null>;
+                            $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
                             $(pos: string): {
                                 /**
                                  * Delete rule.
                                  * DELETE /nodes/{node}/lxc/{vmid}/firewall/rules/{pos}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $delete(param: { digest?: String0_40, node: pvenode, pos?: integer_Min0, vmid: pvevmid }): Promise<null>;
+                                $delete(param?: { digest?: String0_40 }): Promise<null>;
                                 /**
                                  * Get single rule data.
                                  * GET /nodes/{node}/lxc/{vmid}/firewall/rules/{pos}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
-                                $get(param: { node: pvenode, pos?: integer_Min0, vmid: pvevmid }): Promise<object>;
+                                $get(): Promise<ret_nodes_node_lxc_vmid_firewall_rules_posGET>;
                                 /**
                                  * Modify rule data.
                                  * PUT /nodes/{node}/lxc/{vmid}/firewall/rules/{pos}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $put(param: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, node: pvenode, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1, vmid: pvevmid }): Promise<null>;
+                                $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
                             };
                         },
                         aliases: {
                             /**
                              * List aliases
                              * GET /nodes/{node}/lxc/{vmid}/firewall/aliases
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                            $get(): Promise<ret_nodes_node_lxc_vmid_firewall_aliasesGET[]>;
                             /**
                              * Create IP or Network Alias.
                              * POST /nodes/{node}/lxc/{vmid}/firewall/aliases
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                              */
-                            $post(param: { cidr: IPorCIDR, comment?: string, name: Tname, node: pvenode, vmid: pvevmid }): Promise<null>;
+                            $post(param: { cidr: IPorCIDR, comment?: string, name: Tname }): Promise<null>;
                             $(name: string): {
                                 /**
                                  * Remove IP or Network alias.
                                  * DELETE /nodes/{node}/lxc/{vmid}/firewall/aliases/{name}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $delete(param: { digest?: String0_40, name: Tname, node: pvenode, vmid: pvevmid }): Promise<null>;
+                                $delete(param?: { digest?: String0_40 }): Promise<null>;
                                 /**
                                  * Read alias.
                                  * GET /nodes/{node}/lxc/{vmid}/firewall/aliases/{name}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
-                                $get(param: { name: Tname, node: pvenode, vmid: pvevmid }): Promise<object>;
+                                $get(): Promise<ret_nodes_node_lxc_vmid_firewall_aliases_nameGET>;
                                 /**
                                  * Update IP or Network alias.
                                  * PUT /nodes/{node}/lxc/{vmid}/firewall/aliases/{name}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $put(param: { cidr: IPorCIDR, comment?: string, digest?: String0_40, name: Tname, node: pvenode, rename?: Tname, vmid: pvevmid }): Promise<null>;
+                                $put(param: { cidr: IPorCIDR, comment?: string, digest?: String0_40, rename?: Tname }): Promise<null>;
                             };
                         },
                         ipset: {
                             /**
                              * List IPSets
                              * GET /nodes/{node}/lxc/{vmid}/firewall/ipset
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                            $get(): Promise<ret_nodes_node_lxc_vmid_firewall_ipsetGET[]>;
                             /**
                              * Create new IPSet
                              * POST /nodes/{node}/lxc/{vmid}/firewall/ipset
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                              */
-                            $post(param: { comment?: string, digest?: String0_40, name: Tname, node: pvenode, rename?: Tname, vmid: pvevmid }): Promise<null>;
+                            $post(param: { comment?: string, digest?: String0_40, name: Tname, rename?: Tname }): Promise<null>;
                             $(name: string): {
                                 /**
                                  * Delete IPSet
                                  * DELETE /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $delete(param: { name: Tname, node: pvenode, vmid: pvevmid }): Promise<null>;
+                                $delete(): Promise<null>;
                                 /**
                                  * List IPSet content
                                  * GET /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
-                                $get(param: { name: Tname, node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                                $get(): Promise<ret_nodes_node_lxc_vmid_firewall_ipset_nameGET[]>;
                                 /**
                                  * Add IP or Network to IPSet.
                                  * POST /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $post(param: { cidr: IPorCIDRorAlias, comment?: string, name: Tname, node: pvenode, nomatch?: Tdisable, vmid: pvevmid }): Promise<null>;
+                                $post(param: { cidr: IPorCIDRorAlias, comment?: string, nomatch?: Tdisable }): Promise<null>;
                                 $(cidr: string): {
                                     /**
                                      * Remove IP or Network from IPSet.
                                      * DELETE /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}/{cidr}
+                                     * @allowtoken 1
+                                     * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
-                                    $delete(param: { cidr: IPorCIDRorAlias, digest?: String0_40, name: Tname, node: pvenode, vmid: pvevmid }): Promise<null>;
+                                    $delete(param?: { digest?: String0_40 }): Promise<null>;
                                     /**
                                      * Read IP or Network settings from IPSet.
                                      * GET /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}/{cidr}
+                                     * @allowtoken 1
+                                     * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                      */
-                                    $get(param: { cidr: IPorCIDRorAlias, name: Tname, node: pvenode, vmid: pvevmid }): Promise<object>;
+                                    $get(): Promise<ret_nodes_node_lxc_vmid_firewall_ipset_name_cidrGET>;
                                     /**
                                      * Update IP or Network settings
                                      * PUT /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}/{cidr}
+                                     * @allowtoken 1
+                                     * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
-                                    $put(param: { cidr: IPorCIDRorAlias, comment?: string, digest?: String0_40, name: Tname, node: pvenode, nomatch?: Tdisable, vmid: pvevmid }): Promise<null>;
+                                    $put(param?: { comment?: string, digest?: String0_40, nomatch?: Tdisable }): Promise<null>;
                                 };
                             };
                         },
@@ -2691,119 +6572,153 @@ export interface Proxmox {
                             /**
                              * Get VM firewall options.
                              * GET /nodes/{node}/lxc/{vmid}/firewall/options
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { node: pvenode, vmid: pvevmid }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_lxc_vmid_firewall_optionsGET>;
                             /**
                              * Set Firewall options.
                              * PUT /nodes/{node}/lxc/{vmid}/firewall/options
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                              */
-                            $put(param: { delete?: pveconfigidlist_1, dhcp?: Tdisable, digest?: String0_40, enable?: Tdisable, ipfilter?: Tdisable, log_level_in?: Tlog, log_level_out?: Tlog, macfilter?: Tdisable, ndp?: Tdisable, node: pvenode, policy_in?: Tpolicy_in, policy_out?: Tpolicy_in, radv?: Tdisable, vmid: pvevmid }): Promise<null>;
+                            $put(param?: { delete?: pveconfigidlist_1, dhcp?: Tdisable, digest?: String0_40, enable?: Tdisable, ipfilter?: Tdisable, log_level_in?: Tlog, log_level_out?: Tlog, macfilter?: Tdisable, ndp?: Tdisable, policy_in?: Tpolicy_in, policy_out?: Tpolicy_in, radv?: Tdisable }): Promise<null>;
                         },
                         log: {
                             /**
                              * Read firewall log
                              * GET /nodes/{node}/lxc/{vmid}/firewall/log
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
-                            $get(param: { limit?: integer_Min0, node: pvenode, start?: integer_Min0, vmid: pvevmid }): Promise<any[]>;
+                            $get(param?: { limit?: integer_Min0, start?: integer_Min0 }): Promise<ret_nodes_node_lxc_vmid_firewall_logGET[]>;
                         },
                         refs: {
                             /**
                              * Lists possible IPSet/Alias reference which are allowed in source/dest properties.
                              * GET /nodes/{node}/lxc/{vmid}/firewall/refs
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { node: pvenode, type?: Ttype_2, vmid: pvevmid }): Promise<any[]>;
+                            $get(param?: { type?: Ttype_2 }): Promise<ret_nodes_node_lxc_vmid_firewall_refsGET[]>;
                         },
                     },
                     rrd: {
                         /**
                          * Read VM RRD statistics (returns PNG)
                          * GET /nodes/{node}/lxc/{vmid}/rrd
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                          */
-                        $get(param: { cf?: Tcf, ds: pveconfigidlist_1, node: pvenode, timeframe: Ttimeframe, vmid: pvevmid }): Promise<object>;
+                        $get(param: { cf?: Tcf, ds: pveconfigidlist_1, timeframe: Ttimeframe }): Promise<ret_nodes_node_lxc_vmid_rrdGET>;
                     },
                     rrddata: {
                         /**
                          * Read VM RRD statistics
                          * GET /nodes/{node}/lxc/{vmid}/rrddata
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                          */
-                        $get(param: { cf?: Tcf, node: pvenode, timeframe: Ttimeframe, vmid: pvevmid }): Promise<any[]>;
+                        $get(param: { cf?: Tcf, timeframe: Ttimeframe }): Promise<ret_nodes_node_lxc_vmid_rrddataGET[]>;
                     },
                     vncproxy: {
                         /**
                          * Creates a TCP VNC proxy connections.
                          * POST /nodes/{node}/lxc/{vmid}/vncproxy
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                          */
-                        $post(param: { height?: integer16_2160, node: pvenode, vmid: pvevmid, websocket?: Tdisable, width?: integer16_4096 }): Promise<any>;
+                        $post(param?: { height?: integer16_2160, websocket?: Tdisable, width?: integer16_4096 }): Promise<ret_nodes_node_lxc_vmid_vncproxyPOST>;
                     },
                     termproxy: {
                         /**
                          * Creates a TCP proxy connection.
                          * POST /nodes/{node}/lxc/{vmid}/termproxy
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                          */
-                        $post(param: { node: pvenode, vmid: pvevmid }): Promise<any>;
+                        $post(): Promise<ret_nodes_node_lxc_vmid_termproxyPOST>;
                     },
                     vncwebsocket: {
                         /**
                          * Opens a weksocket for VNC traffic.
                          * GET /nodes/{node}/lxc/{vmid}/vncwebsocket
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]],"description":"You also need to pass a valid ticket (vncticket)."}
                          */
-                        $get(param: { node: pvenode, port: integer5900_5999, vmid: pvevmid, vncticket: String0_512 }): Promise<object>;
+                        $get(param: { port: integer5900_5999, vncticket: String0_512 }): Promise<ret_nodes_node_lxc_vmid_vncwebsocketGET>;
                     },
                     spiceproxy: {
                         /**
                          * Returns a SPICE configuration to connect to the CT.
                          * POST /nodes/{node}/lxc/{vmid}/spiceproxy
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                          */
-                        $post(param: { node: pvenode, proxy?: address, vmid: pvevmid }): Promise<any>;
+                        $post(param?: { proxy?: address }): Promise<ret_nodes_node_lxc_vmid_spiceproxyPOST>;
                     },
                     migrate: {
                         /**
                          * Migrate the container to another node. Creates a new migration task.
                          * POST /nodes/{node}/lxc/{vmid}/migrate
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
                          */
-                        $post(param: { bwlimit?: Tmigrate_downtime, force?: Tdisable, node: pvenode, online?: Tdisable, restart?: Tdisable, target: pvenode, timeout?: integer, vmid: pvevmid }): Promise<string>;
+                        $post(param: { bwlimit?: Tmigrate_downtime, force?: Tdisable, online?: Tdisable, restart?: Tdisable, target: pvenode, timeout?: integer }): Promise<ret_nodes_node_lxc_vmid_migratePOST>;
                     },
                     feature: {
                         /**
                          * Check if feature for virtual machine is available.
                          * GET /nodes/{node}/lxc/{vmid}/feature
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                          */
-                        $get(param: { feature: Tfeature, node: pvenode, snapname?: pveconfigid_3, vmid: pvevmid }): Promise<object>;
+                        $get(param: { feature: Tfeature, snapname?: pveconfigid_3 }): Promise<ret_nodes_node_lxc_vmid_featureGET>;
                     },
                     template: {
                         /**
                          * Create a Template.
                          * POST /nodes/{node}/lxc/{vmid}/template
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]],"description":"You need 'VM.Allocate' permissions on /vms/{vmid}"}
                          */
-                        $post(param: { node: pvenode, vmid: pvevmid }): Promise<null>;
+                        $post(): Promise<null>;
                     },
                     clone: {
                         /**
                          * Create a container clone/copy
                          * POST /nodes/{node}/lxc/{vmid}/clone
+                         * @allowtoken 1
+                         * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Clone"]],["or",["perm","/vms/{newid}",["VM.Allocate"]],["perm","/pool/{pool}",["VM.Allocate"],"require_param","pool"]]],"description":"You need 'VM.Clone' permissions on /vms/{vmid}, and 'VM.Allocate' permissions on /vms/{newid} (or on the VM pool /pool/{pool}). You also need 'Datastore.AllocateSpace' on any used storage."}
                          */
-                        $post(param: { bwlimit?: Tmigrate_downtime, description?: string, full?: Tdisable, hostname?: dnsname, newid: pvevmid, node: pvenode, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode, vmid: pvevmid }): Promise<string>;
+                        $post(param: { bwlimit?: Tmigrate_downtime, description?: string, full?: Tdisable, hostname?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode }): Promise<ret_nodes_node_lxc_vmid_clonePOST>;
                     },
                     resize: {
                         /**
                          * Resize a container mount point.
                          * PUT /nodes/{node}/lxc/{vmid}/resize
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"],"any",1]}
                          */
-                        $put(param: { digest?: String0_40, disk: Tdisk_1, node: pvenode, size: Tsize, vmid: pvevmid }): Promise<string>;
+                        $put(param: { digest?: String0_40, disk: Tdisk_1, size: Tsize }): Promise<ret_nodes_node_lxc_vmid_resizePUT>;
                     },
                     move_volume: {
                         /**
                          * Move a rootfs-/mp-volume to a different storage
                          * POST /nodes/{node}/lxc/{vmid}/move_volume
+                         * @allowtoken 1
+                         * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Config.Disk"]],["perm","/storage/{storage}",["Datastore.AllocateSpace"]]],"description":"You need 'VM.Config.Disk' permissions on /vms/{vmid}, and 'Datastore.AllocateSpace' permissions on the storage."}
                          */
-                        $post(param: { bwlimit?: Tmigrate_downtime, delete?: Tdisable, digest?: String0_40, node: pvenode, storage: pvestorageid, vmid: pvevmid, volume: Tdisk_1 }): Promise<string>;
+                        $post(param: { bwlimit?: Tmigrate_downtime, delete?: Tdisable, digest?: String0_40, storage: pvestorageid, volume: Tdisk_1 }): Promise<ret_nodes_node_lxc_vmid_move_volumePOST>;
                     },
                     pending: {
                         /**
                          * Get container configuration, including pending changes.
                          * GET /nodes/{node}/lxc/{vmid}/pending
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                          */
-                        $get(param: { node: pvenode, vmid: pvevmid }): Promise<any[]>;
+                        $get(): Promise<ret_nodes_node_lxc_vmid_pendingGET[]>;
                     },
                 };
             },
@@ -2811,45 +6726,57 @@ export interface Proxmox {
                 /**
                  * Directory index.
                  * GET /nodes/{node}/ceph
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                  */
-                $get(param: { node: pvenode }): Promise<any[]>;
+                $get(): Promise<ret_nodes_node_cephGET[]>;
                 osd: {
                     /**
                      * Get Ceph osd list/tree.
                      * GET /nodes/{node}/ceph/osd
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<object>;
+                    $get(): Promise<ret_nodes_node_ceph_osdGET>;
                     /**
                      * Create OSD
                      * POST /nodes/{node}/ceph/osd
+                     * @allowtoken 1
                      */
-                    $post(param: { db_dev?: string, db_size?: Trate, dev: string, encrypted?: Tdisable, node: pvenode, wal_dev?: string, wal_size?: Twal_size }): Promise<string>;
+                    $post(param: { db_dev?: string, db_size?: Trate, dev: string, encrypted?: Tdisable, wal_dev?: string, wal_size?: Twal_size }): Promise<ret_nodes_node_ceph_osdPOST>;
                     $(osdid: string): {
                         /**
                          * Destroy OSD
                          * DELETE /nodes/{node}/ceph/osd/{osdid}
+                         * @allowtoken 1
                          */
-                        $delete(param: { cleanup?: Tdisable, node: pvenode, osdid: integer }): Promise<string>;
+                        $delete(param?: { cleanup?: Tdisable }): Promise<ret_nodes_node_ceph_osd_osdidDELETE>;
                         in: {
                             /**
                              * ceph osd in
                              * POST /nodes/{node}/ceph/osd/{osdid}/in
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $post(param: { node: pvenode, osdid: integer }): Promise<null>;
+                            $post(): Promise<null>;
                         },
                         out: {
                             /**
                              * ceph osd out
                              * POST /nodes/{node}/ceph/osd/{osdid}/out
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $post(param: { node: pvenode, osdid: integer }): Promise<null>;
+                            $post(): Promise<null>;
                         },
                         scrub: {
                             /**
                              * Instruct the OSD to scrub.
                              * POST /nodes/{node}/ceph/osd/{osdid}/scrub
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $post(param: { deep?: Tdisable, node: pvenode, osdid: integer }): Promise<null>;
+                            $post(param?: { deep?: Tdisable }): Promise<null>;
                         },
                     };
                 },
@@ -2857,249 +6784,323 @@ export interface Proxmox {
                     /**
                      * MDS directory index.
                      * GET /nodes/{node}/ceph/mds
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_ceph_mdsGET[]>;
                     $(name: string): {
                         /**
                          * Destroy Ceph Metadata Server
                          * DELETE /nodes/{node}/ceph/mds/{name}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $delete(param: { name: Tname_1, node: pvenode }): Promise<string>;
+                        $delete(): Promise<ret_nodes_node_ceph_mds_nameDELETE>;
                         /**
                          * Create Ceph Metadata Server (MDS)
                          * POST /nodes/{node}/ceph/mds/{name}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param: { hotstandby?: Tdisable, name?: Tname_2, node: pvenode }): Promise<string>;
+                        $post(param?: { hotstandby?: Tdisable }): Promise<ret_nodes_node_ceph_mds_namePOST>;
                     };
                 },
                 mgr: {
                     /**
                      * MGR directory index.
                      * GET /nodes/{node}/ceph/mgr
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_ceph_mgrGET[]>;
                     $(id: string): {
                         /**
                          * Destroy Ceph Manager.
                          * DELETE /nodes/{node}/ceph/mgr/{id}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $delete(param: { id: Tname_1, node: pvenode }): Promise<string>;
+                        $delete(): Promise<ret_nodes_node_ceph_mgr_idDELETE>;
                         /**
                          * Create Ceph Manager
                          * POST /nodes/{node}/ceph/mgr/{id}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param: { id?: Tname_2, node: pvenode }): Promise<string>;
+                        $post(): Promise<ret_nodes_node_ceph_mgr_idPOST>;
                     };
                 },
                 mon: {
                     /**
                      * Get Ceph monitor list.
                      * GET /nodes/{node}/ceph/mon
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_ceph_monGET[]>;
                     $(monid: string): {
                         /**
                          * Destroy Ceph Monitor and Manager.
                          * DELETE /nodes/{node}/ceph/mon/{monid}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $delete(param: { monid: Tname_1, node: pvenode }): Promise<string>;
+                        $delete(): Promise<ret_nodes_node_ceph_mon_monidDELETE>;
                         /**
                          * Create Ceph Monitor and Manager
                          * POST /nodes/{node}/ceph/mon/{monid}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param: { 'mon-address'?: ip, monid?: Tname_2, node: pvenode }): Promise<string>;
+                        $post(param?: { 'mon-address'?: ip }): Promise<ret_nodes_node_ceph_mon_monidPOST>;
                     };
                 },
                 fs: {
                     /**
                      * Directory index.
                      * GET /nodes/{node}/ceph/fs
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_ceph_fsGET[]>;
                     $(name: string): {
                         /**
                          * Create a Ceph filesystem
                          * POST /nodes/{node}/ceph/fs/{name}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param: { 'add-storage'?: Tdisable, name?: string, node: pvenode, pg_num?: integer8_32768 }): Promise<string>;
+                        $post(param?: { 'add-storage'?: Tdisable, pg_num?: integer8_32768 }): Promise<ret_nodes_node_ceph_fs_namePOST>;
                     };
                 },
                 disks: {
                     /**
                      * List local disks.
                      * GET /nodes/{node}/ceph/disks
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode, type?: Ttype_11 }): Promise<any[]>;
+                    $get(param?: { type?: Ttype_11 }): Promise<ret_nodes_node_ceph_disksGET[]>;
                 },
                 config: {
                     /**
                      * Get Ceph configuration.
                      * GET /nodes/{node}/ceph/config
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<string>;
+                    $get(): Promise<ret_nodes_node_ceph_configGET>;
                 },
                 configdb: {
                     /**
                      * Get Ceph configuration database.
                      * GET /nodes/{node}/ceph/configdb
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_ceph_configdbGET[]>;
                 },
                 init: {
                     /**
                      * Create initial ceph default configuration and setup symlinks.
                      * POST /nodes/{node}/ceph/init
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param: { 'cluster-network'?: CIDR_1, disable_cephx?: Tdisable, min_size?: integer1_7, network?: CIDR_1, node: pvenode, pg_bits?: integer6_14, size?: integer1_7 }): Promise<null>;
+                    $post(param?: { 'cluster-network'?: CIDR_1, disable_cephx?: Tdisable, min_size?: integer1_7, network?: CIDR_1, pg_bits?: integer6_14, size?: integer1_7 }): Promise<null>;
                 },
                 stop: {
                     /**
                      * Stop ceph services.
                      * POST /nodes/{node}/ceph/stop
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param: { node: pvenode, service?: Tservice }): Promise<string>;
+                    $post(param?: { service?: Tservice }): Promise<ret_nodes_node_ceph_stopPOST>;
                 },
                 start: {
                     /**
                      * Start ceph services.
                      * POST /nodes/{node}/ceph/start
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param: { node: pvenode, service?: Tservice }): Promise<string>;
+                    $post(param?: { service?: Tservice }): Promise<ret_nodes_node_ceph_startPOST>;
                 },
                 restart: {
                     /**
                      * Restart ceph services.
                      * POST /nodes/{node}/ceph/restart
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param: { node: pvenode, service?: Tservice_1 }): Promise<string>;
+                    $post(param?: { service?: Tservice_1 }): Promise<ret_nodes_node_ceph_restartPOST>;
                 },
                 status: {
                     /**
                      * Get ceph status.
                      * GET /nodes/{node}/ceph/status
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<object>;
+                    $get(): Promise<ret_nodes_node_ceph_statusGET>;
                 },
                 pools: {
                     /**
                      * List all pools.
                      * GET /nodes/{node}/ceph/pools
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_ceph_poolsGET[]>;
                     /**
                      * Create POOL
                      * POST /nodes/{node}/ceph/pools
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param: { add_storages?: Tdisable, application?: Tapplication, crush_rule?: string, min_size?: integer1_7, name: string, node: pvenode, pg_num?: integer8_32768, size?: integer1_7 }): Promise<string>;
+                    $post(param: { add_storages?: Tdisable, application?: Tapplication, crush_rule?: string, min_size?: integer1_7, name: string, pg_num?: integer8_32768, size?: integer1_7 }): Promise<ret_nodes_node_ceph_poolsPOST>;
                     $(name: string): {
                         /**
                          * Destroy pool
                          * DELETE /nodes/{node}/ceph/pools/{name}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $delete(param: { force?: Tdisable, name: string, node: pvenode, remove_storages?: Tdisable }): Promise<string>;
+                        $delete(param?: { force?: Tdisable, remove_storages?: Tdisable }): Promise<ret_nodes_node_ceph_pools_nameDELETE>;
                     };
                 },
                 flags: {
                     /**
                      * get all set ceph flags
                      * GET /nodes/{node}/ceph/flags
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(param: { node: pvenode }): Promise<string>;
+                    $get(): Promise<ret_nodes_node_ceph_flagsGET>;
                     $(flag: string): {
                         /**
                          * Unset a ceph flag
                          * DELETE /nodes/{node}/ceph/flags/{flag}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $delete(param: { flag: Tflag, node: pvenode }): Promise<null>;
+                        $delete(): Promise<null>;
                         /**
                          * Set a specific ceph flag
                          * POST /nodes/{node}/ceph/flags/{flag}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param: { flag: Tflag, node: pvenode }): Promise<null>;
+                        $post(): Promise<null>;
                     };
                 },
                 crush: {
                     /**
                      * Get OSD crush map
                      * GET /nodes/{node}/ceph/crush
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<string>;
+                    $get(): Promise<ret_nodes_node_ceph_crushGET>;
                 },
                 log: {
                     /**
                      * Read ceph log
                      * GET /nodes/{node}/ceph/log
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Syslog"]]}
                      */
-                    $get(param: { limit?: integer_Min0, node: pvenode, start?: integer_Min0 }): Promise<any[]>;
+                    $get(param?: { limit?: integer_Min0, start?: integer_Min0 }): Promise<ret_nodes_node_ceph_logGET[]>;
                 },
                 rules: {
                     /**
                      * List ceph rules.
                      * GET /nodes/{node}/ceph/rules
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_ceph_rulesGET[]>;
                 },
             },
             vzdump: {
                 /**
                  * Create backup.
                  * POST /nodes/{node}/vzdump
+                 * @allowtoken 1
+                 * @permissions {"description":"The user needs 'VM.Backup' permissions on any VM, and 'Datastore.AllocateSpace' on the backup storage. The 'maxfiles', 'tmpdir', 'dumpdir', 'script', 'bwlimit' and 'ionice' parameters are restricted to the 'root@pam' user.","user":"all"}
                  */
-                $post(param?: { all?: Tdisable, bwlimit?: integer_Min0, compress?: Tcompress, dumpdir?: string, exclude?: pvevmidlist, 'exclude-path'?: stringalist, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: stringlist, maxfiles?: integer_Min1, mode?: Tmode, node?: pvenode, pigz?: integer, pool?: string, quiet?: Tdisable, remove?: Tdisable, script?: string, size?: integer_Min500, stdexcludes?: Tdisable, stdout?: Tdisable, stop?: Tdisable, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<string>;
+                $post(param?: { all?: Tdisable, bwlimit?: integer_Min0, compress?: Tcompress, dumpdir?: string, exclude?: pvevmidlist, 'exclude-path'?: stringalist, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: stringlist, maxfiles?: integer_Min1, mode?: Tmode, pigz?: integer, pool?: string, quiet?: Tdisable, remove?: Tdisable, script?: string, size?: integer_Min500, stdexcludes?: Tdisable, stdout?: Tdisable, stop?: Tdisable, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<ret_nodes_node_vzdumpPOST>;
                 extractconfig: {
                     /**
                      * Extract configuration from vzdump backup archive.
                      * GET /nodes/{node}/vzdump/extractconfig
+                     * @allowtoken 1
+                     * @permissions {"description":"The user needs 'VM.Backup' permissions on the backed up guest ID, and 'Datastore.AllocateSpace' on the backup storage.","user":"all"}
                      */
-                    $get(param: { node: pvenode, volume: string }): Promise<string>;
+                    $get(param: { volume: string }): Promise<ret_nodes_node_vzdump_extractconfigGET>;
                 },
             },
             services: {
                 /**
                  * Service list.
                  * GET /nodes/{node}/services
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                  */
-                $get(param: { node: pvenode }): Promise<any[]>;
+                $get(): Promise<ret_nodes_node_servicesGET[]>;
                 $(service: string): {
                     /**
                      * Directory index
                      * GET /nodes/{node}/services/{service}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
-                    $get(param: { node: pvenode, service: Tservice_2 }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_services_serviceGET[]>;
                     state: {
                         /**
                          * Read service properties
                          * GET /nodes/{node}/services/{service}/state
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                          */
-                        $get(param: { node: pvenode, service: Tservice_2 }): Promise<object>;
+                        $get(): Promise<ret_nodes_node_services_service_stateGET>;
                     },
                     start: {
                         /**
                          * Start service.
                          * POST /nodes/{node}/services/{service}/start
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $post(param: { node: pvenode, service: Tservice_2 }): Promise<string>;
+                        $post(): Promise<ret_nodes_node_services_service_startPOST>;
                     },
                     stop: {
                         /**
                          * Stop service.
                          * POST /nodes/{node}/services/{service}/stop
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $post(param: { node: pvenode, service: Tservice_2 }): Promise<string>;
+                        $post(): Promise<ret_nodes_node_services_service_stopPOST>;
                     },
                     restart: {
                         /**
                          * Restart service.
                          * POST /nodes/{node}/services/{service}/restart
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $post(param: { node: pvenode, service: Tservice_2 }): Promise<string>;
+                        $post(): Promise<ret_nodes_node_services_service_restartPOST>;
                     },
                     reload: {
                         /**
                          * Reload service.
                          * POST /nodes/{node}/services/{service}/reload
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $post(param: { node: pvenode, service: Tservice_2 }): Promise<string>;
+                        $post(): Promise<ret_nodes_node_services_service_reloadPOST>;
                     },
                 };
             },
@@ -3107,92 +7108,124 @@ export interface Proxmox {
                 /**
                  * Delete subscription key of this node.
                  * DELETE /nodes/{node}/subscription
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                  */
-                $delete(param: { node: pvenode }): Promise<null>;
+                $delete(): Promise<null>;
                 /**
                  * Read subscription info.
                  * GET /nodes/{node}/subscription
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(param: { node: pvenode }): Promise<object>;
+                $get(): Promise<ret_nodes_node_subscriptionGET>;
                 /**
                  * Update subscription info.
                  * POST /nodes/{node}/subscription
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                  */
-                $post(param: { force?: Tdisable, node: pvenode }): Promise<null>;
+                $post(param?: { force?: Tdisable }): Promise<null>;
                 /**
                  * Set subscription key.
                  * PUT /nodes/{node}/subscription
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                  */
-                $put(param: { key: Tkey, node: pvenode }): Promise<null>;
+                $put(param: { key: Tkey }): Promise<null>;
             },
             network: {
                 /**
                  * Revert network configuration changes.
                  * DELETE /nodes/{node}/network
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                  */
-                $delete(param: { node: pvenode }): Promise<null>;
+                $delete(): Promise<null>;
                 /**
                  * List available networks
                  * GET /nodes/{node}/network
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(param: { node: pvenode, type?: Ttype_12 }): Promise<any[]>;
+                $get(param?: { type?: Ttype_12 }): Promise<ret_nodes_node_networkGET[]>;
                 /**
                  * Create network device configuration
                  * POST /nodes/{node}/network
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                  */
-                $post(param: { address?: ipv4, address6?: ipv6, autostart?: Tdisable, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vlan_aware?: Tdisable, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, gateway?: ipv4, gateway6?: ipv6, iface: pveiface, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, node: pvenode, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_13, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1 }): Promise<null>;
+                $post(param: { address?: ipv4, address6?: ipv6, autostart?: Tdisable, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vlan_aware?: Tdisable, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, gateway?: ipv4, gateway6?: ipv6, iface: pveiface, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_13, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1 }): Promise<null>;
                 /**
                  * Reload network configuration
                  * PUT /nodes/{node}/network
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                  */
-                $put(param: { node: pvenode }): Promise<string>;
+                $put(): Promise<ret_nodes_node_networkPUT>;
                 $(iface: string): {
                     /**
                      * Delete network device configuration
                      * DELETE /nodes/{node}/network/{iface}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $delete(param: { iface: pveiface, node: pvenode }): Promise<null>;
+                    $delete(): Promise<null>;
                     /**
                      * Read network device configuration
                      * GET /nodes/{node}/network/{iface}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
-                    $get(param: { iface: pveiface, node: pvenode }): Promise<object>;
+                    $get(): Promise<ret_nodes_node_network_ifaceGET>;
                     /**
                      * Update network device configuration
                      * PUT /nodes/{node}/network/{iface}
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $put(param: { address?: ipv4, address6?: ipv6, autostart?: Tdisable, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vlan_aware?: Tdisable, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, delete?: pveconfigidlist_1, gateway?: ipv4, gateway6?: ipv6, iface: pveiface, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, node: pvenode, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_13, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1 }): Promise<null>;
+                    $put(param: { address?: ipv4, address6?: ipv6, autostart?: Tdisable, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vlan_aware?: Tdisable, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, delete?: pveconfigidlist_1, gateway?: ipv4, gateway6?: ipv6, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_13, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1 }): Promise<null>;
                 };
             },
             tasks: {
                 /**
                  * Read task list for one node (finished tasks).
                  * GET /nodes/{node}/tasks
+                 * @allowtoken 1
+                 * @permissions {"description":"List task associated with the current user, or all task the user has 'Sys.Audit' permissions on /nodes/<node> (the <node> the task runs on).","user":"all"}
                  */
-                $get(param: { errors?: Tdisable, limit?: integer_Min0, node: pvenode, source?: Tsource, start?: integer_Min0, typefilter?: string, userfilter?: string, vmid?: pvevmid }): Promise<any[]>;
+                $get(param?: { errors?: Tdisable, limit?: integer_Min0, source?: Tsource, start?: integer_Min0, typefilter?: string, userfilter?: string, vmid?: pvevmid }): Promise<ret_nodes_node_tasksGET[]>;
                 $(upid: string): {
                     /**
                      * Stop a task.
                      * DELETE /nodes/{node}/tasks/{upid}
+                     * @allowtoken 1
+                     * @permissions {"description":"The user needs 'Sys.Modify' permissions on '/nodes/<node>' if the task does not belong to him.","user":"all"}
                      */
-                    $delete(param: { node: pvenode, upid: string }): Promise<null>;
+                    $delete(): Promise<null>;
                     /**
                      * 
+                     * @allowtoken 1
+                     * @permissions {"user":"all"}
                      */
-                    $get(param: { node: pvenode, upid: string }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_tasks_upidGET[]>;
                     log: {
                         /**
                          * Read task log.
                          * GET /nodes/{node}/tasks/{upid}/log
+                         * @allowtoken 1
+                         * @permissions {"description":"The user needs 'Sys.Audit' permissions on '/nodes/<node>' if the task does not belong to him.","user":"all"}
                          */
-                        $get(param: { limit?: integer_Min0, node: pvenode, start?: integer_Min0, upid: string }): Promise<any[]>;
+                        $get(param?: { limit?: integer_Min0, start?: integer_Min0 }): Promise<ret_nodes_node_tasks_upid_logGET[]>;
                     },
                     status: {
                         /**
                          * Read task status.
                          * GET /nodes/{node}/tasks/{upid}/status
+                         * @allowtoken 1
+                         * @permissions {"description":"The user needs 'Sys.Audit' permissions on '/nodes/<node>' if the task does not belong to him.","user":"all"}
                          */
-                        $get(param: { node: pvenode, upid: string }): Promise<object>;
+                        $get(): Promise<ret_nodes_node_tasks_upid_statusGET>;
                     },
                 };
             },
@@ -3200,89 +7233,115 @@ export interface Proxmox {
                 /**
                  * Index of available scan methods
                  * GET /nodes/{node}/scan
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(param: { node: pvenode }): Promise<any[]>;
+                $get(): Promise<ret_nodes_node_scanGET[]>;
                 zfs: {
                     /**
                      * Scan zfs pool list on local node.
                      * GET /nodes/{node}/scan/zfs
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_scan_zfsGET[]>;
                 },
                 nfs: {
                     /**
                      * Scan remote NFS server.
                      * GET /nodes/{node}/scan/nfs
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                      */
-                    $get(param: { node: pvenode, server: pvestorageserver }): Promise<any[]>;
+                    $get(param: { server: pvestorageserver }): Promise<ret_nodes_node_scan_nfsGET[]>;
                 },
                 cifs: {
                     /**
                      * Scan remote CIFS server.
                      * GET /nodes/{node}/scan/cifs
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                      */
-                    $get(param: { domain?: string, node: pvenode, password?: string, server: pvestorageserver, username?: string }): Promise<any[]>;
+                    $get(param: { domain?: string, password?: string, server: pvestorageserver, username?: string }): Promise<ret_nodes_node_scan_cifsGET[]>;
                 },
                 glusterfs: {
                     /**
                      * Scan remote GlusterFS server.
                      * GET /nodes/{node}/scan/glusterfs
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                      */
-                    $get(param: { node: pvenode, server: pvestorageserver }): Promise<any[]>;
+                    $get(param: { server: pvestorageserver }): Promise<ret_nodes_node_scan_glusterfsGET[]>;
                 },
                 iscsi: {
                     /**
                      * Scan remote iSCSI server.
                      * GET /nodes/{node}/scan/iscsi
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                      */
-                    $get(param: { node: pvenode, portal: pvestorageportaldns }): Promise<any[]>;
+                    $get(param: { portal: pvestorageportaldns }): Promise<ret_nodes_node_scan_iscsiGET[]>;
                 },
                 lvm: {
                     /**
                      * List local LVM volume groups.
                      * GET /nodes/{node}/scan/lvm
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_scan_lvmGET[]>;
                 },
                 lvmthin: {
                     /**
                      * List local LVM Thin Pools.
                      * GET /nodes/{node}/scan/lvmthin
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                      */
-                    $get(param: { node: pvenode, vg: Tvg }): Promise<any[]>;
+                    $get(param: { vg: Tvg }): Promise<ret_nodes_node_scan_lvmthinGET[]>;
                 },
                 usb: {
                     /**
                      * List local USB devices.
                      * GET /nodes/{node}/scan/usb
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_scan_usbGET[]>;
                 },
             },
             hardware: {
                 /**
                  * Index of hardware types
                  * GET /nodes/{node}/hardware
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(param: { node: pvenode }): Promise<any[]>;
+                $get(): Promise<ret_nodes_node_hardwareGET[]>;
                 pci: {
                     /**
                      * List local PCI devices.
                      * GET /nodes/{node}/hardware/pci
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $get(param: { node: pvenode, 'pci-class-blacklist'?: stringlist, verbose?: Tdisable }): Promise<any[]>;
+                    $get(param?: { 'pci-class-blacklist'?: stringlist, verbose?: Tdisable }): Promise<ret_nodes_node_hardware_pciGET[]>;
                     $(pciid: string): {
                         /**
                          * Index of available pci methods
                          * GET /nodes/{node}/hardware/pci/{pciid}
+                         * @allowtoken 1
+                         * @permissions {"user":"all"}
                          */
-                        $get(param: { node: pvenode, pciid: Tpciid }): Promise<any[]>;
+                        $get(): Promise<ret_nodes_node_hardware_pci_pciidGET[]>;
                         mdev: {
                             /**
                              * List mediated device types for given PCI device.
                              * GET /nodes/{node}/hardware/pci/{pciid}/mdev
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $get(param: { node: pvenode, pciid: Tpciid }): Promise<any[]>;
+                            $get(): Promise<ret_nodes_node_hardware_pci_pciid_mdevGET[]>;
                         },
                     };
                 },
@@ -3291,69 +7350,90 @@ export interface Proxmox {
                 /**
                  * Get status for all datastores.
                  * GET /nodes/{node}/storage
+                 * @allowtoken 1
+                 * @permissions {"description":"Only list entries where you have 'Datastore.Audit' or 'Datastore.AllocateSpace' permissions on '/storage/<storage>'","user":"all"}
                  */
-                $get(param: { content?: pvestoragecontentlist, enabled?: Tdisable, format?: Tdisable, node: pvenode, storage?: pvestorageid, target?: pvenode }): Promise<any[]>;
+                $get(param?: { content?: pvestoragecontentlist, enabled?: Tdisable, format?: Tdisable, storage?: pvestorageid, target?: pvenode }): Promise<ret_nodes_node_storageGET[]>;
                 $(storage: string): {
                     /**
                      * 
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                      */
-                    $get(param: { node: pvenode, storage: pvestorageid }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_storage_storageGET[]>;
                     content: {
                         /**
                          * List storage content.
                          * GET /nodes/{node}/storage/{storage}/content
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                          */
-                        $get(param: { content?: pvestoragecontent, node: pvenode, storage: pvestorageid, vmid?: pvevmid }): Promise<any[]>;
+                        $get(param?: { content?: pvestoragecontent, vmid?: pvevmid }): Promise<ret_nodes_node_storage_storage_contentGET[]>;
                         /**
                          * Allocate disk images.
                          * POST /nodes/{node}/storage/{storage}/content
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateSpace"]]}
                          */
-                        $post(param: { filename: string, format?: Tformat_1, node: pvenode, size: Tsize_1, storage: pvestorageid, vmid: pvevmid }): Promise<string>;
+                        $post(param: { filename: string, format?: Tformat_1, size: Tsize_1, vmid: pvevmid }): Promise<ret_nodes_node_storage_storage_contentPOST>;
                         $(volume: string): {
                             /**
                              * Delete volume
                              * DELETE /nodes/{node}/storage/{storage}/content/{volume}
+                             * @allowtoken 1
+                             * @permissions {"description":"You need 'Datastore.Allocate' privilege on the storage (or 'Datastore.AllocateSpace' for backup volumes if you have VM.Backup privilege on the VM).","user":"all"}
                              */
-                            $delete(param: { delay?: integer1_30, node: pvenode, storage?: pvestorageid, volume: string }): Promise<string>;
+                            $delete(param?: { delay?: integer1_30 }): Promise<ret_nodes_node_storage_storage_content_volumeDELETE>;
                             /**
                              * Get volume attributes
                              * GET /nodes/{node}/storage/{storage}/content/{volume}
+                             * @allowtoken 1
+                             * @permissions {"description":"You need read access for the volume.","user":"all"}
                              */
-                            $get(param: { node: pvenode, storage?: pvestorageid, volume: string }): Promise<object>;
+                            $get(): Promise<ret_nodes_node_storage_storage_content_volumeGET>;
                             /**
                              * Copy a volume. This is experimental code - do not use.
                              * POST /nodes/{node}/storage/{storage}/content/{volume}
+                             * @allowtoken 1
                              */
-                            $post(param: { node: pvenode, storage?: pvestorageid, target: string, target_node?: pvenode, volume: string }): Promise<string>;
+                            $post(param: { target: string, target_node?: pvenode }): Promise<ret_nodes_node_storage_storage_content_volumePOST>;
                         };
                     },
                     status: {
                         /**
                          * Read storage status.
                          * GET /nodes/{node}/storage/{storage}/status
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                          */
-                        $get(param: { node: pvenode, storage: pvestorageid }): Promise<object>;
+                        $get(): Promise<ret_nodes_node_storage_storage_statusGET>;
                     },
                     rrd: {
                         /**
                          * Read storage RRD statistics (returns PNG).
                          * GET /nodes/{node}/storage/{storage}/rrd
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                          */
-                        $get(param: { cf?: Tcf, ds: pveconfigidlist_1, node: pvenode, storage: pvestorageid, timeframe: Ttimeframe }): Promise<object>;
+                        $get(param: { cf?: Tcf, ds: pveconfigidlist_1, timeframe: Ttimeframe }): Promise<ret_nodes_node_storage_storage_rrdGET>;
                     },
                     rrddata: {
                         /**
                          * Read storage RRD statistics.
                          * GET /nodes/{node}/storage/{storage}/rrddata
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                          */
-                        $get(param: { cf?: Tcf, node: pvenode, storage: pvestorageid, timeframe: Ttimeframe }): Promise<any[]>;
+                        $get(param: { cf?: Tcf, timeframe: Ttimeframe }): Promise<ret_nodes_node_storage_storage_rrddataGET[]>;
                     },
                     upload: {
                         /**
                          * Upload templates and ISO images.
                          * POST /nodes/{node}/storage/{storage}/upload
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateTemplate"]]}
                          */
-                        $post(param: { content: pvestoragecontent, filename: string, node: pvenode, storage: pvestorageid, tmpfilename?: string }): Promise<string>;
+                        $post(param: { content: pvestoragecontent, filename: string, tmpfilename?: string }): Promise<ret_nodes_node_storage_storage_uploadPOST>;
                     },
                 };
             },
@@ -3361,205 +7441,269 @@ export interface Proxmox {
                 /**
                  * Node index.
                  * GET /nodes/{node}/disks
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(param: { node: pvenode }): Promise<any[]>;
+                $get(): Promise<ret_nodes_node_disksGET[]>;
                 lvm: {
                     /**
                      * List LVM Volume Groups
                      * GET /nodes/{node}/disks/lvm
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<object>;
+                    $get(): Promise<ret_nodes_node_disks_lvmGET>;
                     /**
                      * Create an LVM Volume Group
                      * POST /nodes/{node}/disks/lvm
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                      */
-                    $post(param: { add_storage?: Tdisable, device: string, name: pvestorageid, node: pvenode }): Promise<string>;
+                    $post(param: { add_storage?: Tdisable, device: string, name: pvestorageid }): Promise<ret_nodes_node_disks_lvmPOST>;
                 },
                 lvmthin: {
                     /**
                      * List LVM thinpools
                      * GET /nodes/{node}/disks/lvmthin
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_disks_lvmthinGET[]>;
                     /**
                      * Create an LVM thinpool
                      * POST /nodes/{node}/disks/lvmthin
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                      */
-                    $post(param: { add_storage?: Tdisable, device: string, name: pvestorageid, node: pvenode }): Promise<string>;
+                    $post(param: { add_storage?: Tdisable, device: string, name: pvestorageid }): Promise<ret_nodes_node_disks_lvmthinPOST>;
                 },
                 directory: {
                     /**
                      * PVE Managed Directory storages.
                      * GET /nodes/{node}/disks/directory
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_disks_directoryGET[]>;
                     /**
                      * Create a Filesystem on an unused disk. Will be mounted under '/mnt/pve/NAME'.
                      * POST /nodes/{node}/disks/directory
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                      */
-                    $post(param: { add_storage?: Tdisable, device: string, filesystem?: Tfilesystem, name: pvestorageid, node: pvenode }): Promise<string>;
+                    $post(param: { add_storage?: Tdisable, device: string, filesystem?: Tfilesystem, name: pvestorageid }): Promise<ret_nodes_node_disks_directoryPOST>;
                 },
                 zfs: {
                     /**
                      * List Zpools.
                      * GET /nodes/{node}/disks/zfs
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_disks_zfsGET[]>;
                     /**
                      * Create a ZFS pool.
                      * POST /nodes/{node}/disks/zfs
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                      */
-                    $post(param: { add_storage?: Tdisable, ashift?: integer9_16, compression?: Tcompression, devices: stringlist, name: pvestorageid, node: pvenode, raidlevel: Traidlevel }): Promise<string>;
+                    $post(param: { add_storage?: Tdisable, ashift?: integer9_16, compression?: Tcompression, devices: stringlist, name: pvestorageid, raidlevel: Traidlevel }): Promise<ret_nodes_node_disks_zfsPOST>;
                     $(name: string): {
                         /**
                          * Get details about a zpool.
                          * GET /nodes/{node}/disks/zfs/{name}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
-                        $get(param: { name: pvestorageid, node: pvenode }): Promise<object>;
+                        $get(): Promise<ret_nodes_node_disks_zfs_nameGET>;
                     };
                 },
                 list: {
                     /**
                      * List local disks.
                      * GET /nodes/{node}/disks/list
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { node: pvenode, skipsmart?: Tdisable, type?: Ttype_11 }): Promise<any[]>;
+                    $get(param?: { skipsmart?: Tdisable, type?: Ttype_11 }): Promise<ret_nodes_node_disks_listGET[]>;
                 },
                 smart: {
                     /**
                      * Get SMART Health of a disk.
                      * GET /nodes/{node}/disks/smart
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(param: { disk: Tdisk_2, healthonly?: Tdisable, node: pvenode }): Promise<object>;
+                    $get(param: { disk: Tdisk_2, healthonly?: Tdisable }): Promise<ret_nodes_node_disks_smartGET>;
                 },
                 initgpt: {
                     /**
                      * Initialize Disk with GPT
                      * POST /nodes/{node}/disks/initgpt
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param: { disk: Tdisk_2, node: pvenode, uuid?: Tuuid }): Promise<string>;
+                    $post(param: { disk: Tdisk_2, uuid?: Tuuid }): Promise<ret_nodes_node_disks_initgptPOST>;
                 },
             },
             apt: {
                 /**
                  * Directory index for apt (Advanced Package Tool).
                  * GET /nodes/{node}/apt
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(param: { node: pvenode }): Promise<any[]>;
+                $get(): Promise<ret_nodes_node_aptGET[]>;
                 update: {
                     /**
                      * List available updates.
                      * GET /nodes/{node}/apt/update
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_apt_updateGET[]>;
                     /**
                      * This is used to resynchronize the package index files from their sources (apt-get update).
                      * POST /nodes/{node}/apt/update
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $post(param: { node: pvenode, notify?: Tdisable, quiet?: Tdisable }): Promise<string>;
+                    $post(param?: { notify?: Tdisable, quiet?: Tdisable }): Promise<ret_nodes_node_apt_updatePOST>;
                 },
                 changelog: {
                     /**
                      * Get package changelogs.
                      * GET /nodes/{node}/apt/changelog
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $get(param: { name: string, node: pvenode, version?: string }): Promise<string>;
+                    $get(param: { name: string, version?: string }): Promise<ret_nodes_node_apt_changelogGET>;
                 },
                 versions: {
                     /**
                      * Get package information for important Proxmox packages.
                      * GET /nodes/{node}/apt/versions
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_apt_versionsGET[]>;
                 },
             },
             firewall: {
                 /**
                  * Directory index.
                  * GET /nodes/{node}/firewall
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(param: { node: pvenode }): Promise<any[]>;
+                $get(): Promise<ret_nodes_node_firewallGET[]>;
                 rules: {
                     /**
                      * List rules.
                      * GET /nodes/{node}/firewall/rules
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_firewall_rulesGET[]>;
                     /**
                      * Create new rule.
                      * POST /nodes/{node}/firewall/rules
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, node: pvenode, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
+                    $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
                     $(pos: string): {
                         /**
                          * Delete rule.
                          * DELETE /nodes/{node}/firewall/rules/{pos}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $delete(param: { digest?: String0_40, node: pvenode, pos?: integer_Min0 }): Promise<null>;
+                        $delete(param?: { digest?: String0_40 }): Promise<null>;
                         /**
                          * Get single rule data.
                          * GET /nodes/{node}/firewall/rules/{pos}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                          */
-                        $get(param: { node: pvenode, pos?: integer_Min0 }): Promise<object>;
+                        $get(): Promise<ret_nodes_node_firewall_rules_posGET>;
                         /**
                          * Modify rule data.
                          * PUT /nodes/{node}/firewall/rules/{pos}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $put(param: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, node: pvenode, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
+                        $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
                     };
                 },
                 options: {
                     /**
                      * Get host firewall options.
                      * GET /nodes/{node}/firewall/options
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
-                    $get(param: { node: pvenode }): Promise<object>;
+                    $get(): Promise<ret_nodes_node_firewall_optionsGET>;
                     /**
                      * Set Firewall options.
                      * PUT /nodes/{node}/firewall/options
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $put(param: { delete?: pveconfigidlist_1, digest?: String0_40, enable?: Tdisable, log_level_in?: Tlog, log_level_out?: Tlog, log_nf_conntrack?: Tdisable, ndp?: Tdisable, nf_conntrack_allow_invalid?: Tdisable, nf_conntrack_max?: integer_Min32768, nf_conntrack_tcp_timeout_established?: integer_Min7875, nf_conntrack_tcp_timeout_syn_recv?: integer30_60, node: pvenode, nosmurfs?: Tdisable, protection_synflood?: Tdisable, protection_synflood_burst?: integer, protection_synflood_rate?: integer, smurf_log_level?: Tlog, tcp_flags_log_level?: Tlog, tcpflags?: Tdisable }): Promise<null>;
+                    $put(param?: { delete?: pveconfigidlist_1, digest?: String0_40, enable?: Tdisable, log_level_in?: Tlog, log_level_out?: Tlog, log_nf_conntrack?: Tdisable, ndp?: Tdisable, nf_conntrack_allow_invalid?: Tdisable, nf_conntrack_max?: integer_Min32768, nf_conntrack_tcp_timeout_established?: integer_Min7875, nf_conntrack_tcp_timeout_syn_recv?: integer30_60, nosmurfs?: Tdisable, protection_synflood?: Tdisable, protection_synflood_burst?: integer, protection_synflood_rate?: integer, smurf_log_level?: Tlog, tcp_flags_log_level?: Tlog, tcpflags?: Tdisable }): Promise<null>;
                 },
                 log: {
                     /**
                      * Read firewall log
                      * GET /nodes/{node}/firewall/log
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Syslog"]]}
                      */
-                    $get(param: { limit?: integer_Min0, node: pvenode, start?: integer_Min0 }): Promise<any[]>;
+                    $get(param?: { limit?: integer_Min0, start?: integer_Min0 }): Promise<ret_nodes_node_firewall_logGET[]>;
                 },
             },
             replication: {
                 /**
                  * List status of all replication jobs on this node.
                  * GET /nodes/{node}/replication
+                 * @allowtoken 1
+                 * @permissions {"description":"Requires the VM.Audit permission on /vms/<vmid>.","user":"all"}
                  */
-                $get(param: { guest?: pvevmid, node: pvenode }): Promise<any[]>;
+                $get(param?: { guest?: pvevmid }): Promise<ret_nodes_node_replicationGET[]>;
                 $(id: string): {
                     /**
                      * Directory index.
                      * GET /nodes/{node}/replication/{id}
+                     * @allowtoken 1
+                     * @permissions {"user":"all"}
                      */
-                    $get(param: { id: pvereplicationjobid, node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_replication_idGET[]>;
                     status: {
                         /**
                          * Get replication job status.
                          * GET /nodes/{node}/replication/{id}/status
+                         * @allowtoken 1
+                         * @permissions {"description":"Requires the VM.Audit permission on /vms/<vmid>.","user":"all"}
                          */
-                        $get(param: { id: pvereplicationjobid, node: pvenode }): Promise<object>;
+                        $get(): Promise<ret_nodes_node_replication_id_statusGET>;
                     },
                     log: {
                         /**
                          * Read replication job log.
                          * GET /nodes/{node}/replication/{id}/log
+                         * @allowtoken 1
+                         * @permissions {"description":"Requires the VM.Audit permission on /vms/<vmid>, or 'Sys.Audit' on '/nodes/<node>'","user":"all"}
                          */
-                        $get(param: { id: pvereplicationjobid, limit?: integer_Min0, node: pvenode, start?: integer_Min0 }): Promise<any[]>;
+                        $get(param?: { limit?: integer_Min0, start?: integer_Min0 }): Promise<ret_nodes_node_replication_id_logGET[]>;
                     },
                     schedule_now: {
                         /**
                          * Schedule replication job to start as soon as possible.
                          * POST /nodes/{node}/replication/{id}/schedule_now
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                          */
-                        $post(param: { id: pvereplicationjobid, node: pvenode }): Promise<string>;
+                        $post(): Promise<ret_nodes_node_replication_id_schedule_nowPOST>;
                     },
                 };
             },
@@ -3567,87 +7711,115 @@ export interface Proxmox {
                 /**
                  * Node index.
                  * GET /nodes/{node}/certificates
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(param: { node: pvenode }): Promise<any[]>;
+                $get(): Promise<ret_nodes_node_certificatesGET[]>;
                 acme: {
                     /**
                      * ACME index.
                      * GET /nodes/{node}/certificates/acme
+                     * @allowtoken 1
+                     * @permissions {"user":"all"}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_certificates_acmeGET[]>;
                     certificate: {
                         /**
                          * Revoke existing certificate from CA.
                          * DELETE /nodes/{node}/certificates/acme/certificate
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $delete(param: { node: pvenode }): Promise<string>;
+                        $delete(): Promise<ret_nodes_node_certificates_acme_certificateDELETE>;
                         /**
                          * Order a new certificate from ACME-compatible CA.
                          * POST /nodes/{node}/certificates/acme/certificate
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $post(param: { force?: Tdisable, node: pvenode }): Promise<string>;
+                        $post(param?: { force?: Tdisable }): Promise<ret_nodes_node_certificates_acme_certificatePOST>;
                         /**
                          * Renew existing certificate from CA.
                          * PUT /nodes/{node}/certificates/acme/certificate
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $put(param: { force?: Tdisable, node: pvenode }): Promise<string>;
+                        $put(param?: { force?: Tdisable }): Promise<ret_nodes_node_certificates_acme_certificatePUT>;
                     },
                 },
                 info: {
                     /**
                      * Get information about node's certificates.
                      * GET /nodes/{node}/certificates/info
+                     * @allowtoken 1
+                     * @permissions {"user":"all"}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_certificates_infoGET[]>;
                 },
                 custom: {
                     /**
                      * DELETE custom certificate chain and key.
                      * DELETE /nodes/{node}/certificates/custom
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $delete(param: { node: pvenode, restart?: Tdisable }): Promise<null>;
+                    $delete(param?: { restart?: Tdisable }): Promise<null>;
                     /**
                      * Upload or update custom certificate chain and key.
                      * POST /nodes/{node}/certificates/custom
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $post(param: { certificates: pemcertificatechain, force?: Tdisable, key?: pemstring, node: pvenode, restart?: Tdisable }): Promise<object>;
+                    $post(param: { certificates: pemcertificatechain, force?: Tdisable, key?: pemstring, restart?: Tdisable }): Promise<ret_nodes_node_certificates_customPOST>;
                 },
             },
             config: {
                 /**
                  * Get node configuration options.
                  * GET /nodes/{node}/config
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(param: { node: pvenode, property?: Tproperty }): Promise<object>;
+                $get(param?: { property?: Tproperty }): Promise<ret_nodes_node_configGET>;
                 /**
                  * Set node configuration options.
                  * PUT /nodes/{node}/config
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Modify"]]}
                  */
-                $put(param: { acme?: Tacme, acmedomain0?: Tacmedomain, acmedomain1?: Tacmedomain, acmedomain2?: Tacmedomain, acmedomain3?: Tacmedomain, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, node: pvenode, 'startall-onboot-delay'?: integer0_300, wakeonlan?: macaddr }): Promise<null>;
+                $put(param?: { acme?: Tacme, acmedomain0?: Tacmedomain, acmedomain1?: Tacmedomain, acmedomain2?: Tacmedomain, acmedomain3?: Tacmedomain, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, 'startall-onboot-delay'?: integer0_300, wakeonlan?: macaddr }): Promise<null>;
             },
             sdn: {
                 /**
                  * SDN index.
                  * GET /nodes/{node}/sdn
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(param: { node: pvenode }): Promise<any[]>;
+                $get(): Promise<ret_nodes_node_sdnGET[]>;
                 zones: {
                     /**
                      * Get status for all zones.
                      * GET /nodes/{node}/sdn/zones
+                     * @allowtoken 1
+                     * @permissions {"description":"Only list entries where you have 'SDN.Audit'","user":"all"}
                      */
-                    $get(param: { node: pvenode }): Promise<any[]>;
+                    $get(): Promise<ret_nodes_node_sdn_zonesGET[]>;
                     $(zone: string): {
                         /**
                          * 
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Audit"],"any",1]}
                          */
-                        $get(param: { node: pvenode, zone: pvesdnzoneid }): Promise<any[]>;
+                        $get(): Promise<ret_nodes_node_sdn_zones_zoneGET[]>;
                         content: {
                             /**
                              * List zone content.
                              * GET /nodes/{node}/sdn/zones/{zone}/content
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Audit"],"any",1]}
                              */
-                            $get(param: { node: pvenode, zone: pvesdnzoneid }): Promise<any[]>;
+                            $get(): Promise<ret_nodes_node_sdn_zones_zone_contentGET[]>;
                         },
                     };
                 },
@@ -3656,173 +7828,225 @@ export interface Proxmox {
                 /**
                  * API version details
                  * GET /nodes/{node}/version
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(param: { node: pvenode }): Promise<object>;
+                $get(): Promise<ret_nodes_node_versionGET>;
             },
             status: {
                 /**
                  * Read node status
                  * GET /nodes/{node}/status
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                  */
-                $get(param: { node: pvenode }): Promise<object>;
+                $get(): Promise<ret_nodes_node_statusGET>;
                 /**
                  * Reboot or shutdown a node.
                  * POST /nodes/{node}/status
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.PowerMgmt"]]}
                  */
-                $post(param: { command: Tcommand_1, node: pvenode }): Promise<null>;
+                $post(param: { command: Tcommand_1 }): Promise<null>;
             },
             netstat: {
                 /**
                  * Read tap/vm network device interface counters
                  * GET /nodes/{node}/netstat
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                  */
-                $get(param: { node: pvenode }): Promise<any[]>;
+                $get(): Promise<ret_nodes_node_netstatGET[]>;
             },
             execute: {
                 /**
                  * Execute multiple commands in order.
                  * POST /nodes/{node}/execute
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                  */
-                $post(param: { commands: string, node: pvenode }): Promise<any[]>;
+                $post(param: { commands: string }): Promise<string[]>;
             },
             wakeonlan: {
                 /**
                  * Try to wake a node via 'wake on LAN' network packet.
                  * POST /nodes/{node}/wakeonlan
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.PowerMgmt"]]}
                  */
-                $post(param: { node: pvenode }): Promise<string>;
+                $post(): Promise<ret_nodes_node_wakeonlanPOST>;
             },
             rrd: {
                 /**
                  * Read node RRD statistics (returns PNG)
                  * GET /nodes/{node}/rrd
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                  */
-                $get(param: { cf?: Tcf, ds: pveconfigidlist_1, node: pvenode, timeframe: Ttimeframe }): Promise<object>;
+                $get(param: { cf?: Tcf, ds: pveconfigidlist_1, timeframe: Ttimeframe }): Promise<ret_nodes_node_rrdGET>;
             },
             rrddata: {
                 /**
                  * Read node RRD statistics
                  * GET /nodes/{node}/rrddata
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                  */
-                $get(param: { cf?: Tcf, node: pvenode, timeframe: Ttimeframe }): Promise<any[]>;
+                $get(param: { cf?: Tcf, timeframe: Ttimeframe }): Promise<ret_nodes_node_rrddataGET[]>;
             },
             syslog: {
                 /**
                  * Read system log
                  * GET /nodes/{node}/syslog
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Syslog"]]}
                  */
-                $get(param: { limit?: integer_Min0, node: pvenode, service?: String0_128, since?: Tsince, start?: integer_Min0, until?: Tsince }): Promise<any[]>;
+                $get(param?: { limit?: integer_Min0, service?: String0_128, since?: Tsince, start?: integer_Min0, until?: Tsince }): Promise<ret_nodes_node_syslogGET[]>;
             },
             journal: {
                 /**
                  * Read Journal
                  * GET /nodes/{node}/journal
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Syslog"]]}
                  */
-                $get(param: { endcursor?: string, lastentries?: integer_Min0, node: pvenode, since?: integer_Min0, startcursor?: string, until?: integer_Min0 }): Promise<any[]>;
+                $get(param?: { endcursor?: string, lastentries?: integer_Min0, since?: integer_Min0, startcursor?: string, until?: integer_Min0 }): Promise<string[]>;
             },
             vncshell: {
                 /**
                  * Creates a VNC Shell proxy.
                  * POST /nodes/{node}/vncshell
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                  */
-                $post(param: { cmd?: Tcmd, height?: integer16_2160, node: pvenode, upgrade?: Tdisable, websocket?: Tdisable, width?: integer16_4096 }): Promise<any>;
+                $post(param?: { cmd?: Tcmd, height?: integer16_2160, upgrade?: Tdisable, websocket?: Tdisable, width?: integer16_4096 }): Promise<ret_nodes_node_vncshellPOST>;
             },
             termproxy: {
                 /**
                  * Creates a VNC Shell proxy.
                  * POST /nodes/{node}/termproxy
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                  */
-                $post(param: { cmd?: Tcmd, node: pvenode, upgrade?: Tdisable }): Promise<any>;
+                $post(param?: { cmd?: Tcmd, upgrade?: Tdisable }): Promise<ret_nodes_node_termproxyPOST>;
             },
             vncwebsocket: {
                 /**
                  * Opens a weksocket for VNC traffic.
                  * GET /nodes/{node}/vncwebsocket
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'. You also need to pass a valid ticket (vncticket)."}
                  */
-                $get(param: { node: pvenode, port: integer5900_5999, vncticket: String0_512 }): Promise<object>;
+                $get(param: { port: integer5900_5999, vncticket: String0_512 }): Promise<ret_nodes_node_vncwebsocketGET>;
             },
             spiceshell: {
                 /**
                  * Creates a SPICE shell.
                  * POST /nodes/{node}/spiceshell
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                  */
-                $post(param: { cmd?: Tcmd, node: pvenode, proxy?: address, upgrade?: Tdisable }): Promise<any>;
+                $post(param?: { cmd?: Tcmd, proxy?: address, upgrade?: Tdisable }): Promise<ret_nodes_node_spiceshellPOST>;
             },
             dns: {
                 /**
                  * Read DNS settings.
                  * GET /nodes/{node}/dns
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                  */
-                $get(param: { node: pvenode }): Promise<object>;
+                $get(): Promise<ret_nodes_node_dnsGET>;
                 /**
                  * Write DNS settings.
                  * PUT /nodes/{node}/dns
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                  */
-                $put(param: { dns1?: ip, dns2?: ip, dns3?: ip, node: pvenode, search: string }): Promise<null>;
+                $put(param: { dns1?: ip, dns2?: ip, dns3?: ip, search: string }): Promise<null>;
             },
             time: {
                 /**
                  * Read server time and time zone settings.
                  * GET /nodes/{node}/time
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                  */
-                $get(param: { node: pvenode }): Promise<object>;
+                $get(): Promise<ret_nodes_node_timeGET>;
                 /**
                  * Set time zone.
                  * PUT /nodes/{node}/time
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                  */
-                $put(param: { node: pvenode, timezone: string }): Promise<null>;
+                $put(param: { timezone: string }): Promise<null>;
             },
             aplinfo: {
                 /**
                  * Get list of appliances.
                  * GET /nodes/{node}/aplinfo
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(param: { node: pvenode }): Promise<any[]>;
+                $get(): Promise<ret_nodes_node_aplinfoGET[]>;
                 /**
                  * Download appliance templates.
                  * POST /nodes/{node}/aplinfo
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateTemplate"]]}
                  */
-                $post(param: { node: pvenode, storage: pvestorageid, template: String0_255 }): Promise<string>;
+                $post(param: { storage: pvestorageid, template: String0_255 }): Promise<ret_nodes_node_aplinfoPOST>;
             },
             report: {
                 /**
                  * Gather various systems information about a node
                  * GET /nodes/{node}/report
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                  */
-                $get(param: { node: pvenode }): Promise<string>;
+                $get(): Promise<ret_nodes_node_reportGET>;
             },
             startall: {
                 /**
                  * Start all VMs and containers located on this node (by default only those with onboot=1).
                  * POST /nodes/{node}/startall
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["VM.PowerMgmt"]]}
                  */
-                $post(param: { force?: Tdisable, node: pvenode, vms?: pvevmidlist }): Promise<string>;
+                $post(param?: { force?: Tdisable, vms?: pvevmidlist }): Promise<ret_nodes_node_startallPOST>;
             },
             stopall: {
                 /**
                  * Stop all VMs and Containers.
                  * POST /nodes/{node}/stopall
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["VM.PowerMgmt"]]}
                  */
-                $post(param: { node: pvenode, vms?: pvevmidlist }): Promise<string>;
+                $post(param?: { vms?: pvevmidlist }): Promise<ret_nodes_node_stopallPOST>;
             },
             migrateall: {
                 /**
                  * Migrate all VMs and Containers.
                  * POST /nodes/{node}/migrateall
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["VM.Migrate"]]}
                  */
-                $post(param: { maxworkers?: integer_Min1, node: pvenode, target: pvenode, vms?: pvevmidlist, 'with-local-disks'?: Tdisable }): Promise<string>;
+                $post(param: { maxworkers?: integer_Min1, target: pvenode, vms?: pvevmidlist, 'with-local-disks'?: Tdisable }): Promise<ret_nodes_node_migrateallPOST>;
             },
             hosts: {
                 /**
                  * Get the content of /etc/hosts.
                  * GET /nodes/{node}/hosts
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(param: { node: pvenode }): Promise<object>;
+                $get(): Promise<ret_nodes_node_hostsGET>;
                 /**
                  * Write /etc/hosts.
                  * POST /nodes/{node}/hosts
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                  */
-                $post(param: { data: string, digest?: String0_40, node: pvenode }): Promise<null>;
+                $post(param: { data: string, digest?: String0_40 }): Promise<null>;
             },
         };
     },
@@ -3830,98 +8054,132 @@ export interface Proxmox {
         /**
          * Storage index.
          * GET /storage
+         * @allowtoken 1
+         * @permissions {"description":"Only list entries where you have 'Datastore.Audit' or 'Datastore.AllocateSpace' permissions on '/storage/<storage>'","user":"all"}
          */
-        $get(param?: { type?: Ttype_14 }): Promise<any[]>;
+        $get(param?: { type?: Ttype_14 }): Promise<ret_storageGET[]>;
         /**
          * Create a new storage.
          * POST /storage
+         * @allowtoken 1
+         * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
          */
         $post(param: { authsupported?: string, base?: pvevolumeid, blocksize?: string, bwlimit?: Tbwlimit, comstar_hg?: string, comstar_tg?: string, content?: pvestoragecontentlist, datastore?: string, disable?: Tdisable, domain?: String0_256, 'encryption-key'?: string, export?: pvestoragepath, fingerprint?: Tfingerprint, format?: pvestorageformat, fuse?: Tdisable, is_mountpoint?: string, iscsiprovider?: string, krbd?: Tdisable, lio_tpg?: string, maxfiles?: integer_Min0, mkdir?: Tdisable, monhost?: pvestorageportaldnslist, mountpoint?: pvestoragepath, nodes?: pvenodelist, nowritecache?: Tdisable, options?: pvestorageoptions, password?: String0_256, path?: pvestoragepath, pool?: string, portal?: pvestorageportaldns, redundancy?: integer1_16, saferemove?: Tdisable, saferemove_throughput?: string, server?: pvestorageserver, server2?: pvestorageserver, share?: string, shared?: Tdisable, smbversion?: Tsmbversion, sparse?: Tdisable, storage: pvestorageid, subdir?: pvestoragepath, tagged_only?: Tdisable, target?: string, thinpool?: pvestoragevgname, transport?: Ttransport, type: Ttype_14, username?: string, vgname?: pvestoragevgname, volume?: string }): Promise<null>;
         $(storage: string): {
             /**
              * Delete storage configuration.
              * DELETE /storage/{storage}
+             * @allowtoken 1
+             * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
              */
-            $delete(param: { storage: pvestorageid }): Promise<null>;
+            $delete(): Promise<null>;
             /**
              * Read storage configuration.
              * GET /storage/{storage}
+             * @allowtoken 1
+             * @permissions {"check":["perm","/storage/{storage}",["Datastore.Allocate"]]}
              */
-            $get(param: { storage: pvestorageid }): Promise<object>;
+            $get(): Promise<ret_storage_storageGET>;
             /**
              * Update storage configuration.
              * PUT /storage/{storage}
+             * @allowtoken 1
+             * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
              */
-            $put(param: { blocksize?: string, bwlimit?: Tbwlimit, comstar_hg?: string, comstar_tg?: string, content?: pvestoragecontentlist, delete?: pveconfigidlist, digest?: String0_40, disable?: Tdisable, domain?: String0_256, 'encryption-key'?: string, fingerprint?: Tfingerprint, format?: pvestorageformat, fuse?: Tdisable, is_mountpoint?: string, krbd?: Tdisable, lio_tpg?: string, maxfiles?: integer_Min0, mkdir?: Tdisable, monhost?: pvestorageportaldnslist, mountpoint?: pvestoragepath, nodes?: pvenodelist, nowritecache?: Tdisable, options?: pvestorageoptions, password?: String0_256, pool?: string, redundancy?: integer1_16, saferemove?: Tdisable, saferemove_throughput?: string, server?: pvestorageserver, server2?: pvestorageserver, shared?: Tdisable, smbversion?: Tsmbversion, sparse?: Tdisable, storage: pvestorageid, subdir?: pvestoragepath, tagged_only?: Tdisable, transport?: Ttransport, username?: string }): Promise<null>;
+            $put(param?: { blocksize?: string, bwlimit?: Tbwlimit, comstar_hg?: string, comstar_tg?: string, content?: pvestoragecontentlist, delete?: pveconfigidlist, digest?: String0_40, disable?: Tdisable, domain?: String0_256, 'encryption-key'?: string, fingerprint?: Tfingerprint, format?: pvestorageformat, fuse?: Tdisable, is_mountpoint?: string, krbd?: Tdisable, lio_tpg?: string, maxfiles?: integer_Min0, mkdir?: Tdisable, monhost?: pvestorageportaldnslist, mountpoint?: pvestoragepath, nodes?: pvenodelist, nowritecache?: Tdisable, options?: pvestorageoptions, password?: String0_256, pool?: string, redundancy?: integer1_16, saferemove?: Tdisable, saferemove_throughput?: string, server?: pvestorageserver, server2?: pvestorageserver, shared?: Tdisable, smbversion?: Tsmbversion, sparse?: Tdisable, subdir?: pvestoragepath, tagged_only?: Tdisable, transport?: Ttransport, username?: string }): Promise<null>;
         };
     },
     access: {
         /**
          * Directory index.
          * GET /access
+         * @allowtoken 1
+         * @permissions {"user":"all"}
          */
-        $get(): Promise<any[]>;
+        $get(): Promise<ret_accessGET[]>;
         users: {
             /**
              * User index.
              * GET /access/users
+             * @allowtoken 1
+             * @permissions {"description":"The returned list is restricted to users where you have 'User.Modify' or 'Sys.Audit' permissions on '/access/groups' or on a group the user belongs too. But it always includes the current (authenticated) user.","user":"all"}
              */
-            $get(param?: { enabled?: Tdisable, full?: Tdisable }): Promise<any[]>;
+            $get(param?: { enabled?: Tdisable, full?: Tdisable }): Promise<ret_access_usersGET[]>;
             /**
              * Create new user.
              * POST /access/users
+             * @allowtoken 1
+             * @permissions {"check":["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"],"groups_param",1]],"description":"You need 'Realm.AllocateUser' on '/access/realm/<realm>' on the realm of user <userid>, and 'User.Modify' permissions to '/access/groups/<group>' for any group specified (or 'User.Modify' on '/access/groups' if you pass no groups."}
              */
             $post(param: { comment?: string, email?: emailopt, enable?: Tdisable, expire?: integer_Min0, firstname?: string, groups?: pvegroupidlist, keys?: string, lastname?: string, password?: String5_64, userid: pveuserid }): Promise<null>;
             $(userid: string): {
                 /**
                  * Delete user.
                  * DELETE /access/users/{userid}
+                 * @allowtoken 1
+                 * @permissions {"check":["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"]]]}
                  */
-                $delete(param: { userid: pveuserid }): Promise<null>;
+                $delete(): Promise<null>;
                 /**
                  * Get user configuration.
                  * GET /access/users/{userid}
+                 * @allowtoken 1
+                 * @permissions {"check":["userid-group",["User.Modify","Sys.Audit"]]}
                  */
-                $get(param: { userid: pveuserid }): Promise<object>;
+                $get(): Promise<ret_access_users_useridGET>;
                 /**
                  * Update user configuration.
                  * PUT /access/users/{userid}
+                 * @allowtoken 1
+                 * @permissions {"check":["userid-group",["User.Modify"],"groups_param",1]}
                  */
-                $put(param: { append?: Tdisable, comment?: string, email?: emailopt, enable?: Tdisable, expire?: integer_Min0, firstname?: string, groups?: pvegroupidlist, keys?: string, lastname?: string, userid: pveuserid }): Promise<null>;
+                $put(param?: { append?: Tdisable, comment?: string, email?: emailopt, enable?: Tdisable, expire?: integer_Min0, firstname?: string, groups?: pvegroupidlist, keys?: string, lastname?: string }): Promise<null>;
                 tfa: {
                     /**
                      * Get user TFA types (Personal and Realm).
                      * GET /access/users/{userid}/tfa
+                     * @allowtoken 1
+                     * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify","Sys.Audit"]]]}
                      */
-                    $get(param: { userid: pveuserid }): Promise<object>;
+                    $get(): Promise<ret_access_users_userid_tfaGET>;
                 },
                 token: {
                     /**
                      * Get user API tokens.
                      * GET /access/users/{userid}/token
+                     * @allowtoken 1
+                     * @permissions {"check":["or",["userid-param","self"],["perm","/access/users/{userid}",["User.Modify"]]]}
                      */
-                    $get(param: { userid: pveuserid }): Promise<any[]>;
+                    $get(): Promise<ret_access_users_userid_tokenGET[]>;
                     $(tokenid: string): {
                         /**
                          * Remove API token for a specific user.
                          * DELETE /access/users/{userid}/token/{tokenid}
+                         * @allowtoken 1
+                         * @permissions {"check":["or",["userid-param","self"],["perm","/access/users/{userid}",["User.Modify"]]]}
                          */
-                        $delete(param: { tokenid: Ttokenid, userid: pveuserid }): Promise<null>;
+                        $delete(): Promise<null>;
                         /**
                          * Get specific API token information.
                          * GET /access/users/{userid}/token/{tokenid}
+                         * @allowtoken 1
+                         * @permissions {"check":["or",["userid-param","self"],["perm","/access/users/{userid}",["User.Modify"]]]}
                          */
-                        $get(param: { tokenid: Ttokenid, userid: pveuserid }): Promise<object>;
+                        $get(): Promise<ret_access_users_userid_token_tokenidGET>;
                         /**
                          * Generate a new API token for a specific user. NOTE: returns API token value, which needs to be stored as it cannot be retrieved afterwards!
                          * POST /access/users/{userid}/token/{tokenid}
+                         * @allowtoken 1
+                         * @permissions {"check":["or",["userid-param","self"],["perm","/access/users/{userid}",["User.Modify"]]]}
                          */
-                        $post(param: { comment?: string, expire?: integer_Min0, privsep?: Tdisable, tokenid: Ttokenid, userid: pveuserid }): Promise<object>;
+                        $post(param?: { comment?: string, expire?: integer_Min0, privsep?: Tdisable }): Promise<ret_access_users_userid_token_tokenidPOST>;
                         /**
                          * Update API token for a specific user.
                          * PUT /access/users/{userid}/token/{tokenid}
+                         * @allowtoken 1
+                         * @permissions {"check":["or",["userid-param","self"],["perm","/access/users/{userid}",["User.Modify"]]]}
                          */
-                        $put(param: { comment?: string, expire?: integer_Min0, privsep?: Tdisable, tokenid: Ttokenid, userid: pveuserid }): Promise<object>;
+                        $put(param?: { comment?: string, expire?: integer_Min0, privsep?: Tdisable }): Promise<ret_access_users_userid_token_tokenidPUT>;
                     };
                 },
             };
@@ -3930,69 +8188,93 @@ export interface Proxmox {
             /**
              * Group index.
              * GET /access/groups
+             * @allowtoken 1
+             * @permissions {"description":"The returned list is restricted to groups where you have 'User.Modify', 'Sys.Audit'  or 'Group.Allocate' permissions on /access/groups/<group>.","user":"all"}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_access_groupsGET[]>;
             /**
              * Create new group.
              * POST /access/groups
+             * @allowtoken 1
+             * @permissions {"check":["perm","/access/groups",["Group.Allocate"]]}
              */
             $post(param: { comment?: string, groupid: pvegroupid }): Promise<null>;
             $(groupid: string): {
                 /**
                  * Delete group.
                  * DELETE /access/groups/{groupid}
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/access/groups",["Group.Allocate"]]}
                  */
-                $delete(param: { groupid: pvegroupid }): Promise<null>;
+                $delete(): Promise<null>;
                 /**
                  * Get group configuration.
                  * GET /access/groups/{groupid}
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/access/groups",["Sys.Audit","Group.Allocate"],"any",1]}
                  */
-                $get(param: { groupid: pvegroupid }): Promise<object>;
+                $get(): Promise<ret_access_groups_groupidGET>;
                 /**
                  * Update group data.
                  * PUT /access/groups/{groupid}
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/access/groups",["Group.Allocate"]]}
                  */
-                $put(param: { comment?: string, groupid: pvegroupid }): Promise<null>;
+                $put(param?: { comment?: string }): Promise<null>;
             };
         },
         roles: {
             /**
              * Role index.
              * GET /access/roles
+             * @allowtoken 1
+             * @permissions {"user":"all"}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_access_rolesGET[]>;
             /**
              * Create new role.
              * POST /access/roles
+             * @allowtoken 1
+             * @permissions {"check":["perm","/access",["Sys.Modify"]]}
              */
             $post(param: { privs?: pveprivlist, roleid: pveroleid }): Promise<null>;
             $(roleid: string): {
                 /**
                  * Delete role.
                  * DELETE /access/roles/{roleid}
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/access",["Sys.Modify"]]}
                  */
-                $delete(param: { roleid: pveroleid }): Promise<null>;
+                $delete(): Promise<null>;
                 /**
                  * Get role configuration.
                  * GET /access/roles/{roleid}
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
                  */
-                $get(param: { roleid: pveroleid }): Promise<object>;
+                $get(): Promise<ret_access_roles_roleidGET>;
                 /**
                  * Update an existing role.
                  * PUT /access/roles/{roleid}
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/access",["Sys.Modify"]]}
                  */
-                $put(param: { append?: Tdisable, privs?: pveprivlist, roleid: pveroleid }): Promise<null>;
+                $put(param?: { append?: Tdisable, privs?: pveprivlist }): Promise<null>;
             };
         },
         acl: {
             /**
              * Get Access Control List (ACLs).
              * GET /access/acl
+             * @allowtoken 1
+             * @permissions {"description":"The returned list is restricted to objects where you have rights to modify permissions.","user":"all"}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_access_aclGET[]>;
             /**
              * Update Access Control List (add or remove permissions).
              * PUT /access/acl
+             * @allowtoken 1
+             * @permissions {"check":["perm-modify","{path}"]}
              */
             $put(param: { delete?: Tdisable, groups?: pvegroupidlist, path: string, propagate?: Tdisable, roles: pveroleidlist, tokens?: pvetokenidlist, users?: pveuseridlist }): Promise<null>;
         },
@@ -4000,35 +8282,47 @@ export interface Proxmox {
             /**
              * Authentication domain index.
              * GET /access/domains
+             * @allowtoken 1
+             * @permissions {"description":"Anyone can access that, because we need that list for the login box (before the user is authenticated).","user":"world"}
              */
-            $get(): Promise<any[]>;
+            $get(): Promise<ret_access_domainsGET[]>;
             /**
              * Add an authentication server.
              * POST /access/domains
+             * @allowtoken 1
+             * @permissions {"check":["perm","/access/realm",["Realm.Allocate"]]}
              */
             $post(param: { base_dn?: Tbase_dn, bind_dn?: Tbase_dn, capath?: string, cert?: string, certkey?: string, comment?: String0_4096, default?: Tdisable, domain?: Tdomain, filter?: String0_2048, group_classes?: ldapsimpleattrlist, group_dn?: Tbase_dn, group_filter?: String0_2048, group_name_attr?: ldapsimpleattr, mode?: Tmode_1, password?: string, port?: integer1_65535, realm: pverealm, secure?: Tdisable, server1?: address_1, server2?: address_1, sslversion?: Tsslversion, 'sync-defaults-options'?: realmsyncoptions, sync_attributes?: Tsync_attributes, tfa?: pvetfaconfig, type: Ttype_15, user_attr?: Tuser_attr, user_classes?: ldapsimpleattrlist, verify?: Tdisable }): Promise<null>;
             $(realm: string): {
                 /**
                  * Delete an authentication server.
                  * DELETE /access/domains/{realm}
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/access/realm",["Realm.Allocate"]]}
                  */
-                $delete(param: { realm: pverealm }): Promise<null>;
+                $delete(): Promise<null>;
                 /**
                  * Get auth server configuration.
                  * GET /access/domains/{realm}
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/access/realm",["Realm.Allocate","Sys.Audit"],"any",1]}
                  */
-                $get(param: { realm: pverealm }): Promise<any>;
+                $get(): Promise<ret_access_domains_realmGET>;
                 /**
                  * Update authentication server settings.
                  * PUT /access/domains/{realm}
+                 * @allowtoken 1
+                 * @permissions {"check":["perm","/access/realm",["Realm.Allocate"]]}
                  */
-                $put(param: { base_dn?: Tbase_dn, bind_dn?: Tbase_dn, capath?: string, cert?: string, certkey?: string, comment?: String0_4096, default?: Tdisable, delete?: pveconfigidlist, digest?: String0_40, domain?: Tdomain, filter?: String0_2048, group_classes?: ldapsimpleattrlist, group_dn?: Tbase_dn, group_filter?: String0_2048, group_name_attr?: ldapsimpleattr, mode?: Tmode_1, password?: string, port?: integer1_65535, realm: pverealm, secure?: Tdisable, server1?: address_1, server2?: address_1, sslversion?: Tsslversion, 'sync-defaults-options'?: realmsyncoptions, sync_attributes?: Tsync_attributes, tfa?: pvetfaconfig, user_attr?: Tuser_attr, user_classes?: ldapsimpleattrlist, verify?: Tdisable }): Promise<null>;
+                $put(param?: { base_dn?: Tbase_dn, bind_dn?: Tbase_dn, capath?: string, cert?: string, certkey?: string, comment?: String0_4096, default?: Tdisable, delete?: pveconfigidlist, digest?: String0_40, domain?: Tdomain, filter?: String0_2048, group_classes?: ldapsimpleattrlist, group_dn?: Tbase_dn, group_filter?: String0_2048, group_name_attr?: ldapsimpleattr, mode?: Tmode_1, password?: string, port?: integer1_65535, secure?: Tdisable, server1?: address_1, server2?: address_1, sslversion?: Tsslversion, 'sync-defaults-options'?: realmsyncoptions, sync_attributes?: Tsync_attributes, tfa?: pvetfaconfig, user_attr?: Tuser_attr, user_classes?: ldapsimpleattrlist, verify?: Tdisable }): Promise<null>;
                 sync: {
                     /**
                      * Syncs users and/or groups from the configured LDAP to user.cfg. NOTE: Synced groups will have the name 'name-$realm', so make sure those groups do not exist to prevent overwriting.
                      * POST /access/domains/{realm}/sync
+                     * @allowtoken 1
+                     * @permissions {"check":["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"]]],"description":"'Realm.AllocateUser' on '/access/realm/<realm>' and  'User.Modify' permissions to '/access/groups/'."}
                      */
-                    $post(param: { 'dry-run'?: Tdisable, 'enable-new'?: Tdisable, full?: Tdisable, purge?: Tdisable, realm: pverealm, scope?: Tscope_1 }): Promise<string>;
+                    $post(param?: { 'dry-run'?: Tdisable, 'enable-new'?: Tdisable, full?: Tdisable, purge?: Tdisable, scope?: Tscope_1 }): Promise<ret_access_domains_realm_syncPOST>;
                 },
             };
         },
@@ -4036,18 +8330,24 @@ export interface Proxmox {
             /**
              * Dummy. Useful for formatters which want to provide a login page.
              * GET /access/ticket
+             * @allowtoken 1
+             * @permissions {"user":"world"}
              */
             $get(): Promise<null>;
             /**
              * Create or verify authentication ticket.
              * POST /access/ticket
+             * @allowtoken 0
+             * @permissions {"description":"You need to pass valid credientials.","user":"world"}
              */
-            $post(param: { otp?: string, password: string, path?: String0_64, privs?: pveprivlist_1, realm?: pverealm, username: String0_64 }): Promise<object>;
+            $post(param: { otp?: string, password: string, path?: String0_64, privs?: pveprivlist_1, realm?: pverealm, username: String0_64 }): Promise<ret_access_ticketPOST>;
         },
         password: {
             /**
              * Change user password.
              * PUT /access/password
+             * @allowtoken 0
+             * @permissions {"check":["or",["userid-param","self"],["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"]]]],"description":"Each user is allowed to change his own password. A user can change the password of another user if he has 'Realm.AllocateUser' (on the realm of user <userid>) and 'User.Modify' permission on /access/groups/<group> on a group where user <userid> is member of."}
              */
             $put(param: { password: String5_64, userid: pveuserid }): Promise<null>;
         },
@@ -4055,56 +8355,74 @@ export interface Proxmox {
             /**
              * Finish a u2f challenge.
              * POST /access/tfa
+             * @allowtoken 0
+             * @permissions {"user":"all"}
              */
-            $post(param: { response: string }): Promise<object>;
+            $post(param: { response: string }): Promise<ret_access_tfaPOST>;
             /**
              * Change user u2f authentication.
              * PUT /access/tfa
+             * @allowtoken 0
+             * @permissions {"check":["or",["userid-param","self"],["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"]]]],"description":"A user can change their own u2f or totp token."}
              */
-            $put(param: { action: Taction_1, config?: pvetfaconfig, key?: pvetfasecret, password?: String5_64, response?: string, userid: pveuserid }): Promise<object>;
+            $put(param: { action: Taction_1, config?: pvetfaconfig, key?: pvetfasecret, password?: String5_64, response?: string, userid: pveuserid }): Promise<ret_access_tfaPUT>;
         },
         permissions: {
             /**
              * Retrieve effective permissions of given user/token.
              * GET /access/permissions
+             * @allowtoken 1
+             * @permissions {"description":"Each user/token is allowed to dump their own permissions. A user can dump the permissions of another user if they have 'Sys.Audit' permission on /access.","user":"all"}
              */
-            $get(param?: { path?: string, userid?: Tuserid }): Promise<object>;
+            $get(param?: { path?: string, userid?: Tuserid }): Promise<ret_access_permissionsGET>;
         },
     },
     pools: {
         /**
          * Pool index.
          * GET /pools
+         * @allowtoken 1
+         * @permissions {"description":"List all pools where you have Pool.Allocate or VM.Allocate permissions on /pool/<pool>.","user":"all"}
          */
-        $get(): Promise<any[]>;
+        $get(): Promise<ret_poolsGET[]>;
         /**
          * Create new pool.
          * POST /pools
+         * @allowtoken 1
+         * @permissions {"check":["perm","/pool/{poolid}",["Pool.Allocate"]]}
          */
         $post(param: { comment?: string, poolid: pvepoolid }): Promise<null>;
         $(poolid: string): {
             /**
              * Delete pool.
              * DELETE /pools/{poolid}
+             * @allowtoken 1
+             * @permissions {"check":["perm","/pool/{poolid}",["Pool.Allocate"]],"description":"You can only delete empty pools (no members)."}
              */
-            $delete(param: { poolid: pvepoolid }): Promise<null>;
+            $delete(): Promise<null>;
             /**
              * Get pool configuration.
              * GET /pools/{poolid}
+             * @allowtoken 1
+             * @permissions {"check":["perm","/pool/{poolid}",["Pool.Allocate"]]}
              */
-            $get(param: { poolid: pvepoolid }): Promise<object>;
+            $get(): Promise<ret_pools_poolidGET>;
             /**
              * Update pool data.
              * PUT /pools/{poolid}
+             * @allowtoken 1
+             * @permissions {"check":["perm","/pool/{poolid}",["Pool.Allocate"]],"description":"You also need the right to modify permissions on any object you add/delete."}
              */
-            $put(param: { comment?: string, delete?: Tdisable, poolid: pvepoolid, storage?: pvestorageidlist, vms?: pvevmidlist }): Promise<null>;
+            $put(param?: { comment?: string, delete?: Tdisable, storage?: pvestorageidlist, vms?: pvevmidlist }): Promise<null>;
         };
     },
     version: {
         /**
          * API version details. The result also includes the global datacenter confguration.
          * GET /version
+         * @allowtoken 1
+         * @permissions {"user":"all"}
          */
-        $get(): Promise<object>;
+        $get(): Promise<ret_versionGET>;
     },
 }

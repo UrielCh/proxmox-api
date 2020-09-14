@@ -28751,7 +28751,8 @@ const pveapi: pveApiNode[] = [
                                            "type" : "string"
                                         },
                                         "name" : {
-                                           "description" : "The name (ID) for the MDS"
+                                           "description" : "The name (ID) for the MDS",
+                                           "type" : "string" // URIEL ADDED
                                         },
                                         "rank" : {
                                            "optional" : 1,
@@ -28910,7 +28911,8 @@ const pveapi: pveApiNode[] = [
                                            "type" : "string"
                                         },
                                         "name" : {
-                                           "description" : "The name (ID) for the MGR"
+                                           "description" : "The name (ID) for the MGR",
+                                           "type" : "string" // URIEL ADDED
                                         },
                                         "state" : {
                                            "description" : "State of the MGR",

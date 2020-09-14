@@ -42,8 +42,8 @@ export interface PveParametersCommon extends PveCommon {
 }
 
 export interface PveParametersNumber extends PveParametersCommon {
-    type: "integer" | "number";
-    format?: string;
+    type: "number";
+    // format?: string;
     minimum?: number,
     maximum?: number,
     default?: string | number;
@@ -54,7 +54,22 @@ export interface PveParametersNumber extends PveParametersCommon {
     requires?: string; // "delete" | "todisk" | "archive" | "db_dev" | "wal_dev";
 }
 
-export interface PveCallParametersString extends PveParametersCommon {
+export interface PveParametersInteger extends PveParametersCommon {
+    type: "integer";
+    format?: string;
+    minimum?: number,
+    maximum?: number,
+    default?: string | number; // value or text like same as
+    typetext?: string;
+    // renderer?: 'duration';
+    renderer?: 'bytes' | "timestamp" | 'timestamp_gmt' | 'duration' | 'fraction_as_percentage';
+    title?: string; // only inside items
+    // reference to an other key of the current object
+    requires?: string; // "delete" | "todisk" | "archive" | "db_dev" | "wal_dev";
+}
+
+
+export interface PveParametersString extends PveParametersCommon {
     type: 'string';
     title?: string; // only inside items
     format?: string | {[name: string]: PveFormat}; // "mac-addr",
@@ -70,7 +85,7 @@ export interface PveCallParametersString extends PveParametersCommon {
     renderer?: 'bytes';
 }
 
-export interface PveCallParametersBoolean extends PveParametersCommon {
+export interface PveParametersBoolean extends PveParametersCommon {
     type: 'boolean';
     default?: number | '1' | '0' | "yes" | 'off';
     // reference to an other key of the current object
@@ -82,24 +97,24 @@ export interface PveCallParametersNull extends PveParametersCommon {
     type: "null";
 }
 
-export interface PveCallParametersArray extends PveParametersCommon {
+export interface PveParametersArray extends PveParametersCommon {
     type: "array";
-    items?: PveCallParameters,
+    // if not set use a PveParametersString
+    items?: PveParametersObject | PveParametersString | PveParametersArray | PveParametersNumber, // subset of PveCallParameters,
     links?: { "href": string, "rel": "child" }[];
     renderer?: 'yaml';
 }
 
-export interface PveCallParametersObject extends PveParametersCommon {
+export interface PveParametersObject extends PveParametersCommon {
     type: "object";
-    items?: PveCallParameters,
-    properties?: { [name: string]: PveCallParameters };
+    properties?: { [name: string]: PveParametersString | PveParametersArray | PveParametersBoolean | PveParametersObject | PveParametersInteger | PveParametersNumber};
 }
 
-export interface PveCallParametersUndef extends PveParametersCommon {
+export interface PveParametersUndef extends PveParametersCommon {
     type?: '';
 }
 
-export type PveCallParameters = PveParametersNumber | PveCallParametersString | PveCallParametersBoolean | PveCallParametersNull | PveCallParametersArray | PveCallParametersObject | PveCallParametersUndef;
+export type PveCallParameters = PveParametersNumber | PveParametersInteger | PveParametersString | PveParametersBoolean | PveCallParametersNull | PveParametersArray | PveParametersObject | PveParametersUndef;
 
 export type PceCheck = 1 | string | PceCheck[];
 
