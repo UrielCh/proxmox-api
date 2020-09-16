@@ -61,6 +61,15 @@ export class ProxmoxEngine implements ApiRequestable {
         };
 
         if (typeof (params) === 'object' && Object.keys(params).length > 0) {
+
+            for (const k of Object.keys(params)) {
+                const v = params[k];
+                if (v === true)
+                    params[k] = 1;
+                else if (v === false)
+                    params[k] = 0;
+            }
+
             if (httpMethod === 'PUT' || httpMethod === 'POST') {
                 // Escape unicode
                 //reqBody = JSON
