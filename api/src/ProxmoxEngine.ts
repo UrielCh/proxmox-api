@@ -1,5 +1,5 @@
 import { ApiRequestable } from "./proxy";
-import fetch, { RequestInit } from 'node-fetch';
+import fetch, { RequestInit, Response } from 'node-fetch';
 import querystring from 'querystring';
 
 export class ProxmoxEngine implements ApiRequestable {
@@ -82,29 +82,32 @@ export class ProxmoxEngine implements ApiRequestable {
                 requestUrl += `?${querystring.stringify(params)}`;
             }
         }
+        let req: Response;
         try {
-            const req = await fetch(requestUrl, requestInit);
-            const contentType = req.headers.get('content-type') as string;
-            let data: { data: any, errors?: any } = { data: null };
-            if (contentType === 'application/json;charset=UTF-8') {
-                data = await req.json();
-            } else {
-                debugger;
-                data.data = req.text();
-            }
-
-            if (req.status === 400) {
-                throw Error(`${httpMethod} ${requestUrl} return Error 400: ${JSON.stringify(data.errors)}`);
-            }
-
-            if (req.status !== 200) {
-                throw Error(`get ${requestUrl} connetion failed with ${req.status}: ${req.statusText} ret ${JSON.stringify(data)}`);
-            }
-            return data.data;
+            req = await fetch(requestUrl, requestInit);
         } catch (e) {
             console.error(`FaILED to call ${httpMethod} ${requestUrl}`, e)
             throw Error(`FaILED to call ${httpMethod} ${requestUrl}`);
         }
+        const contentType = req.headers.get('content-type') as string;
+        let data: { data: any, errors?: any } = { data: null };
+        if (contentType === 'application/json;charset=UTF-8') {
+            data = await req.json();
+        } else {
+            data.data = req.text();
+            debugger;
+        }
+        const status = req.status;
+        if (status === 400) {
+            throw Error(`${httpMethod} ${requestUrl} return Error 400: ${JSON.stringify(data.errors)}`);
+        }
+        if (status === 500) {
+            throw Error(`${httpMethod} ${requestUrl} return Error 500 ${req.statusText}: ${JSON.stringify(data)}`);
+        }
+        if (status !== 200) {
+            throw Error(`${httpMethod} ${requestUrl} connetion failed with ${req.status} ${req.statusText} return: ${JSON.stringify(data)}`);
+        }
+        return data.data;
     }
 
 

@@ -227,7 +227,9 @@ export class Generator {
                 let pTxt = '';
                 if (params.length)
                     pTxt = `param${allOptional}: { ${params.join(', ')} }`;
-                let returnType = this.mapsReturn(theInfo, path);
+                // if (path === '/nodes/{node}/qemu/{vmid}/status/current')
+                //    debugger;
+                let returnType = this.mapsReturn(theInfo, path, data.returns.additionalProperties);
                 this.code.push(`${lineOffset}$${mtd.toLowerCase()}(${pTxt}): Promise<${this.mapType(returnType)}>;`);
             }
         }
@@ -240,7 +242,7 @@ export class Generator {
         this.code.push(`${lineOffset0}}${extraSemicon}`);
     }
 
-    genModelObject(info: PveParametersObject, lineOffset0: string): string {
+    genModelObject(info: PveParametersObject, lineOffset0: string, additionalProperties?: 0 | 1): string {
         if (!info.properties)
             return 'any'; // no data ...
         let lines: string[] = [];
@@ -291,6 +293,10 @@ export class Generator {
             }
             lines.push(line.join(EOL));
         }
+        if (additionalProperties) {
+            lines.push(`${lineOffset}/** additionalProperties **/`);
+            lines.push(`${lineOffset}[additionalProperties: string]: any;`);
+        }
         lines.push('}');
         return lines.join(EOL);
     }
@@ -314,8 +320,7 @@ export class Generator {
         return 'any[]';
     }
 
-
-    mapsReturn(theInfo: PveCallDesc, path: string): string {
+    mapsReturn(theInfo: PveCallDesc, path: string, additionalProperties?: 0 | 1): string {
         const returns = theInfo.returns;
         if (!returns)
             return 'void';
@@ -337,10 +342,9 @@ export class Generator {
         let retTypeOptfix = '';
         let TypeName = 'ret' + path.replace(/\//g, '_').replace(/-/g, '_').replace(/[{}]/g, '') + theInfo.method;
         let fullType = 'any';
-        if ('ret_cluster_optionsGET' === TypeName) {
-            debugger;
-        }
-
+        //if ('ret_cluster_optionsGET' === TypeName) {
+        //    debugger;
+        //}
 
         if (returns.type === 'array') {
             if (returns.items && returns.items.type === 'object') {
@@ -351,7 +355,7 @@ export class Generator {
                 fullType = this.genModelArray(returns);
             }
         } else if (returns.type === 'object') {
-            fullType = this.genModelObject(returns, '');
+            fullType = this.genModelObject(returns, '', additionalProperties);
         }
         if (fullType === 'any') {
             TypeName = 'any';

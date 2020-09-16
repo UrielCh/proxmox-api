@@ -17765,6 +17765,7 @@ const pveapi: pveApiNode[] = [
                                            "protected" : 1,
                                            "proxyto" : "node",
                                            "returns" : {
+                                             "additionalProperties" : 1, // ADDED URIEL
                                               "properties" : {
                                                  "agent" : {
                                                     "description" : "Qemu GuestAgent enabled in config.",

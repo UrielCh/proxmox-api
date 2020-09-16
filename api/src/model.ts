@@ -2627,6 +2627,8 @@ export interface ret_nodes_node_qemu_vmid_status_currentGET {
      * The (unique) ID of the VM.
      */
     vmid: number;
+    /** additionalProperties **/
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_qemu_vmid_featureGET {
     /**

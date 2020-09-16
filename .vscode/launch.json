@@ -25,6 +25,17 @@
             "cwd": "${workspaceFolder}/api",
             "runtimeArgs": ["-r", "ts-node/register"],
             "args": ["${workspaceFolder}/api/src/sample.ts"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "run sample2",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd": "${workspaceFolder}/api",
+            "runtimeArgs": ["-r", "ts-node/register"],
+            "args": ["${workspaceFolder}/api/src/sample2.ts"]
         }
 
     ]
