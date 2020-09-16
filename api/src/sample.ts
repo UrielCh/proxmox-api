@@ -2,11 +2,13 @@ import { proxyProxmox } from "./contructor";
 import ProxmoxEngine from "./ProxmoxEngine";
 
 async function test() {
+    // authorize self signed cert
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+    // load sample authentification info
     const auth = await import('../../../auth');
-    const password = auth.default.pass;
+    const { host, password }  = auth.default;
     // connect to proxmox
-    const promox = proxyProxmox(new ProxmoxEngine({host: '10.0.0.95', password}));
+    const promox = proxyProxmox(new ProxmoxEngine({host, password}));
     // liste nodes
     const nodes = await promox.nodes.$get();
     // iterate cluster nodes
