@@ -188,13 +188,10 @@ const handlerRoot = <ProxyHandler<ProxyApi>>{
  * maintains full PATH for OVH calls
  */
 class ProxyApi {
-    public _engine: ApiRequestable;
-    public _path: string;
     public _model: string;
-    constructor(engine: ApiRequestable, path: string, model?: string) {
-        this._engine = engine;
-        this._path = path;
-        this._model = model || path;
+    
+    constructor(public _engine: ApiRequestable, public _path: string, model?: string) {
+        this._model = model || this._path;
     }
     toString(): string {
         return `ProxyApi{path:${this._path}}`;

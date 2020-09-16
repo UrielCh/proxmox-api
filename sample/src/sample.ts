@@ -1,5 +1,4 @@
-import { proxyProxmox } from "./contructor";
-import ProxmoxEngine from "./ProxmoxEngine";
+import { proxyProxmox, ProxmoxEngine } from "../../api/src";
 
 async function test() {
     // authorize self signed cert
