@@ -13,7 +13,19 @@
             ],
             "cwd": "${workspaceFolder}/generator",
             "runtimeArgs": ["-r", "ts-node/register"],
-            "args": ["${workspaceFolder}/generator/gen.ts"]
+            "args": ["${workspaceFolder}/generator/src/gen.ts"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "run sample",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd": "${workspaceFolder}/api",
+            "runtimeArgs": ["-r", "ts-node/register"],
+            "args": ["${workspaceFolder}/api/src/sample.ts"]
         }
+
     ]
 }

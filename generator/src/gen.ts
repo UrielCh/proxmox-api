@@ -1,5 +1,5 @@
 import pveapi from './pveapi';
-import { pveApiNode, PveCallParameters, PveCallDesc, PveParametersArray, PveParametersObject } from './pveapiModel';
+import { pveApiNode, PveCallParameters, PveCallDesc, PveParametersArray, PveParametersObject } from '../pveapiModel';
 import fs from 'fs';
 import path from 'path';
 
@@ -353,4 +353,4 @@ export class Generator {
 const gen = new Generator();
 gen.start();
 
-fs.writeFileSync(path.join(__dirname, '..', 'api', 'model.ts'), gen.getFinalData(), { encoding: 'utf8' })
+fs.writeFileSync(path.join(__dirname, '..', 'api', 'src', 'model.ts'), gen.getFinalData(), { encoding: 'utf8' })
