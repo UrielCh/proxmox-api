@@ -353,4 +353,4 @@ export class Generator {
 const gen = new Generator();
 gen.start();
 
-fs.writeFileSync(path.join(__dirname, '..', 'api', 'index.ts'), gen.getFinalData(), { encoding: 'utf8' })
+fs.writeFileSync(path.join(__dirname, '..', 'api', 'model.ts'), gen.getFinalData(), { encoding: 'utf8' })
