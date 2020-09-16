@@ -1095,11 +1095,8 @@ export interface ret_clusterGET {
 };
 export interface ret_cluster_replicationGET {
 };
-export type ret_cluster_replication_idGET = any;
 export interface ret_cluster_configGET {
 };
-export type ret_cluster_configPOST = any;
-export type ret_cluster_config_apiversionGET = any;
 export interface ret_cluster_config_nodesGET {
     /**
      */
@@ -1154,9 +1151,6 @@ export interface ret_cluster_config_joinGET {
      */
     totem: any;
 };
-export type ret_cluster_config_joinPOST = any;
-export type ret_cluster_config_totemGET = any;
-export type ret_cluster_config_qdeviceGET = any;
 export interface ret_cluster_firewallGET {
 };
 export interface ret_cluster_firewall_groupsGET {
@@ -1300,7 +1294,6 @@ export interface ret_cluster_firewall_ipset_nameGET {
      */
     nomatch?: boolean;
 };
-export type ret_cluster_firewall_ipset_name_cidrGET = any;
 export interface ret_cluster_firewall_aliasesGET {
     /**
      */
@@ -1316,7 +1309,6 @@ export interface ret_cluster_firewall_aliasesGET {
      */
     name: string;
 };
-export type ret_cluster_firewall_aliases_nameGET = any;
 export interface ret_cluster_firewall_optionsGET {
     /**
      * Enable ebtables rules cluster wide.
@@ -1369,7 +1361,6 @@ export interface ret_cluster_backupGET {
      */
     id: string;
 };
-export type ret_cluster_backup_idGET = any;
 export interface ret_cluster_backup_id_included_volumesGET {
     /**
      */
@@ -1409,7 +1400,6 @@ export interface ret_cluster_backup_id_included_volumesGET {
     type: string;
 }[];
 };
-export type ret_cluster_backupinfoGET = any;
 export interface ret_cluster_backupinfo_not_backed_upGET {
     /**
      * Name of the guest
@@ -1473,10 +1463,8 @@ export interface ret_cluster_ha_groupsGET {
      */
     group: string;
 };
-export type ret_cluster_ha_groups_groupGET = any;
 export interface ret_cluster_ha_statusGET {
 };
-export type ret_cluster_ha_status_manager_statusGET = any;
 export interface ret_cluster_acmeGET {
 };
 export interface ret_cluster_acme_pluginsGET {
@@ -1485,11 +1473,8 @@ export interface ret_cluster_acme_pluginsGET {
      */
     plugin: string;
 };
-export type ret_cluster_acme_plugins_idGET = any;
 export interface ret_cluster_acme_accountGET {
 };
-export type ret_cluster_acme_accountPOST = any;
-export type ret_cluster_acme_account_nameDELETE = any;
 export interface ret_cluster_acme_account_nameGET {
     /**
      */
@@ -1505,8 +1490,6 @@ export interface ret_cluster_acme_account_nameGET {
      */
     tos?: string;
 };
-export type ret_cluster_acme_account_namePUT = any;
-export type ret_cluster_acme_tosGET = any;
 export interface ret_cluster_acme_directoriesGET {
     /**
      */
@@ -1533,25 +1516,19 @@ export interface ret_cluster_acme_challenge_schemaGET {
 };
 export interface ret_cluster_cephGET {
 };
-export type ret_cluster_ceph_metadataGET = any;
-export type ret_cluster_ceph_statusGET = any;
 export interface ret_cluster_ceph_flagsGET {
     /**
      * Flag name.
      */
     name: string;
 };
-export type ret_cluster_ceph_flagsPUT = any;
-export type ret_cluster_ceph_flags_flagGET = any;
 export interface ret_cluster_sdnGET {
     /**
      */
     id: string;
 };
-export type ret_cluster_sdnPUT = any;
 export interface ret_cluster_sdn_vnetsGET {
 };
-export type ret_cluster_sdn_vnets_vnetGET = any;
 export interface ret_cluster_sdn_zonesGET {
     /**
      */
@@ -1560,7 +1537,6 @@ export interface ret_cluster_sdn_zonesGET {
      */
     zone: string;
 };
-export type ret_cluster_sdn_zones_zoneGET = any;
 export interface ret_cluster_sdn_controllersGET {
     /**
      */
@@ -1569,7 +1545,6 @@ export interface ret_cluster_sdn_controllersGET {
      */
     type: string;
 };
-export type ret_cluster_sdn_controllers_controllerGET = any;
 export interface ret_cluster_logGET {
 };
 export interface ret_cluster_resourcesGET {
@@ -1638,7 +1613,6 @@ export interface ret_cluster_tasksGET {
      */
     upid: string;
 };
-export type ret_cluster_optionsGET = any;
 export interface ret_cluster_statusGET {
     /**
      */
@@ -1683,7 +1657,6 @@ export interface ret_cluster_statusGET {
      */
     version?: number;
 };
-export type ret_cluster_nextidGET = any;
 export interface ret_nodesGET {
     /**
      * CPU utilization.
@@ -1770,8 +1743,6 @@ export interface ret_nodes_node_qemuGET {
      */
     vmid: number;
 };
-export type ret_nodes_node_qemuPOST = any;
-export type ret_nodes_node_qemu_vmidDELETE = any;
 export interface ret_nodes_node_qemu_vmidGET {
     /**
      */
@@ -1844,7 +1815,6 @@ export interface ret_nodes_node_qemu_vmid_firewall_aliasesGET {
      */
     name: string;
 };
-export type ret_nodes_node_qemu_vmid_firewall_aliases_nameGET = any;
 export interface ret_nodes_node_qemu_vmid_firewall_ipsetGET {
     /**
      */
@@ -1873,7 +1843,6 @@ export interface ret_nodes_node_qemu_vmid_firewall_ipset_nameGET {
      */
     nomatch?: boolean;
 };
-export type ret_nodes_node_qemu_vmid_firewall_ipset_name_cidrGET = any;
 export interface ret_nodes_node_qemu_vmid_firewall_optionsGET {
     /**
      * Enable DHCP.
@@ -1939,28 +1908,6 @@ export interface ret_nodes_node_qemu_vmid_firewall_refsGET {
 };
 export interface ret_nodes_node_qemu_vmid_agentGET {
 };
-export type ret_nodes_node_qemu_vmid_agentPOST = any;
-export type ret_nodes_node_qemu_vmid_agent_fsfreeze_freezePOST = any;
-export type ret_nodes_node_qemu_vmid_agent_fsfreeze_statusPOST = any;
-export type ret_nodes_node_qemu_vmid_agent_fsfreeze_thawPOST = any;
-export type ret_nodes_node_qemu_vmid_agent_fstrimPOST = any;
-export type ret_nodes_node_qemu_vmid_agent_get_fsinfoGET = any;
-export type ret_nodes_node_qemu_vmid_agent_get_host_nameGET = any;
-export type ret_nodes_node_qemu_vmid_agent_get_memory_block_infoGET = any;
-export type ret_nodes_node_qemu_vmid_agent_get_memory_blocksGET = any;
-export type ret_nodes_node_qemu_vmid_agent_get_osinfoGET = any;
-export type ret_nodes_node_qemu_vmid_agent_get_timeGET = any;
-export type ret_nodes_node_qemu_vmid_agent_get_timezoneGET = any;
-export type ret_nodes_node_qemu_vmid_agent_get_usersGET = any;
-export type ret_nodes_node_qemu_vmid_agent_get_vcpusGET = any;
-export type ret_nodes_node_qemu_vmid_agent_infoGET = any;
-export type ret_nodes_node_qemu_vmid_agent_network_get_interfacesGET = any;
-export type ret_nodes_node_qemu_vmid_agent_pingPOST = any;
-export type ret_nodes_node_qemu_vmid_agent_shutdownPOST = any;
-export type ret_nodes_node_qemu_vmid_agent_suspend_diskPOST = any;
-export type ret_nodes_node_qemu_vmid_agent_suspend_hybridPOST = any;
-export type ret_nodes_node_qemu_vmid_agent_suspend_ramPOST = any;
-export type ret_nodes_node_qemu_vmid_agent_set_user_passwordPOST = any;
 export interface ret_nodes_node_qemu_vmid_agent_execPOST {
     /**
      * The PID of the process started by the guest-agent.
@@ -2121,12 +2068,54 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      * CAUTION: Experimental! User reported problems with this option.
      */
     hostpci0?: string;
+    /**
+     * Map host PCI devices into guest.
+     * NOTE: This option allows direct access to host hardware. So it is no longer
+     * possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     */
     hostpci1?: string;
+    /**
+     * Map host PCI devices into guest.
+     * NOTE: This option allows direct access to host hardware. So it is no longer
+     * possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     */
     hostpci2?: string;
+    /**
+     * Map host PCI devices into guest.
+     * NOTE: This option allows direct access to host hardware. So it is no longer
+     * possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     */
     hostpci3?: string;
+    /**
+     * Map host PCI devices into guest.
+     * NOTE: This option allows direct access to host hardware. So it is no longer
+     * possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     */
     hostpci4?: string;
+    /**
+     * Map host PCI devices into guest.
+     * NOTE: This option allows direct access to host hardware. So it is no longer
+     * possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     */
     hostpci5?: string;
+    /**
+     * Map host PCI devices into guest.
+     * NOTE: This option allows direct access to host hardware. So it is no longer
+     * possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     */
     hostpci6?: string;
+    /**
+     * Map host PCI devices into guest.
+     * NOTE: This option allows direct access to host hardware. So it is no longer
+     * possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     */
     hostpci7?: string;
     /**
      * Selectively enable hotplug features. This is a comma separated list of hotplug features: 'network', 'disk', 'cpu', 'memory' and 'usb'. Use '0' to disable hotplug completely. Value '1' is an alias for the default 'network,disk,usb'.
@@ -2140,8 +2129,17 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      * Use volume as IDE hard disk or CD-ROM (n is 0 to 3).
      */
     ide0?: string;
+    /**
+     * Use volume as IDE hard disk or CD-ROM (n is 0 to 3).
+     */
     ide1?: string;
+    /**
+     * Use volume as IDE hard disk or CD-ROM (n is 0 to 3).
+     */
     ide2?: string;
+    /**
+     * Use volume as IDE hard disk or CD-ROM (n is 0 to 3).
+     */
     ide3?: string;
     /**
      * cloud-init: Specify IP addresses and gateways for the corresponding interface.
@@ -2152,12 +2150,68 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      * 
      */
     ipconfig0?: string;
+    /**
+     * cloud-init: Specify IP addresses and gateways for the corresponding interface.
+     * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
+     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
+     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
+     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+     * 
+     */
     ipconfig1?: string;
+    /**
+     * cloud-init: Specify IP addresses and gateways for the corresponding interface.
+     * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
+     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
+     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
+     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+     * 
+     */
     ipconfig2?: string;
+    /**
+     * cloud-init: Specify IP addresses and gateways for the corresponding interface.
+     * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
+     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
+     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
+     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+     * 
+     */
     ipconfig3?: string;
+    /**
+     * cloud-init: Specify IP addresses and gateways for the corresponding interface.
+     * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
+     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
+     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
+     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+     * 
+     */
     ipconfig4?: string;
+    /**
+     * cloud-init: Specify IP addresses and gateways for the corresponding interface.
+     * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
+     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
+     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
+     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+     * 
+     */
     ipconfig5?: string;
+    /**
+     * cloud-init: Specify IP addresses and gateways for the corresponding interface.
+     * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
+     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
+     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
+     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+     * 
+     */
     ipconfig6?: string;
+    /**
+     * cloud-init: Specify IP addresses and gateways for the corresponding interface.
+     * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
+     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
+     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
+     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+     * 
+     */
     ipconfig7?: string;
     /**
      * Inter-VM shared memory. Useful for direct communication between VMs, or to the host.
@@ -2207,8 +2261,17 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      * Specify network devices.
      */
     net0?: string;
+    /**
+     * Specify network devices.
+     */
     net1?: string;
+    /**
+     * Specify network devices.
+     */
     net2?: string;
+    /**
+     * Specify network devices.
+     */
     net3?: string;
     /**
      * Enable/disable NUMA.
@@ -2218,8 +2281,17 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      * NUMA topology.
      */
     numa0?: string;
+    /**
+     * NUMA topology.
+     */
     numa1?: string;
+    /**
+     * NUMA topology.
+     */
     numa2?: string;
+    /**
+     * NUMA topology.
+     */
     numa3?: string;
     /**
      * Specifies whether a VM will be started during system bootup.
@@ -2249,8 +2321,23 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      * CAUTION: Experimental! User reported problems with this option.
      */
     parallel0?: string;
+    /**
+     * Map host parallel devices (n is 0 to 2).
+     * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     */
     parallel1?: string;
+    /**
+     * Map host parallel devices (n is 0 to 2).
+     * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     */
     parallel2?: string;
+    /**
+     * Map host parallel devices (n is 0 to 2).
+     * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     */
     parallel3?: string;
     /**
      * Sets the protection flag of the VM. This will disable the remove VM and remove disk operations.
@@ -2268,15 +2355,33 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      * Use volume as SATA hard disk or CD-ROM (n is 0 to 5).
      */
     sata0?: string;
+    /**
+     * Use volume as SATA hard disk or CD-ROM (n is 0 to 5).
+     */
     sata1?: string;
+    /**
+     * Use volume as SATA hard disk or CD-ROM (n is 0 to 5).
+     */
     sata2?: string;
+    /**
+     * Use volume as SATA hard disk or CD-ROM (n is 0 to 5).
+     */
     sata3?: string;
     /**
      * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30).
      */
     scsi0?: string;
+    /**
+     * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30).
+     */
     scsi1?: string;
+    /**
+     * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30).
+     */
     scsi2?: string;
+    /**
+     * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30).
+     */
     scsi3?: string;
     /**
      * SCSI controller model
@@ -2294,8 +2399,29 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      * CAUTION: Experimental! User reported problems with this option.
      */
     serial0?: string;
+    /**
+     * Create a serial device inside the VM (n is 0 to 3), and pass through a
+     * host serial device (i.e. /dev/ttyS0), or create a unix socket on the
+     * host side (use 'qm terminal' to open a terminal connection).
+     * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     */
     serial1?: string;
+    /**
+     * Create a serial device inside the VM (n is 0 to 3), and pass through a
+     * host serial device (i.e. /dev/ttyS0), or create a unix socket on the
+     * host side (use 'qm terminal' to open a terminal connection).
+     * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     */
     serial2?: string;
+    /**
+     * Create a serial device inside the VM (n is 0 to 3), and pass through a
+     * host serial device (i.e. /dev/ttyS0), or create a unix socket on the
+     * host side (use 'qm terminal' to open a terminal connection).
+     * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     */
     serial3?: string;
     /**
      * Amount of memory shares for auto-ballooning. The larger the number is, the more memory this VM gets. Number is relative to weights of all other running VMs. Using zero disables auto-ballooning. Auto-ballooning is done by pvestatd.
@@ -2349,15 +2475,33 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      * Reference to unused volumes. This is used internally, and should not be modified manually.
      */
     unused0?: string;
+    /**
+     * Reference to unused volumes. This is used internally, and should not be modified manually.
+     */
     unused1?: string;
+    /**
+     * Reference to unused volumes. This is used internally, and should not be modified manually.
+     */
     unused2?: string;
+    /**
+     * Reference to unused volumes. This is used internally, and should not be modified manually.
+     */
     unused3?: string;
     /**
      * Configure an USB device (n is 0 to 4).
      */
     usb0?: string;
+    /**
+     * Configure an USB device (n is 0 to 4).
+     */
     usb1?: string;
+    /**
+     * Configure an USB device (n is 0 to 4).
+     */
     usb2?: string;
+    /**
+     * Configure an USB device (n is 0 to 4).
+     */
     usb3?: string;
     /**
      * Number of hotplugged vcpus.
@@ -2372,8 +2516,17 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      * Use volume as VIRTIO hard disk (n is 0 to 15).
      */
     virtio0?: string;
+    /**
+     * Use volume as VIRTIO hard disk (n is 0 to 15).
+     */
     virtio1?: string;
+    /**
+     * Use volume as VIRTIO hard disk (n is 0 to 15).
+     */
     virtio2?: string;
+    /**
+     * Use volume as VIRTIO hard disk (n is 0 to 15).
+     */
     virtio3?: string;
     /**
      * The VM generation ID (vmgenid) device exposes a 128-bit integer value identifier to the guest OS. This allows to notify the guest operating system when the virtual machine is executed with a different configuration (e.g. snapshot execution or creation from a template). The guest operating system notices the change, and is then able to react as appropriate by marking its copies of distributed databases as dirty, re-initializing its random number generator, etc.
@@ -2389,7 +2542,6 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      */
     watchdog?: string;
 };
-export type ret_nodes_node_qemu_vmid_configPOST = any;
 export interface ret_nodes_node_qemu_vmid_pendingGET {
     /**
      * Indicates a pending delete request if present and not 0. The value 2 indicates a force-delete request.
@@ -2408,14 +2560,11 @@ export interface ret_nodes_node_qemu_vmid_pendingGET {
      */
     value?: string;
 };
-export type ret_nodes_node_qemu_vmid_vncproxyPOST = any;
-export type ret_nodes_node_qemu_vmid_termproxyPOST = any;
 export interface ret_nodes_node_qemu_vmid_vncwebsocketGET {
     /**
      */
     port: string;
 };
-export type ret_nodes_node_qemu_vmid_spiceproxyPOST = any;
 export interface ret_nodes_node_qemu_vmid_statusGET {
     /**
      */
@@ -2479,13 +2628,6 @@ export interface ret_nodes_node_qemu_vmid_status_currentGET {
      */
     vmid: number;
 };
-export type ret_nodes_node_qemu_vmid_status_startPOST = any;
-export type ret_nodes_node_qemu_vmid_status_stopPOST = any;
-export type ret_nodes_node_qemu_vmid_status_resetPOST = any;
-export type ret_nodes_node_qemu_vmid_status_shutdownPOST = any;
-export type ret_nodes_node_qemu_vmid_status_rebootPOST = any;
-export type ret_nodes_node_qemu_vmid_status_suspendPOST = any;
-export type ret_nodes_node_qemu_vmid_status_resumePOST = any;
 export interface ret_nodes_node_qemu_vmid_featureGET {
     /**
      */
@@ -2494,8 +2636,6 @@ export interface ret_nodes_node_qemu_vmid_featureGET {
      */
     nodes: string[];
 };
-export type ret_nodes_node_qemu_vmid_clonePOST = any;
-export type ret_nodes_node_qemu_vmid_move_diskPOST = any;
 export interface ret_nodes_node_qemu_vmid_migrateGET {
     /**
      * List nodes allowed for offline migration, only passed if VM is offline
@@ -2517,8 +2657,6 @@ export interface ret_nodes_node_qemu_vmid_migrateGET {
      */
     running: boolean;
 };
-export type ret_nodes_node_qemu_vmid_migratePOST = any;
-export type ret_nodes_node_qemu_vmid_monitorPOST = any;
 export interface ret_nodes_node_qemu_vmid_snapshotGET {
     /**
      * Snapshot description.
@@ -2541,13 +2679,8 @@ export interface ret_nodes_node_qemu_vmid_snapshotGET {
      */
     vmstate?: boolean;
 };
-export type ret_nodes_node_qemu_vmid_snapshotPOST = any;
-export type ret_nodes_node_qemu_vmid_snapshot_snapnameDELETE = any;
 export interface ret_nodes_node_qemu_vmid_snapshot_snapnameGET {
 };
-export type ret_nodes_node_qemu_vmid_snapshot_snapname_configGET = any;
-export type ret_nodes_node_qemu_vmid_snapshot_snapname_rollbackPOST = any;
-export type ret_nodes_node_qemu_vmid_cloudinit_dumpGET = any;
 export interface ret_nodes_node_cpuGET {
     /**
      * True if this is a custom CPU model.
@@ -2604,8 +2737,6 @@ export interface ret_nodes_node_lxcGET {
      */
     vmid: number;
 };
-export type ret_nodes_node_lxcPOST = any;
-export type ret_nodes_node_lxc_vmidDELETE = any;
 export interface ret_nodes_node_lxc_vmidGET {
     /**
      */
@@ -2674,8 +2805,17 @@ export interface ret_nodes_node_lxc_vmid_configGET {
      * Use volume as container mount point.
      */
     mp0?: string;
+    /**
+     * Use volume as container mount point.
+     */
     mp1?: string;
+    /**
+     * Use volume as container mount point.
+     */
     mp2?: string;
+    /**
+     * Use volume as container mount point.
+     */
     mp3?: string;
     /**
      * Sets DNS server IP address for a container. Create will automatically use the setting from the host if you neither set searchdomain nor nameserver.
@@ -2685,8 +2825,17 @@ export interface ret_nodes_node_lxc_vmid_configGET {
      * Specifies network interfaces for the container.
      */
     net0?: string;
+    /**
+     * Specifies network interfaces for the container.
+     */
     net1?: string;
+    /**
+     * Specifies network interfaces for the container.
+     */
     net2?: string;
+    /**
+     * Specifies network interfaces for the container.
+     */
     net3?: string;
     /**
      * Specifies whether a VM will be started during system bootup.
@@ -2740,8 +2889,17 @@ export interface ret_nodes_node_lxc_vmid_configGET {
      * Reference to unused volumes. This is used internally, and should not be modified manually.
      */
     unused0?: string;
+    /**
+     * Reference to unused volumes. This is used internally, and should not be modified manually.
+     */
     unused1?: string;
+    /**
+     * Reference to unused volumes. This is used internally, and should not be modified manually.
+     */
     unused2?: string;
+    /**
+     * Reference to unused volumes. This is used internally, and should not be modified manually.
+     */
     unused3?: string;
 };
 export interface ret_nodes_node_lxc_vmid_statusGET {
@@ -2795,12 +2953,6 @@ export interface ret_nodes_node_lxc_vmid_status_currentGET {
      */
     vmid: number;
 };
-export type ret_nodes_node_lxc_vmid_status_startPOST = any;
-export type ret_nodes_node_lxc_vmid_status_stopPOST = any;
-export type ret_nodes_node_lxc_vmid_status_shutdownPOST = any;
-export type ret_nodes_node_lxc_vmid_status_suspendPOST = any;
-export type ret_nodes_node_lxc_vmid_status_resumePOST = any;
-export type ret_nodes_node_lxc_vmid_status_rebootPOST = any;
 export interface ret_nodes_node_lxc_vmid_snapshotGET {
     /**
      * Snapshot description.
@@ -2819,12 +2971,8 @@ export interface ret_nodes_node_lxc_vmid_snapshotGET {
      */
     snaptime?: number;
 };
-export type ret_nodes_node_lxc_vmid_snapshotPOST = any;
-export type ret_nodes_node_lxc_vmid_snapshot_snapnameDELETE = any;
 export interface ret_nodes_node_lxc_vmid_snapshot_snapnameGET {
 };
-export type ret_nodes_node_lxc_vmid_snapshot_snapname_rollbackPOST = any;
-export type ret_nodes_node_lxc_vmid_snapshot_snapname_configGET = any;
 export interface ret_nodes_node_lxc_vmid_firewallGET {
 };
 export interface ret_nodes_node_lxc_vmid_firewall_rulesGET {
@@ -2892,7 +3040,6 @@ export interface ret_nodes_node_lxc_vmid_firewall_aliasesGET {
      */
     name: string;
 };
-export type ret_nodes_node_lxc_vmid_firewall_aliases_nameGET = any;
 export interface ret_nodes_node_lxc_vmid_firewall_ipsetGET {
     /**
      */
@@ -2921,7 +3068,6 @@ export interface ret_nodes_node_lxc_vmid_firewall_ipset_nameGET {
      */
     nomatch?: boolean;
 };
-export type ret_nodes_node_lxc_vmid_firewall_ipset_name_cidrGET = any;
 export interface ret_nodes_node_lxc_vmid_firewall_optionsGET {
     /**
      * Enable DHCP.
@@ -2992,23 +3138,16 @@ export interface ret_nodes_node_lxc_vmid_rrdGET {
 };
 export interface ret_nodes_node_lxc_vmid_rrddataGET {
 };
-export type ret_nodes_node_lxc_vmid_vncproxyPOST = any;
-export type ret_nodes_node_lxc_vmid_termproxyPOST = any;
 export interface ret_nodes_node_lxc_vmid_vncwebsocketGET {
     /**
      */
     port: string;
 };
-export type ret_nodes_node_lxc_vmid_spiceproxyPOST = any;
-export type ret_nodes_node_lxc_vmid_migratePOST = any;
 export interface ret_nodes_node_lxc_vmid_featureGET {
     /**
      */
     hasFeature: boolean;
 };
-export type ret_nodes_node_lxc_vmid_clonePOST = any;
-export type ret_nodes_node_lxc_vmid_resizePUT = any;
-export type ret_nodes_node_lxc_vmid_move_volumePOST = any;
 export interface ret_nodes_node_lxc_vmid_pendingGET {
     /**
      * Indicates a pending delete request if present and not 0.
@@ -3029,9 +3168,6 @@ export interface ret_nodes_node_lxc_vmid_pendingGET {
 };
 export interface ret_nodes_node_cephGET {
 };
-export type ret_nodes_node_ceph_osdGET = any;
-export type ret_nodes_node_ceph_osdPOST = any;
-export type ret_nodes_node_ceph_osd_osdidDELETE = any;
 export interface ret_nodes_node_ceph_mdsGET {
     /**
      */
@@ -3055,8 +3191,6 @@ export interface ret_nodes_node_ceph_mdsGET {
      */
     state: string;
 };
-export type ret_nodes_node_ceph_mds_nameDELETE = any;
-export type ret_nodes_node_ceph_mds_namePOST = any;
 export interface ret_nodes_node_ceph_mgrGET {
     /**
      */
@@ -3073,8 +3207,6 @@ export interface ret_nodes_node_ceph_mgrGET {
      */
     state: string;
 };
-export type ret_nodes_node_ceph_mgr_idDELETE = any;
-export type ret_nodes_node_ceph_mgr_idPOST = any;
 export interface ret_nodes_node_ceph_monGET {
     /**
      */
@@ -3086,8 +3218,6 @@ export interface ret_nodes_node_ceph_monGET {
      */
     name: string;
 };
-export type ret_nodes_node_ceph_mon_monidDELETE = any;
-export type ret_nodes_node_ceph_mon_monidPOST = any;
 export interface ret_nodes_node_ceph_fsGET {
     /**
      * The name of the data pool.
@@ -3102,7 +3232,6 @@ export interface ret_nodes_node_ceph_fsGET {
      */
     name: string;
 };
-export type ret_nodes_node_ceph_fs_namePOST = any;
 export interface ret_nodes_node_ceph_disksGET {
     /**
      */
@@ -3129,7 +3258,6 @@ export interface ret_nodes_node_ceph_disksGET {
      */
     vendor?: string;
 };
-export type ret_nodes_node_ceph_configGET = any;
 export interface ret_nodes_node_ceph_configdbGET {
     /**
      */
@@ -3150,10 +3278,6 @@ export interface ret_nodes_node_ceph_configdbGET {
      */
     value: string;
 };
-export type ret_nodes_node_ceph_stopPOST = any;
-export type ret_nodes_node_ceph_startPOST = any;
-export type ret_nodes_node_ceph_restartPOST = any;
-export type ret_nodes_node_ceph_statusGET = any;
 export interface ret_nodes_node_ceph_poolsGET {
     /**
      */
@@ -3186,10 +3310,6 @@ export interface ret_nodes_node_ceph_poolsGET {
      */
     size: number;
 };
-export type ret_nodes_node_ceph_poolsPOST = any;
-export type ret_nodes_node_ceph_pools_nameDELETE = any;
-export type ret_nodes_node_ceph_flagsGET = any;
-export type ret_nodes_node_ceph_crushGET = any;
 export interface ret_nodes_node_ceph_logGET {
     /**
      * Line number
@@ -3202,8 +3322,6 @@ export interface ret_nodes_node_ceph_logGET {
 };
 export interface ret_nodes_node_ceph_rulesGET {
 };
-export type ret_nodes_node_vzdumpPOST = any;
-export type ret_nodes_node_vzdump_extractconfigGET = any;
 export interface ret_nodes_node_servicesGET {
 };
 export interface ret_nodes_node_services_serviceGET {
@@ -3211,15 +3329,8 @@ export interface ret_nodes_node_services_serviceGET {
      */
     subdir: string;
 };
-export type ret_nodes_node_services_service_stateGET = any;
-export type ret_nodes_node_services_service_startPOST = any;
-export type ret_nodes_node_services_service_stopPOST = any;
-export type ret_nodes_node_services_service_restartPOST = any;
-export type ret_nodes_node_services_service_reloadPOST = any;
-export type ret_nodes_node_subscriptionGET = any;
 export interface ret_nodes_node_networkGET {
 };
-export type ret_nodes_node_networkPUT = any;
 export interface ret_nodes_node_network_ifaceGET {
     /**
      */
@@ -3523,11 +3634,6 @@ export interface ret_nodes_node_storage_storage_contentGET {
      */
     volid: string;
 };
-export type ret_nodes_node_storage_storage_contentPOST = any;
-export type ret_nodes_node_storage_storage_content_volumeDELETE = any;
-export type ret_nodes_node_storage_storage_content_volumeGET = any;
-export type ret_nodes_node_storage_storage_content_volumePOST = any;
-export type ret_nodes_node_storage_storage_statusGET = any;
 export interface ret_nodes_node_storage_storage_rrdGET {
     /**
      */
@@ -3535,7 +3641,6 @@ export interface ret_nodes_node_storage_storage_rrdGET {
 };
 export interface ret_nodes_node_storage_storage_rrddataGET {
 };
-export type ret_nodes_node_storage_storage_uploadPOST = any;
 export interface ret_nodes_node_disksGET {
 };
 export interface ret_nodes_node_disks_lvmGET {
@@ -3582,7 +3687,6 @@ export interface ret_nodes_node_disks_lvmGET {
      */
     leaf: boolean;
 };
-export type ret_nodes_node_disks_lvmPOST = any;
 export interface ret_nodes_node_disks_lvmthinGET {
     /**
      * The name of the thinpool.
@@ -3605,7 +3709,6 @@ export interface ret_nodes_node_disks_lvmthinGET {
      */
     used: number;
 };
-export type ret_nodes_node_disks_lvmthinPOST = any;
 export interface ret_nodes_node_disks_directoryGET {
     /**
      * The mounted device.
@@ -3628,7 +3731,6 @@ export interface ret_nodes_node_disks_directoryGET {
      */
     unitfile: string;
 };
-export type ret_nodes_node_disks_directoryPOST = any;
 export interface ret_nodes_node_disks_zfsGET {
     /**
      */
@@ -3652,7 +3754,6 @@ export interface ret_nodes_node_disks_zfsGET {
      */
     size: number;
 };
-export type ret_nodes_node_disks_zfsPOST = any;
 export interface ret_nodes_node_disks_zfs_nameGET {
     /**
      * Information about the recommended action to fix the state.
@@ -3752,7 +3853,6 @@ export interface ret_nodes_node_disks_smartGET {
      */
     type?: string;
 };
-export type ret_nodes_node_disks_initgptPOST = any;
 export interface ret_nodes_node_aptGET {
     /**
      */
@@ -3760,8 +3860,6 @@ export interface ret_nodes_node_aptGET {
 };
 export interface ret_nodes_node_apt_updateGET {
 };
-export type ret_nodes_node_apt_updatePOST = any;
-export type ret_nodes_node_apt_changelogGET = any;
 export interface ret_nodes_node_apt_versionsGET {
 };
 export interface ret_nodes_node_firewallGET {
@@ -3899,7 +3997,6 @@ export interface ret_nodes_node_replicationGET {
 };
 export interface ret_nodes_node_replication_idGET {
 };
-export type ret_nodes_node_replication_id_statusGET = any;
 export interface ret_nodes_node_replication_id_logGET {
     /**
      * Line number
@@ -3910,14 +4007,10 @@ export interface ret_nodes_node_replication_id_logGET {
      */
     t: string;
 };
-export type ret_nodes_node_replication_id_schedule_nowPOST = any;
 export interface ret_nodes_node_certificatesGET {
 };
 export interface ret_nodes_node_certificates_acmeGET {
 };
-export type ret_nodes_node_certificates_acme_certificateDELETE = any;
-export type ret_nodes_node_certificates_acme_certificatePOST = any;
-export type ret_nodes_node_certificates_acme_certificatePUT = any;
 export interface ret_nodes_node_certificates_infoGET {
     /**
      */
@@ -4000,7 +4093,6 @@ export interface ret_nodes_node_certificates_customPOST {
      */
     subject?: string;
 };
-export type ret_nodes_node_configGET = any;
 export interface ret_nodes_node_sdnGET {
 };
 export interface ret_nodes_node_sdn_zonesGET {
@@ -4046,10 +4138,8 @@ export interface ret_nodes_node_versionGET {
      */
     version: string;
 };
-export type ret_nodes_node_statusGET = any;
 export interface ret_nodes_node_netstatGET {
 };
-export type ret_nodes_node_wakeonlanPOST = any;
 export interface ret_nodes_node_rrdGET {
     /**
      */
@@ -4067,14 +4157,11 @@ export interface ret_nodes_node_syslogGET {
      */
     t: string;
 };
-export type ret_nodes_node_vncshellPOST = any;
-export type ret_nodes_node_termproxyPOST = any;
 export interface ret_nodes_node_vncwebsocketGET {
     /**
      */
     port: string;
 };
-export type ret_nodes_node_spiceshellPOST = any;
 export interface ret_nodes_node_dnsGET {
     /**
      * First name server IP address.
@@ -4109,11 +4196,6 @@ export interface ret_nodes_node_timeGET {
 };
 export interface ret_nodes_node_aplinfoGET {
 };
-export type ret_nodes_node_aplinfoPOST = any;
-export type ret_nodes_node_reportGET = any;
-export type ret_nodes_node_startallPOST = any;
-export type ret_nodes_node_stopallPOST = any;
-export type ret_nodes_node_migrateallPOST = any;
 export interface ret_nodes_node_hostsGET {
     /**
      * The content of /etc/hosts.
@@ -4129,7 +4211,6 @@ export interface ret_storageGET {
      */
     storage: string;
 };
-export type ret_storage_storageGET = any;
 export interface ret_accessGET {
     /**
      */
@@ -4470,8 +4551,6 @@ export interface ret_access_domainsGET {
      */
     type: string;
 };
-export type ret_access_domains_realmGET = any;
-export type ret_access_domains_realm_syncPOST = any;
 export interface ret_access_ticketPOST {
     /**
      */
@@ -4491,8 +4570,6 @@ export interface ret_access_tfaPOST {
      */
     ticket: string;
 };
-export type ret_access_tfaPUT = any;
-export type ret_access_permissionsGET = any;
 export interface ret_poolsGET {
     /**
      */
@@ -4571,7 +4648,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"description":"Requires the VM.Audit permission on /vms/<vmid>.","user":"all"}
                  */
-                $get(): Promise<ret_cluster_replication_idGET>;
+                $get(): Promise<any>;
                 /**
                  * Update replication job configuration.
                  * PUT /cluster/replication/{id}
@@ -4594,7 +4671,7 @@ export interface Proxmox {
              * POST /cluster/config
              * @allowtoken 1
              */
-            $post(param: { clustername: pvenode_1, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, votes?: integer_Min1 }): Promise<ret_cluster_configPOST>;
+            $post(param: { clustername: pvenode_1, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, votes?: integer_Min1 }): Promise<any>;
             apiversion: {
                 /**
                  * Return the version of the cluster join API available on this node.
@@ -4602,7 +4679,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<ret_cluster_config_apiversionGET>;
+                $get(): Promise<any>;
             },
             nodes: {
                 /**
@@ -4640,7 +4717,7 @@ export interface Proxmox {
                  * POST /cluster/config/join
                  * @allowtoken 1
                  */
-                $post(param: { fingerprint: Tfingerprint, force?: Tdisable, hostname: string, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, password: String0_128, votes?: integer_Min0 }): Promise<ret_cluster_config_joinPOST>;
+                $post(param: { fingerprint: Tfingerprint, force?: Tdisable, hostname: string, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, password: String0_128, votes?: integer_Min0 }): Promise<any>;
             },
             totem: {
                 /**
@@ -4649,7 +4726,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<ret_cluster_config_totemGET>;
+                $get(): Promise<any>;
             },
             qdevice: {
                 /**
@@ -4658,7 +4735,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<ret_cluster_config_qdeviceGET>;
+                $get(): Promise<any>;
             },
         },
         firewall: {
@@ -4821,7 +4898,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
-                        $get(): Promise<ret_cluster_firewall_ipset_name_cidrGET>;
+                        $get(): Promise<any>;
                         /**
                          * Update IP or Network settings
                          * PUT /cluster/firewall/ipset/{name}/{cidr}
@@ -4861,7 +4938,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(): Promise<ret_cluster_firewall_aliases_nameGET>;
+                    $get(): Promise<any>;
                     /**
                      * Update IP or Network alias.
                      * PUT /cluster/firewall/aliases/{name}
@@ -4935,7 +5012,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(): Promise<ret_cluster_backup_idGET>;
+                $get(): Promise<any>;
                 /**
                  * Update vzdump backup job definition.
                  * PUT /cluster/backup/{id}
@@ -4960,7 +5037,7 @@ export interface Proxmox {
              * GET /cluster/backupinfo
              * @allowtoken 1
              */
-            $get(): Promise<ret_cluster_backupinfoGET>;
+            $get(): Promise<any>;
             not_backed_up: {
                 /**
                  * Shows all guests which are not covered by any backup job.
@@ -5065,7 +5142,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(): Promise<ret_cluster_ha_groups_groupGET>;
+                    $get(): Promise<any>;
                     /**
                      * Update ha group configuration.
                      * PUT /cluster/ha/groups/{group}
@@ -5099,7 +5176,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(): Promise<ret_cluster_ha_status_manager_statusGET>;
+                    $get(): Promise<any>;
                 },
             },
         },
@@ -5140,7 +5217,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $get(): Promise<ret_cluster_acme_plugins_idGET>;
+                    $get(): Promise<any>;
                     /**
                      * Update ACME plugin configuration.
                      * PUT /cluster/acme/plugins/{id}
@@ -5163,14 +5240,14 @@ export interface Proxmox {
                  * POST /cluster/acme/account
                  * @allowtoken 1
                  */
-                $post(param: { contact: emaillist, directory?: Tdirectory, name?: pveconfigid, tos_url?: string }): Promise<ret_cluster_acme_accountPOST>;
+                $post(param: { contact: emaillist, directory?: Tdirectory, name?: pveconfigid, tos_url?: string }): Promise<any>;
                 $(name: string): {
                     /**
                      * Deactivate existing ACME account at CA.
                      * DELETE /cluster/acme/account/{name}
                      * @allowtoken 1
                      */
-                    $delete(): Promise<ret_cluster_acme_account_nameDELETE>;
+                    $delete(): Promise<any>;
                     /**
                      * Return existing ACME account information.
                      * GET /cluster/acme/account/{name}
@@ -5182,7 +5259,7 @@ export interface Proxmox {
                      * PUT /cluster/acme/account/{name}
                      * @allowtoken 1
                      */
-                    $put(param?: { contact?: emaillist }): Promise<ret_cluster_acme_account_namePUT>;
+                    $put(param?: { contact?: emaillist }): Promise<any>;
                 };
             },
             tos: {
@@ -5192,7 +5269,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"user":"all"}
                  */
-                $get(param?: { directory?: Tdirectory }): Promise<ret_cluster_acme_tosGET>;
+                $get(param?: { directory?: Tdirectory }): Promise<any>;
             },
             directories: {
                 /**
@@ -5228,7 +5305,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                  */
-                $get(param?: { scope?: Tscope }): Promise<ret_cluster_ceph_metadataGET>;
+                $get(param?: { scope?: Tscope }): Promise<any>;
             },
             status: {
                 /**
@@ -5237,7 +5314,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                  */
-                $get(): Promise<ret_cluster_ceph_statusGET>;
+                $get(): Promise<any>;
             },
             flags: {
                 /**
@@ -5253,7 +5330,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["Sys.Modify"]]}
                  */
-                $put(param?: { nobackfill?: Tdisable, 'nodeep-scrub'?: Tdisable, nodown?: Tdisable, noin?: Tdisable, noout?: Tdisable, norebalance?: Tdisable, norecover?: Tdisable, noscrub?: Tdisable, notieragent?: Tdisable, noup?: Tdisable, pause?: Tdisable }): Promise<ret_cluster_ceph_flagsPUT>;
+                $put(param?: { nobackfill?: Tdisable, 'nodeep-scrub'?: Tdisable, nodown?: Tdisable, noin?: Tdisable, noout?: Tdisable, norebalance?: Tdisable, norecover?: Tdisable, noscrub?: Tdisable, notieragent?: Tdisable, noup?: Tdisable, pause?: Tdisable }): Promise<any>;
                 $(flag: string): {
                     /**
                      * Get the status of a specific ceph flag.
@@ -5261,7 +5338,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(): Promise<ret_cluster_ceph_flags_flagGET>;
+                    $get(): Promise<any>;
                     /**
                      * Set or clear (unset) a specific ceph flag
                      * PUT /cluster/ceph/flags/{flag}
@@ -5286,7 +5363,7 @@ export interface Proxmox {
              * @allowtoken 1
              * @permissions {"check":["perm","/sdn",["SDN.Allocate"]]}
              */
-            $put(): Promise<ret_cluster_sdnPUT>;
+            $put(): Promise<any>;
             vnets: {
                 /**
                  * SDN vnets index.
@@ -5316,7 +5393,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/sdn/vnets/{vnet}",["SDN.Allocate"]]}
                      */
-                    $get(): Promise<ret_cluster_sdn_vnets_vnetGET>;
+                    $get(): Promise<any>;
                     /**
                      * Update sdn vnet object configuration.
                      * PUT /cluster/sdn/vnets/{vnet}
@@ -5355,7 +5432,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Allocate"]]}
                      */
-                    $get(): Promise<ret_cluster_sdn_zones_zoneGET>;
+                    $get(): Promise<any>;
                     /**
                      * Update sdn zone object configuration.
                      * PUT /cluster/sdn/zones/{zone}
@@ -5394,7 +5471,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/sdn/controllers/{controller}",["SDN.Allocate"]]}
                      */
-                    $get(): Promise<ret_cluster_sdn_controllers_controllerGET>;
+                    $get(): Promise<any>;
                     /**
                      * Update sdn controller object configuration.
                      * PUT /cluster/sdn/controllers/{controller}
@@ -5439,7 +5516,7 @@ export interface Proxmox {
              * @allowtoken 1
              * @permissions {"check":["perm","/",["Sys.Audit"]]}
              */
-            $get(): Promise<ret_cluster_optionsGET>;
+            $get(): Promise<any>;
             /**
              * Set datacenter options.
              * PUT /cluster/options
@@ -5464,7 +5541,7 @@ export interface Proxmox {
              * @allowtoken 1
              * @permissions {"user":"all"}
              */
-            $get(param?: { vmid?: pvevmid }): Promise<ret_cluster_nextidGET>;
+            $get(param?: { vmid?: pvevmid }): Promise<any>;
         },
     },
     nodes: {
@@ -5497,7 +5574,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"description":"You need 'VM.Allocate' permissions on /vms/{vmid} or on the VM pool /pool/{pool}. For restore (option 'archive'), it is enough if the user has 'VM.Backup' permission and the VM already exists. If you create disks you need 'Datastore.AllocateSpace' on any used storage.","user":"all"}
                  */
-                $post(param: { acpi?: Tdisable, agent?: Tagent, arch?: Tarch, archive?: String0_255, args?: string, audio0?: Taudio0, autostart?: Tdisable, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, bwlimit?: integer_Min0, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, description?: string, efidisk0?: Tefidisk0, force?: Tdisable, freeze?: Tdisable, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: Tdisable, localtime?: Tdisable, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: Tdisable, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: Tdisable, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, pool?: pvepoolid, protection?: Tdisable, reboot?: Tdisable, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, start?: Tdisable, startdate?: Tstartdate, startup?: pvestartuporder, storage?: pvestorageid, tablet?: Tdisable, tags?: pvetaglist, tdf?: Tdisable, template?: Tdisable, unique?: Tdisable, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmid: pvevmid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<ret_nodes_node_qemuPOST>;
+                $post(param: { acpi?: Tdisable, agent?: Tagent, arch?: Tarch, archive?: String0_255, args?: string, audio0?: Taudio0, autostart?: Tdisable, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, bwlimit?: integer_Min0, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, description?: string, efidisk0?: Tefidisk0, force?: Tdisable, freeze?: Tdisable, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: Tdisable, localtime?: Tdisable, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: Tdisable, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: Tdisable, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, pool?: pvepoolid, protection?: Tdisable, reboot?: Tdisable, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, start?: Tdisable, startdate?: Tstartdate, startup?: pvestartuporder, storage?: pvestorageid, tablet?: Tdisable, tags?: pvetaglist, tdf?: Tdisable, template?: Tdisable, unique?: Tdisable, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmid: pvevmid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<any>;
                 $(vmid: number): {
                     /**
                      * Destroy the vm (also delete all used/owned volumes).
@@ -5505,7 +5582,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]]}
                      */
-                    $delete(param?: { purge?: Tdisable, skiplock?: Tdisable }): Promise<ret_nodes_node_qemu_vmidDELETE>;
+                    $delete(param?: { purge?: Tdisable, skiplock?: Tdisable }): Promise<any>;
                     /**
                      * Directory index
                      * GET /nodes/{node}/qemu/{vmid}
@@ -5589,7 +5666,7 @@ export interface Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
-                                $get(): Promise<ret_nodes_node_qemu_vmid_firewall_aliases_nameGET>;
+                                $get(): Promise<any>;
                                 /**
                                  * Update IP or Network alias.
                                  * PUT /nodes/{node}/qemu/{vmid}/firewall/aliases/{name}
@@ -5650,7 +5727,7 @@ export interface Proxmox {
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                      */
-                                    $get(): Promise<ret_nodes_node_qemu_vmid_firewall_ipset_name_cidrGET>;
+                                    $get(): Promise<any>;
                                     /**
                                      * Update IP or Network settings
                                      * PUT /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}/{cidr}
@@ -5710,7 +5787,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                          */
-                        $post(param: { command: Tcommand }): Promise<ret_nodes_node_qemu_vmid_agentPOST>;
+                        $post(param: { command: Tcommand }): Promise<any>;
                         'fsfreeze-freeze': {
                             /**
                              * Execute fsfreeze-freeze.
@@ -5718,7 +5795,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_fsfreeze_freezePOST>;
+                            $post(): Promise<any>;
                         },
                         'fsfreeze-status': {
                             /**
@@ -5727,7 +5804,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_fsfreeze_statusPOST>;
+                            $post(): Promise<any>;
                         },
                         'fsfreeze-thaw': {
                             /**
@@ -5736,7 +5813,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_fsfreeze_thawPOST>;
+                            $post(): Promise<any>;
                         },
                         fstrim: {
                             /**
@@ -5745,7 +5822,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_fstrimPOST>;
+                            $post(): Promise<any>;
                         },
                         'get-fsinfo': {
                             /**
@@ -5754,7 +5831,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_fsinfoGET>;
+                            $get(): Promise<any>;
                         },
                         'get-host-name': {
                             /**
@@ -5763,7 +5840,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_host_nameGET>;
+                            $get(): Promise<any>;
                         },
                         'get-memory-block-info': {
                             /**
@@ -5772,7 +5849,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_memory_block_infoGET>;
+                            $get(): Promise<any>;
                         },
                         'get-memory-blocks': {
                             /**
@@ -5781,7 +5858,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_memory_blocksGET>;
+                            $get(): Promise<any>;
                         },
                         'get-osinfo': {
                             /**
@@ -5790,7 +5867,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_osinfoGET>;
+                            $get(): Promise<any>;
                         },
                         'get-time': {
                             /**
@@ -5799,7 +5876,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_timeGET>;
+                            $get(): Promise<any>;
                         },
                         'get-timezone': {
                             /**
@@ -5808,7 +5885,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_timezoneGET>;
+                            $get(): Promise<any>;
                         },
                         'get-users': {
                             /**
@@ -5817,7 +5894,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_usersGET>;
+                            $get(): Promise<any>;
                         },
                         'get-vcpus': {
                             /**
@@ -5826,7 +5903,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_get_vcpusGET>;
+                            $get(): Promise<any>;
                         },
                         info: {
                             /**
@@ -5835,7 +5912,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_infoGET>;
+                            $get(): Promise<any>;
                         },
                         'network-get-interfaces': {
                             /**
@@ -5844,7 +5921,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $get(): Promise<ret_nodes_node_qemu_vmid_agent_network_get_interfacesGET>;
+                            $get(): Promise<any>;
                         },
                         ping: {
                             /**
@@ -5853,7 +5930,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_pingPOST>;
+                            $post(): Promise<any>;
                         },
                         shutdown: {
                             /**
@@ -5862,7 +5939,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_shutdownPOST>;
+                            $post(): Promise<any>;
                         },
                         'suspend-disk': {
                             /**
@@ -5871,7 +5948,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_suspend_diskPOST>;
+                            $post(): Promise<any>;
                         },
                         'suspend-hybrid': {
                             /**
@@ -5880,7 +5957,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_suspend_hybridPOST>;
+                            $post(): Promise<any>;
                         },
                         'suspend-ram': {
                             /**
@@ -5889,7 +5966,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(): Promise<ret_nodes_node_qemu_vmid_agent_suspend_ramPOST>;
+                            $post(): Promise<any>;
                         },
                         'set-user-password': {
                             /**
@@ -5898,7 +5975,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
-                            $post(param: { crypted?: Tdisable, password: String5_1024, username: string }): Promise<ret_nodes_node_qemu_vmid_agent_set_user_passwordPOST>;
+                            $post(param: { crypted?: Tdisable, password: String5_1024, username: string }): Promise<any>;
                         },
                         exec: {
                             /**
@@ -5969,7 +6046,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CDROM","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.HWType","VM.Config.Options","VM.Config.Cloudinit"],"any",1]}
                          */
-                        $post(param?: { acpi?: Tdisable, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: Tdisable, background_delay?: integer1_30, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, efidisk0?: Tefidisk0, force?: Tdisable, freeze?: Tdisable, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: Tdisable, localtime?: Tdisable, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: Tdisable, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: Tdisable, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: Tdisable, reboot?: Tdisable, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: Tdisable, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: Tdisable, tags?: pvetaglist, tdf?: Tdisable, template?: Tdisable, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<ret_nodes_node_qemu_vmid_configPOST>;
+                        $post(param?: { acpi?: Tdisable, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: Tdisable, background_delay?: integer1_30, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, efidisk0?: Tefidisk0, force?: Tdisable, freeze?: Tdisable, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: Tdisable, localtime?: Tdisable, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: Tdisable, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: Tdisable, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: Tdisable, reboot?: Tdisable, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: Tdisable, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: Tdisable, tags?: pvetaglist, tdf?: Tdisable, template?: Tdisable, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<any>;
                         /**
                          * Set virtual machine options (synchrounous API) - You should consider using the POST method instead for any actions involving hotplug or storage allocation.
                          * PUT /nodes/{node}/qemu/{vmid}/config
@@ -6003,7 +6080,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                          */
-                        $post(param?: { 'generate-password'?: Tdisable, websocket?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_vncproxyPOST>;
+                        $post(param?: { 'generate-password'?: Tdisable, websocket?: Tdisable }): Promise<any>;
                     },
                     termproxy: {
                         /**
@@ -6012,7 +6089,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                          */
-                        $post(param?: { serial?: Tserial_1 }): Promise<ret_nodes_node_qemu_vmid_termproxyPOST>;
+                        $post(param?: { serial?: Tserial_1 }): Promise<any>;
                     },
                     vncwebsocket: {
                         /**
@@ -6030,7 +6107,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                          */
-                        $post(param?: { proxy?: address }): Promise<ret_nodes_node_qemu_vmid_spiceproxyPOST>;
+                        $post(param?: { proxy?: address }): Promise<any>;
                     },
                     status: {
                         /**
@@ -6056,7 +6133,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param?: { 'force-cpu'?: string, machine?: Tmachine, migratedfrom?: pvenode, migration_network?: CIDR, migration_type?: Tmigration_type, skiplock?: Tdisable, stateuri?: String0_128, targetstorage?: storagepairlist, timeout?: integer_Min0 }): Promise<ret_nodes_node_qemu_vmid_status_startPOST>;
+                            $post(param?: { 'force-cpu'?: string, machine?: Tmachine, migratedfrom?: pvenode, migration_network?: CIDR, migration_type?: Tmigration_type, skiplock?: Tdisable, stateuri?: String0_128, targetstorage?: storagepairlist, timeout?: integer_Min0 }): Promise<any>;
                         },
                         stop: {
                             /**
@@ -6065,7 +6142,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param?: { keepActive?: Tdisable, migratedfrom?: pvenode, skiplock?: Tdisable, timeout?: integer_Min0 }): Promise<ret_nodes_node_qemu_vmid_status_stopPOST>;
+                            $post(param?: { keepActive?: Tdisable, migratedfrom?: pvenode, skiplock?: Tdisable, timeout?: integer_Min0 }): Promise<any>;
                         },
                         reset: {
                             /**
@@ -6074,7 +6151,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param?: { skiplock?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_status_resetPOST>;
+                            $post(param?: { skiplock?: Tdisable }): Promise<any>;
                         },
                         shutdown: {
                             /**
@@ -6083,7 +6160,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param?: { forceStop?: Tdisable, keepActive?: Tdisable, skiplock?: Tdisable, timeout?: integer_Min0 }): Promise<ret_nodes_node_qemu_vmid_status_shutdownPOST>;
+                            $post(param?: { forceStop?: Tdisable, keepActive?: Tdisable, skiplock?: Tdisable, timeout?: integer_Min0 }): Promise<any>;
                         },
                         reboot: {
                             /**
@@ -6092,7 +6169,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param?: { timeout?: integer_Min0 }): Promise<ret_nodes_node_qemu_vmid_status_rebootPOST>;
+                            $post(param?: { timeout?: integer_Min0 }): Promise<any>;
                         },
                         suspend: {
                             /**
@@ -6101,7 +6178,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]],"description":"You need 'VM.PowerMgmt' on /vms/{vmid}, and if you have set 'todisk', you need also 'VM.Config.Disk' on /vms/{vmid} and 'Datastore.AllocateSpace' on the storage for the vmstate."}
                              */
-                            $post(param?: { skiplock?: Tdisable, statestorage?: pvestorageid, todisk?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_status_suspendPOST>;
+                            $post(param?: { skiplock?: Tdisable, statestorage?: pvestorageid, todisk?: Tdisable }): Promise<any>;
                         },
                         resume: {
                             /**
@@ -6110,7 +6187,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param?: { nocheck?: Tdisable, skiplock?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_status_resumePOST>;
+                            $post(param?: { nocheck?: Tdisable, skiplock?: Tdisable }): Promise<any>;
                         },
                     },
                     sendkey: {
@@ -6138,7 +6215,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Clone"]],["or",["perm","/vms/{newid}",["VM.Allocate"]],["perm","/pool/{pool}",["VM.Allocate"],"require_param","pool"]]],"description":"You need 'VM.Clone' permissions on /vms/{vmid}, and 'VM.Allocate' permissions on /vms/{newid} (or on the VM pool /pool/{pool}). You also need 'Datastore.AllocateSpace' on any used storage."}
                          */
-                        $post(param: { bwlimit?: integer_Min0, description?: string, format?: Tformat, full?: Tdisable, name?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode }): Promise<ret_nodes_node_qemu_vmid_clonePOST>;
+                        $post(param: { bwlimit?: integer_Min0, description?: string, format?: Tformat, full?: Tdisable, name?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode }): Promise<any>;
                     },
                     move_disk: {
                         /**
@@ -6147,7 +6224,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Config.Disk"]],["perm","/storage/{storage}",["Datastore.AllocateSpace"]]],"description":"You need 'VM.Config.Disk' permissions on /vms/{vmid}, and 'Datastore.AllocateSpace' permissions on the storage."}
                          */
-                        $post(param: { bwlimit?: integer_Min0, delete?: Tdisable, digest?: String0_40, disk: Tdisk, format?: Tformat, storage: pvestorageid }): Promise<ret_nodes_node_qemu_vmid_move_diskPOST>;
+                        $post(param: { bwlimit?: integer_Min0, delete?: Tdisable, digest?: String0_40, disk: Tdisk, format?: Tformat, storage: pvestorageid }): Promise<any>;
                     },
                     migrate: {
                         /**
@@ -6163,7 +6240,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
                          */
-                        $post(param: { bwlimit?: integer_Min0, force?: Tdisable, migration_network?: CIDR, migration_type?: Tmigration_type, online?: Tdisable, target: pvenode, targetstorage?: storagepairlist, 'with-local-disks'?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_migratePOST>;
+                        $post(param: { bwlimit?: integer_Min0, force?: Tdisable, migration_network?: CIDR, migration_type?: Tmigration_type, online?: Tdisable, target: pvenode, targetstorage?: storagepairlist, 'with-local-disks'?: Tdisable }): Promise<any>;
                     },
                     monitor: {
                         /**
@@ -6172,7 +6249,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]],"description":"Sys.Modify is required for (sub)commands which are not read-only ('info *' and 'help')"}
                          */
-                        $post(param: { command: string }): Promise<ret_nodes_node_qemu_vmid_monitorPOST>;
+                        $post(param: { command: string }): Promise<any>;
                     },
                     resize: {
                         /**
@@ -6197,7 +6274,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                          */
-                        $post(param: { description?: string, snapname: pveconfigid_3, vmstate?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_snapshotPOST>;
+                        $post(param: { description?: string, snapname: pveconfigid_3, vmstate?: Tdisable }): Promise<any>;
                         $(snapname: string): {
                             /**
                              * Delete a VM snapshot.
@@ -6205,7 +6282,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                              */
-                            $delete(param?: { force?: Tdisable }): Promise<ret_nodes_node_qemu_vmid_snapshot_snapnameDELETE>;
+                            $delete(param?: { force?: Tdisable }): Promise<any>;
                             /**
                              * 
                              * @allowtoken 1
@@ -6219,7 +6296,7 @@ export interface Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback","VM.Audit"],"any",1]}
                                  */
-                                $get(): Promise<ret_nodes_node_qemu_vmid_snapshot_snapname_configGET>;
+                                $get(): Promise<any>;
                                 /**
                                  * Update snapshot metadata.
                                  * PUT /nodes/{node}/qemu/{vmid}/snapshot/{snapname}/config
@@ -6235,7 +6312,7 @@ export interface Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback"],"any",1]}
                                  */
-                                $post(): Promise<ret_nodes_node_qemu_vmid_snapshot_snapname_rollbackPOST>;
+                                $post(): Promise<any>;
                             },
                         };
                     },
@@ -6256,7 +6333,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { type: Ttype_10 }): Promise<ret_nodes_node_qemu_vmid_cloudinit_dumpGET>;
+                            $get(param: { type: Ttype_10 }): Promise<any>;
                         },
                     },
                 };
@@ -6284,7 +6361,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"description":"You need 'VM.Allocate' permissions on /vms/{vmid} or on the VM pool /pool/{pool}. For restore, it is enough if the user has 'VM.Backup' permission and the VM already exists. You also need 'Datastore.AllocateSpace' permissions on the storage.","user":"all"}
                  */
-                $post(param: { arch?: Tarch_1, bwlimit?: Tmigrate_downtime, cmode?: Tcmode, console?: Tdisable, cores?: integer1_128, cpulimit?: Tcpulimit, cpuunits?: integer0_500000, description?: string, features?: Tfeatures, force?: Tdisable, hookscript?: pvevolumeid, hostname?: dnsname_1, 'ignore-unpack-errors'?: Tdisable, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: addresslist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: Tdisable, ostemplate: String0_255, ostype?: Tostype_1, password?: Tpassword, pool?: pvepoolid, protection?: Tdisable, restore?: Tdisable, rootfs?: Trootfs, searchdomain?: dnsnamelist, 'ssh-public-keys'?: string, start?: Tdisable, startup?: pvestartuporder, storage?: pvestorageid, swap?: integer_Min0, tags?: pvetaglist, template?: Tdisable, timezone?: pvecttimezone, tty?: integer0_6, unique?: Tdisable, unprivileged?: Tdisable, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1, vmid: pvevmid }): Promise<ret_nodes_node_lxcPOST>;
+                $post(param: { arch?: Tarch_1, bwlimit?: Tmigrate_downtime, cmode?: Tcmode, console?: Tdisable, cores?: integer1_128, cpulimit?: Tcpulimit, cpuunits?: integer0_500000, description?: string, features?: Tfeatures, force?: Tdisable, hookscript?: pvevolumeid, hostname?: dnsname_1, 'ignore-unpack-errors'?: Tdisable, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: addresslist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: Tdisable, ostemplate: String0_255, ostype?: Tostype_1, password?: Tpassword, pool?: pvepoolid, protection?: Tdisable, restore?: Tdisable, rootfs?: Trootfs, searchdomain?: dnsnamelist, 'ssh-public-keys'?: string, start?: Tdisable, startup?: pvestartuporder, storage?: pvestorageid, swap?: integer_Min0, tags?: pvetaglist, template?: Tdisable, timezone?: pvecttimezone, tty?: integer0_6, unique?: Tdisable, unprivileged?: Tdisable, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1, vmid: pvevmid }): Promise<any>;
                 $(vmid: number): {
                     /**
                      * Destroy the container (also delete all uses files).
@@ -6292,7 +6369,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]]}
                      */
-                    $delete(param?: { force?: Tdisable, purge?: Tdisable }): Promise<ret_nodes_node_lxc_vmidDELETE>;
+                    $delete(param?: { force?: Tdisable, purge?: Tdisable }): Promise<any>;
                     /**
                      * Directory index
                      * GET /nodes/{node}/lxc/{vmid}
@@ -6340,7 +6417,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param?: { skiplock?: Tdisable }): Promise<ret_nodes_node_lxc_vmid_status_startPOST>;
+                            $post(param?: { skiplock?: Tdisable }): Promise<any>;
                         },
                         stop: {
                             /**
@@ -6349,7 +6426,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param?: { skiplock?: Tdisable }): Promise<ret_nodes_node_lxc_vmid_status_stopPOST>;
+                            $post(param?: { skiplock?: Tdisable }): Promise<any>;
                         },
                         shutdown: {
                             /**
@@ -6358,7 +6435,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param?: { forceStop?: Tdisable, timeout?: integer_Min0 }): Promise<ret_nodes_node_lxc_vmid_status_shutdownPOST>;
+                            $post(param?: { forceStop?: Tdisable, timeout?: integer_Min0 }): Promise<any>;
                         },
                         suspend: {
                             /**
@@ -6367,7 +6444,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(): Promise<ret_nodes_node_lxc_vmid_status_suspendPOST>;
+                            $post(): Promise<any>;
                         },
                         resume: {
                             /**
@@ -6376,7 +6453,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(): Promise<ret_nodes_node_lxc_vmid_status_resumePOST>;
+                            $post(): Promise<any>;
                         },
                         reboot: {
                             /**
@@ -6385,7 +6462,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                              */
-                            $post(param?: { timeout?: integer_Min0 }): Promise<ret_nodes_node_lxc_vmid_status_rebootPOST>;
+                            $post(param?: { timeout?: integer_Min0 }): Promise<any>;
                         },
                     },
                     snapshot: {
@@ -6402,7 +6479,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                          */
-                        $post(param: { description?: string, snapname: pveconfigid_3 }): Promise<ret_nodes_node_lxc_vmid_snapshotPOST>;
+                        $post(param: { description?: string, snapname: pveconfigid_3 }): Promise<any>;
                         $(snapname: string): {
                             /**
                              * Delete a LXC snapshot.
@@ -6410,7 +6487,7 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                              */
-                            $delete(param?: { force?: Tdisable }): Promise<ret_nodes_node_lxc_vmid_snapshot_snapnameDELETE>;
+                            $delete(param?: { force?: Tdisable }): Promise<any>;
                             /**
                              * 
                              * @allowtoken 1
@@ -6424,7 +6501,7 @@ export interface Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback"],"any",1]}
                                  */
-                                $post(): Promise<ret_nodes_node_lxc_vmid_snapshot_snapname_rollbackPOST>;
+                                $post(): Promise<any>;
                             },
                             config: {
                                 /**
@@ -6433,7 +6510,7 @@ export interface Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback","VM.Audit"],"any",1]}
                                  */
-                                $get(): Promise<ret_nodes_node_lxc_vmid_snapshot_snapname_configGET>;
+                                $get(): Promise<any>;
                                 /**
                                  * Update snapshot metadata.
                                  * PUT /nodes/{node}/lxc/{vmid}/snapshot/{snapname}/config
@@ -6520,7 +6597,7 @@ export interface Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
-                                $get(): Promise<ret_nodes_node_lxc_vmid_firewall_aliases_nameGET>;
+                                $get(): Promise<any>;
                                 /**
                                  * Update IP or Network alias.
                                  * PUT /nodes/{node}/lxc/{vmid}/firewall/aliases/{name}
@@ -6581,7 +6658,7 @@ export interface Proxmox {
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                      */
-                                    $get(): Promise<ret_nodes_node_lxc_vmid_firewall_ipset_name_cidrGET>;
+                                    $get(): Promise<any>;
                                     /**
                                      * Update IP or Network settings
                                      * PUT /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}/{cidr}
@@ -6652,7 +6729,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                          */
-                        $post(param?: { height?: integer16_2160, websocket?: Tdisable, width?: integer16_4096 }): Promise<ret_nodes_node_lxc_vmid_vncproxyPOST>;
+                        $post(param?: { height?: integer16_2160, websocket?: Tdisable, width?: integer16_4096 }): Promise<any>;
                     },
                     termproxy: {
                         /**
@@ -6661,7 +6738,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                          */
-                        $post(): Promise<ret_nodes_node_lxc_vmid_termproxyPOST>;
+                        $post(): Promise<any>;
                     },
                     vncwebsocket: {
                         /**
@@ -6679,7 +6756,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                          */
-                        $post(param?: { proxy?: address }): Promise<ret_nodes_node_lxc_vmid_spiceproxyPOST>;
+                        $post(param?: { proxy?: address }): Promise<any>;
                     },
                     migrate: {
                         /**
@@ -6688,7 +6765,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
                          */
-                        $post(param: { bwlimit?: Tmigrate_downtime, force?: Tdisable, online?: Tdisable, restart?: Tdisable, target: pvenode, timeout?: integer }): Promise<ret_nodes_node_lxc_vmid_migratePOST>;
+                        $post(param: { bwlimit?: Tmigrate_downtime, force?: Tdisable, online?: Tdisable, restart?: Tdisable, target: pvenode, timeout?: integer }): Promise<any>;
                     },
                     feature: {
                         /**
@@ -6715,7 +6792,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Clone"]],["or",["perm","/vms/{newid}",["VM.Allocate"]],["perm","/pool/{pool}",["VM.Allocate"],"require_param","pool"]]],"description":"You need 'VM.Clone' permissions on /vms/{vmid}, and 'VM.Allocate' permissions on /vms/{newid} (or on the VM pool /pool/{pool}). You also need 'Datastore.AllocateSpace' on any used storage."}
                          */
-                        $post(param: { bwlimit?: Tmigrate_downtime, description?: string, full?: Tdisable, hostname?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode }): Promise<ret_nodes_node_lxc_vmid_clonePOST>;
+                        $post(param: { bwlimit?: Tmigrate_downtime, description?: string, full?: Tdisable, hostname?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode }): Promise<any>;
                     },
                     resize: {
                         /**
@@ -6724,7 +6801,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"],"any",1]}
                          */
-                        $put(param: { digest?: String0_40, disk: Tdisk_1, size: Tsize }): Promise<ret_nodes_node_lxc_vmid_resizePUT>;
+                        $put(param: { digest?: String0_40, disk: Tdisk_1, size: Tsize }): Promise<any>;
                     },
                     move_volume: {
                         /**
@@ -6733,7 +6810,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Config.Disk"]],["perm","/storage/{storage}",["Datastore.AllocateSpace"]]],"description":"You need 'VM.Config.Disk' permissions on /vms/{vmid}, and 'Datastore.AllocateSpace' permissions on the storage."}
                          */
-                        $post(param: { bwlimit?: Tmigrate_downtime, delete?: Tdisable, digest?: String0_40, storage: pvestorageid, volume: Tdisk_1 }): Promise<ret_nodes_node_lxc_vmid_move_volumePOST>;
+                        $post(param: { bwlimit?: Tmigrate_downtime, delete?: Tdisable, digest?: String0_40, storage: pvestorageid, volume: Tdisk_1 }): Promise<any>;
                     },
                     pending: {
                         /**
@@ -6761,20 +6838,20 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(): Promise<ret_nodes_node_ceph_osdGET>;
+                    $get(): Promise<any>;
                     /**
                      * Create OSD
                      * POST /nodes/{node}/ceph/osd
                      * @allowtoken 1
                      */
-                    $post(param: { db_dev?: string, db_size?: Trate, dev: string, encrypted?: Tdisable, wal_dev?: string, wal_size?: Twal_size }): Promise<ret_nodes_node_ceph_osdPOST>;
+                    $post(param: { db_dev?: string, db_size?: Trate, dev: string, encrypted?: Tdisable, wal_dev?: string, wal_size?: Twal_size }): Promise<any>;
                     $(osdid: string): {
                         /**
                          * Destroy OSD
                          * DELETE /nodes/{node}/ceph/osd/{osdid}
                          * @allowtoken 1
                          */
-                        $delete(param?: { cleanup?: Tdisable }): Promise<ret_nodes_node_ceph_osd_osdidDELETE>;
+                        $delete(param?: { cleanup?: Tdisable }): Promise<any>;
                         in: {
                             /**
                              * ceph osd in
@@ -6819,14 +6896,14 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $delete(): Promise<ret_nodes_node_ceph_mds_nameDELETE>;
+                        $delete(): Promise<any>;
                         /**
                          * Create Ceph Metadata Server (MDS)
                          * POST /nodes/{node}/ceph/mds/{name}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param?: { hotstandby?: Tdisable }): Promise<ret_nodes_node_ceph_mds_namePOST>;
+                        $post(param?: { hotstandby?: Tdisable }): Promise<any>;
                     };
                 },
                 mgr: {
@@ -6844,14 +6921,14 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $delete(): Promise<ret_nodes_node_ceph_mgr_idDELETE>;
+                        $delete(): Promise<any>;
                         /**
                          * Create Ceph Manager
                          * POST /nodes/{node}/ceph/mgr/{id}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(): Promise<ret_nodes_node_ceph_mgr_idPOST>;
+                        $post(): Promise<any>;
                     };
                 },
                 mon: {
@@ -6869,14 +6946,14 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $delete(): Promise<ret_nodes_node_ceph_mon_monidDELETE>;
+                        $delete(): Promise<any>;
                         /**
                          * Create Ceph Monitor and Manager
                          * POST /nodes/{node}/ceph/mon/{monid}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param?: { 'mon-address'?: ip }): Promise<ret_nodes_node_ceph_mon_monidPOST>;
+                        $post(param?: { 'mon-address'?: ip }): Promise<any>;
                     };
                 },
                 fs: {
@@ -6894,7 +6971,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param?: { 'add-storage'?: Tdisable, pg_num?: integer8_32768 }): Promise<ret_nodes_node_ceph_fs_namePOST>;
+                        $post(param?: { 'add-storage'?: Tdisable, pg_num?: integer8_32768 }): Promise<any>;
                     };
                 },
                 disks: {
@@ -6913,7 +6990,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(): Promise<ret_nodes_node_ceph_configGET>;
+                    $get(): Promise<any>;
                 },
                 configdb: {
                     /**
@@ -6940,7 +7017,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param?: { service?: Tservice }): Promise<ret_nodes_node_ceph_stopPOST>;
+                    $post(param?: { service?: Tservice }): Promise<any>;
                 },
                 start: {
                     /**
@@ -6949,7 +7026,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param?: { service?: Tservice }): Promise<ret_nodes_node_ceph_startPOST>;
+                    $post(param?: { service?: Tservice }): Promise<any>;
                 },
                 restart: {
                     /**
@@ -6958,7 +7035,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param?: { service?: Tservice_1 }): Promise<ret_nodes_node_ceph_restartPOST>;
+                    $post(param?: { service?: Tservice_1 }): Promise<any>;
                 },
                 status: {
                     /**
@@ -6967,7 +7044,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(): Promise<ret_nodes_node_ceph_statusGET>;
+                    $get(): Promise<any>;
                 },
                 pools: {
                     /**
@@ -6983,7 +7060,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param: { add_storages?: Tdisable, application?: Tapplication, crush_rule?: string, min_size?: integer1_7, name: string, pg_num?: integer8_32768, size?: integer1_7 }): Promise<ret_nodes_node_ceph_poolsPOST>;
+                    $post(param: { add_storages?: Tdisable, application?: Tapplication, crush_rule?: string, min_size?: integer1_7, name: string, pg_num?: integer8_32768, size?: integer1_7 }): Promise<any>;
                     $(name: string): {
                         /**
                          * Destroy pool
@@ -6991,7 +7068,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $delete(param?: { force?: Tdisable, remove_storages?: Tdisable }): Promise<ret_nodes_node_ceph_pools_nameDELETE>;
+                        $delete(param?: { force?: Tdisable, remove_storages?: Tdisable }): Promise<any>;
                     };
                 },
                 flags: {
@@ -7001,7 +7078,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(): Promise<ret_nodes_node_ceph_flagsGET>;
+                    $get(): Promise<any>;
                     $(flag: string): {
                         /**
                          * Unset a ceph flag
@@ -7026,7 +7103,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
-                    $get(): Promise<ret_nodes_node_ceph_crushGET>;
+                    $get(): Promise<any>;
                 },
                 log: {
                     /**
@@ -7054,7 +7131,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"description":"The user needs 'VM.Backup' permissions on any VM, and 'Datastore.AllocateSpace' on the backup storage. The 'maxfiles', 'tmpdir', 'dumpdir', 'script', 'bwlimit' and 'ionice' parameters are restricted to the 'root@pam' user.","user":"all"}
                  */
-                $post(param?: { all?: Tdisable, bwlimit?: integer_Min0, compress?: Tcompress, dumpdir?: string, exclude?: pvevmidlist, 'exclude-path'?: stringalist, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: stringlist, maxfiles?: integer_Min1, mode?: Tmode, pigz?: integer, pool?: string, quiet?: Tdisable, remove?: Tdisable, script?: string, size?: integer_Min500, stdexcludes?: Tdisable, stdout?: Tdisable, stop?: Tdisable, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<ret_nodes_node_vzdumpPOST>;
+                $post(param?: { all?: Tdisable, bwlimit?: integer_Min0, compress?: Tcompress, dumpdir?: string, exclude?: pvevmidlist, 'exclude-path'?: stringalist, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: stringlist, maxfiles?: integer_Min1, mode?: Tmode, pigz?: integer, pool?: string, quiet?: Tdisable, remove?: Tdisable, script?: string, size?: integer_Min500, stdexcludes?: Tdisable, stdout?: Tdisable, stop?: Tdisable, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<any>;
                 extractconfig: {
                     /**
                      * Extract configuration from vzdump backup archive.
@@ -7062,7 +7139,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"The user needs 'VM.Backup' permissions on the backed up guest ID, and 'Datastore.AllocateSpace' on the backup storage.","user":"all"}
                      */
-                    $get(param: { volume: string }): Promise<ret_nodes_node_vzdump_extractconfigGET>;
+                    $get(param: { volume: string }): Promise<any>;
                 },
             },
             services: {
@@ -7088,7 +7165,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                          */
-                        $get(): Promise<ret_nodes_node_services_service_stateGET>;
+                        $get(): Promise<any>;
                     },
                     start: {
                         /**
@@ -7097,7 +7174,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $post(): Promise<ret_nodes_node_services_service_startPOST>;
+                        $post(): Promise<any>;
                     },
                     stop: {
                         /**
@@ -7106,7 +7183,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $post(): Promise<ret_nodes_node_services_service_stopPOST>;
+                        $post(): Promise<any>;
                     },
                     restart: {
                         /**
@@ -7115,7 +7192,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $post(): Promise<ret_nodes_node_services_service_restartPOST>;
+                        $post(): Promise<any>;
                     },
                     reload: {
                         /**
@@ -7124,7 +7201,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $post(): Promise<ret_nodes_node_services_service_reloadPOST>;
+                        $post(): Promise<any>;
                     },
                 };
             },
@@ -7142,7 +7219,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"user":"all"}
                  */
-                $get(): Promise<ret_nodes_node_subscriptionGET>;
+                $get(): Promise<any>;
                 /**
                  * Update subscription info.
                  * POST /nodes/{node}/subscription
@@ -7186,7 +7263,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                  */
-                $put(): Promise<ret_nodes_node_networkPUT>;
+                $put(): Promise<any>;
                 $(iface: string): {
                     /**
                      * Delete network device configuration
@@ -7399,7 +7476,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateSpace"]]}
                          */
-                        $post(param: { filename: string, format?: Tformat_1, size: Tsize_1, vmid: pvevmid }): Promise<ret_nodes_node_storage_storage_contentPOST>;
+                        $post(param: { filename: string, format?: Tformat_1, size: Tsize_1, vmid: pvevmid }): Promise<any>;
                         $(volume: string): {
                             /**
                              * Delete volume
@@ -7407,20 +7484,20 @@ export interface Proxmox {
                              * @allowtoken 1
                              * @permissions {"description":"You need 'Datastore.Allocate' privilege on the storage (or 'Datastore.AllocateSpace' for backup volumes if you have VM.Backup privilege on the VM).","user":"all"}
                              */
-                            $delete(param?: { delay?: integer1_30 }): Promise<ret_nodes_node_storage_storage_content_volumeDELETE>;
+                            $delete(param?: { delay?: integer1_30 }): Promise<any>;
                             /**
                              * Get volume attributes
                              * GET /nodes/{node}/storage/{storage}/content/{volume}
                              * @allowtoken 1
                              * @permissions {"description":"You need read access for the volume.","user":"all"}
                              */
-                            $get(): Promise<ret_nodes_node_storage_storage_content_volumeGET>;
+                            $get(): Promise<any>;
                             /**
                              * Copy a volume. This is experimental code - do not use.
                              * POST /nodes/{node}/storage/{storage}/content/{volume}
                              * @allowtoken 1
                              */
-                            $post(param: { target: string, target_node?: pvenode }): Promise<ret_nodes_node_storage_storage_content_volumePOST>;
+                            $post(param: { target: string, target_node?: pvenode }): Promise<any>;
                         };
                     },
                     status: {
@@ -7430,7 +7507,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                          */
-                        $get(): Promise<ret_nodes_node_storage_storage_statusGET>;
+                        $get(): Promise<any>;
                     },
                     rrd: {
                         /**
@@ -7457,7 +7534,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateTemplate"]]}
                          */
-                        $post(param: { content: pvestoragecontent, filename: string, tmpfilename?: string }): Promise<ret_nodes_node_storage_storage_uploadPOST>;
+                        $post(param: { content: pvestoragecontent, filename: string, tmpfilename?: string }): Promise<any>;
                     },
                 };
             },
@@ -7483,7 +7560,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                      */
-                    $post(param: { add_storage?: Tdisable, device: string, name: pvestorageid }): Promise<ret_nodes_node_disks_lvmPOST>;
+                    $post(param: { add_storage?: Tdisable, device: string, name: pvestorageid }): Promise<any>;
                 },
                 lvmthin: {
                     /**
@@ -7499,7 +7576,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                      */
-                    $post(param: { add_storage?: Tdisable, device: string, name: pvestorageid }): Promise<ret_nodes_node_disks_lvmthinPOST>;
+                    $post(param: { add_storage?: Tdisable, device: string, name: pvestorageid }): Promise<any>;
                 },
                 directory: {
                     /**
@@ -7515,7 +7592,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                      */
-                    $post(param: { add_storage?: Tdisable, device: string, filesystem?: Tfilesystem, name: pvestorageid }): Promise<ret_nodes_node_disks_directoryPOST>;
+                    $post(param: { add_storage?: Tdisable, device: string, filesystem?: Tfilesystem, name: pvestorageid }): Promise<any>;
                 },
                 zfs: {
                     /**
@@ -7531,7 +7608,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                      */
-                    $post(param: { add_storage?: Tdisable, ashift?: integer9_16, compression?: Tcompression, devices: stringlist, name: pvestorageid, raidlevel: Traidlevel }): Promise<ret_nodes_node_disks_zfsPOST>;
+                    $post(param: { add_storage?: Tdisable, ashift?: integer9_16, compression?: Tcompression, devices: stringlist, name: pvestorageid, raidlevel: Traidlevel }): Promise<any>;
                     $(name: string): {
                         /**
                          * Get details about a zpool.
@@ -7567,7 +7644,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param: { disk: Tdisk_2, uuid?: Tuuid }): Promise<ret_nodes_node_disks_initgptPOST>;
+                    $post(param: { disk: Tdisk_2, uuid?: Tuuid }): Promise<any>;
                 },
             },
             apt: {
@@ -7592,7 +7669,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $post(param?: { notify?: Tdisable, quiet?: Tdisable }): Promise<ret_nodes_node_apt_updatePOST>;
+                    $post(param?: { notify?: Tdisable, quiet?: Tdisable }): Promise<any>;
                 },
                 changelog: {
                     /**
@@ -7601,7 +7678,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $get(param: { name: string, version?: string }): Promise<ret_nodes_node_apt_changelogGET>;
+                    $get(param: { name: string, version?: string }): Promise<any>;
                 },
                 versions: {
                     /**
@@ -7709,7 +7786,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"description":"Requires the VM.Audit permission on /vms/<vmid>.","user":"all"}
                          */
-                        $get(): Promise<ret_nodes_node_replication_id_statusGET>;
+                        $get(): Promise<any>;
                     },
                     log: {
                         /**
@@ -7727,7 +7804,7 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                          */
-                        $post(): Promise<ret_nodes_node_replication_id_schedule_nowPOST>;
+                        $post(): Promise<any>;
                     },
                 };
             },
@@ -7754,21 +7831,21 @@ export interface Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $delete(): Promise<ret_nodes_node_certificates_acme_certificateDELETE>;
+                        $delete(): Promise<any>;
                         /**
                          * Order a new certificate from ACME-compatible CA.
                          * POST /nodes/{node}/certificates/acme/certificate
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $post(param?: { force?: Tdisable }): Promise<ret_nodes_node_certificates_acme_certificatePOST>;
+                        $post(param?: { force?: Tdisable }): Promise<any>;
                         /**
                          * Renew existing certificate from CA.
                          * PUT /nodes/{node}/certificates/acme/certificate
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $put(param?: { force?: Tdisable }): Promise<ret_nodes_node_certificates_acme_certificatePUT>;
+                        $put(param?: { force?: Tdisable }): Promise<any>;
                     },
                 },
                 info: {
@@ -7804,7 +7881,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["Sys.Audit"]]}
                  */
-                $get(param?: { property?: Tproperty }): Promise<ret_nodes_node_configGET>;
+                $get(param?: { property?: Tproperty }): Promise<any>;
                 /**
                  * Set node configuration options.
                  * PUT /nodes/{node}/config
@@ -7864,7 +7941,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                  */
-                $get(): Promise<ret_nodes_node_statusGET>;
+                $get(): Promise<any>;
                 /**
                  * Reboot or shutdown a node.
                  * POST /nodes/{node}/status
@@ -7898,7 +7975,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/nodes/{node}",["Sys.PowerMgmt"]]}
                  */
-                $post(): Promise<ret_nodes_node_wakeonlanPOST>;
+                $post(): Promise<any>;
             },
             rrd: {
                 /**
@@ -7943,7 +8020,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                  */
-                $post(param?: { cmd?: Tcmd, height?: integer16_2160, upgrade?: Tdisable, websocket?: Tdisable, width?: integer16_4096 }): Promise<ret_nodes_node_vncshellPOST>;
+                $post(param?: { cmd?: Tcmd, height?: integer16_2160, upgrade?: Tdisable, websocket?: Tdisable, width?: integer16_4096 }): Promise<any>;
             },
             termproxy: {
                 /**
@@ -7952,7 +8029,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                  */
-                $post(param?: { cmd?: Tcmd, upgrade?: Tdisable }): Promise<ret_nodes_node_termproxyPOST>;
+                $post(param?: { cmd?: Tcmd, upgrade?: Tdisable }): Promise<any>;
             },
             vncwebsocket: {
                 /**
@@ -7970,7 +8047,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                  */
-                $post(param?: { cmd?: Tcmd, proxy?: address, upgrade?: Tdisable }): Promise<ret_nodes_node_spiceshellPOST>;
+                $post(param?: { cmd?: Tcmd, proxy?: address, upgrade?: Tdisable }): Promise<any>;
             },
             dns: {
                 /**
@@ -8018,7 +8095,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateTemplate"]]}
                  */
-                $post(param: { storage: pvestorageid, template: String0_255 }): Promise<ret_nodes_node_aplinfoPOST>;
+                $post(param: { storage: pvestorageid, template: String0_255 }): Promise<any>;
             },
             report: {
                 /**
@@ -8027,7 +8104,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                  */
-                $get(): Promise<ret_nodes_node_reportGET>;
+                $get(): Promise<any>;
             },
             startall: {
                 /**
@@ -8036,7 +8113,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["VM.PowerMgmt"]]}
                  */
-                $post(param?: { force?: Tdisable, vms?: pvevmidlist }): Promise<ret_nodes_node_startallPOST>;
+                $post(param?: { force?: Tdisable, vms?: pvevmidlist }): Promise<any>;
             },
             stopall: {
                 /**
@@ -8045,7 +8122,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["VM.PowerMgmt"]]}
                  */
-                $post(param?: { vms?: pvevmidlist }): Promise<ret_nodes_node_stopallPOST>;
+                $post(param?: { vms?: pvevmidlist }): Promise<any>;
             },
             migrateall: {
                 /**
@@ -8054,7 +8131,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["VM.Migrate"]]}
                  */
-                $post(param: { maxworkers?: integer_Min1, target: pvenode, vms?: pvevmidlist, 'with-local-disks'?: Tdisable }): Promise<ret_nodes_node_migrateallPOST>;
+                $post(param: { maxworkers?: integer_Min1, target: pvenode, vms?: pvevmidlist, 'with-local-disks'?: Tdisable }): Promise<any>;
             },
             hosts: {
                 /**
@@ -8103,7 +8180,7 @@ export interface Proxmox {
              * @allowtoken 1
              * @permissions {"check":["perm","/storage/{storage}",["Datastore.Allocate"]]}
              */
-            $get(): Promise<ret_storage_storageGET>;
+            $get(): Promise<any>;
             /**
              * Update storage configuration.
              * PUT /storage/{storage}
@@ -8331,7 +8408,7 @@ export interface Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/access/realm",["Realm.Allocate","Sys.Audit"],"any",1]}
                  */
-                $get(): Promise<ret_access_domains_realmGET>;
+                $get(): Promise<any>;
                 /**
                  * Update authentication server settings.
                  * PUT /access/domains/{realm}
@@ -8346,7 +8423,7 @@ export interface Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"]]],"description":"'Realm.AllocateUser' on '/access/realm/<realm>' and  'User.Modify' permissions to '/access/groups/'."}
                      */
-                    $post(param?: { 'dry-run'?: Tdisable, 'enable-new'?: Tdisable, full?: Tdisable, purge?: Tdisable, scope?: Tscope_1 }): Promise<ret_access_domains_realm_syncPOST>;
+                    $post(param?: { 'dry-run'?: Tdisable, 'enable-new'?: Tdisable, full?: Tdisable, purge?: Tdisable, scope?: Tscope_1 }): Promise<any>;
                 },
             };
         },
@@ -8389,7 +8466,7 @@ export interface Proxmox {
              * @allowtoken 0
              * @permissions {"check":["or",["userid-param","self"],["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"]]]],"description":"A user can change their own u2f or totp token."}
              */
-            $put(param: { action: Taction_1, config?: pvetfaconfig, key?: pvetfasecret, password?: String5_64, response?: string, userid: pveuserid }): Promise<ret_access_tfaPUT>;
+            $put(param: { action: Taction_1, config?: pvetfaconfig, key?: pvetfasecret, password?: String5_64, response?: string, userid: pveuserid }): Promise<any>;
         },
         permissions: {
             /**
@@ -8398,7 +8475,7 @@ export interface Proxmox {
              * @allowtoken 1
              * @permissions {"description":"Each user/token is allowed to dump their own permissions. A user can dump the permissions of another user if they have 'Sys.Audit' permission on /access.","user":"all"}
              */
-            $get(param?: { path?: string, userid?: Tuserid }): Promise<ret_access_permissionsGET>;
+            $get(param?: { path?: string, userid?: Tuserid }): Promise<any>;
         },
     },
     pools: {

@@ -249,46 +249,44 @@ export class Generator {
         for (const pname of Object.keys(info.properties)) {
             const prop = info.properties[pname];
             let line = [] as string[];
-            line.push(`${lineOffset}/**`);
-
-            if (prop.verbose_description) {
-                for (let entry of prop.verbose_description.split(/[\r\n]+/g)) {
-                    entry = entry.trim();
-                    if (entry)
-                        line.push(`${lineOffset} * ${entry.trim()}`);
-                }
-            } else
-                if (prop.description) {
-                    for (const entry of prop.description.split(/[\r\n]+/g))
-                        line.push(`${lineOffset} * ${entry.trim()}`);
-                }
-
-            line.push(`${lineOffset} */`);
-            let opt = prop.optional ? '?' : '';
-            // if (prop.additionalProperties) // TODO
-            let fullType = 'any';
-            switch (prop.type) {
-                case 'boolean':
-                    fullType = 'boolean'
-                    break
-                case 'number':
-                case 'integer':
-                    fullType = 'number'
-                    break
-                case 'string':
-                    fullType = 'string'
-                    break
-                case 'array':
-                    fullType = this.genModelArray(prop);
-                    break
-                case 'object':
-                    fullType = this.genModelObject(prop, lineOffset + '    ');
-                    break
-                default:
-                    fullType = 'any';
-            }
             for (const propName of unNify(pname)) {
+                line.push(`${lineOffset}/**`);
+                if (prop.verbose_description) {
+                    for (let entry of prop.verbose_description.split(/[\r\n]+/g)) {
+                        entry = entry.trim();
+                        if (entry)
+                            line.push(`${lineOffset} * ${entry.trim()}`);
+                    }
+                } else
+                    if (prop.description) {
+                        for (const entry of prop.description.split(/[\r\n]+/g))
+                            line.push(`${lineOffset} * ${entry.trim()}`);
+                    }
 
+                line.push(`${lineOffset} */`);
+                let opt = prop.optional ? '?' : '';
+                // if (prop.additionalProperties) // TODO
+                let fullType = 'any';
+                switch (prop.type) {
+                    case 'boolean':
+                        fullType = 'boolean'
+                        break
+                    case 'number':
+                    case 'integer':
+                        fullType = 'number'
+                        break
+                    case 'string':
+                        fullType = 'string'
+                        break
+                    case 'array':
+                        fullType = this.genModelArray(prop);
+                        break
+                    case 'object':
+                        fullType = this.genModelObject(prop, lineOffset + '    ');
+                        break
+                    default:
+                        fullType = 'any';
+                }
                 line.push(`${lineOffset}${propName}${opt}: ${fullType};`);
             }
             lines.push(line.join(EOL));
@@ -339,6 +337,11 @@ export class Generator {
         let retTypeOptfix = '';
         let TypeName = 'ret' + path.replace(/\//g, '_').replace(/-/g, '_').replace(/[{}]/g, '') + theInfo.method;
         let fullType = 'any';
+        if ('ret_cluster_optionsGET' === TypeName) {
+            debugger;
+        }
+
+
         if (returns.type === 'array') {
             if (returns.items && returns.items.type === 'object') {
                 fullType = this.genModelObject(returns.items, '');
@@ -350,10 +353,14 @@ export class Generator {
         } else if (returns.type === 'object') {
             fullType = this.genModelObject(returns, '');
         }
-        if (fullType === 'any')
-            this.retTypes.push(`export type ${TypeName} = ${fullType};`);
-        else
+        if (fullType === 'any') {
+            TypeName = 'any';
+            // return any;
+            // this.retTypes.push(`export type ${TypeName} = ${fullType};`);
+        }
+        else {
             this.retTypes.push(`export interface ${TypeName} ${fullType};`);
+        }
         return TypeName + retTypeOptfix;
     }
 }
