@@ -84,29 +84,23 @@ export class ProxmoxEngine implements ApiRequestable {
         }
         try {
             const req = await fetch(requestUrl, requestInit);
-            if (req.status === 400) {
-                const data = await req.text();
+            const contentType = req.headers.get('content-type') as string;
+            let data: { data: any, errors?: any } = { data: null };
+            if (contentType === 'application/json;charset=UTF-8') {
+                data = await req.json();
+            } else {
                 debugger;
-                if (data.startsWith('{')) {
-                    const json = JSON.parse(data);
-                    throw Error(`${httpMethod} ${requestUrl} return Error 400: ${JSON.stringify(json.errors)}`);
-                }
-                console.error(data)
-                throw Error(`${httpMethod} ${requestUrl} return Error 400: ${JSON.stringify(data)}`);
+                data.data = req.text();
+            }
+
+            if (req.status === 400) {
+                throw Error(`${httpMethod} ${requestUrl} return Error 400: ${JSON.stringify(data.errors)}`);
             }
 
             if (req.status !== 200) {
-                throw Error(`get ${requestUrl} connetion failed with ${req.status}: ${req.statusText}`);
+                throw Error(`get ${requestUrl} connetion failed with ${req.status}: ${req.statusText} ret ${JSON.stringify(data)}`);
             }
-            const data = await req.text();
-            if (data.startsWith('{')) {
-                const json = JSON.parse(data);
-                return json.data;
-            }
-            console.log('NEED Implementaion for ', data);
-            const json = JSON.parse(data);
-            debugger;
-            return json.data;
+            return data.data;
         } catch (e) {
             console.error(`FaILED to call ${httpMethod} ${requestUrl}`, e)
             throw Error(`FaILED to call ${httpMethod} ${requestUrl}`);
