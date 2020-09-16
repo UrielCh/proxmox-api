@@ -2028,8 +2028,9 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      */
     arch?: string;
     /**
-     * Arbitrary arguments passed to kvm.
-     * Arbitrary arguments passed to kvm, for example:     * args: -no-reboot -no-hpet     * NOTE: this option is for experts only.     * 
+     * Arbitrary arguments passed to kvm, for example:
+     * args: -no-reboot -no-hpet
+     * NOTE: this option is for experts only.
      */
     args?: string;
     /**
@@ -2086,11 +2087,10 @@ export interface ret_nodes_node_qemu_vmid_configGET {
     cpu?: string;
     /**
      * Limit of CPU usage.
-     * Limit of CPU usage.     * NOTE: If the computer has 2 CPUs, it has total of '2' CPU time. Value '0' indicates no CPU limit.
+     * NOTE: If the computer has 2 CPUs, it has total of '2' CPU time. Value '0' indicates no CPU limit.
      */
     cpulimit?: number;
     /**
-     * CPU weight for a VM.
      * CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to weights of all the other running VMs.
      */
     cpuunits?: number;
@@ -2116,7 +2116,9 @@ export interface ret_nodes_node_qemu_vmid_configGET {
     hookscript?: string;
     /**
      * Map host PCI devices into guest.
-     * Map host PCI devices into guest.     * NOTE: This option allows direct access to host hardware. So it is no longer     * possible to migrate such machines - use with special care.     * CAUTION: Experimental! User reported problems with this option.     * 
+     * NOTE: This option allows direct access to host hardware. So it is no longer
+     * possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
      */
     hostpci0?: string;
     hostpci1?: string;
@@ -2142,7 +2144,12 @@ export interface ret_nodes_node_qemu_vmid_configGET {
     ide2?: string;
     ide3?: string;
     /**
-     * cloud-init: Specify IP addresses and gateways for the corresponding interface.     * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.     * 
+     * cloud-init: Specify IP addresses and gateways for the corresponding interface.
+     * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
+     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
+     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
+     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+     * 
      */
     ipconfig0?: string;
     ipconfig1?: string;
@@ -2219,13 +2226,27 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      */
     onboot?: boolean;
     /**
-     * Specify guest operating system.
-     * Specify guest operating system. This is used to enable special     * optimization/features for specific operating systems:     * [horizontal]     * other;; unspecified OS     * wxp;; Microsoft Windows XP     * w2k;; Microsoft Windows 2000     * w2k3;; Microsoft Windows 2003     * w2k8;; Microsoft Windows 2008     * wvista;; Microsoft Windows Vista     * win7;; Microsoft Windows 7     * win8;; Microsoft Windows 8/2012/2012r2     * win10;; Microsoft Windows 10/2016     * l24;; Linux 2.4 Kernel     * l26;; Linux 2.6 - 5.X Kernel     * solaris;; Solaris/OpenSolaris/OpenIndiania kernel     * 
+     * Specify guest operating system. This is used to enable special
+     * optimization/features for specific operating systems:
+     * [horizontal]
+     * other;; unspecified OS
+     * wxp;; Microsoft Windows XP
+     * w2k;; Microsoft Windows 2000
+     * w2k3;; Microsoft Windows 2003
+     * w2k8;; Microsoft Windows 2008
+     * wvista;; Microsoft Windows Vista
+     * win7;; Microsoft Windows 7
+     * win8;; Microsoft Windows 8/2012/2012r2
+     * win10;; Microsoft Windows 10/2016
+     * l24;; Linux 2.4 Kernel
+     * l26;; Linux 2.6 - 5.X Kernel
+     * solaris;; Solaris/OpenSolaris/OpenIndiania kernel
      */
     ostype?: string;
     /**
      * Map host parallel devices (n is 0 to 2).
-     * Map host parallel devices (n is 0 to 2).     * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.     * CAUTION: Experimental! User reported problems with this option.     * 
+     * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
      */
     parallel0?: string;
     parallel1?: string;
@@ -2266,8 +2287,11 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      */
     searchdomain?: string;
     /**
-     * Create a serial device inside the VM (n is 0 to 3)
-     * Create a serial device inside the VM (n is 0 to 3), and pass through a     * host serial device (i.e. /dev/ttyS0), or create a unix socket on the     * host side (use 'qm terminal' to open a terminal connection).     * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.     * CAUTION: Experimental! User reported problems with this option.     * 
+     * Create a serial device inside the VM (n is 0 to 3), and pass through a
+     * host serial device (i.e. /dev/ttyS0), or create a unix socket on the
+     * host side (use 'qm terminal' to open a terminal connection).
+     * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
      */
     serial0?: string;
     serial1?: string;
@@ -2306,7 +2330,6 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      */
     startup?: string;
     /**
-     * Enable/disable the USB tablet device.
      * Enable/disable the USB tablet device. This device is usually needed to allow absolute mouse positioning with VNC. Else the mouse runs out of sync with normal VNC clients. If you're running lots of console-only guests on one host, you may consider disabling this to save some context switches. This is turned off by default if you use spice (-vga=qxl).
      */
     tablet?: boolean;
@@ -2341,8 +2364,8 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      */
     vcpus?: number;
     /**
-     * Configure the VGA hardware.
-     * Configure the VGA Hardware. If you want to use high resolution modes (>= 1280x1024x16) you may need to increase the vga memory option. Since QEMU 2.9 the default VGA display type is 'std' for all OS types besides some Windows versions (XP and older) which use 'cirrus'. The 'qxl' option enables the SPICE display server. For win* OS you can select how many independent displays you want, Linux guests can add displays them self.     * You can also run without any graphic card, using a serial device as terminal.
+     * Configure the VGA Hardware. If you want to use high resolution modes (>= 1280x1024x16) you may need to increase the vga memory option. Since QEMU 2.9 the default VGA display type is 'std' for all OS types besides some Windows versions (XP and older) which use 'cirrus'. The 'qxl' option enables the SPICE display server. For win* OS you can select how many independent displays you want, Linux guests can add displays them self.
+     * You can also run without any graphic card, using a serial device as terminal.
      */
     vga?: string;
     /**
@@ -2353,8 +2376,8 @@ export interface ret_nodes_node_qemu_vmid_configGET {
     virtio2?: string;
     virtio3?: string;
     /**
-     * Set VM Generation ID. Use '1' to autogenerate on create or update, pass '0' to disable explicitly.
-     * The VM generation ID (vmgenid) device exposes a 128-bit integer value identifier to the guest OS. This allows to notify the guest operating system when the virtual machine is executed with a different configuration (e.g. snapshot execution or creation from a template). The guest operating system notices the change, and is then able to react as appropriate by marking its copies of distributed databases as dirty, re-initializing its random number generator, etc.     * Note that auto-creation only works when done throug API/CLI create or update methods, but not when manually editing the config file.
+     * The VM generation ID (vmgenid) device exposes a 128-bit integer value identifier to the guest OS. This allows to notify the guest operating system when the virtual machine is executed with a different configuration (e.g. snapshot execution or creation from a template). The guest operating system notices the change, and is then able to react as appropriate by marking its copies of distributed databases as dirty, re-initializing its random number generator, etc.
+     * Note that auto-creation only works when done throug API/CLI create or update methods, but not when manually editing the config file.
      */
     vmgenid?: string;
     /**
@@ -2362,7 +2385,6 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      */
     vmstatestorage?: string;
     /**
-     * Create a virtual hardware watchdog device.
      * Create a virtual hardware watchdog device. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified)
      */
     watchdog?: string;
@@ -2607,11 +2629,13 @@ export interface ret_nodes_node_lxc_vmid_configGET {
      */
     cores?: number;
     /**
-     * Limit of CPU usage.     * NOTE: If the computer has 2 CPUs, it has a total of '2' CPU time. Value '0' indicates no CPU limit.
+     * Limit of CPU usage.
+     * NOTE: If the computer has 2 CPUs, it has a total of '2' CPU time. Value '0' indicates no CPU limit.
      */
     cpulimit?: number;
     /**
-     * CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to the weights of all the other running VMs.     * NOTE: You can disable fair-scheduler configuration by setting this to 0.
+     * CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to the weights of all the other running VMs.
+     * NOTE: You can disable fair-scheduler configuration by setting this to 0.
      */
     cpuunits?: number;
     /**

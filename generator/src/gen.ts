@@ -1,5 +1,5 @@
 import pveapi from './pveapi';
-import { pveApiNode, PveCallParameters, PveCallDesc, PveParametersArray, PveParametersObject } from '../pveapiModel';
+import { pveApiNode, PveCallParameters, PveCallDesc, PveParametersArray, PveParametersObject } from './pveapiModel';
 import fs from 'fs';
 import path from 'path';
 
@@ -159,7 +159,7 @@ export class Generator {
     generate(node: pveApiNode, lineOffset0: string, pathVariables: Set<string>) {
         const { info, children, path, text } = node;
         let extraSemicon = ',';
-        
+
         if (text.startsWith('{')) {
             let varname = text.replace(/[{}]/g, '');
             let pathParamType = 'string';
@@ -251,10 +251,17 @@ export class Generator {
             let line = [] as string[];
             line.push(`${lineOffset}/**`);
 
-            if (prop.description)
-                line.push(`${lineOffset} * ${prop.description.replace(/[\r\n]+/g, `${lineOffset} * `)}`);
-            if (prop.verbose_description)
-                line.push(`${lineOffset} * ${prop.verbose_description.replace(/[\r\n]+/g, `${lineOffset} * `)}`);
+            if (prop.verbose_description) {
+                for (let entry of prop.verbose_description.split(/[\r\n]+/g)) {
+                    entry = entry.trim();
+                    if (entry)
+                        line.push(`${lineOffset} * ${entry.trim()}`);
+                }
+            } else
+                if (prop.description) {
+                    for (const entry of prop.description.split(/[\r\n]+/g))
+                        line.push(`${lineOffset} * ${entry.trim()}`);
+                }
 
             line.push(`${lineOffset} */`);
             let opt = prop.optional ? '?' : '';
@@ -271,7 +278,6 @@ export class Generator {
                 case 'string':
                     fullType = 'string'
                     break
-
                 case 'array':
                     fullType = this.genModelArray(prop);
                     break
@@ -282,6 +288,7 @@ export class Generator {
                     fullType = 'any';
             }
             for (const propName of unNify(pname)) {
+
                 line.push(`${lineOffset}${propName}${opt}: ${fullType};`);
             }
             lines.push(line.join(EOL));
@@ -352,5 +359,6 @@ export class Generator {
 }
 const gen = new Generator();
 gen.start();
-
-fs.writeFileSync(path.join(__dirname, '..', 'api', 'src', 'model.ts'), gen.getFinalData(), { encoding: 'utf8' })
+const dest = path.join(__dirname, '..', '..', 'api', 'src', 'model.ts');
+console.log('writing to ', dest);
+fs.writeFileSync(dest, gen.getFinalData(), { encoding: 'utf8' })
