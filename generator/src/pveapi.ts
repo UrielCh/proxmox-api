@@ -17765,7 +17765,6 @@ const pveapi: pveApiNode[] = [
                                            "protected" : 1,
                                            "proxyto" : "node",
                                            "returns" : {
-                                             "additionalProperties" : 1, // ADDED URIEL
                                               "properties" : {
                                                  "agent" : {
                                                     "description" : "Qemu GuestAgent enabled in config.",
@@ -17831,6 +17830,11 @@ const pveapi: pveApiNode[] = [
                                                     "optional" : 1,
                                                     "type" : "string"
                                                  },
+                                                 "template" : { // URIEL ADDED
+                                                   "description" : "is this VM a teplate", // URIEL ADDED
+                                                   "optional" : 1, // URIEL ADDED
+                                                   "type" : "integer" // URIEL ADDED
+                                                 }, // URIEL ADDED
                                                  "uptime" : {
                                                     "description" : "Uptime.",
                                                     "optional" : 1,

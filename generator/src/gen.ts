@@ -294,7 +294,9 @@ export class Generator {
             lines.push(line.join(EOL));
         }
         if (additionalProperties) {
-            lines.push(`${lineOffset}/** additionalProperties **/`);
+            lines.push(`${lineOffset}/**`);
+            lines.push(`${lineOffset} * additionalProperties`);
+            lines.push(`${lineOffset} */`);
             lines.push(`${lineOffset}[additionalProperties: string]: any;`);
         }
         lines.push('}');
@@ -342,6 +344,8 @@ export class Generator {
         let retTypeOptfix = '';
         let TypeName = 'ret' + path.replace(/\//g, '_').replace(/-/g, '_').replace(/[{}]/g, '') + theInfo.method;
         let fullType = 'any';
+        if ('ret_nodes_node_qemu_vmid_vncwebsocketGET' === TypeName)
+            debugger;
         //if ('ret_cluster_optionsGET' === TypeName) {
         //    debugger;
         //}
@@ -355,7 +359,7 @@ export class Generator {
                 fullType = this.genModelArray(returns);
             }
         } else if (returns.type === 'object') {
-            fullType = this.genModelObject(returns, '', additionalProperties);
+            fullType = this.genModelObject(returns, '', additionalProperties || 1);
         }
         if (fullType === 'any') {
             TypeName = 'any';

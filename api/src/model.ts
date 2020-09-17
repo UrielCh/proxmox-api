@@ -1112,6 +1112,10 @@ export interface ret_cluster_config_nodes_nodePOST {
     /**
      */
     warnings: string[];
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_cluster_config_joinGET {
     /**
@@ -1150,6 +1154,10 @@ export interface ret_cluster_config_joinGET {
     /**
      */
     totem: any;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_cluster_firewallGET {
 };
@@ -1215,6 +1223,10 @@ export interface ret_cluster_firewall_groups_group_posGET {
     /**
      */
     type: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_cluster_firewall_rulesGET {
     /**
@@ -1265,6 +1277,10 @@ export interface ret_cluster_firewall_rules_posGET {
     /**
      */
     type: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_cluster_firewall_ipsetGET {
     /**
@@ -1330,6 +1346,10 @@ export interface ret_cluster_firewall_optionsGET {
      * Output policy.
      */
     policy_out?: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_cluster_firewall_macrosGET {
     /**
@@ -1399,6 +1419,10 @@ export interface ret_cluster_backup_id_included_volumesGET {
      */
     type: string;
 }[];
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_cluster_backupinfo_not_backed_upGET {
     /**
@@ -1457,6 +1481,10 @@ export interface ret_cluster_ha_resources_sidGET {
      * The type of the resources.
      */
     type: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_cluster_ha_groupsGET {
     /**
@@ -1489,6 +1517,10 @@ export interface ret_cluster_acme_account_nameGET {
     /**
      */
     tos?: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_cluster_acme_directoriesGET {
     /**
@@ -1799,6 +1831,10 @@ export interface ret_nodes_node_qemu_vmid_firewall_rules_posGET {
     /**
      */
     type: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_qemu_vmid_firewall_aliasesGET {
     /**
@@ -1884,6 +1920,10 @@ export interface ret_nodes_node_qemu_vmid_firewall_optionsGET {
      * Allow sending Router Advertisement.
      */
     radv?: boolean;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_qemu_vmid_firewall_logGET {
     /**
@@ -1913,6 +1953,10 @@ export interface ret_nodes_node_qemu_vmid_agent_execPOST {
      * The PID of the process started by the guest-agent.
      */
     pid: number;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_qemu_vmid_agent_exec_statusGET {
     /**
@@ -1943,6 +1987,10 @@ export interface ret_nodes_node_qemu_vmid_agent_exec_statusGET {
      * signal number or exception code if the process was abnormally terminated.
      */
     signal?: number;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_qemu_vmid_agent_file_readGET {
     /**
@@ -1953,11 +2001,19 @@ export interface ret_nodes_node_qemu_vmid_agent_file_readGET {
      * If set to 1, the output is truncated and not complete
      */
     truncated?: boolean;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_qemu_vmid_rrdGET {
     /**
      */
     filename: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_qemu_vmid_rrddataGET {
 };
@@ -2541,6 +2597,10 @@ export interface ret_nodes_node_qemu_vmid_configGET {
      * Create a virtual hardware watchdog device. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified)
      */
     watchdog?: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_qemu_vmid_pendingGET {
     /**
@@ -2564,6 +2624,10 @@ export interface ret_nodes_node_qemu_vmid_vncwebsocketGET {
     /**
      */
     port: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_qemu_vmid_statusGET {
     /**
@@ -2620,6 +2684,10 @@ export interface ret_nodes_node_qemu_vmid_status_currentGET {
      */
     tags?: string;
     /**
+     * is this VM a teplate
+     */
+    template?: number;
+    /**
      * Uptime.
      */
     uptime?: number;
@@ -2627,7 +2695,9 @@ export interface ret_nodes_node_qemu_vmid_status_currentGET {
      * The (unique) ID of the VM.
      */
     vmid: number;
-    /** additionalProperties **/
+    /**
+     * additionalProperties
+     */
     [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_qemu_vmid_featureGET {
@@ -2637,6 +2707,10 @@ export interface ret_nodes_node_qemu_vmid_featureGET {
     /**
      */
     nodes: string[];
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_qemu_vmid_migrateGET {
     /**
@@ -2658,6 +2732,10 @@ export interface ret_nodes_node_qemu_vmid_migrateGET {
     /**
      */
     running: boolean;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_qemu_vmid_snapshotGET {
     /**
@@ -2903,6 +2981,10 @@ export interface ret_nodes_node_lxc_vmid_configGET {
      * Reference to unused volumes. This is used internally, and should not be modified manually.
      */
     unused3?: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_lxc_vmid_statusGET {
     /**
@@ -2954,6 +3036,10 @@ export interface ret_nodes_node_lxc_vmid_status_currentGET {
      * The (unique) ID of the VM.
      */
     vmid: number;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_lxc_vmid_snapshotGET {
     /**
@@ -3026,6 +3112,10 @@ export interface ret_nodes_node_lxc_vmid_firewall_rules_posGET {
     /**
      */
     type: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_lxc_vmid_firewall_aliasesGET {
     /**
@@ -3111,6 +3201,10 @@ export interface ret_nodes_node_lxc_vmid_firewall_optionsGET {
      * Allow sending Router Advertisement.
      */
     radv?: boolean;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_lxc_vmid_firewall_logGET {
     /**
@@ -3137,6 +3231,10 @@ export interface ret_nodes_node_lxc_vmid_rrdGET {
     /**
      */
     filename: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_lxc_vmid_rrddataGET {
 };
@@ -3144,11 +3242,19 @@ export interface ret_nodes_node_lxc_vmid_vncwebsocketGET {
     /**
      */
     port: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_lxc_vmid_featureGET {
     /**
      */
     hasFeature: boolean;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_lxc_vmid_pendingGET {
     /**
@@ -3340,6 +3446,10 @@ export interface ret_nodes_node_network_ifaceGET {
     /**
      */
     type: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_tasksGET {
     /**
@@ -3392,6 +3502,10 @@ export interface ret_nodes_node_tasks_upid_statusGET {
     /**
      */
     status: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_scanGET {
     /**
@@ -3640,6 +3754,10 @@ export interface ret_nodes_node_storage_storage_rrdGET {
     /**
      */
     filename: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_storage_storage_rrddataGET {
 };
@@ -3688,6 +3806,10 @@ export interface ret_nodes_node_disks_lvmGET {
     /**
      */
     leaf: boolean;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_disks_lvmthinGET {
     /**
@@ -3807,6 +3929,10 @@ export interface ret_nodes_node_disks_zfs_nameGET {
      * Information about the state of the zpool.
      */
     status?: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_disks_listGET {
     /**
@@ -3854,6 +3980,10 @@ export interface ret_nodes_node_disks_smartGET {
     /**
      */
     type?: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_aptGET {
     /**
@@ -3915,6 +4045,10 @@ export interface ret_nodes_node_firewall_rules_posGET {
     /**
      */
     type: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_firewall_optionsGET {
     /**
@@ -3981,6 +4115,10 @@ export interface ret_nodes_node_firewall_optionsGET {
      * Filter illegal combinations of TCP flags.
      */
     tcpflags?: boolean;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_firewall_logGET {
     /**
@@ -4094,6 +4232,10 @@ export interface ret_nodes_node_certificates_customPOST {
      * Certificate subject name.
      */
     subject?: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_sdnGET {
 };
@@ -4139,6 +4281,10 @@ export interface ret_nodes_node_versionGET {
      * The current installed pve-manager package version
      */
     version: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_netstatGET {
 };
@@ -4146,6 +4292,10 @@ export interface ret_nodes_node_rrdGET {
     /**
      */
     filename: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_rrddataGET {
 };
@@ -4163,6 +4313,10 @@ export interface ret_nodes_node_vncwebsocketGET {
     /**
      */
     port: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_dnsGET {
     /**
@@ -4181,6 +4335,10 @@ export interface ret_nodes_node_dnsGET {
      * Search domain for host-name lookup.
      */
     search?: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_timeGET {
     /**
@@ -4195,6 +4353,10 @@ export interface ret_nodes_node_timeGET {
      * Time zone
      */
     timezone: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_nodes_node_aplinfoGET {
 };
@@ -4207,6 +4369,10 @@ export interface ret_nodes_node_hostsGET {
      * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
      */
     digest?: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_storageGET {
     /**
@@ -4301,6 +4467,10 @@ export interface ret_access_users_useridGET {
     /**
      */
     tokens?: any;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_access_users_userid_tfaGET {
     /**
@@ -4311,6 +4481,10 @@ export interface ret_access_users_userid_tfaGET {
      * The type of TFA the user has set, if any.
      */
     user?: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_access_users_userid_tokenGET {
     /**
@@ -4341,6 +4515,10 @@ export interface ret_access_users_userid_token_tokenidGET {
      * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
      */
     privsep?: boolean;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_access_users_userid_token_tokenidPOST {
     /**
@@ -4366,6 +4544,10 @@ export interface ret_access_users_userid_token_tokenidPOST {
      * API token value used for authentication.
      */
     value: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_access_users_userid_token_tokenidPUT {
     /**
@@ -4379,6 +4561,10 @@ export interface ret_access_users_userid_token_tokenidPUT {
      * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
      */
     privsep?: boolean;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_access_groupsGET {
     /**
@@ -4399,6 +4585,10 @@ export interface ret_access_groups_groupidGET {
     /**
      */
     members: string[];
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_access_rolesGET {
     /**
@@ -4517,6 +4707,10 @@ export interface ret_access_roles_roleidGET {
     /**
      */
     'VM.Snapshot.Rollback'?: boolean;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_access_aclGET {
     /**
@@ -4566,11 +4760,19 @@ export interface ret_access_ticketPOST {
     /**
      */
     username: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_access_tfaPOST {
     /**
      */
     ticket: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_poolsGET {
     /**
@@ -4600,6 +4802,10 @@ export interface ret_pools_poolidGET {
      */
     vmid?: number;
 }[];
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface ret_versionGET {
     /**
@@ -4611,6 +4817,10 @@ export interface ret_versionGET {
     /**
      */
     version: string;
+    /**
+     * additionalProperties
+     */
+    [additionalProperties: string]: any;
 };
 export interface Proxmox {
     cluster: {
