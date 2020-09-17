@@ -363,18 +363,20 @@ export class Generator {
         let typeName = snakeToLowerCamel(path.replace(/{[a-z]+}/g, '').replace(/\/\//g, ' ').replace(/\//g, ' ').trim() + ' ' + theInfo.name);
 
         let fullType = 'any';
-        // if ('ret_nodes_node_qemu_vmid_vncwebsocketGET' === typeName)
-        //    debugger;
-        //if ('ret_cluster_optionsGET' === typeName) {
+        //if ('nodesLxcFirewallIndex' === typeName) {
         //    debugger;
         //}
-        //if ('nodesLxcVmlist' === typeName) {
-        //    debugger;
-        //}
+        if (typeName === 'nodesIndex') {
+            // the only duplicated type
+            if (path.endsWith('}')) {
+                typeName += '2';
+            }
+        }
+
         if (returns.type === 'array') {
             if (returns.items && returns.items.type === 'object') {
                 typeName = typeName.replace(/list$/, '')
-                fullType = this.genModelObject(returns.items, `${TAB}`);
+                fullType = this.genModelObject(returns.items, `${TAB}`, additionalProperties || 1);
                 retTypeOptfix = '[]';
             } else {
                 fullType = this.genModelArray(returns, `${TAB}`);
