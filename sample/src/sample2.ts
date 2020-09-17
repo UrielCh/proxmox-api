@@ -21,7 +21,7 @@ async function test() {
         // list Qemu VMS
         let qemus = await theNode.qemu.$get();
 
-        const indexed = {} as {[key:number]: Proxmox.nodesQemuVmlist}; // ret_nodes_node_qemuGET
+        const indexed = {} as {[key:number]: Proxmox.nodesQemuVm}; // ret_nodes_node_qemuGET
         for (const qemu of qemus) {
             indexed[qemu.vmid] = qemu;
         }

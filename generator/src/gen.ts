@@ -368,18 +368,14 @@ export class Generator {
         //if ('ret_cluster_optionsGET' === typeName) {
         //    debugger;
         //}
-
-        if ('clusterConfigJoinJoinInfo' === typeName) {
-            debugger;
-        }
-        
-
+        //if ('nodesLxcVmlist' === typeName) {
+        //    debugger;
+        //}
         if (returns.type === 'array') {
             if (returns.items && returns.items.type === 'object') {
-                // if (typeName.endsWith('List'))
+                typeName = typeName.replace(/list$/, '')
                 fullType = this.genModelObject(returns.items, `${TAB}`);
                 retTypeOptfix = '[]';
-                // TypeName = TypeName + '[]';
             } else {
                 fullType = this.genModelArray(returns, `${TAB}`);
             }

@@ -1730,7 +1730,7 @@ export namespace Proxmox {
     };
     export interface nodesIndex {
     };
-    export interface nodesQemuVmlist {
+    export interface nodesQemuVm {
         /**
          * Maximum usable CPUs.
          */
@@ -2776,7 +2776,7 @@ export namespace Proxmox {
          */
         vendor: string;
     };
-    export interface nodesLxcVmlist {
+    export interface nodesLxcVm {
         /**
          * Maximum usable CPUs.
          */
@@ -5780,7 +5780,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"Only list VMs where you have VM.Audit permissons on /vms/<vmid>.","user":"all"}
                      */
-                    $get(param?: { full?: Tdisable }): Promise<nodesQemuVmlist[]>;
+                    $get(param?: { full?: Tdisable }): Promise<nodesQemuVm[]>;
                     /**
                      * Create or restore a virtual machine.
                      * POST /nodes/{node}/qemu
@@ -6567,7 +6567,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"Only list CTs where you have VM.Audit permissons on /vms/<vmid>.","user":"all"}
                      */
-                    $get(): Promise<nodesLxcVmlist[]>;
+                    $get(): Promise<nodesLxcVm[]>;
                     /**
                      * Create or restore a container.
                      * POST /nodes/{node}/lxc
