@@ -11,7 +11,7 @@ to use this API take the Path you want to call, and replace:
 - the `${variable}` by `.(variable)`
 - append the http method you want to call with a $ at the end (`.$get()`, `.$post()`, `.$put()` or `.$delete()`)
 
-that is.
+that it.
 
 ### Example
 
