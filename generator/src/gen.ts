@@ -42,7 +42,7 @@ const unNify = (propName: string): string[] => {
     }
     return out;
 }
-
+const TAB = '    ';
 
 export class Generator {
     retTypes = [] as string[];
@@ -54,11 +54,13 @@ export class Generator {
 
 
     getFinalData(): string {
+        const header = 'export namespace Proxmox {';
         const typings = this.getNewType().join(EOL)
         const code = this.code.join(EOL);
         const retTypes = this.retTypes.join(EOL);
+        const footer = `};${EOL}export default Proxmox;`;
 
-        return typings + EOL + retTypes + EOL + code + EOL;
+        return header + EOL + typings + EOL + retTypes + EOL + code + EOL + footer + EOL;
     }
 
     getNewType(): string[] {
@@ -135,7 +137,7 @@ export class Generator {
         this.type2TypeName[key] = newType;
         if (pveType.type === 'string') {
             if (pveType.enum) {
-                const fullType = `export type ${newType} = '${pveType.enum.join("' | '")}';`;
+                const fullType = `${TAB}export type ${newType} = '${pveType.enum.join("' | '")}';`;
                 this.usedNamed[newType] = fullType;
                 return newType;
             }
@@ -144,12 +146,12 @@ export class Generator {
         if (newType != tsType) {
             let declaration = [] as string[];
             if (docs.length) {
-                declaration.push('/**');
+                declaration.push(`${TAB}/**`);
                 for (const doc of docs)
-                    declaration.push(` * ${doc}`);
-                declaration.push(' */');
+                    declaration.push(`${TAB} * ${doc}`);
+                declaration.push(`${TAB} */`);
             }
-            declaration.push(`export type ${newType} = ${tsType};`);
+            declaration.push(`${TAB}export type ${newType} = ${tsType};`);
             this.usedNamed[newType] = declaration.join(EOL);
         }
         return newType;
@@ -164,12 +166,12 @@ export class Generator {
     }
 
     start() {
-        let lineOffset = '    ';
-        this.code.push('export interface Proxmox {')
+        let lineOffset = `${TAB}${TAB}`;
+        this.code.push(`${TAB}export interface Api {`)
         for (const api of pveapi) {
             this.generate(api, lineOffset, new Set());
         }
-        this.code.push('}')
+        this.code.push(`${TAB}}`);
     }
 
     generate(node: pveApiNode, lineOffset0: string, pathVariables: Set<string>) {
@@ -263,7 +265,7 @@ export class Generator {
             return 'any'; // no data ...
         let lines: string[] = [];
         lines.push('{');
-        let lineOffset = lineOffset0 + '    ';
+        let lineOffset = lineOffset0 + TAB;
         for (const pname of Object.keys(info.properties)) {
             const prop = info.properties[pname];
             let line = [] as string[];
@@ -297,10 +299,10 @@ export class Generator {
                         fullType = 'string'
                         break
                     case 'array':
-                        fullType = this.genModelArray(prop);
+                        fullType = this.genModelArray(prop, lineOffset + TAB);
                         break
                     case 'object':
-                        fullType = this.genModelObject(prop, lineOffset + '    ');
+                        fullType = this.genModelObject(prop, lineOffset + TAB);
                         break
                     default:
                         fullType = 'any';
@@ -315,11 +317,11 @@ export class Generator {
             lines.push(`${lineOffset} */`);
             lines.push(`${lineOffset}[additionalProperties: string]: any;`);
         }
-        lines.push('}');
+        lines.push(`${lineOffset0}}`);
         return lines.join(EOL);
     }
 
-    genModelArray(info: PveParametersArray): string {
+    genModelArray(info: PveParametersArray, lineOffset0: string): string {
         if (!info.items) {
             return 'string[]'
         }
@@ -330,10 +332,10 @@ export class Generator {
             return 'number[]'
         }
         if (info.items.type === 'array') {
-            return this.genModelArray(info.items) + '[]';
+            return this.genModelArray(info.items, lineOffset0) + '[]';
         }
         if (info.items.type === 'object') {
-            return this.genModelObject(info.items, '') + '[]';
+            return this.genModelObject(info.items, lineOffset0) + '[]';
         }
         return 'any[]';
     }
@@ -363,20 +365,26 @@ export class Generator {
         let fullType = 'any';
         // if ('ret_nodes_node_qemu_vmid_vncwebsocketGET' === typeName)
         //    debugger;
-        //if ('ret_cluster_optionsGET' === TypeName) {
+        //if ('ret_cluster_optionsGET' === typeName) {
         //    debugger;
         //}
 
+        if ('clusterConfigJoinJoinInfo' === typeName) {
+            debugger;
+        }
+        
+
         if (returns.type === 'array') {
             if (returns.items && returns.items.type === 'object') {
-                fullType = this.genModelObject(returns.items, '');
+                // if (typeName.endsWith('List'))
+                fullType = this.genModelObject(returns.items, `${TAB}`);
                 retTypeOptfix = '[]';
                 // TypeName = TypeName + '[]';
             } else {
-                fullType = this.genModelArray(returns);
+                fullType = this.genModelArray(returns, `${TAB}`);
             }
         } else if (returns.type === 'object') {
-            fullType = this.genModelObject(returns, '', additionalProperties || 1);
+            fullType = this.genModelObject(returns, `${TAB}`, additionalProperties || 1);
         }
         if (fullType === 'any') {
             typeName = 'any';
@@ -384,7 +392,7 @@ export class Generator {
             // this.retTypes.push(`export type ${TypeName} = ${fullType};`);
         }
         else {
-            this.retTypes.push(`export interface ${typeName} ${fullType};`);
+            this.retTypes.push(`${TAB}export interface ${typeName} ${fullType};`);
         }
         return typeName + retTypeOptfix;
     }

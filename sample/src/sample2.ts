@@ -1,5 +1,6 @@
+import { Proxmox } from "../../api/src";
 import { proxyProxmox } from "../../api/src/constructor";
-import { ret_nodes_node_qemuGET } from "../../api/src/model";
+// import { ret_nodes_node_qemuGET } from "../../api/src/model";
 import ProxmoxEngine from "../../api/src/ProxmoxEngine";
 
 async function test() {
@@ -20,7 +21,7 @@ async function test() {
         // list Qemu VMS
         let qemus = await theNode.qemu.$get();
 
-        const indexed = {} as {[key:number]: ret_nodes_node_qemuGET};
+        const indexed = {} as {[key:number]: Proxmox.nodesQemuVmlist}; // ret_nodes_node_qemuGET
         for (const qemu of qemus) {
             indexed[qemu.vmid] = qemu;
         }
