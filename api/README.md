@@ -7,20 +7,19 @@ Typescript Api to manage proxmox servers.
 ### overview
 
 to use this API take the Path you want to call, and replace:
-- the / by .
-- the ${variable} by .(variable)
-- append the http method you want to call with a $ at the end (.$get(), .$post(), .$put(), .$delete())
+- the `/` by `.`
+- the `${variable}` by `.(variable)`
+- append the http method you want to call with a $ at the end (`.$get()`, `.$post()`, `.$put()` or `.$delete()`)
 
 that is.
 
 ### Example
 
-To call *GET /cluster/acme/account/{name}* you will call promox.cluster.acme.account.$(name).$get();
+To call `GET /cluster/acme/account/{name}` you will call `promox.cluster.acme.account.$(name).$get()`
 
-To call *GET /api2/json/cluster/backup/{id}/included_volumes* you will call promox.cluster.backup.{id}.included_volumes.$get();
+To call `GET /api2/json/cluster/backup/{id}/included_volumes` you will call `promox.cluster.backup.{id}.included_volumes.$get()`
 
-To call *GET /api2/json/nodes* you will call promox.nodes.$get();
-
+To call `GET /api2/json/nodes` you will call `promox.nodes.$get()`
 
 The provided typing will assist you within intelisense, so you do not need to read any external doc.
 
