@@ -11,6 +11,22 @@ const protectFieldName = (name: string) => {
     return name;
 }
 
+const snakeToLowerCamel = (str: string) => {
+    let lowercameCase = str.replace(
+        /([-_ ][a-z])/g,
+        (group) => group.toUpperCase()
+            .replace(' ', '')
+            .replace('-', '')
+            .replace('_', '')
+    );
+    return lowercameCase;
+}
+
+const snakeToUpperCamel = (str: string) => {
+    let lowercameCase = snakeToLowerCamel(str)
+    return lowercameCase[0].toUpperCase() + lowercameCase.substr(1);
+}
+
 const unNify = (propName: string): string[] => {
     if (!~propName.indexOf('[n]'))
         return [protectFieldName(propName)];
@@ -342,10 +358,11 @@ export class Generator {
             }
         }
         let retTypeOptfix = '';
-        let TypeName = 'ret' + path.replace(/\//g, '_').replace(/-/g, '_').replace(/[{}]/g, '') + theInfo.method;
+        let typeName = snakeToLowerCamel(path.replace(/{[a-z]+}/g, '').replace(/\/\//g, ' ').replace(/\//g, ' ').trim() + ' ' + theInfo.name);
+
         let fullType = 'any';
-        if ('ret_nodes_node_qemu_vmid_vncwebsocketGET' === TypeName)
-            debugger;
+        // if ('ret_nodes_node_qemu_vmid_vncwebsocketGET' === typeName)
+        //    debugger;
         //if ('ret_cluster_optionsGET' === TypeName) {
         //    debugger;
         //}
@@ -362,14 +379,14 @@ export class Generator {
             fullType = this.genModelObject(returns, '', additionalProperties || 1);
         }
         if (fullType === 'any') {
-            TypeName = 'any';
+            typeName = 'any';
             // return any;
             // this.retTypes.push(`export type ${TypeName} = ${fullType};`);
         }
         else {
-            this.retTypes.push(`export interface ${TypeName} ${fullType};`);
+            this.retTypes.push(`export interface ${typeName} ${fullType};`);
         }
-        return TypeName + retTypeOptfix;
+        return typeName + retTypeOptfix;
     }
 }
 const gen = new Generator();
