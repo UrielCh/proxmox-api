@@ -1,53 +1,10 @@
 /**
- * all type that should be sent as parameter to Ovh calls
+ * Generic type for Api parameters
  */
 export type ApiParamType = { [key: string]: any; };
 
 /**
- * Public interface of a silot
- * you can have one silot per Ovh API call
- */
-// export interface ICacheSilot {
-//     options: ICacheOptions;
-//     flush(): Promise<void>;
-//     store(path: string, value: any, size: number): Promise<boolean>;
-//     get(path: string): Promise<any | undefined>;
-//     discard(path: string): Promise<boolean>;
-// }
-
-/**
- * constructor for a silot cache
- */
-// export type SlotConstructor = new (template: string, options: ICacheOptions) => ICacheSilot;
-
-/**
- * params to configure cache
- */
-// export interface ICacheOptions {
-//     /**
-//      * Time to live in second
-//      */
-//     ttl?: number;
-//     /**
-//      * max memmory used to store your cache
-//      */
-//     size?:number;
-//     /**
-//      * max number of entry in your cache
-//      */
-//     count?: number
-//     /**
-//      * explicite silot construtor used to overwrite in memory default silotCache
-//      */
-//     silotClass?: SlotConstructor;
-// }
-
-/**
- * 'flush' and 'disable' are the main action, other can be add later
- */
-// export type CacheAction = 'flush' | 'disable' | string;
-/**
- * common interface used to call ovh engine
+ * common interface used to call API engine
  */
 export interface ApiRequestable {
     /**
@@ -59,16 +16,12 @@ export interface ApiRequestable {
      * @param params: The request parameters (passed as query string or body params)
      */
     doRequest(httpMethod: string, path: string, pathTemplate: string, params?: {[key:string]: any}): Promise<any>;
-    /**
-     * cache controle
-     */
-    // cache(template: string, param: ICacheOptions | CacheAction): Promise<any>;
 }
 
 /**
- * common Getter part fot handlers
+ * Common Getter part fot handlers
  * - $()
- * - $getv/$put()/$post()/$delete()/$cache()
+ * - $getv/$put()/$post()/$delete()
  * - path navigation
  */
 const commonGet = (key: string, target: ProxyApi) => {
@@ -85,11 +38,7 @@ const commonGet = (key: string, target: ProxyApi) => {
         // $get $post $delete $put
         const fnc = (params: any) => {
             const mtd = key.substring(1);
-            //if (mtd === 'cache') {
-            //    return target._engine.cache(target._model, params);
-            //} else { // get post put delete
             return target._engine.doRequest(mtd, target._path, target._model, params);
-            //}
         }
         return fnc.bind(target._engine);
     }
@@ -198,7 +147,7 @@ class ProxyApi {
     }
 }
 /**
- * Build Ovh API 2.0 Proxy
+ * Build API API Proxy
  * 
  * @param engine Api logic code
  * @param path base prefix for url

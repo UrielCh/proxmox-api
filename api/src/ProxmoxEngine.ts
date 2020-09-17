@@ -23,13 +23,9 @@ export class ProxmoxEngine implements ApiRequestable {
             console.error(msg);
             throw Error(msg)
         }
-
     }
 
     async doRequest(httpMethod: string, path: string, pathTemplate: string, params?: { [key: string]: any }): Promise<any> {
-        // throw new Error("Method not implemented.");
-        // async renameVM(realVmid: number, name: string): Promise<string> {
-
         if (!this.ticket) {
             await this.getTicket();
         }
@@ -53,7 +49,6 @@ export class ProxmoxEngine implements ApiRequestable {
          * Append parameters
          */
         let requestUrl = `${this.schema}://${this.host}:${this.port}${path}`;
-
 
         const requestInit: RequestInit = {
             method: httpMethod.toUpperCase(),
@@ -109,7 +104,6 @@ export class ProxmoxEngine implements ApiRequestable {
         }
         return data.data;
     }
-
 
     async getTicket(): Promise<string> {
         if (this.ticket)
