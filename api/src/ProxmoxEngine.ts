@@ -2,6 +2,9 @@ import { ApiRequestable } from "./proxy";
 import fetch, { RequestInit, Response } from 'node-fetch';
 import querystring from 'querystring';
 
+/**
+ * keep the API engine there is non direct acess needed
+ */
 export class ProxmoxEngine implements ApiRequestable {
     public CSRFPreventionToken?: string;
     public ticket?: string;

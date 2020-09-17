@@ -1,4 +1,6 @@
-export { ApiParamType, ApiRequestable, buildApiProxy } from './proxy';
-export { proxyProxmox } from './constructor';
+import { proxmoxApi } from './constructor';
+
+export { proxmoxApi } from './constructor';
 export { Proxmox } from './model';
-export { ProxmoxEngine } from './ProxmoxEngine';
+
+export default proxmoxApi;

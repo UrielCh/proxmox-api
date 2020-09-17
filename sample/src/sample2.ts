@@ -1,7 +1,4 @@
-import { Proxmox } from "../../api/src";
-import { proxyProxmox } from "../../api/src/constructor";
-// import { ret_nodes_node_qemuGET } from "../../api/src/model";
-import ProxmoxEngine from "../../api/src/ProxmoxEngine";
+import { proxmoxApi, Proxmox } from "../../api/src";
 
 async function test() {
     // authorize self signed cert
@@ -10,7 +7,7 @@ async function test() {
     const auth = await import('../../../auth');
     const { host, password }  = auth.default;
     // connect to proxmox
-    const promox = proxyProxmox(new ProxmoxEngine({host, password}));
+    const promox = proxmoxApi({host, password});
     // liste nodes
     const nodes = await promox.nodes.$get();
     // iterate cluster nodes
