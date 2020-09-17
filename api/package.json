@@ -2,8 +2,8 @@
   "name": "proxmox-api",
   "version": "0.0.1",
   "description": "cutting edge javascript / Typescript Proxmox API",
-  "main": "src/index.js",
-  "type": "src/index.d.ts",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UrielCh/proxmox-api.git"
@@ -25,7 +25,9 @@
     "typescript": "^4.0.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf dist",
+    "build": "tsc -p .",
+    "prepare": "npm run build"
   },
   "author": "Uriel Chemouni <uchemouni@gmail.com>",
   "license": "GPL-3.0",
