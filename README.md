@@ -10,6 +10,8 @@ code size < 10Ko including docs
 
 ## usage
 
+![intellisense](https://github.com/UrielCh/proxmox-api/blob/master/sample/usage.gif?raw=true "preview")
+
 ### overview
 
 to use this API take the Path you want to call, and replace:
