@@ -58,7 +58,7 @@ export class Generator {
         const typings = this.getNewType().join(EOL)
         const code = this.code.join(EOL);
         const retTypes = this.retTypes.join(EOL);
-        const footer = `};${EOL}export default Proxmox;`;
+        const footer = `}${EOL}export default Proxmox;`;
 
         return header + EOL + typings + EOL + retTypes + EOL + code + EOL + footer + EOL;
     }
@@ -414,7 +414,7 @@ export class Generator {
             // this.retTypes.push(`export type ${TypeName} = ${fullType};`);
         }
         else {
-            this.retTypes.push(`${TAB}export interface ${typeName} ${fullType};`);
+            this.retTypes.push(`${TAB}export interface ${typeName} ${fullType}`);
         }
         return typeName + retTypeOptfix;
     }

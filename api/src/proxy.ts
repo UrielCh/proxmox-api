@@ -78,15 +78,12 @@ const handlerChild = <ProxyHandler<ProxyApi>>{
  * handle:
  * - Object Field
  * - EventEmitter Field
- * - flat get/put/post/delete calls
  * - $()
  * - $get()/$put()/$post()/$delete()
  * - path navigation
  */
 const handlerRoot = <ProxyHandler<ProxyApi>>{
     construct(target: ProxyApi, argArray: any, newTarget?: any) {
-        // console.log(argArray);
-        // console.log(newTarget);
         return target;
     },
     get(target: ProxyApi, p: PropertyKey, receiver: any) {
@@ -120,21 +117,14 @@ const handlerRoot = <ProxyHandler<ProxyApi>>{
             case 'eventNames':
             case 'listenerCount':
                 return (target as any)[p];
-            // only called at root level
-            case 'get':
-            case 'put':
-            case 'post':
-            case 'delete':
-                return (path: string) => (params: ApiParamType) => target._engine.doRequest(key, path, path, params)
         }
         return commonGet(key, target);
     }
 }
 
 /**
- * for Ovh API 2.0 Proxy
  * Data cloned on each Proxy node call
- * maintains full PATH for OVH calls
+ * maintains full PATH for each calls
  */
 class ProxyApi {
     public _model: string;
@@ -152,6 +142,6 @@ class ProxyApi {
  * @param engine Api logic code
  * @param path base prefix for url
  */
-export function buildApiProxy(ovhEngine: ApiRequestable, path: string): any {
-    return new Proxy(new ProxyApi(ovhEngine, path), handlerRoot) as any;
+export function buildApiProxy(engine: ApiRequestable, path: string): any {
+    return new Proxy(new ProxyApi(engine, path), handlerRoot) as any;
 }

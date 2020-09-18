@@ -2,6 +2,12 @@
 
 Typescript Api to manage proxmox servers.
 
+* [API Viewer](https://pve.proxmox.com/pve-docs/api-viewer/) 
+* [API Docs](https://pve.proxmox.com/wiki/Proxmox_VE_API)
+
+Mapping 100% of available calls, contains all api documentation in typing file.
+code size < 10Ko including docs
+
 ## usage
 
 ### overview
@@ -38,7 +44,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 async function test() {
     // connect to proxmox
-    const promox = proxmoxApi({host: '127.0.0.1', password: 'adminPassword'});
+    const promox = proxmoxApi({host: '127.0.0.1', password: 'password', username: 'user1@pam'});
     // list nodes
     const nodes = await promox.nodes.$get();
     // iterate cluster nodes
