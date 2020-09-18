@@ -91,7 +91,8 @@ export class Generator {
 
         let newTypePrefix = `T${name}`;
         const docs: string[] = [];
-
+        //if (newTypePrefix === 'Tapplication')
+        //debugger;
         //if ((pveType as any).title) {
         //    docs.push('title: ' + (pveType as any).title);
         //}
@@ -109,6 +110,8 @@ export class Generator {
                 let v: any = (pveType as any)[k];
                 if (typeof (v) !== 'string')
                     v = JSON.stringify(v);
+                if (k === 'type' && v === 'string')
+                    continue;
                 docs.push(`@${k} ${v}`);
             }
             delete typeCopy[k];
@@ -168,12 +171,13 @@ export class Generator {
         }
 
         if (pveType.type === 'string' && pveType.enum) {
-            const fullType = `${TAB}export type ${newType} = '${pveType.enum.join("' | '")}';`;
-            this.usedNamed[newType] = fullType;
+            declaration.push(`${TAB}export type ${newType} = '${pveType.enum.join("' | '")}';`);
+            // const fullType = `${TAB}export type ${newType} = '${pveType.enum.join("' | '")}';`;
+            //this.usedNamed[newType] = fullType;
         } else {
             declaration.push(`${TAB}export type ${newType} = ${tsType};`);
-            this.usedNamed[newType] = declaration.join(EOL);
         }
+        this.usedNamed[newType] = declaration.join(EOL);
         return newType;
     }
 
