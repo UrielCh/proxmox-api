@@ -97,11 +97,13 @@ export class Generator {
         //}
 
         if (pveType.verbose_description) {
-            docs.push(...pveType.verbose_description.split(/\r\n/));
+            docs.push(...pveType.verbose_description.split(/[\r\n]+/));
         } else if (pveType.description) {
-            docs.push(...pveType.description.split(/\r\n/));
+            docs.push(...pveType.description.split(/[\r\n]+/));
         }
 
+        //if ('pve-qm-hostpci' === (pveType as any)['format'])
+        //debugger;
         for (const k of ['pattern', 'format', 'minimum', 'maximum', 'minLength', 'maxLength', 'type']) {
             if (typeof ((pveType as any)[k]) !== 'undefined') {
                 let v: any = (pveType as any)[k];
@@ -111,7 +113,7 @@ export class Generator {
             }
             delete typeCopy[k];
         }
-        //if (newTypePrefix === 'Ttype') // 3
+        //if (newTypePrefix === 'pveqmhostpci') // 3
         //    debugger;
 
         // const key2 = JSON.stringify(typeCopy);
@@ -149,23 +151,26 @@ export class Generator {
             newType = `${newTypePrefix}_${i++}`;
         }
         this.type2TypeName[key] = newType;
-        if (pveType.type === 'string') {
-            if (pveType.enum) {
-                const fullType = `${TAB}export type ${newType} = '${pveType.enum.join("' | '")}';`;
-                this.usedNamed[newType] = fullType;
-                return newType;
-            }
-        }
+
         const tsType = this.mapType(pveType.type || 'string');
-        // avoid remaping native javascript Type
-        if (newType != tsType) {
-            let declaration = [] as string[];
-            if (docs.length) {
-                declaration.push(`${TAB}/**`);
-                for (const doc of docs)
-                    declaration.push(`${TAB} * ${doc}`);
-                declaration.push(`${TAB} */`);
-            }
+        if (newType == tsType && !(pveType as any).enum) {
+            // native Type, no remapping
+            return newType;
+        }
+
+        // append doc
+        let declaration = [] as string[];
+        if (docs.length) {
+            declaration.push(`${TAB}/**`);
+            for (const doc of docs)
+                declaration.push(`${TAB} * ${doc}`);
+            declaration.push(`${TAB} */`);
+        }
+
+        if (pveType.type === 'string' && pveType.enum) {
+            const fullType = `${TAB}export type ${newType} = '${pveType.enum.join("' | '")}';`;
+            this.usedNamed[newType] = fullType;
+        } else {
             declaration.push(`${TAB}export type ${newType} = ${tsType};`);
             this.usedNamed[newType] = declaration.join(EOL);
         }

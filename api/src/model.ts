@@ -435,8 +435,7 @@ export namespace Proxmox {
     export type pvevmcpuconf = string;
     /**
      * Limit of CPU usage.
-
-NOTE: If the computer has 2 CPUs, it has total of '2' CPU time. Value '0' indicates no CPU limit.
+     * NOTE: If the computer has 2 CPUs, it has total of '2' CPU time. Value '0' indicates no CPU limit.
      * @minimum 0
      * @maximum 128
      * @type number
@@ -463,12 +462,10 @@ NOTE: If the computer has 2 CPUs, it has total of '2' CPU time. Value '0' indica
     export type pvevolumeid = string;
     /**
      * Map host PCI devices into guest.
-
-NOTE: This option allows direct access to host hardware. So it is no longer
-possible to migrate such machines - use with special care.
-
-CAUTION: Experimental! User reported problems with this option.
-
+     * NOTE: This option allows direct access to host hardware. So it is no longer
+     * possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     * 
      * @format pve-qm-hostpci
      * @type string
      */
@@ -488,14 +485,11 @@ CAUTION: Experimental! User reported problems with this option.
     export type Tide = string;
     /**
      * cloud-init: Specify IP addresses and gateways for the corresponding interface.
-
-IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
-
-The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
-For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
-
-If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
-
+     * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
+     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
+     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
+     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+     * 
      * @format pve-qm-ipconfig
      * @type string
      */
@@ -553,11 +547,9 @@ If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, i
     export type Tostype = 'other' | 'wxp' | 'w2k' | 'w2k3' | 'w2k8' | 'wvista' | 'win7' | 'win8' | 'win10' | 'l24' | 'l26' | 'solaris';
     /**
      * Map host parallel devices (n is 0 to 2).
-
-NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
-
-CAUTION: Experimental! User reported problems with this option.
-
+     * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     * 
      * @pattern /dev/parport\d+|/dev/usb/lp\d+
      * @type string
      */
@@ -589,13 +581,11 @@ CAUTION: Experimental! User reported problems with this option.
     export type Tscsihw = 'lsi' | 'lsi53c810' | 'virtio-scsi-pci' | 'virtio-scsi-single' | 'megasas' | 'pvscsi';
     /**
      * Create a serial device inside the VM (n is 0 to 3), and pass through a
-host serial device (i.e. /dev/ttyS0), or create a unix socket on the
-host side (use 'qm terminal' to open a terminal connection).
-
-NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
-
-CAUTION: Experimental! User reported problems with this option.
-
+     * host serial device (i.e. /dev/ttyS0), or create a unix socket on the
+     * host side (use 'qm terminal' to open a terminal connection).
+     * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     * 
      * @pattern (/dev/.+|socket)
      * @type string
      */
@@ -658,7 +648,7 @@ CAUTION: Experimental! User reported problems with this option.
     export type Tusb = string;
     /**
      * Configure the VGA Hardware. If you want to use high resolution modes (>= 1280x1024x16) you may need to increase the vga memory option. Since QEMU 2.9 the default VGA display type is 'std' for all OS types besides some Windows versions (XP and older) which use 'cirrus'. The 'qxl' option enables the SPICE display server. For win* OS you can select how many independent displays you want, Linux guests can add displays them self.
-You can also run without any graphic card, using a serial device as terminal.
+     * You can also run without any graphic card, using a serial device as terminal.
      * @format {"memory":{"description":"Sets the VGA memory (in MiB). Has no effect with serial display.","maximum":512,"minimum":4,"optional":1,"type":"integer"},"type":{"default":"std","default_key":1,"description":"Select the VGA type.","enum":["cirrus","qxl","qxl2","qxl3","qxl4","none","serial0","serial1","serial2","serial3","std","virtio","vmware"],"optional":1,"type":"string"}}
      * @type string
      */
@@ -671,7 +661,7 @@ You can also run without any graphic card, using a serial device as terminal.
     export type Tvirtio = string;
     /**
      * The VM generation ID (vmgenid) device exposes a 128-bit integer value identifier to the guest OS. This allows to notify the guest operating system when the virtual machine is executed with a different configuration (e.g. snapshot execution or creation from a template). The guest operating system notices the change, and is then able to react as appropriate by marking its copies of distributed databases as dirty, re-initializing its random number generator, etc.
-Note that auto-creation only works when done throug API/CLI create or update methods, but not when manually editing the config file.
+     * Note that auto-creation only works when done throug API/CLI create or update methods, but not when manually editing the config file.
      * @pattern (?:[a-fA-F0-9]{8}(?:-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}|[01])
      * @type string
      */
@@ -772,8 +762,7 @@ Note that auto-creation only works when done throug API/CLI create or update met
     export type integer1_128 = number;
     /**
      * CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to the weights of all the other running VMs.
-
-NOTE: You can disable fair-scheduler configuration by setting this to 0.
+     * NOTE: You can disable fair-scheduler configuration by setting this to 0.
      * @minimum 0
      * @maximum 500000
      * @type integer
@@ -888,8 +877,7 @@ NOTE: You can disable fair-scheduler configuration by setting this to 0.
     export type integer1_7 = number;
     /**
      * Placement group bits, used to specify the default number of placement groups.
-
-NOTE: 'osd pool default pg num' does not work for default pools.
+     * NOTE: 'osd pool default pg num' does not work for default pools.
      * @minimum 6
      * @maximum 14
      * @type integer
