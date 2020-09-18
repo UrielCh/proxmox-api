@@ -17765,6 +17765,8 @@ const pveapi: pveApiNode[] = [
                                            "protected" : 1,
                                            "proxyto" : "node",
                                            "returns" : {
+                                              // from qemu-server/PVE/QemuServer.pm
+                                              // our $vmstatus_return_properties = {
                                               "properties" : {
                                                  "agent" : {
                                                     "description" : "Qemu GuestAgent enabled in config.",

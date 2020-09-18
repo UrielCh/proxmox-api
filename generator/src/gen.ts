@@ -67,6 +67,7 @@ export class Generator {
         return Object.values(this.usedNamed);
     }
 
+
     mapType2(pveType: PveCallParameters, name: string): string {
         name = name.replace(/-/g, '');
         name = name.replace('[n]', '');
@@ -76,7 +77,7 @@ export class Generator {
         delete typeCopy["description"];
         delete typeCopy["format_description"];
         delete typeCopy["verbose_description"];
-        delete typeCopy["title"];
+        // delete typeCopy["title"];
         delete typeCopy["requires"]; // 3544 lines
         delete typeCopy["optional"];
         delete typeCopy["typetext"];
@@ -89,8 +90,17 @@ export class Generator {
 
 
         let newTypePrefix = `T${name}`;
-
         const docs: string[] = [];
+
+        //if ((pveType as any).title) {
+        //    docs.push('title: ' + (pveType as any).title);
+        //}
+
+        if (pveType.verbose_description) {
+            docs.push(...pveType.verbose_description.split(/\r\n/));
+        } else if (pveType.description) {
+            docs.push(...pveType.description.split(/\r\n/));
+        }
 
         for (const k of ['pattern', 'format', 'minimum', 'maximum', 'minLength', 'maxLength', 'type']) {
             if (typeof ((pveType as any)[k]) !== 'undefined') {
@@ -101,16 +111,20 @@ export class Generator {
             }
             delete typeCopy[k];
         }
+        //if (newTypePrefix === 'Ttype') // 3
+        //    debugger;
 
-        const key2 = JSON.stringify(typeCopy);
-        if (key2.length > 10)
-            docs.push(`key: ${key2}`);
+        // const key2 = JSON.stringify(typeCopy);
+        //if (key2.length > 5)
+        //    docs.push(`key: ${key2}`);
 
         // {"maxLength":40,"type":"string","typetext":"<string>"}
         if (typeof ((pveType as any).format) === 'string') {
             newTypePrefix = (pveType as any).format.replace(/-/g, '');
         } else if (key === '{"type":"string"}') {
             newTypePrefix = 'string';
+        } else if (key === '{"type":"boolean"}') {
+            newTypePrefix = 'boolean';
         } else if (pveType.type === 'string' && pveType.typetext === "<string>" && pveType.maxLength) {
             newTypePrefix = `String${pveType.minLength || 0}_${pveType.maxLength}`;
         } else if (pveType.type === 'integer') {
@@ -143,6 +157,7 @@ export class Generator {
             }
         }
         const tsType = this.mapType(pveType.type || 'string');
+        // avoid remaping native javascript Type
         if (newType != tsType) {
             let declaration = [] as string[];
             if (docs.length) {

@@ -1,8 +1,9 @@
 import proxmoxApi from "../../api/src";
 
+// authorize self signed cert
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 async function test() {
-    // authorize self signed cert
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
     // load sample authentification info
     const auth = await import('../../../auth');
     const { host, password }  = auth.default;
@@ -19,11 +20,12 @@ async function test() {
         for (const qemu of qemus) {
             // do some suff.
             const config = await theNode.qemu.$(qemu.vmid).config.$get();
-            console.log(`vm: ${config.name}, memory: ${config.memory}`);
+            const name = `(${(config.name||'')})`;
+            console.log(`vm: ${String(qemu.vmid).padStart(5, ' ')} ${name.padEnd(18, ' ')}, memory: ${config.memory}`);
             // const vnc = await theNode.qemu.$(qemu.vmid).vncproxy.$post();
             // console.log('vnc:', vnc);
-            const spice = await theNode.qemu.$(qemu.vmid).spiceproxy.$post();
-            console.log('spice:', spice);
+            // const spice = await theNode.qemu.$(qemu.vmid).spiceproxy.$post();
+            // console.log('spice:', spice);
         }
     }    
 }
