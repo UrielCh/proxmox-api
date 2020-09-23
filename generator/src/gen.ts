@@ -1,5 +1,5 @@
 import pveapi from './pveapi';
-import { pveApiNode, PveCallParameters, PveCallDesc, PveParametersArray, PveParametersObject } from './pveapiModel';
+import { pveApiNode, PveCallParameters, PveCallDesc, PveParametersArray, PveParametersObject, PveHttpMtd, PveParametersUndef } from './pveapiModel';
 import fs from 'fs';
 import path from 'path';
 
@@ -66,7 +66,6 @@ export class Generator {
     getNewType(): string[] {
         return Object.values(this.usedNamed);
     }
-
 
     mapType2(pveType: PveCallParameters, name: string): string {
         name = name.replace(/-/g, '');
@@ -214,12 +213,11 @@ export class Generator {
             this.code.push(`${lineOffset0}${protectFieldName(text)}: {`);
         }
         const lineOffset = lineOffset0 + '    ';
+        //if (path === '/nodes/{node}/qemu/{vmid}/vncproxy')
+        //    debugger;
         if (info) {
-            for (const mtd of ['DELETE', 'GET', 'POST', 'PUT'] as const) {
-                const data = info[mtd];
-                if (!data)
-                    continue;
-                const theInfo: PveCallDesc = data;
+            for (const mtd of Object.keys(info)) {
+                const theInfo: PveCallDesc = info[mtd as PveHttpMtd] as PveCallDesc;
                 this.code.push(`${lineOffset}/**`);
                 this.code.push(`${lineOffset} * ${theInfo.description}`);
 
@@ -271,7 +269,7 @@ export class Generator {
                     pTxt = `param${allOptional}: { ${params.join(', ')} }`;
                 // if (path === '/nodes/{node}/qemu/{vmid}/status/current')
                 //    debugger;
-                let returnType = this.mapsReturn(theInfo, path, data.returns.additionalProperties);
+                let returnType = this.mapsReturn(theInfo, path, theInfo.returns.additionalProperties);
                 this.code.push(`${lineOffset}$${mtd.toLowerCase()}(${pTxt}): Promise<${this.mapType(returnType)}>;`);
             }
         }
@@ -284,7 +282,7 @@ export class Generator {
         this.code.push(`${lineOffset0}}${extraSemicon}`);
     }
 
-    genModelObject(info: PveParametersObject, lineOffset0: string, additionalProperties?: 0 | 1): string {
+    genModelObject(info: PveParametersObject | PveParametersUndef, lineOffset0: string, additionalProperties?: 0 | 1): string {
         if (!info.properties)
             return 'any'; // no data ...
         let lines: string[] = [];
@@ -406,6 +404,16 @@ export class Generator {
                 fullType = this.genModelArray(returns, `${TAB}`);
             }
         } else if (returns.type === 'object') {
+            fullType = this.genModelObject(returns, `${TAB}`, additionalProperties || 1);
+        } else if (returns.type === 'number') {
+            return 'number' + retTypeOptfix
+        } else if (returns.type === 'integer') {
+            return 'number' + retTypeOptfix
+        } else if (returns.type === 'boolean') {
+            return 'boolean' + retTypeOptfix
+        } else if (returns.type === 'string') {
+            return 'string' + retTypeOptfix
+        } else if (returns.properties) {
             fullType = this.genModelObject(returns, `${TAB}`, additionalProperties || 1);
         }
         if (fullType === 'any') {

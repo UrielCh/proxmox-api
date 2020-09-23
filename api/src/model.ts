@@ -3094,10 +3094,74 @@ export namespace Proxmox {
          */
         [additionalProperties: string]: any;
     }
+    export interface nodesQemuVncproxyVncproxy {
+        /**
+         */
+        cert: string;
+        /**
+         * Returned if requested with 'generate-password' param. Consists of printable ASCII characters ('!' .. '~').
+         */
+        password?: string;
+        /**
+         */
+        port: number;
+        /**
+         */
+        ticket: string;
+        /**
+         */
+        upid: string;
+        /**
+         */
+        user: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    export interface nodesQemuTermproxyTermproxy {
+        /**
+         */
+        port: number;
+        /**
+         */
+        ticket: string;
+        /**
+         */
+        upid: string;
+        /**
+         */
+        user: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
     export interface nodesQemuVncwebsocketVncwebsocket {
         /**
          */
         port: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    export interface nodesQemuSpiceproxySpiceproxy {
+        /**
+         */
+        host: string;
+        /**
+         */
+        password: string;
+        /**
+         */
+        proxy: string;
+        /**
+         */
+        'tls-port': number;
+        /**
+         */
+        type: string;
         /**
          * additionalProperties
          */
@@ -3780,10 +3844,70 @@ export namespace Proxmox {
          */
         [additionalProperties: string]: any;
     }
+    export interface nodesLxcVncproxyVncproxy {
+        /**
+         */
+        cert: string;
+        /**
+         */
+        port: number;
+        /**
+         */
+        ticket: string;
+        /**
+         */
+        upid: string;
+        /**
+         */
+        user: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    export interface nodesLxcTermproxyTermproxy {
+        /**
+         */
+        port: number;
+        /**
+         */
+        ticket: string;
+        /**
+         */
+        upid: string;
+        /**
+         */
+        user: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
     export interface nodesLxcVncwebsocketVncwebsocket {
         /**
          */
         port: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    export interface nodesLxcSpiceproxySpiceproxy {
+        /**
+         */
+        host: string;
+        /**
+         */
+        password: string;
+        /**
+         */
+        proxy: string;
+        /**
+         */
+        'tls-port': number;
+        /**
+         */
+        type: string;
         /**
          * additionalProperties
          */
@@ -5083,10 +5207,70 @@ export namespace Proxmox {
          */
         [additionalProperties: string]: any;
     }
+    export interface nodesVncshellVncshell {
+        /**
+         */
+        cert: string;
+        /**
+         */
+        port: number;
+        /**
+         */
+        ticket: string;
+        /**
+         */
+        upid: string;
+        /**
+         */
+        user: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    export interface nodesTermproxyTermproxy {
+        /**
+         */
+        port: number;
+        /**
+         */
+        ticket: string;
+        /**
+         */
+        upid: string;
+        /**
+         */
+        user: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
     export interface nodesVncwebsocketVncwebsocket {
         /**
          */
         port: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    export interface nodesSpiceshellSpiceshell {
+        /**
+         */
+        host: string;
+        /**
+         */
+        password: string;
+        /**
+         */
+        proxy: string;
+        /**
+         */
+        'tls-port': number;
+        /**
+         */
+        type: string;
         /**
          * additionalProperties
          */
@@ -5697,7 +5881,7 @@ export namespace Proxmox {
                  * POST /cluster/config
                  * @allowtoken 1
                  */
-                $post(param: { clustername: pvenode_1, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, votes?: integer_Min1 }): Promise<any>;
+                $post(param: { clustername: pvenode_1, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, votes?: integer_Min1 }): Promise<string>;
                 apiversion: {
                     /**
                      * Return the version of the cluster join API available on this node.
@@ -5705,7 +5889,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(): Promise<any>;
+                    $get(): Promise<number>;
                 },
                 nodes: {
                     /**
@@ -5743,7 +5927,7 @@ export namespace Proxmox {
                      * POST /cluster/config/join
                      * @allowtoken 1
                      */
-                    $post(param: { fingerprint: Tfingerprint, force?: boolean, hostname: string, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, password: String0_128, votes?: integer_Min0 }): Promise<any>;
+                    $post(param: { fingerprint: Tfingerprint, force?: boolean, hostname: string, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, password: String0_128, votes?: integer_Min0 }): Promise<string>;
                 },
                 totem: {
                     /**
@@ -6063,7 +6247,7 @@ export namespace Proxmox {
                  * GET /cluster/backupinfo
                  * @allowtoken 1
                  */
-                $get(): Promise<any>;
+                $get(): Promise<string>;
                 not_backed_up: {
                     /**
                      * Shows all guests which are not covered by any backup job.
@@ -6266,14 +6450,14 @@ export namespace Proxmox {
                      * POST /cluster/acme/account
                      * @allowtoken 1
                      */
-                    $post(param: { contact: emaillist, directory?: Tdirectory, name?: pveconfigid, tos_url?: string }): Promise<any>;
+                    $post(param: { contact: emaillist, directory?: Tdirectory, name?: pveconfigid, tos_url?: string }): Promise<string>;
                     $(name: string): {
                         /**
                          * Deactivate existing ACME account at CA.
                          * DELETE /cluster/acme/account/{name}
                          * @allowtoken 1
                          */
-                        $delete(): Promise<any>;
+                        $delete(): Promise<string>;
                         /**
                          * Return existing ACME account information.
                          * GET /cluster/acme/account/{name}
@@ -6285,7 +6469,7 @@ export namespace Proxmox {
                          * PUT /cluster/acme/account/{name}
                          * @allowtoken 1
                          */
-                        $put(param?: { contact?: emaillist }): Promise<any>;
+                        $put(param?: { contact?: emaillist }): Promise<string>;
                     };
                 },
                 tos: {
@@ -6295,7 +6479,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
-                    $get(param?: { directory?: Tdirectory }): Promise<any>;
+                    $get(param?: { directory?: Tdirectory }): Promise<string>;
                 },
                 directories: {
                     /**
@@ -6356,7 +6540,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $put(param?: { nobackfill?: boolean, 'nodeep-scrub'?: boolean, nodown?: boolean, noin?: boolean, noout?: boolean, norebalance?: boolean, norecover?: boolean, noscrub?: boolean, notieragent?: boolean, noup?: boolean, pause?: boolean }): Promise<any>;
+                    $put(param?: { nobackfill?: boolean, 'nodeep-scrub'?: boolean, nodown?: boolean, noin?: boolean, noout?: boolean, norebalance?: boolean, norecover?: boolean, noscrub?: boolean, notieragent?: boolean, noup?: boolean, pause?: boolean }): Promise<string>;
                     $(flag: string): {
                         /**
                          * Get the status of a specific ceph flag.
@@ -6364,7 +6548,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
-                        $get(): Promise<any>;
+                        $get(): Promise<boolean>;
                         /**
                          * Set or clear (unset) a specific ceph flag
                          * PUT /cluster/ceph/flags/{flag}
@@ -6389,7 +6573,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/sdn",["SDN.Allocate"]]}
                  */
-                $put(): Promise<any>;
+                $put(): Promise<string>;
                 vnets: {
                     /**
                      * SDN vnets index.
@@ -6567,7 +6751,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"user":"all"}
                  */
-                $get(param?: { vmid?: pvevmid }): Promise<any>;
+                $get(param?: { vmid?: pvevmid }): Promise<number>;
             },
         },
         nodes: {
@@ -6600,7 +6784,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"You need 'VM.Allocate' permissions on /vms/{vmid} or on the VM pool /pool/{pool}. For restore (option 'archive'), it is enough if the user has 'VM.Backup' permission and the VM already exists. If you create disks you need 'Datastore.AllocateSpace' on any used storage.","user":"all"}
                      */
-                    $post(param: { acpi?: boolean, agent?: Tagent, arch?: Tarch, archive?: String0_255, args?: string, audio0?: Taudio0, autostart?: boolean, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, bwlimit?: integer_Min0, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, description?: string, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, pool?: pvepoolid, protection?: boolean, reboot?: boolean, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, start?: boolean, startdate?: Tstartdate, startup?: pvestartuporder, storage?: pvestorageid, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, unique?: boolean, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmid: pvevmid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<any>;
+                    $post(param: { acpi?: boolean, agent?: Tagent, arch?: Tarch, archive?: String0_255, args?: string, audio0?: Taudio0, autostart?: boolean, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, bwlimit?: integer_Min0, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, description?: string, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, pool?: pvepoolid, protection?: boolean, reboot?: boolean, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, start?: boolean, startdate?: Tstartdate, startup?: pvestartuporder, storage?: pvestorageid, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, unique?: boolean, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmid: pvevmid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<string>;
                     $(vmid: number): {
                         /**
                          * Destroy the vm (also delete all used/owned volumes).
@@ -6608,7 +6792,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]]}
                          */
-                        $delete(param?: { purge?: boolean, skiplock?: boolean }): Promise<any>;
+                        $delete(param?: { purge?: boolean, skiplock?: boolean }): Promise<string>;
                         /**
                          * Directory index
                          * GET /nodes/{node}/qemu/{vmid}
@@ -7072,7 +7256,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CDROM","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.HWType","VM.Config.Options","VM.Config.Cloudinit"],"any",1]}
                              */
-                            $post(param?: { acpi?: boolean, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: boolean, background_delay?: integer1_30, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: boolean, reboot?: boolean, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: boolean, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<any>;
+                            $post(param?: { acpi?: boolean, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: boolean, background_delay?: integer1_30, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: boolean, reboot?: boolean, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: boolean, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<string>;
                             /**
                              * Set virtual machine options (synchrounous API) - You should consider using the POST method instead for any actions involving hotplug or storage allocation.
                              * PUT /nodes/{node}/qemu/{vmid}/config
@@ -7106,7 +7290,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
-                            $post(param?: { 'generate-password'?: boolean, websocket?: boolean }): Promise<any>;
+                            $post(param?: { 'generate-password'?: boolean, websocket?: boolean }): Promise<nodesQemuVncproxyVncproxy>;
                         },
                         termproxy: {
                             /**
@@ -7115,7 +7299,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
-                            $post(param?: { serial?: Tserial_1 }): Promise<any>;
+                            $post(param?: { serial?: Tserial_1 }): Promise<nodesQemuTermproxyTermproxy>;
                         },
                         vncwebsocket: {
                             /**
@@ -7133,7 +7317,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
-                            $post(param?: { proxy?: address }): Promise<any>;
+                            $post(param?: { proxy?: address }): Promise<nodesQemuSpiceproxySpiceproxy>;
                         },
                         status: {
                             /**
@@ -7159,7 +7343,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { 'force-cpu'?: string, machine?: Tmachine, migratedfrom?: pvenode, migration_network?: CIDR, migration_type?: Tmigration_type, skiplock?: boolean, stateuri?: String0_128, targetstorage?: storagepairlist, timeout?: integer_Min0 }): Promise<any>;
+                                $post(param?: { 'force-cpu'?: string, machine?: Tmachine, migratedfrom?: pvenode, migration_network?: CIDR, migration_type?: Tmigration_type, skiplock?: boolean, stateuri?: String0_128, targetstorage?: storagepairlist, timeout?: integer_Min0 }): Promise<string>;
                             },
                             stop: {
                                 /**
@@ -7168,7 +7352,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { keepActive?: boolean, migratedfrom?: pvenode, skiplock?: boolean, timeout?: integer_Min0 }): Promise<any>;
+                                $post(param?: { keepActive?: boolean, migratedfrom?: pvenode, skiplock?: boolean, timeout?: integer_Min0 }): Promise<string>;
                             },
                             reset: {
                                 /**
@@ -7177,7 +7361,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { skiplock?: boolean }): Promise<any>;
+                                $post(param?: { skiplock?: boolean }): Promise<string>;
                             },
                             shutdown: {
                                 /**
@@ -7186,7 +7370,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { forceStop?: boolean, keepActive?: boolean, skiplock?: boolean, timeout?: integer_Min0 }): Promise<any>;
+                                $post(param?: { forceStop?: boolean, keepActive?: boolean, skiplock?: boolean, timeout?: integer_Min0 }): Promise<string>;
                             },
                             reboot: {
                                 /**
@@ -7195,7 +7379,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { timeout?: integer_Min0 }): Promise<any>;
+                                $post(param?: { timeout?: integer_Min0 }): Promise<string>;
                             },
                             suspend: {
                                 /**
@@ -7204,7 +7388,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]],"description":"You need 'VM.PowerMgmt' on /vms/{vmid}, and if you have set 'todisk', you need also 'VM.Config.Disk' on /vms/{vmid} and 'Datastore.AllocateSpace' on the storage for the vmstate."}
                                  */
-                                $post(param?: { skiplock?: boolean, statestorage?: pvestorageid, todisk?: boolean }): Promise<any>;
+                                $post(param?: { skiplock?: boolean, statestorage?: pvestorageid, todisk?: boolean }): Promise<string>;
                             },
                             resume: {
                                 /**
@@ -7213,7 +7397,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { nocheck?: boolean, skiplock?: boolean }): Promise<any>;
+                                $post(param?: { nocheck?: boolean, skiplock?: boolean }): Promise<string>;
                             },
                         },
                         sendkey: {
@@ -7241,7 +7425,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Clone"]],["or",["perm","/vms/{newid}",["VM.Allocate"]],["perm","/pool/{pool}",["VM.Allocate"],"require_param","pool"]]],"description":"You need 'VM.Clone' permissions on /vms/{vmid}, and 'VM.Allocate' permissions on /vms/{newid} (or on the VM pool /pool/{pool}). You also need 'Datastore.AllocateSpace' on any used storage."}
                              */
-                            $post(param: { bwlimit?: integer_Min0, description?: string, format?: Tformat, full?: boolean, name?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode }): Promise<any>;
+                            $post(param: { bwlimit?: integer_Min0, description?: string, format?: Tformat, full?: boolean, name?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode }): Promise<string>;
                         },
                         move_disk: {
                             /**
@@ -7250,7 +7434,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Config.Disk"]],["perm","/storage/{storage}",["Datastore.AllocateSpace"]]],"description":"You need 'VM.Config.Disk' permissions on /vms/{vmid}, and 'Datastore.AllocateSpace' permissions on the storage."}
                              */
-                            $post(param: { bwlimit?: integer_Min0, delete?: boolean, digest?: String0_40, disk: Tdisk, format?: Tformat, storage: pvestorageid }): Promise<any>;
+                            $post(param: { bwlimit?: integer_Min0, delete?: boolean, digest?: String0_40, disk: Tdisk, format?: Tformat, storage: pvestorageid }): Promise<string>;
                         },
                         migrate: {
                             /**
@@ -7266,7 +7450,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
                              */
-                            $post(param: { bwlimit?: integer_Min0, force?: boolean, migration_network?: CIDR, migration_type?: Tmigration_type, online?: boolean, target: pvenode, targetstorage?: storagepairlist, 'with-local-disks'?: boolean }): Promise<any>;
+                            $post(param: { bwlimit?: integer_Min0, force?: boolean, migration_network?: CIDR, migration_type?: Tmigration_type, online?: boolean, target: pvenode, targetstorage?: storagepairlist, 'with-local-disks'?: boolean }): Promise<string>;
                         },
                         monitor: {
                             /**
@@ -7275,7 +7459,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]],"description":"Sys.Modify is required for (sub)commands which are not read-only ('info *' and 'help')"}
                              */
-                            $post(param: { command: string }): Promise<any>;
+                            $post(param: { command: string }): Promise<string>;
                         },
                         resize: {
                             /**
@@ -7300,7 +7484,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                              */
-                            $post(param: { description?: string, snapname: pveconfigid_3, vmstate?: boolean }): Promise<any>;
+                            $post(param: { description?: string, snapname: pveconfigid_3, vmstate?: boolean }): Promise<string>;
                             $(snapname: string): {
                                 /**
                                  * Delete a VM snapshot.
@@ -7308,7 +7492,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                                  */
-                                $delete(param?: { force?: boolean }): Promise<any>;
+                                $delete(param?: { force?: boolean }): Promise<string>;
                                 /**
                                  * 
                                  * @allowtoken 1
@@ -7338,7 +7522,7 @@ export namespace Proxmox {
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback"],"any",1]}
                                      */
-                                    $post(): Promise<any>;
+                                    $post(): Promise<string>;
                                 },
                             };
                         },
@@ -7359,7 +7543,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
-                                $get(param: { type: Ttype_10 }): Promise<any>;
+                                $get(param: { type: Ttype_10 }): Promise<string>;
                             },
                         },
                     };
@@ -7387,7 +7571,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"You need 'VM.Allocate' permissions on /vms/{vmid} or on the VM pool /pool/{pool}. For restore, it is enough if the user has 'VM.Backup' permission and the VM already exists. You also need 'Datastore.AllocateSpace' permissions on the storage.","user":"all"}
                      */
-                    $post(param: { arch?: Tarch_1, bwlimit?: Tmigrate_downtime, cmode?: Tcmode, console?: boolean, cores?: integer1_128, cpulimit?: Tcpulimit, cpuunits?: integer0_500000, description?: string, features?: Tfeatures, force?: boolean, hookscript?: pvevolumeid, hostname?: dnsname_1, 'ignore-unpack-errors'?: boolean, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: addresslist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: boolean, ostemplate: String0_255, ostype?: Tostype_1, password?: Tpassword, pool?: pvepoolid, protection?: boolean, restore?: boolean, rootfs?: Trootfs, searchdomain?: dnsnamelist, 'ssh-public-keys'?: string, start?: boolean, startup?: pvestartuporder, storage?: pvestorageid, swap?: integer_Min0, tags?: pvetaglist, template?: boolean, timezone?: pvecttimezone, tty?: integer0_6, unique?: boolean, unprivileged?: boolean, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1, vmid: pvevmid }): Promise<any>;
+                    $post(param: { arch?: Tarch_1, bwlimit?: Tmigrate_downtime, cmode?: Tcmode, console?: boolean, cores?: integer1_128, cpulimit?: Tcpulimit, cpuunits?: integer0_500000, description?: string, features?: Tfeatures, force?: boolean, hookscript?: pvevolumeid, hostname?: dnsname_1, 'ignore-unpack-errors'?: boolean, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: addresslist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: boolean, ostemplate: String0_255, ostype?: Tostype_1, password?: Tpassword, pool?: pvepoolid, protection?: boolean, restore?: boolean, rootfs?: Trootfs, searchdomain?: dnsnamelist, 'ssh-public-keys'?: string, start?: boolean, startup?: pvestartuporder, storage?: pvestorageid, swap?: integer_Min0, tags?: pvetaglist, template?: boolean, timezone?: pvecttimezone, tty?: integer0_6, unique?: boolean, unprivileged?: boolean, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1, vmid: pvevmid }): Promise<string>;
                     $(vmid: number): {
                         /**
                          * Destroy the container (also delete all uses files).
@@ -7395,7 +7579,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]]}
                          */
-                        $delete(param?: { force?: boolean, purge?: boolean }): Promise<any>;
+                        $delete(param?: { force?: boolean, purge?: boolean }): Promise<string>;
                         /**
                          * Directory index
                          * GET /nodes/{node}/lxc/{vmid}
@@ -7443,7 +7627,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { skiplock?: boolean }): Promise<any>;
+                                $post(param?: { skiplock?: boolean }): Promise<string>;
                             },
                             stop: {
                                 /**
@@ -7452,7 +7636,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { skiplock?: boolean }): Promise<any>;
+                                $post(param?: { skiplock?: boolean }): Promise<string>;
                             },
                             shutdown: {
                                 /**
@@ -7461,7 +7645,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { forceStop?: boolean, timeout?: integer_Min0 }): Promise<any>;
+                                $post(param?: { forceStop?: boolean, timeout?: integer_Min0 }): Promise<string>;
                             },
                             suspend: {
                                 /**
@@ -7470,7 +7654,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(): Promise<any>;
+                                $post(): Promise<string>;
                             },
                             resume: {
                                 /**
@@ -7479,7 +7663,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(): Promise<any>;
+                                $post(): Promise<string>;
                             },
                             reboot: {
                                 /**
@@ -7488,7 +7672,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { timeout?: integer_Min0 }): Promise<any>;
+                                $post(param?: { timeout?: integer_Min0 }): Promise<string>;
                             },
                         },
                         snapshot: {
@@ -7505,7 +7689,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                              */
-                            $post(param: { description?: string, snapname: pveconfigid_3 }): Promise<any>;
+                            $post(param: { description?: string, snapname: pveconfigid_3 }): Promise<string>;
                             $(snapname: string): {
                                 /**
                                  * Delete a LXC snapshot.
@@ -7513,7 +7697,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                                  */
-                                $delete(param?: { force?: boolean }): Promise<any>;
+                                $delete(param?: { force?: boolean }): Promise<string>;
                                 /**
                                  * 
                                  * @allowtoken 1
@@ -7527,7 +7711,7 @@ export namespace Proxmox {
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback"],"any",1]}
                                      */
-                                    $post(): Promise<any>;
+                                    $post(): Promise<string>;
                                 },
                                 config: {
                                     /**
@@ -7755,7 +7939,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
-                            $post(param?: { height?: integer16_2160, websocket?: boolean, width?: integer16_4096 }): Promise<any>;
+                            $post(param?: { height?: integer16_2160, websocket?: boolean, width?: integer16_4096 }): Promise<nodesLxcVncproxyVncproxy>;
                         },
                         termproxy: {
                             /**
@@ -7764,7 +7948,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
-                            $post(): Promise<any>;
+                            $post(): Promise<nodesLxcTermproxyTermproxy>;
                         },
                         vncwebsocket: {
                             /**
@@ -7782,7 +7966,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
-                            $post(param?: { proxy?: address }): Promise<any>;
+                            $post(param?: { proxy?: address }): Promise<nodesLxcSpiceproxySpiceproxy>;
                         },
                         migrate: {
                             /**
@@ -7791,7 +7975,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
                              */
-                            $post(param: { bwlimit?: Tmigrate_downtime, force?: boolean, online?: boolean, restart?: boolean, target: pvenode, timeout?: integer }): Promise<any>;
+                            $post(param: { bwlimit?: Tmigrate_downtime, force?: boolean, online?: boolean, restart?: boolean, target: pvenode, timeout?: integer }): Promise<string>;
                         },
                         feature: {
                             /**
@@ -7818,7 +8002,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Clone"]],["or",["perm","/vms/{newid}",["VM.Allocate"]],["perm","/pool/{pool}",["VM.Allocate"],"require_param","pool"]]],"description":"You need 'VM.Clone' permissions on /vms/{vmid}, and 'VM.Allocate' permissions on /vms/{newid} (or on the VM pool /pool/{pool}). You also need 'Datastore.AllocateSpace' on any used storage."}
                              */
-                            $post(param: { bwlimit?: Tmigrate_downtime, description?: string, full?: boolean, hostname?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode }): Promise<any>;
+                            $post(param: { bwlimit?: Tmigrate_downtime, description?: string, full?: boolean, hostname?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode }): Promise<string>;
                         },
                         resize: {
                             /**
@@ -7827,7 +8011,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"],"any",1]}
                              */
-                            $put(param: { digest?: String0_40, disk: Tdisk_1, size: Tsize }): Promise<any>;
+                            $put(param: { digest?: String0_40, disk: Tdisk_1, size: Tsize }): Promise<string>;
                         },
                         move_volume: {
                             /**
@@ -7836,7 +8020,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Config.Disk"]],["perm","/storage/{storage}",["Datastore.AllocateSpace"]]],"description":"You need 'VM.Config.Disk' permissions on /vms/{vmid}, and 'Datastore.AllocateSpace' permissions on the storage."}
                              */
-                            $post(param: { bwlimit?: Tmigrate_downtime, delete?: boolean, digest?: String0_40, storage: pvestorageid, volume: Tdisk_1 }): Promise<any>;
+                            $post(param: { bwlimit?: Tmigrate_downtime, delete?: boolean, digest?: String0_40, storage: pvestorageid, volume: Tdisk_1 }): Promise<string>;
                         },
                         pending: {
                             /**
@@ -7870,14 +8054,14 @@ export namespace Proxmox {
                          * POST /nodes/{node}/ceph/osd
                          * @allowtoken 1
                          */
-                        $post(param: { db_dev?: string, db_size?: Trate, dev: string, encrypted?: boolean, wal_dev?: string, wal_size?: Twal_size }): Promise<any>;
+                        $post(param: { db_dev?: string, db_size?: Trate, dev: string, encrypted?: boolean, wal_dev?: string, wal_size?: Twal_size }): Promise<string>;
                         $(osdid: string): {
                             /**
                              * Destroy OSD
                              * DELETE /nodes/{node}/ceph/osd/{osdid}
                              * @allowtoken 1
                              */
-                            $delete(param?: { cleanup?: boolean }): Promise<any>;
+                            $delete(param?: { cleanup?: boolean }): Promise<string>;
                             in: {
                                 /**
                                  * ceph osd in
@@ -7922,14 +8106,14 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $delete(): Promise<any>;
+                            $delete(): Promise<string>;
                             /**
                              * Create Ceph Metadata Server (MDS)
                              * POST /nodes/{node}/ceph/mds/{name}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $post(param?: { hotstandby?: boolean }): Promise<any>;
+                            $post(param?: { hotstandby?: boolean }): Promise<string>;
                         };
                     },
                     mgr: {
@@ -7947,14 +8131,14 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $delete(): Promise<any>;
+                            $delete(): Promise<string>;
                             /**
                              * Create Ceph Manager
                              * POST /nodes/{node}/ceph/mgr/{id}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $post(): Promise<any>;
+                            $post(): Promise<string>;
                         };
                     },
                     mon: {
@@ -7972,14 +8156,14 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $delete(): Promise<any>;
+                            $delete(): Promise<string>;
                             /**
                              * Create Ceph Monitor and Manager
                              * POST /nodes/{node}/ceph/mon/{monid}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $post(param?: { 'mon-address'?: ip }): Promise<any>;
+                            $post(param?: { 'mon-address'?: ip }): Promise<string>;
                         };
                     },
                     fs: {
@@ -7997,7 +8181,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $post(param?: { 'add-storage'?: boolean, pg_num?: integer8_32768 }): Promise<any>;
+                            $post(param?: { 'add-storage'?: boolean, pg_num?: integer8_32768 }): Promise<string>;
                         };
                     },
                     disks: {
@@ -8016,7 +8200,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
-                        $get(): Promise<any>;
+                        $get(): Promise<string>;
                     },
                     configdb: {
                         /**
@@ -8043,7 +8227,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param?: { service?: Tservice }): Promise<any>;
+                        $post(param?: { service?: Tservice }): Promise<string>;
                     },
                     start: {
                         /**
@@ -8052,7 +8236,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param?: { service?: Tservice }): Promise<any>;
+                        $post(param?: { service?: Tservice }): Promise<string>;
                     },
                     restart: {
                         /**
@@ -8061,7 +8245,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param?: { service?: Tservice_1 }): Promise<any>;
+                        $post(param?: { service?: Tservice_1 }): Promise<string>;
                     },
                     status: {
                         /**
@@ -8086,7 +8270,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param: { add_storages?: boolean, application?: Tapplication, crush_rule?: string, min_size?: integer1_7, name: string, pg_num?: integer8_32768, size?: integer1_7 }): Promise<any>;
+                        $post(param: { add_storages?: boolean, application?: Tapplication, crush_rule?: string, min_size?: integer1_7, name: string, pg_num?: integer8_32768, size?: integer1_7 }): Promise<string>;
                         $(name: string): {
                             /**
                              * Destroy pool
@@ -8094,7 +8278,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $delete(param?: { force?: boolean, remove_storages?: boolean }): Promise<any>;
+                            $delete(param?: { force?: boolean, remove_storages?: boolean }): Promise<string>;
                         };
                     },
                     flags: {
@@ -8104,7 +8288,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
-                        $get(): Promise<any>;
+                        $get(): Promise<string>;
                         $(flag: string): {
                             /**
                              * Unset a ceph flag
@@ -8129,7 +8313,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
-                        $get(): Promise<any>;
+                        $get(): Promise<string>;
                     },
                     log: {
                         /**
@@ -8157,7 +8341,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"The user needs 'VM.Backup' permissions on any VM, and 'Datastore.AllocateSpace' on the backup storage. The 'maxfiles', 'tmpdir', 'dumpdir', 'script', 'bwlimit' and 'ionice' parameters are restricted to the 'root@pam' user.","user":"all"}
                      */
-                    $post(param?: { all?: boolean, bwlimit?: integer_Min0, compress?: Tcompress, dumpdir?: string, exclude?: pvevmidlist, 'exclude-path'?: stringalist, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: stringlist, maxfiles?: integer_Min1, mode?: Tmode, pigz?: integer, pool?: string, quiet?: boolean, remove?: boolean, script?: string, size?: integer_Min500, stdexcludes?: boolean, stdout?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<any>;
+                    $post(param?: { all?: boolean, bwlimit?: integer_Min0, compress?: Tcompress, dumpdir?: string, exclude?: pvevmidlist, 'exclude-path'?: stringalist, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: stringlist, maxfiles?: integer_Min1, mode?: Tmode, pigz?: integer, pool?: string, quiet?: boolean, remove?: boolean, script?: string, size?: integer_Min500, stdexcludes?: boolean, stdout?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<string>;
                     extractconfig: {
                         /**
                          * Extract configuration from vzdump backup archive.
@@ -8165,7 +8349,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"description":"The user needs 'VM.Backup' permissions on the backed up guest ID, and 'Datastore.AllocateSpace' on the backup storage.","user":"all"}
                          */
-                        $get(param: { volume: string }): Promise<any>;
+                        $get(param: { volume: string }): Promise<string>;
                     },
                 },
                 services: {
@@ -8200,7 +8384,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
-                            $post(): Promise<any>;
+                            $post(): Promise<string>;
                         },
                         stop: {
                             /**
@@ -8209,7 +8393,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
-                            $post(): Promise<any>;
+                            $post(): Promise<string>;
                         },
                         restart: {
                             /**
@@ -8218,7 +8402,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
-                            $post(): Promise<any>;
+                            $post(): Promise<string>;
                         },
                         reload: {
                             /**
@@ -8227,7 +8411,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
-                            $post(): Promise<any>;
+                            $post(): Promise<string>;
                         },
                     };
                 },
@@ -8289,7 +8473,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $put(): Promise<any>;
+                    $put(): Promise<string>;
                     $(iface: string): {
                         /**
                          * Delete network device configuration
@@ -8502,7 +8686,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateSpace"]]}
                              */
-                            $post(param: { filename: string, format?: Tformat_1, size: Tsize_1, vmid: pvevmid }): Promise<any>;
+                            $post(param: { filename: string, format?: Tformat_1, size: Tsize_1, vmid: pvevmid }): Promise<string>;
                             $(volume: string): {
                                 /**
                                  * Delete volume
@@ -8510,7 +8694,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"description":"You need 'Datastore.Allocate' privilege on the storage (or 'Datastore.AllocateSpace' for backup volumes if you have VM.Backup privilege on the VM).","user":"all"}
                                  */
-                                $delete(param?: { delay?: integer1_30 }): Promise<any>;
+                                $delete(param?: { delay?: integer1_30 }): Promise<string>;
                                 /**
                                  * Get volume attributes
                                  * GET /nodes/{node}/storage/{storage}/content/{volume}
@@ -8523,7 +8707,7 @@ export namespace Proxmox {
                                  * POST /nodes/{node}/storage/{storage}/content/{volume}
                                  * @allowtoken 1
                                  */
-                                $post(param: { target: string, target_node?: pvenode }): Promise<any>;
+                                $post(param: { target: string, target_node?: pvenode }): Promise<string>;
                             };
                         },
                         status: {
@@ -8560,7 +8744,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateTemplate"]]}
                              */
-                            $post(param: { content: pvestoragecontent, filename: string, tmpfilename?: string }): Promise<any>;
+                            $post(param: { content: pvestoragecontent, filename: string, tmpfilename?: string }): Promise<string>;
                         },
                     };
                 },
@@ -8586,7 +8770,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                          */
-                        $post(param: { add_storage?: boolean, device: string, name: pvestorageid }): Promise<any>;
+                        $post(param: { add_storage?: boolean, device: string, name: pvestorageid }): Promise<string>;
                     },
                     lvmthin: {
                         /**
@@ -8602,7 +8786,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                          */
-                        $post(param: { add_storage?: boolean, device: string, name: pvestorageid }): Promise<any>;
+                        $post(param: { add_storage?: boolean, device: string, name: pvestorageid }): Promise<string>;
                     },
                     directory: {
                         /**
@@ -8618,7 +8802,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                          */
-                        $post(param: { add_storage?: boolean, device: string, filesystem?: Tfilesystem, name: pvestorageid }): Promise<any>;
+                        $post(param: { add_storage?: boolean, device: string, filesystem?: Tfilesystem, name: pvestorageid }): Promise<string>;
                     },
                     zfs: {
                         /**
@@ -8634,7 +8818,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                          */
-                        $post(param: { add_storage?: boolean, ashift?: integer9_16, compression?: Tcompression, devices: stringlist, name: pvestorageid, raidlevel: Traidlevel }): Promise<any>;
+                        $post(param: { add_storage?: boolean, ashift?: integer9_16, compression?: Tcompression, devices: stringlist, name: pvestorageid, raidlevel: Traidlevel }): Promise<string>;
                         $(name: string): {
                             /**
                              * Get details about a zpool.
@@ -8670,7 +8854,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param: { disk: Tdisk_2, uuid?: Tuuid }): Promise<any>;
+                        $post(param: { disk: Tdisk_2, uuid?: Tuuid }): Promise<string>;
                     },
                 },
                 apt: {
@@ -8695,7 +8879,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $post(param?: { notify?: boolean, quiet?: boolean }): Promise<any>;
+                        $post(param?: { notify?: boolean, quiet?: boolean }): Promise<string>;
                     },
                     changelog: {
                         /**
@@ -8704,7 +8888,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $get(param: { name: string, version?: string }): Promise<any>;
+                        $get(param: { name: string, version?: string }): Promise<string>;
                     },
                     versions: {
                         /**
@@ -8830,7 +9014,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                              */
-                            $post(): Promise<any>;
+                            $post(): Promise<string>;
                         },
                     };
                 },
@@ -8857,21 +9041,21 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
-                            $delete(): Promise<any>;
+                            $delete(): Promise<string>;
                             /**
                              * Order a new certificate from ACME-compatible CA.
                              * POST /nodes/{node}/certificates/acme/certificate
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
-                            $post(param?: { force?: boolean }): Promise<any>;
+                            $post(param?: { force?: boolean }): Promise<string>;
                             /**
                              * Renew existing certificate from CA.
                              * PUT /nodes/{node}/certificates/acme/certificate
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
-                            $put(param?: { force?: boolean }): Promise<any>;
+                            $put(param?: { force?: boolean }): Promise<string>;
                         },
                     },
                     info: {
@@ -9001,7 +9185,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.PowerMgmt"]]}
                      */
-                    $post(): Promise<any>;
+                    $post(): Promise<string>;
                 },
                 rrd: {
                     /**
@@ -9046,7 +9230,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                      */
-                    $post(param?: { cmd?: Tcmd, height?: integer16_2160, upgrade?: boolean, websocket?: boolean, width?: integer16_4096 }): Promise<any>;
+                    $post(param?: { cmd?: Tcmd, height?: integer16_2160, upgrade?: boolean, websocket?: boolean, width?: integer16_4096 }): Promise<nodesVncshellVncshell>;
                 },
                 termproxy: {
                     /**
@@ -9055,7 +9239,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                      */
-                    $post(param?: { cmd?: Tcmd, upgrade?: boolean }): Promise<any>;
+                    $post(param?: { cmd?: Tcmd, upgrade?: boolean }): Promise<nodesTermproxyTermproxy>;
                 },
                 vncwebsocket: {
                     /**
@@ -9073,7 +9257,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                      */
-                    $post(param?: { cmd?: Tcmd, proxy?: address, upgrade?: boolean }): Promise<any>;
+                    $post(param?: { cmd?: Tcmd, proxy?: address, upgrade?: boolean }): Promise<nodesSpiceshellSpiceshell>;
                 },
                 dns: {
                     /**
@@ -9121,7 +9305,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateTemplate"]]}
                      */
-                    $post(param: { storage: pvestorageid, template: String0_255 }): Promise<any>;
+                    $post(param: { storage: pvestorageid, template: String0_255 }): Promise<string>;
                 },
                 report: {
                     /**
@@ -9130,7 +9314,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
-                    $get(): Promise<any>;
+                    $get(): Promise<string>;
                 },
                 startall: {
                     /**
@@ -9139,7 +9323,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["VM.PowerMgmt"]]}
                      */
-                    $post(param?: { force?: boolean, vms?: pvevmidlist }): Promise<any>;
+                    $post(param?: { force?: boolean, vms?: pvevmidlist }): Promise<string>;
                 },
                 stopall: {
                     /**
@@ -9148,7 +9332,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["VM.PowerMgmt"]]}
                      */
-                    $post(param?: { vms?: pvevmidlist }): Promise<any>;
+                    $post(param?: { vms?: pvevmidlist }): Promise<string>;
                 },
                 migrateall: {
                     /**
@@ -9157,7 +9341,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["VM.Migrate"]]}
                      */
-                    $post(param: { maxworkers?: integer_Min1, target: pvenode, vms?: pvevmidlist, 'with-local-disks'?: boolean }): Promise<any>;
+                    $post(param: { maxworkers?: integer_Min1, target: pvenode, vms?: pvevmidlist, 'with-local-disks'?: boolean }): Promise<string>;
                 },
                 hosts: {
                     /**
@@ -9449,7 +9633,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"]]],"description":"'Realm.AllocateUser' on '/access/realm/<realm>' and  'User.Modify' permissions to '/access/groups/'."}
                          */
-                        $post(param?: { 'dry-run'?: boolean, 'enable-new'?: boolean, full?: boolean, purge?: boolean, scope?: Tscope_1 }): Promise<any>;
+                        $post(param?: { 'dry-run'?: boolean, 'enable-new'?: boolean, full?: boolean, purge?: boolean, scope?: Tscope_1 }): Promise<string>;
                     },
                 };
             },

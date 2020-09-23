@@ -1,3 +1,4 @@
+export type PveHttpMtd = "DELETE" | 'GET' | 'PUT' | 'POST';
 
 export interface PveCommon {
     description?: string;
@@ -111,7 +112,8 @@ export interface PveParametersObject extends PveParametersCommon {
 }
 
 export interface PveParametersUndef extends PveParametersCommon {
-    type?: '';
+    type?: never;
+    properties?: { [name: string]: PveParametersString | PveParametersArray | PveParametersBoolean | PveParametersObject | PveParametersInteger | PveParametersNumber};
 }
 
 export type PveCallParameters = PveParametersNumber | PveParametersInteger | PveParametersString | PveParametersBoolean | PveCallParametersNull | PveParametersArray | PveParametersObject | PveParametersUndef;
@@ -121,7 +123,7 @@ export type PceCheck = 1 | string | PceCheck[];
 export interface PveCallDesc {
     allowtoken: 0 | 1;
     description: string;
-    method: "DELETE" | 'GET' | 'PUT' | 'POST',
+    method: PveHttpMtd,
     name: string,
     parameters: {
         additionalProperties: 0 | 1;
@@ -139,7 +141,7 @@ export interface PveCallDesc {
 }
 export interface pveApiNode {
     children?: pveApiNode[];
-    info?: {
+    info?: { //  {[key in PveHttpMtd]: PveCallDesc}
         DELETE?: PveCallDesc;
         GET?: PveCallDesc;
         PUT?: PveCallDesc;
