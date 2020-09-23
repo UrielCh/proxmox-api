@@ -17506,7 +17506,7 @@ const pveapi: pveApiNode[] = [
                                               "type" : "string"
                                            },
                                            "port" : {
-                                              "type" : "integer"
+                                              "type" : "string" // URIEL CHANGE from integer
                                            },
                                            "ticket" : {
                                               "type" : "string"

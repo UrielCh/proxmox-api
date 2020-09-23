@@ -3104,7 +3104,7 @@ export namespace Proxmox {
         password?: string;
         /**
          */
-        port: number;
+        port: string;
         /**
          */
         ticket: string;
