@@ -17716,8 +17716,36 @@ const pveapi: pveApiNode[] = [
                                               "type" : "integer"
                                            },
                                            "type" : {
-                                              "type" : "string"
-                                           }
+                                             "type" : "string"
+                                          },
+                                          "toggle-fullscreen" : { // URIEL ADDED
+                                             "type" : "string",
+                                             "optional": 1
+                                          },
+                                          "ca" : { // URIEL ADDED
+                                             "type" : "string",
+                                             "optional": 1
+                                          },
+                                          "title" : { // URIEL ADDED
+                                             "type" : "string",
+                                             "optional": 1
+                                          },
+                                          "delete-this-file" : { // URIEL ADDED
+                                             "type" : "number",
+                                             "optional": 1
+                                          },
+                                          "host-subject" : { // URIEL ADDED
+                                             "type" : "string",
+                                             "optional": 1
+                                          },
+                                          "release-cursor" : { // URIEL ADDED
+                                             "type" : "string",
+                                             "optional": 1
+                                          },
+                                          "secure-attention" : { // URIEL ADDED
+                                             "type" : "string",
+                                             "optional": 1
+                                          }
                                         }
                                      }
                                   }

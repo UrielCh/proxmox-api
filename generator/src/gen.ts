@@ -269,7 +269,7 @@ export class Generator {
                     pTxt = `param${allOptional}: { ${params.join(', ')} }`;
                 // if (path === '/nodes/{node}/qemu/{vmid}/status/current')
                 //    debugger;
-                let returnType = this.mapsReturn(theInfo, path, theInfo.returns.additionalProperties);
+                let returnType = this.mapsReturn(node, theInfo, path);
                 this.code.push(`${lineOffset}$${mtd.toLowerCase()}(${pTxt}): Promise<${this.mapType(returnType)}>;`);
             }
         }
@@ -362,8 +362,9 @@ export class Generator {
         return 'any[]';
     }
 
-    mapsReturn(theInfo: PveCallDesc, path: string, additionalProperties?: 0 | 1): string {
+    mapsReturn(node: pveApiNode, theInfo: PveCallDesc, path: string): string {
         const returns = theInfo.returns;
+        const additionalProperties = theInfo.returns.additionalProperties;
         if (!returns)
             return 'void';
         if (returns.type === 'null') {
@@ -422,6 +423,9 @@ export class Generator {
             // this.retTypes.push(`export type ${TypeName} = ${fullType};`);
         }
         else {
+            this.retTypes.push(`${TAB}/**`);
+            this.retTypes.push(`${TAB} * Returned by ${theInfo.method} ${node.path}`);
+            this.retTypes.push(`${TAB} */`);
             this.retTypes.push(`${TAB}export interface ${typeName} ${fullType}`);
         }
         return typeName + retTypeOptfix;
