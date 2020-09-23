@@ -102,7 +102,7 @@ export interface PveParametersArray extends PveParametersCommon {
     type: "array";
     // if not set use a PveParametersString
     items?: PveParametersObject | PveParametersString | PveParametersArray | PveParametersNumber, // subset of PveCallParameters,
-    links?: { "href": string, "rel": "child" }[];
+    links?: { href: string, rel: "child" }[];
     renderer?: 'yaml';
 }
 

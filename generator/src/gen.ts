@@ -292,20 +292,24 @@ export class Generator {
             const prop = info.properties[pname];
             let line = [] as string[];
             for (const propName of unNify(pname)) {
-                line.push(`${lineOffset}/**`);
+                const comments = [];
                 if (prop.verbose_description) {
                     for (let entry of prop.verbose_description.split(/[\r\n]+/g)) {
                         entry = entry.trim();
                         if (entry)
-                            line.push(`${lineOffset} * ${entry.trim()}`);
+                            comments.push(entry)
                     }
-                } else
+                } else {
                     if (prop.description) {
                         for (const entry of prop.description.split(/[\r\n]+/g))
-                            line.push(`${lineOffset} * ${entry.trim()}`);
+                            comments.push(entry)
                     }
-
-                line.push(`${lineOffset} */`);
+                }
+                if (comments.length) {
+                    line.push(`${lineOffset}/**`);
+                    comments.forEach(e => line.push(`${lineOffset} * ${e.trim()}`));
+                    line.push(`${lineOffset} */`);
+                }
                 let opt = prop.optional ? '?' : '';
                 // if (prop.additionalProperties) // TODO
                 let fullType = 'any';

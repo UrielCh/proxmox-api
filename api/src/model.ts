@@ -1404,8 +1404,6 @@ export namespace Proxmox {
      * Returned by GET /cluster/config/nodes
      */
     export interface clusterConfigNodesNodes {
-        /**
-         */
         node: string;
         /**
          * additionalProperties
@@ -1416,14 +1414,8 @@ export namespace Proxmox {
      * Returned by POST /cluster/config/nodes/{node}
      */
     export interface clusterConfigNodesAddnode {
-        /**
-         */
         corosync_authkey: string;
-        /**
-         */
         corosync_conf: string;
-        /**
-         */
         warnings: string[];
         /**
          * additionalProperties
@@ -1434,11 +1426,7 @@ export namespace Proxmox {
      * Returned by GET /cluster/config/join
      */
     export interface clusterConfigJoinJoinInfo {
-        /**
-         */
         config_digest: string;
-        /**
-         */
         nodelist: {
                 /**
                  * The cluster node name.
@@ -1448,15 +1436,11 @@ export namespace Proxmox {
                  * Node id for this node.
                  */
                 nodeid?: number;
-                /**
-                 */
                 pve_addr: string;
                 /**
                  * Certificate SHA 256 fingerprint.
                  */
                 pve_fp: string;
-                /**
-                 */
                 quorum_votes: number;
                 /**
                  * Address and priority information of a single corosync link. (up to 8 links supported; link0..link7)
@@ -1467,8 +1451,6 @@ export namespace Proxmox {
          * The cluster node name.
          */
         preferred_node: string;
-        /**
-         */
         totem: any;
         /**
          * additionalProperties
@@ -1488,8 +1470,6 @@ export namespace Proxmox {
      * Returned by GET /cluster/firewall/groups
      */
     export interface clusterFirewallGroupsListSecurityGroups {
-        /**
-         */
         comment?: string;
         /**
          * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
@@ -1508,8 +1488,6 @@ export namespace Proxmox {
      * Returned by GET /cluster/firewall/groups/{group}
      */
     export interface clusterFirewallGroupsGetRules {
-        /**
-         */
         pos: number;
         /**
          * additionalProperties
@@ -1520,48 +1498,22 @@ export namespace Proxmox {
      * Returned by GET /cluster/firewall/groups/{group}/{pos}
      */
     export interface clusterFirewallGroupsGetRule {
-        /**
-         */
         action: string;
-        /**
-         */
         comment?: string;
-        /**
-         */
         dest?: string;
-        /**
-         */
         dport?: string;
-        /**
-         */
         enable?: number;
-        /**
-         */
         iface?: string;
-        /**
-         */
         ipversion?: number;
         /**
          * Log level for firewall rule
          */
         log?: string;
-        /**
-         */
         macro?: string;
-        /**
-         */
         pos: number;
-        /**
-         */
         proto?: string;
-        /**
-         */
         source?: string;
-        /**
-         */
         sport?: string;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -1572,8 +1524,6 @@ export namespace Proxmox {
      * Returned by GET /cluster/firewall/rules
      */
     export interface clusterFirewallRulesGetRules {
-        /**
-         */
         pos: number;
         /**
          * additionalProperties
@@ -1584,48 +1534,22 @@ export namespace Proxmox {
      * Returned by GET /cluster/firewall/rules/{pos}
      */
     export interface clusterFirewallRulesGetRule {
-        /**
-         */
         action: string;
-        /**
-         */
         comment?: string;
-        /**
-         */
         dest?: string;
-        /**
-         */
         dport?: string;
-        /**
-         */
         enable?: number;
-        /**
-         */
         iface?: string;
-        /**
-         */
         ipversion?: number;
         /**
          * Log level for firewall rule
          */
         log?: string;
-        /**
-         */
         macro?: string;
-        /**
-         */
         pos: number;
-        /**
-         */
         proto?: string;
-        /**
-         */
         source?: string;
-        /**
-         */
         sport?: string;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -1636,8 +1560,6 @@ export namespace Proxmox {
      * Returned by GET /cluster/firewall/ipset
      */
     export interface clusterFirewallIpsetIpsetIndex {
-        /**
-         */
         comment?: string;
         /**
          * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
@@ -1656,18 +1578,12 @@ export namespace Proxmox {
      * Returned by GET /cluster/firewall/ipset/{name}
      */
     export interface clusterFirewallIpsetGetIpset {
-        /**
-         */
         cidr: string;
-        /**
-         */
         comment?: string;
         /**
          * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
          */
         digest: string;
-        /**
-         */
         nomatch?: boolean;
         /**
          * additionalProperties
@@ -1678,18 +1594,12 @@ export namespace Proxmox {
      * Returned by GET /cluster/firewall/aliases
      */
     export interface clusterFirewallAliasesGetAliases {
-        /**
-         */
         cidr: string;
-        /**
-         */
         comment?: string;
         /**
          * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
          */
         digest: string;
-        /**
-         */
         name: string;
         /**
          * additionalProperties
@@ -1746,17 +1656,9 @@ export namespace Proxmox {
      * Returned by GET /cluster/firewall/refs
      */
     export interface clusterFirewallRefsRefs {
-        /**
-         */
         comment?: string;
-        /**
-         */
         name: string;
-        /**
-         */
         ref: string;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -1780,8 +1682,6 @@ export namespace Proxmox {
      * Returned by GET /cluster/backup/{id}/included_volumes
      */
     export interface clusterBackupIncludedVolumesGetVolumeBackupIncluded {
-        /**
-         */
         children: {
                 /**
                  * The volumes of the guest with the information if they will be included in backups.
@@ -1847,8 +1747,6 @@ export namespace Proxmox {
      * Returned by GET /cluster/ha
      */
     export interface clusterHaIndex {
-        /**
-         */
         id: string;
         /**
          * additionalProperties
@@ -1859,8 +1757,6 @@ export namespace Proxmox {
      * Returned by GET /cluster/ha/resources
      */
     export interface clusterHaResourcesIndex {
-        /**
-         */
         sid: string;
         /**
          * additionalProperties
@@ -1912,8 +1808,6 @@ export namespace Proxmox {
      * Returned by GET /cluster/ha/groups
      */
     export interface clusterHaGroupsIndex {
-        /**
-         */
         group: string;
         /**
          * additionalProperties
@@ -1964,18 +1858,12 @@ export namespace Proxmox {
      * Returned by GET /cluster/acme/account/{name}
      */
     export interface clusterAcmeAccountGetAccount {
-        /**
-         */
         account?: any;
         /**
          * URL of ACME CA directory endpoint.
          */
         directory?: string;
-        /**
-         */
         location?: string;
-        /**
-         */
         tos?: string;
         /**
          * additionalProperties
@@ -1986,8 +1874,6 @@ export namespace Proxmox {
      * Returned by GET /cluster/acme/directories
      */
     export interface clusterAcmeDirectoriesGetDirectories {
-        /**
-         */
         name: string;
         /**
          * URL of ACME CA directory endpoint.
@@ -2002,18 +1888,12 @@ export namespace Proxmox {
      * Returned by GET /cluster/acme/challenge-schema
      */
     export interface clusterAcmeChallengeSchemaChallengeschema {
-        /**
-         */
         id: string;
         /**
          * Human readable name, falls back to id
          */
         name: string;
-        /**
-         */
         schema: any;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -2046,8 +1926,6 @@ export namespace Proxmox {
      * Returned by GET /cluster/sdn
      */
     export interface clusterSdnIndex {
-        /**
-         */
         id: string;
         /**
          * additionalProperties
@@ -2067,11 +1945,7 @@ export namespace Proxmox {
      * Returned by GET /cluster/sdn/zones
      */
     export interface clusterSdnZonesIndex {
-        /**
-         */
         type: string;
-        /**
-         */
         zone: string;
         /**
          * additionalProperties
@@ -2082,11 +1956,7 @@ export namespace Proxmox {
      * Returned by GET /cluster/sdn/controllers
      */
     export interface clusterSdnControllersIndex {
-        /**
-         */
         controller: string;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -2118,8 +1988,6 @@ export namespace Proxmox {
          * HA service status (for HA managed VMs).
          */
         hastate?: string;
-        /**
-         */
         id: string;
         /**
          * Support level (when type == node).
@@ -2174,8 +2042,6 @@ export namespace Proxmox {
      * Returned by GET /cluster/tasks
      */
     export interface clusterTasksTasks {
-        /**
-         */
         upid: string;
         /**
          * additionalProperties
@@ -2186,8 +2052,6 @@ export namespace Proxmox {
      * Returned by GET /cluster/status
      */
     export interface clusterStatusGetStatus {
-        /**
-         */
         id: string;
         /**
          * [node] IP of the resolved nodename.
@@ -2201,8 +2065,6 @@ export namespace Proxmox {
          * [node] Indicates if this is the responding node.
          */
         local?: boolean;
-        /**
-         */
         name: string;
         /**
          * [node] ID of the node from the corosync configuration.
@@ -2344,8 +2206,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/qemu/{vmid}
      */
     export interface nodesQemuVmdiridx {
-        /**
-         */
         subdir: string;
         /**
          * additionalProperties
@@ -2365,8 +2225,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/rules
      */
     export interface nodesQemuFirewallRulesGetRules {
-        /**
-         */
         pos: number;
         /**
          * additionalProperties
@@ -2377,48 +2235,22 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/rules/{pos}
      */
     export interface nodesQemuFirewallRulesGetRule {
-        /**
-         */
         action: string;
-        /**
-         */
         comment?: string;
-        /**
-         */
         dest?: string;
-        /**
-         */
         dport?: string;
-        /**
-         */
         enable?: number;
-        /**
-         */
         iface?: string;
-        /**
-         */
         ipversion?: number;
         /**
          * Log level for firewall rule
          */
         log?: string;
-        /**
-         */
         macro?: string;
-        /**
-         */
         pos: number;
-        /**
-         */
         proto?: string;
-        /**
-         */
         source?: string;
-        /**
-         */
         sport?: string;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -2429,18 +2261,12 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/aliases
      */
     export interface nodesQemuFirewallAliasesGetAliases {
-        /**
-         */
         cidr: string;
-        /**
-         */
         comment?: string;
         /**
          * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
          */
         digest: string;
-        /**
-         */
         name: string;
         /**
          * additionalProperties
@@ -2451,8 +2277,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/ipset
      */
     export interface nodesQemuFirewallIpsetIpsetIndex {
-        /**
-         */
         comment?: string;
         /**
          * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
@@ -2471,18 +2295,12 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}
      */
     export interface nodesQemuFirewallIpsetGetIpset {
-        /**
-         */
         cidr: string;
-        /**
-         */
         comment?: string;
         /**
          * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
          */
         digest: string;
-        /**
-         */
         nomatch?: boolean;
         /**
          * additionalProperties
@@ -2559,14 +2377,8 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/refs
      */
     export interface nodesQemuFirewallRefsRefs {
-        /**
-         */
         comment?: string;
-        /**
-         */
         name: string;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -2653,8 +2465,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/qemu/{vmid}/rrd
      */
     export interface nodesQemuRrdRrd {
-        /**
-         */
         filename: string;
         /**
          * additionalProperties
@@ -3287,24 +3097,14 @@ export namespace Proxmox {
      * Returned by POST /nodes/{node}/qemu/{vmid}/vncproxy
      */
     export interface nodesQemuVncproxyVncproxy {
-        /**
-         */
         cert: string;
         /**
          * Returned if requested with 'generate-password' param. Consists of printable ASCII characters ('!' .. '~').
          */
         password?: string;
-        /**
-         */
         port: string;
-        /**
-         */
         ticket: string;
-        /**
-         */
         upid: string;
-        /**
-         */
         user: string;
         /**
          * additionalProperties
@@ -3315,17 +3115,9 @@ export namespace Proxmox {
      * Returned by POST /nodes/{node}/qemu/{vmid}/termproxy
      */
     export interface nodesQemuTermproxyTermproxy {
-        /**
-         */
         port: number;
-        /**
-         */
         ticket: string;
-        /**
-         */
         upid: string;
-        /**
-         */
         user: string;
         /**
          * additionalProperties
@@ -3336,8 +3128,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/qemu/{vmid}/vncwebsocket
      */
     export interface nodesQemuVncwebsocketVncwebsocket {
-        /**
-         */
         port: string;
         /**
          * additionalProperties
@@ -3348,41 +3138,17 @@ export namespace Proxmox {
      * Returned by POST /nodes/{node}/qemu/{vmid}/spiceproxy
      */
     export interface nodesQemuSpiceproxySpiceproxy {
-        /**
-         */
         host: string;
-        /**
-         */
         password: string;
-        /**
-         */
         proxy: string;
-        /**
-         */
         'tls-port': number;
-        /**
-         */
         type: string;
-        /**
-         */
         'toggle-fullscreen'?: string;
-        /**
-         */
         ca?: string;
-        /**
-         */
         title?: string;
-        /**
-         */
         'delete-this-file'?: number;
-        /**
-         */
         'host-subject'?: string;
-        /**
-         */
         'release-cursor'?: string;
-        /**
-         */
         'secure-attention'?: string;
         /**
          * additionalProperties
@@ -3393,8 +3159,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/qemu/{vmid}/status
      */
     export interface nodesQemuStatusVmcmdidx {
-        /**
-         */
         subdir: string;
         /**
          * additionalProperties
@@ -3474,11 +3238,7 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/qemu/{vmid}/feature
      */
     export interface nodesQemuFeatureVmFeature {
-        /**
-         */
         hasFeature: boolean;
-        /**
-         */
         nodes: string[];
         /**
          * additionalProperties
@@ -3505,8 +3265,6 @@ export namespace Proxmox {
          * List not allowed nodes with additional informations, only passed if VM is offline
          */
         not_allowed_nodes?: any;
-        /**
-         */
         running: boolean;
         /**
          * additionalProperties
@@ -3625,8 +3383,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/lxc/{vmid}
      */
     export interface nodesLxcVmdiridx {
-        /**
-         */
         subdir: string;
         /**
          * additionalProperties
@@ -3804,8 +3560,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/lxc/{vmid}/status
      */
     export interface nodesLxcStatusVmcmdidx {
-        /**
-         */
         subdir: string;
         /**
          * additionalProperties
@@ -3912,8 +3666,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/rules
      */
     export interface nodesLxcFirewallRulesGetRules {
-        /**
-         */
         pos: number;
         /**
          * additionalProperties
@@ -3924,48 +3676,22 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/rules/{pos}
      */
     export interface nodesLxcFirewallRulesGetRule {
-        /**
-         */
         action: string;
-        /**
-         */
         comment?: string;
-        /**
-         */
         dest?: string;
-        /**
-         */
         dport?: string;
-        /**
-         */
         enable?: number;
-        /**
-         */
         iface?: string;
-        /**
-         */
         ipversion?: number;
         /**
          * Log level for firewall rule
          */
         log?: string;
-        /**
-         */
         macro?: string;
-        /**
-         */
         pos: number;
-        /**
-         */
         proto?: string;
-        /**
-         */
         source?: string;
-        /**
-         */
         sport?: string;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -3976,18 +3702,12 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/aliases
      */
     export interface nodesLxcFirewallAliasesGetAliases {
-        /**
-         */
         cidr: string;
-        /**
-         */
         comment?: string;
         /**
          * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
          */
         digest: string;
-        /**
-         */
         name: string;
         /**
          * additionalProperties
@@ -3998,8 +3718,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/ipset
      */
     export interface nodesLxcFirewallIpsetIpsetIndex {
-        /**
-         */
         comment?: string;
         /**
          * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
@@ -4018,18 +3736,12 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}
      */
     export interface nodesLxcFirewallIpsetGetIpset {
-        /**
-         */
         cidr: string;
-        /**
-         */
         comment?: string;
         /**
          * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
          */
         digest: string;
-        /**
-         */
         nomatch?: boolean;
         /**
          * additionalProperties
@@ -4106,14 +3818,8 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/refs
      */
     export interface nodesLxcFirewallRefsRefs {
-        /**
-         */
         comment?: string;
-        /**
-         */
         name: string;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -4124,8 +3830,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/lxc/{vmid}/rrd
      */
     export interface nodesLxcRrdRrd {
-        /**
-         */
         filename: string;
         /**
          * additionalProperties
@@ -4145,20 +3849,10 @@ export namespace Proxmox {
      * Returned by POST /nodes/{node}/lxc/{vmid}/vncproxy
      */
     export interface nodesLxcVncproxyVncproxy {
-        /**
-         */
         cert: string;
-        /**
-         */
         port: number;
-        /**
-         */
         ticket: string;
-        /**
-         */
         upid: string;
-        /**
-         */
         user: string;
         /**
          * additionalProperties
@@ -4169,17 +3863,9 @@ export namespace Proxmox {
      * Returned by POST /nodes/{node}/lxc/{vmid}/termproxy
      */
     export interface nodesLxcTermproxyTermproxy {
-        /**
-         */
         port: number;
-        /**
-         */
         ticket: string;
-        /**
-         */
         upid: string;
-        /**
-         */
         user: string;
         /**
          * additionalProperties
@@ -4190,8 +3876,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/lxc/{vmid}/vncwebsocket
      */
     export interface nodesLxcVncwebsocketVncwebsocket {
-        /**
-         */
         port: string;
         /**
          * additionalProperties
@@ -4202,20 +3886,10 @@ export namespace Proxmox {
      * Returned by POST /nodes/{node}/lxc/{vmid}/spiceproxy
      */
     export interface nodesLxcSpiceproxySpiceproxy {
-        /**
-         */
         host: string;
-        /**
-         */
         password: string;
-        /**
-         */
         proxy: string;
-        /**
-         */
         'tls-port': number;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -4226,8 +3900,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/lxc/{vmid}/feature
      */
     export interface nodesLxcFeatureVmFeature {
-        /**
-         */
         hasFeature: boolean;
         /**
          * additionalProperties
@@ -4272,18 +3944,12 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/ceph/mds
      */
     export interface nodesCephMdsIndex {
-        /**
-         */
         addr?: string;
-        /**
-         */
         host?: string;
         /**
          * The name (ID) for the MDS
          */
         name: string;
-        /**
-         */
         rank?: number;
         /**
          * If true, the standby MDS is polling the active MDS for faster recovery (hot standby).
@@ -4302,11 +3968,7 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/ceph/mgr
      */
     export interface nodesCephMgrIndex {
-        /**
-         */
         addr?: string;
-        /**
-         */
         host?: string;
         /**
          * The name (ID) for the MGR
@@ -4325,14 +3987,8 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/ceph/mon
      */
     export interface nodesCephMonListmon {
-        /**
-         */
         addr?: string;
-        /**
-         */
         host?: string;
-        /**
-         */
         name: string;
         /**
          * additionalProperties
@@ -4364,29 +4020,13 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/ceph/disks
      */
     export interface nodesCephDisksDisks {
-        /**
-         */
         dev: string;
-        /**
-         */
         gpt: boolean;
-        /**
-         */
         model?: string;
-        /**
-         */
         osdid: number;
-        /**
-         */
         serial?: string;
-        /**
-         */
         size: number;
-        /**
-         */
         used?: string;
-        /**
-         */
         vendor?: string;
         /**
          * additionalProperties
@@ -4397,23 +4037,11 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/ceph/configdb
      */
     export interface nodesCephConfigdbConfigdb {
-        /**
-         */
         can_update_at_runtime: boolean;
-        /**
-         */
         level: string;
-        /**
-         */
         mask: string;
-        /**
-         */
         name: string;
-        /**
-         */
         section: string;
-        /**
-         */
         value: string;
         /**
          * additionalProperties
@@ -4424,35 +4052,15 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/ceph/pools
      */
     export interface nodesCephPoolsLspools {
-        /**
-         */
         bytes_used: number;
-        /**
-         */
         crush_rule: number;
-        /**
-         */
         crush_rule_name: string;
-        /**
-         */
         min_size: number;
-        /**
-         */
         percent_used: number;
-        /**
-         */
         pg_autoscale_mode?: string;
-        /**
-         */
         pg_num: number;
-        /**
-         */
         pool: number;
-        /**
-         */
         pool_name: string;
-        /**
-         */
         size: number;
         /**
          * additionalProperties
@@ -4498,8 +4106,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/services/{service}
      */
     export interface nodesServicesSrvcmdidx {
-        /**
-         */
         subdir: string;
         /**
          * additionalProperties
@@ -4519,11 +4125,7 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/network/{iface}
      */
     export interface nodesNetworkNetworkConfig {
-        /**
-         */
         method: string;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -4534,35 +4136,15 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/tasks
      */
     export interface nodesTasksNodeTasks {
-        /**
-         */
         endtime?: number;
-        /**
-         */
         id: string;
-        /**
-         */
         node: string;
-        /**
-         */
         pid: number;
-        /**
-         */
         pstart: number;
-        /**
-         */
         starttime: number;
-        /**
-         */
         status?: string;
-        /**
-         */
         type: string;
-        /**
-         */
         upid: string;
-        /**
-         */
         user: string;
         /**
          * additionalProperties
@@ -4599,11 +4181,7 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/tasks/{upid}/status
      */
     export interface nodesTasksStatusReadTaskStatus {
-        /**
-         */
         pid: number;
-        /**
-         */
         status: string;
         /**
          * additionalProperties
@@ -4614,8 +4192,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/scan
      */
     export interface nodesScanIndex {
-        /**
-         */
         method: string;
         /**
          * additionalProperties
@@ -4729,41 +4305,17 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/scan/usb
      */
     export interface nodesScanUsbUsbscan {
-        /**
-         */
         busnum: number;
-        /**
-         */
         class: number;
-        /**
-         */
         devnum: number;
-        /**
-         */
         level: number;
-        /**
-         */
         manufacturer?: string;
-        /**
-         */
         port: number;
-        /**
-         */
         prodid: string;
-        /**
-         */
         product?: string;
-        /**
-         */
         serial?: string;
-        /**
-         */
         speed: string;
-        /**
-         */
         usbpath?: string;
-        /**
-         */
         vendid: string;
         /**
          * additionalProperties
@@ -4774,8 +4326,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/hardware
      */
     export interface nodesHardwareIndex {
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -4794,8 +4344,6 @@ export namespace Proxmox {
          * The Device ID.
          */
         device: string;
-        /**
-         */
         device_name?: string;
         /**
          * The PCI ID.
@@ -4813,22 +4361,16 @@ export namespace Proxmox {
          * The Subsystem Device ID.
          */
         subsystem_device?: string;
-        /**
-         */
         subsystem_device_name?: string;
         /**
          * The Subsystem Vendor ID.
          */
         subsystem_vendor?: string;
-        /**
-         */
         subsystem_vendor_name?: string;
         /**
          * The Vendor ID.
          */
         vendor: string;
-        /**
-         */
         vendor_name?: string;
         /**
          * additionalProperties
@@ -4839,8 +4381,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/hardware/pci/{pciid}
      */
     export interface nodesHardwarePciPciindex {
-        /**
-         */
         method: string;
         /**
          * additionalProperties
@@ -4855,8 +4395,6 @@ export namespace Proxmox {
          * The number of still available instances of this type.
          */
         available: number;
-        /**
-         */
         description: string;
         /**
          * The name of the mdev type.
@@ -4920,8 +4458,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/storage/{storage}
      */
     export interface nodesStorageDiridx {
-        /**
-         */
         subdir: string;
         /**
          * additionalProperties
@@ -4969,8 +4505,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/storage/{storage}/rrd
      */
     export interface nodesStorageRrdRrd {
-        /**
-         */
         filename: string;
         /**
          * additionalProperties
@@ -4999,8 +4533,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/disks/lvm
      */
     export interface nodesDisksLvmIndex {
-        /**
-         */
         children: {
                 /**
                  * The underlying physical volumes
@@ -5010,8 +4542,6 @@ export namespace Proxmox {
                          * The free bytes in the physical volume
                          */
                         free: number;
-                        /**
-                         */
                         leaf: boolean;
                         /**
                          * The name of the physical volume
@@ -5026,8 +4556,6 @@ export namespace Proxmox {
                  * The free bytes in the volume group
                  */
                 free: number;
-                /**
-                 */
                 leaf: boolean;
                 /**
                  * The name of the volume group
@@ -5038,8 +4566,6 @@ export namespace Proxmox {
                  */
                 size: number;
             }[];
-        /**
-         */
         leaf: boolean;
         /**
          * additionalProperties
@@ -5108,26 +4634,12 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/disks/zfs
      */
     export interface nodesDisksZfsIndex {
-        /**
-         */
         alloc: number;
-        /**
-         */
         dedup: number;
-        /**
-         */
         frag: number;
-        /**
-         */
         free: number;
-        /**
-         */
         health: string;
-        /**
-         */
         name: string;
-        /**
-         */
         size: number;
         /**
          * additionalProperties
@@ -5146,8 +4658,6 @@ export namespace Proxmox {
          * The pool configuration information, including the vdevs for each section (e.g. spares, cache), may be nested.
          */
         children: {
-                /**
-                 */
                 cksum?: number;
                 /**
                  * An optional message about the vdev.
@@ -5157,15 +4667,11 @@ export namespace Proxmox {
                  * The name of the vdev or section.
                  */
                 name: string;
-                /**
-                 */
                 read?: number;
                 /**
                  * The state of the vdev.
                  */
                 state?: string;
-                /**
-                 */
                 write?: number;
             }[];
         /**
@@ -5201,32 +4707,14 @@ export namespace Proxmox {
          * The device path
          */
         devpath: string;
-        /**
-         */
         gpt: boolean;
-        /**
-         */
         health?: string;
-        /**
-         */
         model?: string;
-        /**
-         */
         osdid: number;
-        /**
-         */
         serial?: string;
-        /**
-         */
         size: number;
-        /**
-         */
         used?: string;
-        /**
-         */
         vendor?: string;
-        /**
-         */
         wwn?: string;
         /**
          * additionalProperties
@@ -5237,17 +4725,9 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/disks/smart
      */
     export interface nodesDisksSmartSmart {
-        /**
-         */
         attributes?: string[];
-        /**
-         */
         health: string;
-        /**
-         */
         text?: string;
-        /**
-         */
         type?: string;
         /**
          * additionalProperties
@@ -5258,8 +4738,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/apt
      */
     export interface nodesAptIndex {
-        /**
-         */
         id: string;
         /**
          * additionalProperties
@@ -5297,8 +4775,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/firewall/rules
      */
     export interface nodesFirewallRulesGetRules {
-        /**
-         */
         pos: number;
         /**
          * additionalProperties
@@ -5309,48 +4785,22 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/firewall/rules/{pos}
      */
     export interface nodesFirewallRulesGetRule {
-        /**
-         */
         action: string;
-        /**
-         */
         comment?: string;
-        /**
-         */
         dest?: string;
-        /**
-         */
         dport?: string;
-        /**
-         */
         enable?: number;
-        /**
-         */
         iface?: string;
-        /**
-         */
         ipversion?: number;
         /**
          * Log level for firewall rule
          */
         log?: string;
-        /**
-         */
         macro?: string;
-        /**
-         */
         pos: number;
-        /**
-         */
         proto?: string;
-        /**
-         */
         source?: string;
-        /**
-         */
         sport?: string;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -5451,8 +4901,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/replication
      */
     export interface nodesReplicationStatus {
-        /**
-         */
         id: string;
         /**
          * additionalProperties
@@ -5507,8 +4955,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/certificates/info
      */
     export interface nodesCertificatesInfoInfo {
-        /**
-         */
         filename?: string;
         /**
          * Certificate SHA 256 fingerprint.
@@ -5555,8 +5001,6 @@ export namespace Proxmox {
      * Returned by POST /nodes/{node}/certificates/custom
      */
     export interface nodesCertificatesCustomUploadCustomCert {
-        /**
-         */
         filename?: string;
         /**
          * Certificate SHA 256 fingerprint.
@@ -5629,8 +5073,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/sdn/zones/{zone}
      */
     export interface nodesSdnZonesDiridx {
-        /**
-         */
         subdir: string;
         /**
          * additionalProperties
@@ -5692,8 +5134,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/rrd
      */
     export interface nodesRrdRrd {
-        /**
-         */
         filename: string;
         /**
          * additionalProperties
@@ -5730,20 +5170,10 @@ export namespace Proxmox {
      * Returned by POST /nodes/{node}/vncshell
      */
     export interface nodesVncshellVncshell {
-        /**
-         */
         cert: string;
-        /**
-         */
         port: number;
-        /**
-         */
         ticket: string;
-        /**
-         */
         upid: string;
-        /**
-         */
         user: string;
         /**
          * additionalProperties
@@ -5754,17 +5184,9 @@ export namespace Proxmox {
      * Returned by POST /nodes/{node}/termproxy
      */
     export interface nodesTermproxyTermproxy {
-        /**
-         */
         port: number;
-        /**
-         */
         ticket: string;
-        /**
-         */
         upid: string;
-        /**
-         */
         user: string;
         /**
          * additionalProperties
@@ -5775,8 +5197,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/vncwebsocket
      */
     export interface nodesVncwebsocketVncwebsocket {
-        /**
-         */
         port: string;
         /**
          * additionalProperties
@@ -5787,20 +5207,10 @@ export namespace Proxmox {
      * Returned by POST /nodes/{node}/spiceshell
      */
     export interface nodesSpiceshellSpiceshell {
-        /**
-         */
         host: string;
-        /**
-         */
         password: string;
-        /**
-         */
         proxy: string;
-        /**
-         */
         'tls-port': number;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -5883,8 +5293,6 @@ export namespace Proxmox {
      * Returned by GET /storage
      */
     export interface storageIndex {
-        /**
-         */
         storage: string;
         /**
          * additionalProperties
@@ -5895,8 +5303,6 @@ export namespace Proxmox {
      * Returned by GET /access
      */
     export interface accessIndex {
-        /**
-         */
         subdir: string;
         /**
          * additionalProperties
@@ -5907,11 +5313,7 @@ export namespace Proxmox {
      * Returned by GET /access/users
      */
     export interface accessUsersIndex {
-        /**
-         */
         comment?: string;
-        /**
-         */
         email?: string;
         /**
          * Enable the account (default). You can set this to '0' to disable the account
@@ -5921,24 +5323,14 @@ export namespace Proxmox {
          * Account expiration date (seconds since epoch). '0' means no expiration date.
          */
         expire?: number;
-        /**
-         */
         firstname?: string;
-        /**
-         */
         groups?: string;
         /**
          * Keys for two factor auth (yubico).
          */
         keys?: string;
-        /**
-         */
         lastname?: string;
-        /**
-         */
         tokens?: {
-                /**
-                 */
                 comment?: string;
                 /**
                  * API token expiration date (seconds since epoch). '0' means no expiration date.
@@ -5966,11 +5358,7 @@ export namespace Proxmox {
      * Returned by GET /access/users/{userid}
      */
     export interface accessUsersReadUser {
-        /**
-         */
         comment?: string;
-        /**
-         */
         email?: string;
         /**
          * Enable the account (default). You can set this to '0' to disable the account
@@ -5980,21 +5368,13 @@ export namespace Proxmox {
          * Account expiration date (seconds since epoch). '0' means no expiration date.
          */
         expire?: number;
-        /**
-         */
         firstname?: string;
-        /**
-         */
         groups?: string[];
         /**
          * Keys for two factor auth (yubico).
          */
         keys?: string;
-        /**
-         */
         lastname?: string;
-        /**
-         */
         tokens?: any;
         /**
          * additionalProperties
@@ -6022,8 +5402,6 @@ export namespace Proxmox {
      * Returned by GET /access/users/{userid}/token
      */
     export interface accessUsersTokenTokenIndex {
-        /**
-         */
         comment?: string;
         /**
          * API token expiration date (seconds since epoch). '0' means no expiration date.
@@ -6046,8 +5424,6 @@ export namespace Proxmox {
      * Returned by GET /access/users/{userid}/token/{tokenid}
      */
     export interface accessUsersTokenReadToken {
-        /**
-         */
         comment?: string;
         /**
          * API token expiration date (seconds since epoch). '0' means no expiration date.
@@ -6070,11 +5446,7 @@ export namespace Proxmox {
          * The full token id.
          */
         'full-tokenid': string;
-        /**
-         */
         info: {
-                /**
-                 */
                 comment?: string;
                 /**
                  * API token expiration date (seconds since epoch). '0' means no expiration date.
@@ -6098,8 +5470,6 @@ export namespace Proxmox {
      * Returned by PUT /access/users/{userid}/token/{tokenid}
      */
     export interface accessUsersTokenUpdateTokenInfo {
-        /**
-         */
         comment?: string;
         /**
          * API token expiration date (seconds since epoch). '0' means no expiration date.
@@ -6118,11 +5488,7 @@ export namespace Proxmox {
      * Returned by GET /access/groups
      */
     export interface accessGroupsIndex {
-        /**
-         */
         comment?: string;
-        /**
-         */
         groupid: string;
         /**
          * list of users which form this group
@@ -6137,11 +5503,7 @@ export namespace Proxmox {
      * Returned by GET /access/groups/{groupid}
      */
     export interface accessGroupsReadGroup {
-        /**
-         */
         comment?: string;
-        /**
-         */
         members: string[];
         /**
          * additionalProperties
@@ -6152,14 +5514,8 @@ export namespace Proxmox {
      * Returned by GET /access/roles
      */
     export interface accessRolesIndex {
-        /**
-         */
         privs?: string;
-        /**
-         */
         roleid: string;
-        /**
-         */
         special?: boolean;
         /**
          * additionalProperties
@@ -6170,110 +5526,40 @@ export namespace Proxmox {
      * Returned by GET /access/roles/{roleid}
      */
     export interface accessRolesReadRole {
-        /**
-         */
         'Datastore.Allocate'?: boolean;
-        /**
-         */
         'Datastore.AllocateSpace'?: boolean;
-        /**
-         */
         'Datastore.AllocateTemplate'?: boolean;
-        /**
-         */
         'Datastore.Audit'?: boolean;
-        /**
-         */
         'Group.Allocate'?: boolean;
-        /**
-         */
         'Permissions.Modify'?: boolean;
-        /**
-         */
         'Pool.Allocate'?: boolean;
-        /**
-         */
         'Realm.Allocate'?: boolean;
-        /**
-         */
         'Realm.AllocateUser'?: boolean;
-        /**
-         */
         'SDN.Allocate'?: boolean;
-        /**
-         */
         'SDN.Audit'?: boolean;
-        /**
-         */
         'Sys.Audit'?: boolean;
-        /**
-         */
         'Sys.Console'?: boolean;
-        /**
-         */
         'Sys.Modify'?: boolean;
-        /**
-         */
         'Sys.PowerMgmt'?: boolean;
-        /**
-         */
         'Sys.Syslog'?: boolean;
-        /**
-         */
         'User.Modify'?: boolean;
-        /**
-         */
         'VM.Allocate'?: boolean;
-        /**
-         */
         'VM.Audit'?: boolean;
-        /**
-         */
         'VM.Backup'?: boolean;
-        /**
-         */
         'VM.Clone'?: boolean;
-        /**
-         */
         'VM.Config.CDROM'?: boolean;
-        /**
-         */
         'VM.Config.CPU'?: boolean;
-        /**
-         */
         'VM.Config.Cloudinit'?: boolean;
-        /**
-         */
         'VM.Config.Disk'?: boolean;
-        /**
-         */
         'VM.Config.HWType'?: boolean;
-        /**
-         */
         'VM.Config.Memory'?: boolean;
-        /**
-         */
         'VM.Config.Network'?: boolean;
-        /**
-         */
         'VM.Config.Options'?: boolean;
-        /**
-         */
         'VM.Console'?: boolean;
-        /**
-         */
         'VM.Migrate'?: boolean;
-        /**
-         */
         'VM.Monitor'?: boolean;
-        /**
-         */
         'VM.PowerMgmt'?: boolean;
-        /**
-         */
         'VM.Snapshot'?: boolean;
-        /**
-         */
         'VM.Snapshot.Rollback'?: boolean;
         /**
          * additionalProperties
@@ -6292,14 +5578,8 @@ export namespace Proxmox {
          * Allow to propagate (inherit) permissions.
          */
         propagate?: boolean;
-        /**
-         */
         roleid: string;
-        /**
-         */
         type: string;
-        /**
-         */
         ugid: string;
         /**
          * additionalProperties
@@ -6314,15 +5594,11 @@ export namespace Proxmox {
          * A comment. The GUI use this text when you select a domain (Realm) on the login window.
          */
         comment?: string;
-        /**
-         */
         realm: string;
         /**
          * Two-factor authentication provider.
          */
         tfa?: string;
-        /**
-         */
         type: string;
         /**
          * additionalProperties
@@ -6333,17 +5609,9 @@ export namespace Proxmox {
      * Returned by POST /access/ticket
      */
     export interface accessTicketCreateTicket {
-        /**
-         */
         CSRFPreventionToken?: string;
-        /**
-         */
         clustername?: string;
-        /**
-         */
         ticket?: string;
-        /**
-         */
         username: string;
         /**
          * additionalProperties
@@ -6354,8 +5622,6 @@ export namespace Proxmox {
      * Returned by POST /access/tfa
      */
     export interface accessTfaVerifyTfa {
-        /**
-         */
         ticket: string;
         /**
          * additionalProperties
@@ -6366,8 +5632,6 @@ export namespace Proxmox {
      * Returned by GET /pools
      */
     export interface poolsIndex {
-        /**
-         */
         poolid: string;
         /**
          * additionalProperties
@@ -6378,26 +5642,12 @@ export namespace Proxmox {
      * Returned by GET /pools/{poolid}
      */
     export interface poolsReadPool {
-        /**
-         */
         comment?: string;
-        /**
-         */
         members: {
-                /**
-                 */
                 id: string;
-                /**
-                 */
                 node: string;
-                /**
-                 */
                 storage?: string;
-                /**
-                 */
                 type: string;
-                /**
-                 */
                 vmid?: number;
             }[];
         /**
@@ -6409,14 +5659,8 @@ export namespace Proxmox {
      * Returned by GET /version
      */
     export interface versionVersion {
-        /**
-         */
         release: string;
-        /**
-         */
         repoid: string;
-        /**
-         */
         version: string;
         /**
          * additionalProperties
