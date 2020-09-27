@@ -1,4 +1,4 @@
-import { proxmoxApi, Proxmox } from "../../api/src";
+import { proxmoxApi, Proxmox } from "proxmox-api";
 
 async function test() {
     // authorize self signed cert

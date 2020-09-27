@@ -1,4 +1,4 @@
-import proxmoxApi from "../../api/src";
+import { proxmoxApi, Proxmox } from "proxmox-api";
 
 // authorize self signed cert
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";

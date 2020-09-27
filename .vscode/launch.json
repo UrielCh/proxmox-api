@@ -22,9 +22,9 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "cwd": "${workspaceFolder}/api",
+            "cwd": "${workspaceFolder}/sample",
             "runtimeArgs": ["-r", "ts-node/register"],
-            "args": ["${workspaceFolder}/api/src/sample.ts"]
+            "args": ["${workspaceFolder}/sample/src/sample.ts"]
         },
         {
             "type": "node",
@@ -33,10 +33,21 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "cwd": "${workspaceFolder}/api",
+            "cwd": "${workspaceFolder}/sample",
             "runtimeArgs": ["-r", "ts-node/register"],
-            "args": ["${workspaceFolder}/api/src/sample2.ts"]
-        }
+            "args": ["${workspaceFolder}/sample/src/sample2.ts"]
+        },
 
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "run sample-connect-kvm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd": "${workspaceFolder}/sample",
+            "runtimeArgs": ["-r", "ts-node/register"],
+            "args": ["${workspaceFolder}/sample/src/sample-connect-kvm.ts"]
+        }
     ]
 }
