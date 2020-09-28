@@ -1,5 +1,5 @@
 import { ApiRequestable } from "./proxy";
-import fetch, { RequestInit, Response } from 'node-fetch';
+import fetch, { RequestInit, HeadersInit, Response } from 'node-fetch';
 import querystring from 'querystring';
 
 /**

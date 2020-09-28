@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@types/bluebird": "^3.5.32",
-    "api": "^0.0.4",
     "bluebird": "^3.7.2",
-    "proxmox-api": "file:../api",
+    "commander": "^6.1.0",
+    "proxmox-api": "0.0.6",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.2",
+    "usb-detection": "^4.10.0"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.32",
     "@types/node": "^14.11.2"
   },
   "scripts": {

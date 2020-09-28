@@ -48,6 +48,19 @@
             "cwd": "${workspaceFolder}/sample",
             "runtimeArgs": ["-r", "ts-node/register"],
             "args": ["${workspaceFolder}/sample/src/sample-connect-kvm.ts"]
+        },
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "run hot-connect-usb",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd": "${workspaceFolder}/sample",
+            "runtimeArgs": ["-r", "ts-node/register"],
+            "args": ["${workspaceFolder}/sample/src/hot-connect-usb.ts"]
         }
+        
     ]
 }
