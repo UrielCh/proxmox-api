@@ -1,11 +1,11 @@
-# proxmox-usb-hotplug
+# proxmox-hotplug
 
 This script monitor and plug any new USB device to running KVM hosted by a proxmox server.
 
 ```bash
-proxmox-usb-hotplug --help
+proxmox-hotplug --help
 
-Usage: proxmox-usb-hotplug [options] [command]
+Usage: proxmox-hotplug [options] [command]
 
 Hotplug any new Usb device to your proxmox
 

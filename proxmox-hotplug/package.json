@@ -1,5 +1,5 @@
 {
-  "name": "proxmox-usb-hotplug",
+  "name": "proxmox-hotplug",
   "version": "0.0.1",
   "description": "Hot Plug any new USB device to a running proxmox KVM",
   "main": "index.js",
@@ -11,7 +11,7 @@
   "author": "Uriel Chemouni <uchemouni@gmail.com>",
   "license": "GPL-3.0",
   "bin": {
-    "ovh-bill-importer": "./bin/proxmox-usb-hotplug"
+    "proxmox-hotplug": "./bin/proxmox-hotplug"
   },
   "publishConfig": {
     "access": "public"
