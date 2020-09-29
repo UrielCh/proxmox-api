@@ -33,7 +33,7 @@
   "author": "Uriel Chemouni <uchemouni@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/UrielCh//proxmox-api/issues"
+    "url": "https://github.com/UrielCh/proxmox-api/issues"
   },
   "homepage": "https://github.com/UrielCh/proxmox-api#readme"
 }

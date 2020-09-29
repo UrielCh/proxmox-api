@@ -1,20 +1,44 @@
 {
   "name": "proxmox-usb-hotplug",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Hot Plug any new USB device to a running proxmox KVM",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "keywords": [
+    "usb",
+    "hotplug",
+    "proxmox"
+  ],
+  "author": "Uriel Chemouni <uchemouni@gmail.com>",
+  "license": "GPL-3.0",
+  "bin": {
+    "ovh-bill-importer": "./bin/proxmox-usb-hotplug"
   },
-  "author": "",
-  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UrielCh/proxmox-api.git"
+  },
+  "bugs": "https://github.com/UrielCh/proxmox-api/issues",
+  "scripts": {
+    "build": "tsc -p .",
+    "build:watch": "tsc -p . --watch",
+    "prepare": "npm run build"
+  },
   "dependencies": {
     "commander": "^6.1.0",
     "password-prompt": "^1.1.2",
-    "proxmox-api": "0.0.6"
+    "proxmox-api": "0.0.6",
+    "usb-detection": "^4.10.0"
   },
   "devDependencies": {
     "@types/node": "^14.11.2",
     "typescript": "^4.0.3"
-  }
+  },
+  "files": [
+    "src/index.js",
+    "src/HotPlugService.js",
+    "bin"
+  ]
 }
