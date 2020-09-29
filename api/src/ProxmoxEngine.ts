@@ -28,14 +28,14 @@ export class ProxmoxEngine implements ApiRequestable {
         }
     }
 
-    async doRequest(httpMethod: string, path: string, pathTemplate: string, params?: { [key: string]: any }): Promise<any> {
+    async doRequest(httpMethod: string, path: string, pathTemplate: string, params?: { [key: string]: any }, retries?: number): Promise<any> {
         if (!this.ticket) {
             await this.getTicket();
         }
         /**
          * Remove undefined values
          */
-        if (params)
+        if (retries && params)
             for (let k in params) {
                 if (params.hasOwnProperty(k) && params[k] == null) {
                     delete params[k];
@@ -92,8 +92,9 @@ export class ProxmoxEngine implements ApiRequestable {
         if (contentType === 'application/json;charset=UTF-8') {
             data = await req.json();
         } else {
+            // should never append
             data.data = req.text();
-            debugger;
+            // debugger;
         }
         const status = req.status;
         if (status === 400) {
@@ -102,6 +103,18 @@ export class ProxmoxEngine implements ApiRequestable {
         if (status === 500) {
             throw Error(`${httpMethod} ${requestUrl} return Error 500 ${req.statusText}: ${JSON.stringify(data)}`);
         }
+
+        // token expired
+        // 401 permission denied - invalid PVE ticket return: {"data":{}}
+        if (status === 401 && req.statusText === 'invalid PVE ticket') {
+            this.ticket = undefined;
+            if (!retries)
+                retries = 0;
+            retries++;
+            if (retries <2)
+                return this.doRequest(httpMethod, path, pathTemplate, params, retries);
+        }
+
         if (status !== 200) {
             throw Error(`${httpMethod} ${requestUrl} connetion failed with ${req.status} ${req.statusText} return: ${JSON.stringify(data)}`);
         }
