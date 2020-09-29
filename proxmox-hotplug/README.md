@@ -11,7 +11,7 @@ Hotplug any new Usb device to your proxmox
 
 Options:
   -V, --version      output the version number
-  --vmid             vmid will receved USB Devices, by default the first runing VM having an hostpci0
+  --vmid <vmid>      vmid will receved USB Devices, by default the first runing VM having an hostpci0
   --user <user>      host to connect if not root@pam (default: "root@pam")
   --port <port>      port to connect if not 8006 (default: "8006")
   --host <host>      host to connect if not 127.0.0.1 (default: "127.0.0.1")
