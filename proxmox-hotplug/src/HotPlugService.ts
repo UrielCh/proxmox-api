@@ -52,13 +52,13 @@ export default class HotPlugService {
         usbDetect.on('add', async (device: DeviceDesc) => {
             const { vendorId, productId } = vendorFromDevice(device);
             const key = `V${vendorId}P${productId}`;
-            console.log(`VM Hot Pluging ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}] with Key:${key}`);
+            console.log(`Add USB: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}] with Key:${key}`);
             await qmMonitor.deviceAddById(key, { vendorId, productId });
         });
 
         usbDetect.on('remove', async (device: DeviceDesc) => {
             const { vendorId, productId } = vendorFromDevice(device);
-            console.log(`remove ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}]`);
+            console.log(`remove USB: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}]`);
         });
     }
 
@@ -79,14 +79,14 @@ export default class HotPlugService {
             this.indexUsb(allUsb);
             for (const usb of newUsb) {
                 const key = `bus${usb.addr}port${usb.port}`;
-                console.log(`VM Hot Pluging ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}] with Key:${key}`);
+                console.log(`Add USB: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}] with Key:${key}`);
                 await qmMonitor.deviceAddByPort(key, { bus: usb.bus, port: usb.port });
             }
         });
 
         usbDetect.on('remove', async (device: DeviceDesc) => {
             const { vendorId, productId } = vendorFromDevice(device);
-            console.log(`remove ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}]`);
+            console.log(`remove USB: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}]`);
             this.indexUsb(await qmMonitor.infoUsbhost())
         });
     }

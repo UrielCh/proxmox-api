@@ -32,7 +32,6 @@ async function initHotPlugService(): Promise<HotPlugService> {
     password = program.P;
   }
   let host = program.host;
-
   if (program.config) {
     let data = '';
     try {
@@ -42,10 +41,10 @@ async function initHotPlugService(): Promise<HotPlugService> {
     }
     const lines = data.split(/[\r\n]+/);
     for (const line of lines) {
-      const m = line.match(/\s*([a-z]+)\s*=\s*([^\s]+)/)
+      const m = line.match(/\s*([a-zA-Z]+)\s*=\s*([^\s]+)/)
       if (!m)
         continue;
-      const [k, v] = m;
+      const [, k, v] = m;
       switch (k) {
         case 'password':
         case 'pass':
@@ -79,12 +78,12 @@ program.version('0.0.1')
   .option('--port <port>', 'port to connect if not 8006', '8006')
   .option('--host <host>', 'host to connect if not 127.0.0.1', '127.0.0.1')
   .option('-p, --pass [pass]', 'host password, prefed stdin, nodejs script can not hide password from command line')
-  .option('--config, -c <configFile>', 'provide a configuration file');
+  .option('-c, --config <configFile>', 'provide a configuration file', '');
 
 program.command('byVendor')
   .description('connect USB by vendorId/productId faster, do not support multiple identical Device')
   .action(async () => {
-    console.log('byVendor command called');
+    console.log('Adding USB devices by vendorId / ProducId');
     const hp = await initHotPlugService();
     hp.hotPlugByVendor();
   });
@@ -92,7 +91,7 @@ program.command('byVendor')
 program.command('byBus')
   .description('connect USB by position slower, support multiple identical Device')
   .action(async () => {
-    console.log('byBus command called');
+    console.log('Adding USB devices by bus/port');
     const hp = await initHotPlugService();
     hp.hotPlugByPort();
   });
