@@ -46,7 +46,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 program.version('0.0.1')
   .description('Hotplug any new Usb device to your proxmox')
-  .option('--vmid', 'vmid will receved USB Devices, by default the first runing VM having an hostpci0', /^[0-9]+$/)
+  .option('--vmid <vmid>', 'vmid will receved USB Devices, by default the first runing VM having an hostpci0', /^[0-9]+$/)
   .option('--user <user>', 'host to connect if not root@pam', 'root@pam')
   .option('--port <port>', 'port to connect if not 8006', '8006')
   .option('--host <host>', 'host to connect if not 127.0.0.1', '127.0.0.1')
