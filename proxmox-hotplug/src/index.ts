@@ -1,5 +1,6 @@
 import { proxmoxApi, Proxmox } from "proxmox-api";
 import { Command } from 'commander';
+import fs from 'fs';
 import HotPlugService from './HotPlugService';
 let prompt = require('password-prompt')
 
@@ -30,10 +31,37 @@ async function initHotPlugService(): Promise<HotPlugService> {
   if (!password) {
     password = program.P;
   }
+  let host = program.host;
+
+  if (program.config) {
+    let data = '';
+    try {
+      data = await fs.promises.readFile(program.config, { encoding: 'utf-8' })
+    } catch (e) {
+      console.error(`can not read file ${program.config}.`);
+    }
+    const lines = data.split(/[\r\n]+/);
+    for (const line of lines) {
+      const m = line.match(/\s*([a-z]+)\s*=\s*([^\s]+)/)
+      if (!m)
+        continue;
+      const [k, v] = m;
+      switch (k) {
+        case 'password':
+        case 'pass':
+          if (!password)
+            password = v;
+          break;
+        default:
+          console.error(`unknown option ${k} in ${program.config}.`);
+      }
+    }
+  }
+
   if (!password) {
     password = await prompt('proxmox password: ')
   }
-  const proxmox = proxmoxApi({ host: program.host, password });
+  const proxmox = proxmoxApi({ host, password });
   if (!program.vmid) {
     program.vmid = await findPassthroughVmid(proxmox);
     console.log(`Using ${program.vmid} as vmid`)
@@ -50,7 +78,8 @@ program.version('0.0.1')
   .option('--user <user>', 'host to connect if not root@pam', 'root@pam')
   .option('--port <port>', 'port to connect if not 8006', '8006')
   .option('--host <host>', 'host to connect if not 127.0.0.1', '127.0.0.1')
-  .option('-p, --pass [pass]', 'host password, prefed stdin, nodejs script can not hide password from command line');
+  .option('-p, --pass [pass]', 'host password, prefed stdin, nodejs script can not hide password from command line')
+  .option('--config, -c <configFile>', 'provide a configuration file');
 
 program.command('byVendor')
   .description('connect USB by vendorId/productId faster, do not support multiple identical Device')
