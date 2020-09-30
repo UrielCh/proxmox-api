@@ -29,7 +29,7 @@
   "dependencies": {
     "commander": "^6.1.0",
     "password-prompt": "^1.1.2",
-    "proxmox-api": "0.0.6",
+    "proxmox-api": "0.0.7",
     "usb-detection": "^4.10.0"
   },
   "devDependencies": {
