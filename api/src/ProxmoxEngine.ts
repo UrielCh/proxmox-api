@@ -33,11 +33,11 @@ export class ProxmoxEngine implements ApiRequestable {
             await this.getTicket();
         }
         /**
-         * Remove undefined values
+         * Remove null values
          */
         if (retries && params)
             for (let k in params) {
-                if (params.hasOwnProperty(k) && params[k] == null) {
+                if (params.hasOwnProperty(k) && params[k] === null) {
                     delete params[k];
                 }
             }
@@ -93,41 +93,40 @@ export class ProxmoxEngine implements ApiRequestable {
             data = await req.json();
         } else {
             // should never append
-            data.data = req.text();
-            // debugger;
-        }
-        const status = req.status;
-        if (status === 400) {
-            throw Error(`${httpMethod} ${requestUrl} return Error 400: ${JSON.stringify(data.errors)}`);
-        }
-        if (status === 500) {
-            throw Error(`${httpMethod} ${requestUrl} return Error 500 ${req.statusText}: ${JSON.stringify(data)}`);
+            throw Error(`${httpMethod} ${requestUrl} unexpected contentType ${contentType}`);
+            // data.data = req.text();
         }
 
-        // token expired
-        // 401 permission denied - invalid PVE ticket return: {"data":{}}
-        if (status === 401 && req.statusText === 'invalid PVE ticket') {
-            this.ticket = undefined;
-            if (!retries)
-                retries = 0;
-            retries++;
-            if (retries <2)
-                return this.doRequest(httpMethod, path, pathTemplate, params, retries);
+        switch (req.status) {
+            case 400:
+                throw Error(`${httpMethod} ${requestUrl} return Error 400: ${JSON.stringify(data.errors)}`);
+            case 500:
+                throw Error(`${httpMethod} ${requestUrl} return Error 500 ${req.statusText}: ${JSON.stringify(data)}`);
+            case 401:
+                if (req.statusText === 'invalid PVE ticket') {
+                    this.ticket = undefined;
+                    if (!retries)
+                        retries = 0;
+                    retries++;
+                    if (retries <2)
+                        return this.doRequest(httpMethod, path, pathTemplate, params, retries);
+                }
+                throw Error(`${httpMethod} ${requestUrl} return Error 401 ${req.statusText}: ${JSON.stringify(data)}`);
+            case 200:
+                return data.data;
+            default:
+                throw Error(`${httpMethod} ${requestUrl} connetion failed with ${req.status} ${req.statusText} return: ${JSON.stringify(data)}`);
         }
-
-        if (status !== 200) {
-            throw Error(`${httpMethod} ${requestUrl} connetion failed with ${req.status} ${req.statusText} return: ${JSON.stringify(data)}`);
-        }
-        return data.data;
     }
 
     async getTicket(): Promise<string> {
         if (this.ticket)
             return this.ticket;
+        const requestUrl = `${this.schema}://${this.host}:${this.port}/api2/json/access/ticket`;
         try {
             const password = this.password;
             const username = this.username;
-            const req = await fetch(`${this.schema}://${this.host}:${this.port}/api2/json/access/ticket`, {
+            const req = await fetch(requestUrl, {
                 method: 'POST',
                 body: querystring.encode({ username, password }),
                 headers: {
@@ -138,15 +137,13 @@ export class ProxmoxEngine implements ApiRequestable {
                 throw Error(`login failed with ${req.status}: ${req.statusText}`);
             }
             const body = await req.json();
-            // cap
             const { CSRFPreventionToken, ticket } = body.data;
             this.CSRFPreventionToken = CSRFPreventionToken;
             this.ticket = ticket;
             return ticket;
         } catch (e) {
-            debugger;
             console.log(e);
-            throw Error('auth Failed !');
+            throw Error(`Auth ${requestUrl} Failed! with Exception: ${e}`);
         }
     }
 }
