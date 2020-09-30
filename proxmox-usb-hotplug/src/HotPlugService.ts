@@ -20,14 +20,49 @@ export default class HotPlugService {
     private qmMonitor?: QmMonitor;
     // private oldUsb: USBHostInfo[] = [];
     private usbIndex: Set<string> = new Set();
-    constructor(private vmid: number, private proxmox: Proxmox.Api) {
+    constructor(private proxmox: Proxmox.Api, private vmid?: number,) {
     }
 
-    private async getQmMonitor(): Promise<QmMonitor> {
+    async findPassthroughVmid(): Promise<number> {
+        const nodes = await this.proxmox.nodes.$get();
+        const node = nodes[0].node;
+        const vms = await this.proxmox.nodes.$(node).qemu.$get();
+        for (const vm of vms) {
+            if (vm.status != 'running') {
+                continue;
+            }
+            const config = await this.proxmox.nodes.$(node).qemu.$(vm.vmid).config.$get();
+            if (config.hostpci0) {
+                console.log(`Using ${vm.vmid} as Passthrough vmid`)
+                return vm.vmid;
+            }
+        }
+        return 0;
+    }
+
+    private async getQmMonitor(): Promise<QmMonitor | null> {
+        if (!this.vmid) {
+            // MODE AUTODETECT
+            if (this.qmMonitor) {
+                const info = await this.qmMonitor.info('status');
+                // the VM is off
+                if (!~info.includes('running'))
+                    this.qmMonitor = undefined;
+            }
+        }
+
         if (!this.qmMonitor) {
             const nodes = await this.proxmox.nodes.$get();
             this.node = nodes[0].node;
-            this.qmMonitor = new QmMonitor(this.proxmox, nodes[0].node, this.vmid);
+            let vmid = this.vmid;
+            if (!vmid) {
+                vmid = await this.findPassthroughVmid();
+            }
+            if (!vmid) {
+                console.log('NO Passthrough currently running');
+                return null;
+            }
+            this.qmMonitor = new QmMonitor(this.proxmox, nodes[0].node, vmid);
         }
         return this.qmMonitor;
     }
@@ -48,12 +83,18 @@ export default class HotPlugService {
      */
     public async hotPlugByVendor(): Promise<any> {
         usbDetect.startMonitoring();
-        const qmMonitor = await this.getQmMonitor();
         usbDetect.on('add', async (device: DeviceDesc) => {
             const { vendorId, productId } = vendorFromDevice(device);
-            const key = `V${vendorId}P${productId}`;
-            console.log(`Add USB: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}] with Key:${key}`);
-            await qmMonitor.deviceAddById(key, { vendorId, productId });
+
+            const qmMonitor = await this.getQmMonitor();
+            if (qmMonitor) {
+                const key = `V${vendorId}P${productId}`;
+                console.log(`Add USB: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}] with Key:${key}`);
+                await qmMonitor.deviceAddById(key, { vendorId, productId });
+            } else {
+                console.log(`new USB Device, but no Passthrough detected: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}]`);
+            }
+
         });
 
         usbDetect.on('remove', async (device: DeviceDesc) => {
@@ -67,11 +108,19 @@ export default class HotPlugService {
      */
     public async hotPlugByPort(): Promise<any> {
         usbDetect.startMonitoring();
-        const qmMonitor = await this.getQmMonitor();
-        this.indexUsb(await qmMonitor.infoUsbhost())
+        {
+            const qmMonitor = await this.getQmMonitor();
+            if (qmMonitor)
+                this.indexUsb(await qmMonitor.infoUsbhost())
+        }
         usbDetect.on('add', async (device: DeviceDesc) => {
             const vendorId = device.vendorId.toString(16).padStart(4, '0');
             const productId = device.productId.toString(16).padStart(4, '0');
+            const qmMonitor = await this.getQmMonitor();
+            if (!qmMonitor) {
+                console.log(`new USB Device, but no Passthrough detected: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}]`);
+                return;
+            }
             const allUsb = await qmMonitor.infoUsbhost();
             // filter by vendorId:productId
             let newUsb = allUsb.filter(usb => usb.vendorId.endsWith(vendorId) && usb.productId.endsWith(productId));
@@ -87,7 +136,9 @@ export default class HotPlugService {
         usbDetect.on('remove', async (device: DeviceDesc) => {
             const { vendorId, productId } = vendorFromDevice(device);
             console.log(`remove USB: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}]`);
-            this.indexUsb(await qmMonitor.infoUsbhost())
+            const qmMonitor = await this.getQmMonitor();
+            if (qmMonitor)
+                this.indexUsb(await qmMonitor.infoUsbhost())
         });
     }
 }

@@ -4,22 +4,6 @@ import fs from 'fs';
 import HotPlugService from './HotPlugService';
 let prompt = require('password-prompt')
 
-async function findPassthroughVmid(proxmox: Proxmox.Api): Promise<number> {
-  const nodes = await proxmox.nodes.$get();
-  const node = nodes[0].node;
-  const vms = await proxmox.nodes.$(node).qemu.$get();
-  for (const vm of vms) {
-    if (vm.status != 'running') {
-      continue;
-    }
-    const config = await proxmox.nodes.$(node).qemu.$(vm.vmid).config.$get();
-    if (config.hostpci0) {
-      return vm.vmid;
-    }
-  }
-  return 0;
-}
-
 const program = new Command();
 
 async function initHotPlugService(): Promise<HotPlugService> {
@@ -61,11 +45,7 @@ async function initHotPlugService(): Promise<HotPlugService> {
     password = await prompt('proxmox password: ')
   }
   const proxmox = proxmoxApi({ host, password });
-  if (!program.vmid) {
-    program.vmid = await findPassthroughVmid(proxmox);
-    console.log(`Using ${program.vmid} as vmid`)
-  }
-  const hp = new HotPlugService(Number(program.vmid), proxmox);
+  const hp = new HotPlugService(proxmox, Number(program.vmid));
   return hp;
 }
 

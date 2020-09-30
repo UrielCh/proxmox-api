@@ -36,7 +36,7 @@ proxmox-usb-hotplug -c conf.txt
 
 ## TODO
 
-- Currently proxmox-usb-hotplug detects the main VMID once at start, It will update the VMid, after this VM shutdown.
+- Currently proxmox-usb-hotplug detects the main VMID once at start, It will update the VMid, after this VM shutdown. Done in 0.0.3
 - Add option to hotplug existing already connected USB devices on a recently started VM.
 - Add a parameter to choose the cluser node, or detect it from the hostname, currently It takes the first node.
 - Deal with USB 3.x.
