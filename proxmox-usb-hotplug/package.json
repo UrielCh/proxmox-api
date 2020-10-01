@@ -1,6 +1,6 @@
 {
   "name": "proxmox-usb-hotplug",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Hot Plug any new USB device to a running proxmox KVM",
   "main": "index.js",
   "keywords": [
@@ -30,7 +30,7 @@
   "dependencies": {
     "commander": "^6.1.0",
     "password-prompt": "^1.1.2",
-    "proxmox-api": "file:../api",
+    "proxmox-api": "^0.1.0",
     "usb": "^1.6.3"
   },
   "devDependencies": {

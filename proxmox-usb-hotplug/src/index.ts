@@ -51,6 +51,9 @@ async function initHotPlugService(): Promise<HotPlugService> {
         case 'watch':
           options.watch = Number(v);
           break
+        case 'flush':
+          options.flush = 1;
+          break
         case 'deny-product':
           denyProduct.add(v);
           break;

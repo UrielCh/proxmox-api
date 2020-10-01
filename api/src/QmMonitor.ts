@@ -20,8 +20,8 @@ export type QemuInfoOption = typeof VALID_QEMU_INFO_OPTION[number];
 export type QemuInfoParam = typeof VALID_QEMU_INFO_PARAM[number];
 
 export interface USBHostInfo {
-    bus: string,
-    addr: string,
+    bus: number,
+    addr: number,
     port: string,
     speed: string,
     class: string,
@@ -94,8 +94,8 @@ export class QmMonitor {
         const text = await this.info('usbhost');
         const matches = text.matchAll(/Bus (\d+), Addr (\d+), Port ([\d.]+), Speed ([\d KMGTbfs\/.]+)[\r\n]\s+Class (\d+): USB device ([0-9a-f]{4}):([0-9a-f]{4}), (.*)/gm);
         let results = [...matches].map(m => ({
-            bus: m[1],
-            addr: m[2],
+            bus: Number(m[1]),
+            addr: Number(m[2]),
             port: m[3],
             speed: m[4],
             class: m[5],
@@ -134,7 +134,7 @@ export class QmMonitor {
 
     // usb-host,hostbus=2,hostport=4,id=front2
     // device_add driver[,prop=value][,...] -- add device, like -device on the command line
-    async deviceAddByPort(id: string, params: { bus: string, port: string }): Promise<any> {
+    async deviceAddByPort(id: string, params: { bus: number, port: string }): Promise<any> {
         // TODO: check param values
         const text = await this.monitor(`device_add usb-host,hostbus=${params.bus},hostport=${params.port},id=${id}`);
         // `Duplicate ID '${id}' for device\nTry "help device_add" for more information`
