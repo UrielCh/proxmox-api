@@ -1,7 +1,31 @@
 import { QmMonitor, Proxmox, USBHostInfo } from "proxmox-api";
-const usbDetect = require('usb-detection');
+// const usbDetect = require('usb-detection');
+import nodeUsb, { Device } from 'usb';
 
-export interface DeviceDesc {
+export interface USBDesc {
+    allConfigDescriptors: any;//ƒ () {\n\t\ttry {\n\t\t\treturn this._allConfigDescriptors || (this._allConfigDescriptors = this.__getAllConfigDescriptors())\n\t\t} catch(e) {\n\t\t\t// Check descriptors exist\n\t\t\tif (e.errno == usb.LIBUSB_ERROR_NOT_FOUND) return [];\n\t\t\tthrow e;\n\t\t}\n\t}
+    configDescriptor: any;//ƒ () {\n\t\ttry {\n\t\t\treturn this._configDescriptor || (this._configDescriptor = this.__getConfigDescriptor())\n\t\t} catch(e) {\n\t\t\t// Check descriptor exists\n\t\t\tif (e.errno == usb.LIBUSB_ERROR_NOT_FOUND) return null;\n\t\t\tthrow e;\n\t\t}\n\t}
+    deviceDescriptor: {
+        bcdDevice: number,
+        bcdUSB: number,
+        bDescriptorType: number,
+        bDeviceClass: number,
+        bDeviceProtocol: number,
+        bDeviceSubClass: number,
+        bLength: number,
+        bMaxPacketSize0: number,
+        bNumConfigurations: number,
+        idProduct: number,
+        idVendor: number,
+        iManufacturer: number,
+        iProduct: number,
+        iSerialNumber: number,
+    }
+    parent: USBDesc | null;
+    portNumbers: number[];// (2)[4, 3]
+}
+
+export interface DeviceDesc_USBDetect {
     locationId: number;
     vendorId: number;
     productId: number;
@@ -18,10 +42,17 @@ export interface HotPlugServiceOption {
     watch?: number;
 }
 
-const vendorFromDevice = (device: DeviceDesc): { vendorId: string, productId: string } => {
-    const vendorId = device.vendorId.toString(16).padStart(4, '0');
-    const productId = device.productId.toString(16).padStart(4, '0');
-    return { vendorId, productId };
+const vendorFromDevice = (device: Device): { vendorId: string, productId: string, manufacturer: string, deviceName: string, port: string, addr: string, bus: string } => {
+    const deviceDescriptor = device.deviceDescriptor;
+    const vendorId = deviceDescriptor.idVendor.toString(16).padStart(4, '0');
+    const productId = deviceDescriptor.idProduct.toString(16).padStart(4, '0');
+    const manufacturer = `${deviceDescriptor.iManufacturer}`;
+    const deviceName = `${deviceDescriptor.iProduct}`;
+    const port = device.portNumbers.join('.')
+    const addr = `${device.deviceAddress}`; // TODO convert to number
+    const bus = `${device.busNumber}`; // TODO convert to number
+    // manufacturer}(${device.deviceName
+    return { vendorId, productId, manufacturer, deviceName, port, addr, bus };
 }
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -36,6 +67,7 @@ export default class HotPlugService {
         if (this.options.watch) {
             this.watch(this.options.watch);
         }
+        // this.detachAll();
     }
 
     async watch(interval: number) {
@@ -115,49 +147,65 @@ export default class HotPlugService {
         return this.qmMonitor;
     }
 
-    private key(usb: USBHostInfo): string {
-        return `${usb.class},${usb.addr},${usb.bus},${usb.port},${usb.vendorId}:${usb.productId}`
-    }
+    //private key(usb: USBHostInfo): string {
+    //    return `${usb.class},${usb.addr},${usb.bus},${usb.port},${usb.vendorId}:${usb.productId}`
+    //}
 
-    private indexUsb(usbs: USBHostInfo[]) {
-        this.usbIndex.clear()
-        for (const usb of usbs) {
-            this.usbIndex.add(this.key(usb));
+    //private indexUsb(usbs: USBHostInfo[]) {
+    //    this.usbIndex.clear()
+    //    for (const usb of usbs) {
+    //        this.usbIndex.add(this.key(usb));
+    //    }
+    //}
+
+    private async detachAll() {
+        const qmMonitor = await this.getQmMonitor();
+        if (qmMonitor) {
+            const devices = await qmMonitor.infoUsb();
+            for (const device of devices)
+                await qmMonitor.deviceDel(device.id)
         }
     }
+
 
     /**
      * faster but do not support multiple identical USB devices
      */
     public async hotPlugByVendor(): Promise<any> {
-        usbDetect.startMonitoring();
-        usbDetect.on('add', async (device: DeviceDesc) => {
-            const { vendorId, productId } = vendorFromDevice(device);
-            debugger;
+        // usbDetect.startMonitoring();
+
+        // usbDetect 'add'
+        nodeUsb.on('attach', async (device: Device) => {
+            const { vendorId, productId, manufacturer, deviceName } = vendorFromDevice(device);
             if (this.options.denyUsb && this.options.denyUsb.has(`${vendorId}:${productId}`)) {
-                console.log(`ignoring ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}]`);
+                console.log(`ignoring ${manufacturer}(${deviceName})[${vendorId}:${productId}]`);
                 return;
             }
 
             const qmMonitor = await this.getQmMonitor();
             if (qmMonitor) {
                 const key = `V${vendorId}P${productId}`;
-                console.log(`Add USB: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}] with Key:${key}`);
-                await qmMonitor.deviceAddById(key, { vendorId, productId });
+                const ret = await qmMonitor.deviceAddById(key, { vendorId, productId });
+                console.log(`Add USB: ${manufacturer}(${deviceName})[${vendorId}:${productId}] with Key:${key} ret:${ret}`);
             } else {
-                console.log(`new USB Device, but no Passthrough detected: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}]`);
+                console.log(`new USB Device, but no Passthrough detected: ${manufacturer}(${deviceName})[${vendorId}:${productId}]`);
             }
         });
 
-        usbDetect.on('remove', async (device: DeviceDesc) => {
-            const { vendorId, productId } = vendorFromDevice(device);
+        // usbDetect 'remove'
+        nodeUsb.on('detach', async (device: Device) => {
+            const { vendorId, productId, manufacturer, deviceName, addr, port } = vendorFromDevice(device);
             const qmMonitor = await this.getQmMonitor();
             let lastRet = '';
             if (qmMonitor) {
                 const key = `V${vendorId}P${productId}`;
                 lastRet = await qmMonitor.deviceDel(key);
+                if (lastRet) {
+                    const key2 = `B${addr}P${port}`;
+                    lastRet = await qmMonitor.deviceDel(key2);
+                }
             }
-            console.log(`remove USB: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}] ${lastRet}`);
+            console.log(`remove USB: ${manufacturer}(${deviceName})[${vendorId}:${productId}] ${lastRet.trim()}`);
         });
     }
 
@@ -165,52 +213,41 @@ export default class HotPlugService {
      * slower, but support multiple identical USB devices
      */
     public async hotPlugByPort(): Promise<any> {
-        usbDetect.startMonitoring();
-        {
-            const qmMonitor = await this.getQmMonitor();
-            if (qmMonitor)
-                this.indexUsb(await qmMonitor.infoUsbhost())
-        }
-        usbDetect.on('add', async (device: DeviceDesc) => {
-            const { vendorId, productId } = vendorFromDevice(device);
+        //usbDetect.startMonitoring();
+        //{
+        //const qmMonitor = await this.getQmMonitor();
+        //if (qmMonitor)
+        //    this.indexUsb(await qmMonitor.infoUsbhost())
+        //}
+        // usbDetect 'add'
+        nodeUsb.on('attach', async (device: Device) => {
+            const { vendorId, productId, manufacturer, deviceName, port, addr, bus } = vendorFromDevice(device);
             if (this.options.denyUsb && this.options.denyUsb.has(`${vendorId}:${productId}`)) {
-                console.log(`ignoring ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}]`);
+                console.log(`ignoring ${manufacturer}(${deviceName})[${vendorId}:${productId}]`);
                 return;
             }
             const qmMonitor = await this.getQmMonitor();
             if (!qmMonitor) {
-                console.log(`new USB Device, but no Passthrough detected: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}]`);
+                console.log(`new USB Device, but no Passthrough detected: ${manufacturer}(${deviceName})[${vendorId}:${productId}]`);
                 return;
             }
-            const allUsb = await qmMonitor.infoUsbhost();
-            // filter by vendorId:productId
-            let newUsb = allUsb.filter(usb => usb.vendorId.endsWith(vendorId) && usb.productId.endsWith(productId));
-            newUsb = newUsb.filter((usb) => !this.usbIndex.has(this.key(usb)));
-            this.indexUsb(allUsb);
-            for (const usb of newUsb) {
-                const key = `V${vendorId}P${productId}B${usb.addr}P${usb.port}`;
-                console.log(device);
-                console.log(`Add USB: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}] with Key:${key}`);
-                await qmMonitor.deviceAddByPort(key, { bus: usb.bus, port: usb.port });
-            }
+            const key = `B${addr}P${port}`;
+            console.log(device);
+            const ret = await qmMonitor.deviceAddByPort(key, { bus, port });
+            console.log(`Add USB: ${manufacturer}(${deviceName})[${vendorId}:${productId}] with Key:${key} ret:${ret}`);
         });
 
-        usbDetect.on('remove', async (device: DeviceDesc) => {
-            const { vendorId, productId } = vendorFromDevice(device);
+        // usbDetect 'remove'
+        nodeUsb.on('detach', async (device: Device) => {
+            const { vendorId, productId, manufacturer, deviceName, port, addr } = vendorFromDevice(device);
             const qmMonitor = await this.getQmMonitor();
             let action = '';
             if (qmMonitor) {
-                this.indexUsb(await qmMonitor.infoUsbhost())
-                let usbs = await qmMonitor.infoUsb();
-                const key = `V${vendorId}P${productId}`;
-                usbs = usbs.filter(usb => (usb.id || '').startsWith(key))
-                if (usbs.length === 1) {
-                    await qmMonitor.deviceDel(usbs[0].id);
-                    action = ` unplug ${usbs[0].id} from vm`
-                }
+                const key = `B${addr}P${port}`;
+                const ret = await qmMonitor.deviceDel(key);
+                action = ` unplug ${key} from vm ${ret.trim()}`;
             }
-            console.log(device);
-            console.log(`remove USB: ${device.manufacturer}(${device.deviceName})[${vendorId}:${productId}]${action}`);
+            console.log(`remove USB: ${manufacturer}(${deviceName})[${vendorId}:${productId}]${action}`);
         });
     }
 }
