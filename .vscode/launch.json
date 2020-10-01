@@ -60,6 +60,18 @@
             "cwd": "${workspaceFolder}/sample",
             "runtimeArgs": ["-r", "ts-node/register"],
             "args": ["${workspaceFolder}/sample/src/hot-connect-usb.ts"]
+        },
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "proxmox-usb-hotplug",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd": "${workspaceFolder}/proxmox-usb-hotplug",
+            "runtimeArgs": ["-r", "ts-node/register"],
+            "args": ["${workspaceFolder}/proxmox-usb-hotplug/src/index.ts", "-c", "../../auth.conf", "byBus"],
         }
         
     ]

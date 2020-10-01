@@ -66,7 +66,7 @@ export class QmMonitor {
         //Device 1.0, Port 2, Speed 12 Mb/s, Product Gaming KB , ID: keyboard
         const text = await this.info('usb');
         const expected = ((text.match(/[\r\n]+/g) || []).length);
-        const matches = text.matchAll(/Device ([\d.]+), Port ([\d]+), Speed ([\d KMGTbfs\/.]+), Product (.+), ID: (.+)/g);
+        const matches = text.matchAll(/Device ([\d.]+), Port ([\d.]+), Speed ([\d KMGTbfs\/.]+)(?:, Product (.+), ID: (.+))?/g);
         let results = [...matches].map(m => ({
             device: m[1],
             port: m[2],
@@ -75,7 +75,7 @@ export class QmMonitor {
             id: m[5],
         }))
         if (expected != results.length) {
-            throw Error(`Identify ${results.length} usb element should find ${expected} Error in API`);
+            throw Error(`Identify ${results.length} usb element should find ${expected} Error in API, Failed to parse:\n${text}`);
         }
         return results;
     }

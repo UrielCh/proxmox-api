@@ -1,14 +1,21 @@
-import { proxmoxApi, Proxmox } from "proxmox-api";
+import { proxmoxApi } from 'proxmox-api';
 import { Command } from 'commander';
 import fs from 'fs';
-import HotPlugService from './HotPlugService';
+import HotPlugService, { HotPlugServiceOption } from './HotPlugService';
 let prompt = require('password-prompt')
+
+// todo use `udevadm monitor`
+// TODO test https://www.npmjs.com/package/usb
 
 const program = new Command();
 
 async function initHotPlugService(): Promise<HotPlugService> {
   // console.log(program)
   let password = program.pass;
+  let denyProduct = new Set<String>();
+  let denyUsb = new Set<String>();
+  let forceUsb = new Set<String>();
+  let options: HotPlugServiceOption = { denyUsb, forceUsb, denyProduct };
   if (!password) {
     password = program.p;
   }
@@ -24,8 +31,11 @@ async function initHotPlugService(): Promise<HotPlugService> {
       console.error(`can not read file ${program.config}.`);
     }
     const lines = data.split(/[\r\n]+/);
-    for (const line of lines) {
-      const m = line.match(/\s*([a-zA-Z]+)\s*=\s*([^\s]+)/)
+    for (let line of lines) {
+      line = line.trim();
+      if (line.startsWith('#') || line.startsWith(';'))
+        continue;
+      const m = line.match(/([a-zA-Z-]+)\s*=\s*([^\s]+)/)
       if (!m)
         continue;
       const [, k, v] = m;
@@ -34,6 +44,23 @@ async function initHotPlugService(): Promise<HotPlugService> {
         case 'pass':
           if (!password)
             password = v;
+          break;
+        case 'node':
+          options.node = v;
+          break
+        case 'watch':
+          options.watch = Number(v);
+          break
+        case 'deny-product':
+          denyProduct.add(v);
+          break;
+        case 'deny-usb':
+          for (const ref of [...v.matchAll(/[0-9a-fA-F]{4}:[0-9a-fA-F]{4}/g)])
+            denyUsb.add(ref[0].toLowerCase())
+          break;
+        case 'force-usb':
+          for (const ref of [...v.matchAll(/[0-9a-fA-F]{4}:[0-9a-fA-F]{4}/g)])
+            forceUsb.add(ref[0].toLowerCase())
           break;
         default:
           console.error(`unknown option ${k} in ${program.config}.`);
@@ -45,7 +72,8 @@ async function initHotPlugService(): Promise<HotPlugService> {
     password = await prompt('proxmox password: ')
   }
   const proxmox = proxmoxApi({ host, password });
-  const hp = new HotPlugService(proxmox, Number(program.vmid));
+  options.vmid = Number(program.vmid);
+  const hp = new HotPlugService(proxmox, options);
   return hp;
 }
 
