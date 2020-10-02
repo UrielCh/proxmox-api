@@ -23,7 +23,6 @@ Options:
 
 ## configuration file
 
-
 ```
 # username used to connect to proxmox API
 username = root@pam
@@ -88,7 +87,8 @@ module.exports = {
     apps: [{
         name: "proxmoxUsbHotplug",
         script: "proxmox-usb-hotplug",
-        args: ["--config", "/etc/usb-hotplug.conf"],
+        args: ["--config", "/etc/hotplug-usb.conf"],
+        watch: [ "/etc/hotplug-usb.conf" ],
     }]
 }
 ```

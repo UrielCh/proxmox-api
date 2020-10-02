@@ -63,9 +63,6 @@ async function initHotPlugService(): Promise<HotPlugService> {
         case 'username':
           username = v;
           break
-        // case 'deny-product':
-        //  denyProduct.add(v);
-        //  break;
         case 'deny-usb':
           for (const ref of [...v.matchAll(/[0-9a-fA-F]{4}:[0-9a-fA-F]{4}/g)])
             denyUsb.add(ref[0].toLowerCase())
