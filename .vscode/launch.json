@@ -71,8 +71,8 @@
             ],
             "cwd": "${workspaceFolder}/proxmox-usb-hotplug",
             "runtimeArgs": ["-r", "ts-node/register"],
-            // "args": ["${workspaceFolder}/proxmox-usb-hotplug/src/index.ts", "-c", "../../auth.conf", "byBus"],
-            "args": ["${workspaceFolder}/proxmox-usb-hotplug/src/index.ts", "-c", "../../auth.conf", "byVendor"],
+            "args": ["${workspaceFolder}/proxmox-usb-hotplug/src/index.ts", "-c", "../../auth.conf", "byBus"],
+            // "args": ["${workspaceFolder}/proxmox-usb-hotplug/src/index.ts", "-c", "../../auth.conf", "byVendor"],
         }
 
     ]
