@@ -1,20 +1,11 @@
-import { QmMonitor, Proxmox, USBHostInfo } from "proxmox-api";
-// const usbDetect = require('usb-detection');
+import { QmMonitor, Proxmox } from "proxmox-api";
 import nodeUsb, { Device } from 'usb';
-
-// export interface DeviceDesc_USBDetect {
-//     locationId: number;
-//     vendorId: number;
-//     productId: number;
-//     deviceName: string;
-//     manufacturer: string;
-// }
 
 export interface HotPlugServiceOption {
     vmid?: number;
     node?: string;
     denyUsb?: Set<String>;
-    denyProduct?: Set<String>;
+    // denyProduct?: Set<String>;
     forceUsb?: Set<String>;
     watch?: number;
     flush?: number;
@@ -62,7 +53,6 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export default class HotPlugService {
     private qmMonitor?: QmMonitor;
-    // private usbIndex: Set<string> = new Set();
     private options: HotPlugServiceOption;
 
     constructor(private proxmox: Proxmox.Api, options?: HotPlugServiceOption) {
@@ -89,12 +79,11 @@ export default class HotPlugService {
                 //     console.log(`remove ${device.id}`);
                 //     await qmMonitor.deviceDel(device.id);
                 // }
-                if (this.options.denyProduct && this.options.denyProduct.has(device.product)) {
-                    await qmMonitor.deviceDel(device.id);
-                    console.log(`remove ${device.id}`);
-                    continue;
-                }
-
+                //if (this.options.denyProduct && this.options.denyProduct.has(device.product)) {
+                //    await qmMonitor.deviceDel(device.id);
+                //    console.log(`remove ${device.id}`);
+                //    continue;
+                //}
                 //if (this.options.denyUsb && this.options.denyProduct.has(device.product)) {
                 //    await qmMonitor.deviceDel(device.id);
                 //    continue;

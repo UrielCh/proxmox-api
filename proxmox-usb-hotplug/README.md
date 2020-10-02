@@ -3,9 +3,7 @@
 This script monitor and plug any new USB device to running KVM hosted by a proxmox server.
 
 ```bash
-proxmox-usb-hotplug --help
-
-Usage: proxmox-usb-hotplug [options] [command]
+Usage: proxmox-usb-hotplug [options]
 
 Hotplug any new Usb device to your proxmox
 
@@ -16,14 +14,48 @@ Options:
   --port <port>              port to connect if not 8006 (default: "8006")
   --host <host>              host to connect if not 127.0.0.1 (default: "127.0.0.1")
   -p, --pass [pass]          host password, prefed stdin, nodejs script can not hide password from command line
-  -c, --config <configFile>  provide a configuration file (default: "")
+  -c, --config <configFile>  provide a configuration file
   -h, --help                 display help for command
 
-Commands:
-  byVendor                   connect USB by vendorId/productId faster, do not support multiple identical Device
-  byBus                      connect USB by position slower, support multiple identical Device
-  help [command]             display help for command
+```
 
+## configuration file
+
+
+```
+# username used to connect to proxmox API
+username = root@pam
+# password used to connect to proxmox API
+password = prOxmOxp@sswOd
+# host used to connect to proxmox API should always be localhost
+host = 127.0.0.1
+
+# the node name to used
+# by default use the first node, if you are using a cluster you should give the cluster name
+;node=proxmox
+
+# deny an usb device
+deny-usb=001c:100d
+# deny an usb hub 
+# you should always deny USB hub to avoid a dual passthrough 
+deny-usb=1a40:0101
+
+
+# Connect some device at startup recommanded for keyboard and mouse
+# a keyboard
+force-usb=258a:1006
+# a mouse
+force-usb=18f8:0f97
+
+# not implemented yet.
+; watch = 60
+
+# unplug all existing device on script startup
+# then reconnect all force-usb devices
+flush = 1
+
+# try to autodetect USB Hub to avoid dual passthrough
+no-hub=1
 ```
 
 ## sample
@@ -31,12 +63,12 @@ Commands:
 ```bash
 # on the dom0
 echo password = myPassword > conf.txt
+echo flush = 1 >> conf.txt
 proxmox-usb-hotplug -c conf.txt
 ```
 
 ## TODO
 
-- Currently proxmox-usb-hotplug detects the main VMID once at start, It will update the VMid, after this VM shutdown. Done in 0.0.3
-- Add option to hotplug existing already connected USB devices on a recently started VM.
-- Add a parameter to choose the cluser node, or detect it from the hostname, currently It takes the first node.
+- Connect forced-usb device after a main shutdown.
 - Deal with USB 3.x.
+- auto detect curent cluster name.

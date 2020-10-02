@@ -53,13 +53,14 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "run hot-connect-usb",
+            "name": "proxmox-usb-hotplug --help",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "cwd": "${workspaceFolder}/sample",
+            "cwd": "${workspaceFolder}/proxmox-usb-hotplug",
             "runtimeArgs": ["-r", "ts-node/register"],
-            "args": ["${workspaceFolder}/sample/src/hot-connect-usb.ts"]
+            "args": ["${workspaceFolder}/proxmox-usb-hotplug/src/proxmox-usb-hotplug.ts", "--help"],
+            // "args": ["${workspaceFolder}/proxmox-usb-hotplug/src/index.ts", "-c", "../../auth.conf", "byVendor"],
         },
 
         {
@@ -71,7 +72,7 @@
             ],
             "cwd": "${workspaceFolder}/proxmox-usb-hotplug",
             "runtimeArgs": ["-r", "ts-node/register"],
-            "args": ["${workspaceFolder}/proxmox-usb-hotplug/src/index.ts", "-c", "../../auth.conf", "byBus"],
+            "args": ["${workspaceFolder}/proxmox-usb-hotplug/src/proxmox-usb-hotplug.ts", "-c", "../../auth.conf"],
             // "args": ["${workspaceFolder}/proxmox-usb-hotplug/src/index.ts", "-c", "../../auth.conf", "byVendor"],
         }
 

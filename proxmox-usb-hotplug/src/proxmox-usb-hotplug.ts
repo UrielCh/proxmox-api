@@ -4,25 +4,24 @@ import fs from 'fs';
 import HotPlugService, { HotPlugServiceOption } from './HotPlugService';
 let prompt = require('password-prompt')
 
-// todo use `udevadm monitor`
-// TODO test https://www.npmjs.com/package/usb
-
 const program = new Command();
 
 async function initHotPlugService(): Promise<HotPlugService> {
   // console.log(program)
   let password = program.pass;
-  let denyProduct = new Set<String>();
+  // let denyProduct = new Set<String>();
   let denyUsb = new Set<String>();
   let forceUsb = new Set<String>();
-  let options: HotPlugServiceOption = { denyUsb, forceUsb, denyProduct };
+  let options: HotPlugServiceOption = { denyUsb, forceUsb };
   if (!password) {
     password = program.p;
   }
   if (!password) {
     password = program.P;
   }
-  let host = program.host;
+  let host = '127.0.0.1';
+  let username = 'root@pam';
+  let port = 8006;
   if (program.config) {
     let data = '';
     try {
@@ -33,7 +32,7 @@ async function initHotPlugService(): Promise<HotPlugService> {
     const lines = data.split(/[\r\n]+/);
     for (let line of lines) {
       line = line.trim();
-      if (line.startsWith('#') || line.startsWith(';'))
+      if (line.startsWith('#') || line.startsWith(';') || line.startsWith('//'))
         continue;
       const m = line.match(/([a-zA-Z-]+)\s*=\s*([^\s]+)/)
       if (!m)
@@ -51,12 +50,21 @@ async function initHotPlugService(): Promise<HotPlugService> {
         case 'watch':
           options.watch = Number(v);
           break
+        case 'port':
+          port = Number(port);
+          break
         case 'flush':
           options.flush = 1;
           break
-        case 'deny-product':
-          denyProduct.add(v);
-          break;
+        case 'host':
+          host = v;
+          break
+        case 'username':
+          username = v;
+          break
+        // case 'deny-product':
+        //  denyProduct.add(v);
+        //  break;
         case 'deny-usb':
           for (const ref of [...v.matchAll(/[0-9a-fA-F]{4}:[0-9a-fA-F]{4}/g)])
             denyUsb.add(ref[0].toLowerCase())
@@ -66,18 +74,23 @@ async function initHotPlugService(): Promise<HotPlugService> {
             forceUsb.add(ref[0].toLowerCase())
           break;
         case 'no-hub':
-            options.blockHub = true;
-            break;
+          options.blockHub = true;
+          break;
         default:
           console.error(`unknown option ${k} in ${program.config}.`);
       }
     }
   }
-
+  if (program.host) {
+    host = program.host;
+  }
+  if (program.port) {
+    port = Number(program.port);
+  }
   if (!password) {
     password = await prompt('proxmox password: ')
   }
-  const proxmox = proxmoxApi({ host, password });
+  const proxmox = proxmoxApi({ host, port, password, username });
   options.vmid = Number(program.vmid);
   const hp = new HotPlugService(proxmox, options);
   return hp;
@@ -93,11 +106,11 @@ try {
 program.version(version)
   .description('Hotplug any new Usb device to your proxmox')
   .option('--vmid <vmid>', 'vmid will receive USB Devices, by default the first running VM having an hostpci0', /^[0-9]+$/)
-  .option('--user <user>', 'host to connect if not root@pam', 'root@pam')
-  .option('--port <port>', 'port to connect if not 8006', '8006')
+  .option('--user <user>', 'host to connect if not root@pam (default: "root@pam")')
+  .option('--port <port>', 'port to connect if not 8006')
   .option('--host <host>', 'host to connect if not 127.0.0.1', '127.0.0.1')
   .option('-p, --pass [pass]', 'host password, prefed stdin, nodejs script can not hide password from command line')
-  .option('-c, --config <configFile>', 'provide a configuration file', '');
+  .option('-c, --config <configFile>', 'provide a configuration file');
 
 //program.command('byVendor')
 //  .description('connect USB by vendorId/productId faster, do not support multiple identical Device')
