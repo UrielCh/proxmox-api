@@ -139,16 +139,6 @@ export default class HotPlugService {
         return this.qmMonitor;
     }
 
-    //private key(usb: USBHostInfo): string {
-    //    return `${usb.class},${usb.addr},${usb.bus},${usb.port},${usb.vendorId}:${usb.productId}`
-    //}
-
-    //private indexUsb(usbs: USBHostInfo[]) {
-    //    this.usbIndex.clear()
-    //    for (const usb of usbs) {
-    //        this.usbIndex.add(this.key(usb));
-    //    }
-    //}
 
     private async detachAll() {
         const qmMonitor = await this.getQmMonitor();
@@ -191,7 +181,7 @@ export default class HotPlugService {
         // complet initialization
         await this.getQmMonitor();
         nodeUsb.on('attach', async (device: Device) => {
-            const { vendorId, productId, manufacturer, deviceName, port, addr, bus } = await vendorFromDevice(device);
+            const { vendorId, productId, manufacturer, deviceName, port, bus } = await vendorFromDevice(device);
             if (this.options.denyUsb && this.options.denyUsb.has(`${vendorId}:${productId}`)) {
                 console.log(`ignoring ${manufacturer}(${deviceName})[${vendorId}:${productId}]`);
                 return;
@@ -204,7 +194,7 @@ export default class HotPlugService {
             const key = `B${bus}P${port}`;
             // console.log(device);
             const ret = await qmMonitor.deviceAddByPort(key, { bus, port });
-            console.log(`Add USB: ${manufacturer}(${deviceName})[${vendorId}:${productId}] with Key:${key} ret:${ret}`);
+            console.log(`Add USB: ${manufacturer}(${deviceName})[${vendorId}:${productId}] with Key:${key} to VM ${qmMonitor.vmid}: ${ret || 'Ok'}`);
         });
 
         nodeUsb.on('detach', async (device: Device) => {
@@ -214,7 +204,7 @@ export default class HotPlugService {
             if (qmMonitor) {
                 const key = `B${bus}P${port}`;
                 const ret = await qmMonitor.deviceDel(key);
-                action = ` unplug ${key} from vm ${ret.trim()}`;
+                action = ` unplug ${key} from VM ${qmMonitor.vmid}: ${ret.trim() || 'Ok'}`;
             }
             console.log(`remove USB: ${manufacturer}(${deviceName})[${vendorId}:${productId}]${action}`);
         });

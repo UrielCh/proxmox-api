@@ -1,96 +1,25 @@
 import { proxmoxApi } from 'proxmox-api';
 import { Command } from 'commander';
-import fs from 'fs';
-import HotPlugService, { HotPlugServiceOption } from './HotPlugService';
-let prompt = require('password-prompt')
+import HotPlugService from './HotPlugService';
+import { loadConfig } from './config';
 
 const program = new Command();
 
 async function initHotPlugService(): Promise<HotPlugService> {
-  // console.log(program)
-  let password = program.pass;
-  // let denyProduct = new Set<String>();
-  let denyUsb = new Set<String>();
-  let forceUsb = new Set<String>();
-  let options: HotPlugServiceOption = { denyUsb, forceUsb };
-  if (!password) {
-    password = program.p;
-  }
-  if (!password) {
-    password = program.P;
-  }
-  let host = '127.0.0.1';
-  let username = 'root@pam';
-  let port = 8006;
-  if (program.config) {
-    let data = '';
-    try {
-      data = await fs.promises.readFile(program.config, { encoding: 'utf-8' })
-    } catch (e) {
-      console.error(`can not read file ${program.config}.`);
-      process.exit(-1);
-    }
-    const lines = data.split(/[\r\n]+/);
-    for (let line of lines) {
-      line = line.trim();
-      if (line.startsWith('#') || line.startsWith(';') || line.startsWith('//'))
-        continue;
-      const m = line.match(/([a-zA-Z-]+)\s*=\s*([^\s]+)/)
-      if (!m)
-        continue;
-      const [, k, v] = m;
-      switch (k) {
-        case 'password':
-        case 'pass':
-          if (!password)
-            password = v;
-          break;
-        case 'node':
-          options.node = v;
-          break
-        case 'watch':
-          options.watch = Number(v);
-          break
-        case 'port':
-          port = Number(port);
-          break
-        case 'flush':
-          options.flush = 1;
-          break
-        case 'host':
-          host = v;
-          break
-        case 'username':
-          username = v;
-          break
-        case 'deny-usb':
-          for (const ref of [...v.matchAll(/[0-9a-fA-F]{4}:[0-9a-fA-F]{4}/g)])
-            denyUsb.add(ref[0].toLowerCase())
-          break;
-        case 'force-usb':
-          for (const ref of [...v.matchAll(/[0-9a-fA-F]{4}:[0-9a-fA-F]{4}/g)])
-            forceUsb.add(ref[0].toLowerCase())
-          break;
-        case 'no-hub':
-          options.blockHub = true;
-          break;
-        default:
-          console.error(`unknown option ${k} in ${program.config}.`);
-      }
-    }
-  }
-  if (program.host) {
-    host = program.host;
-  }
-  if (program.port) {
-    port = Number(program.port);
-  }
-  if (!password) {
-    password = await prompt('proxmox password: ')
-  }
-  const proxmox = proxmoxApi({ host, port, password, username });
-  options.vmid = Number(program.vmid);
-  const hp = new HotPlugService(proxmox, options);
+  const {proxmoxOption, usbOption} = await loadConfig(program);
+
+  const proxmox = proxmoxApi(proxmoxOption);
+  /**
+   * stress test
+   */
+  // const engine = new ProxmoxEngine(proxmoxOption)
+  // const proxmox = buildApiProxy(engine, '/api2/json');
+  // setInterval(() => {
+  //  console.log('break Ticket');
+  //  engine.ticket='0000000000'
+  // }, 20000);
+  
+  const hp = new HotPlugService(proxmox, usbOption);
   return hp;
 }
 
