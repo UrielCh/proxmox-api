@@ -28,6 +28,7 @@ async function initHotPlugService(): Promise<HotPlugService> {
       data = await fs.promises.readFile(program.config, { encoding: 'utf-8' })
     } catch (e) {
       console.error(`can not read file ${program.config}.`);
+      process.exit(-1);
     }
     const lines = data.split(/[\r\n]+/);
     for (let line of lines) {
@@ -112,19 +113,6 @@ program.version(version)
   .option('-p, --pass [pass]', 'host password, prefed stdin, nodejs script can not hide password from command line')
   .option('-c, --config <configFile>', 'provide a configuration file');
 
-//program.command('byVendor')
-//  .description('connect USB by vendorId/productId faster, do not support multiple identical Device')
-//  .action(async () => {
-//    console.log('Adding USB devices by vendorId / ProducId');
-//    const hp = await initHotPlugService();
-//    hp.hotPlugByVendor();
-//  });
-
 program.parse(process.argv);
-//program//.command('byBus')
-//.description('connect USB by position slower, support multiple identical Device')
-//.action(async () => {
 console.log('Adding USB devices by bus/port');
-// const hp = 
 initHotPlugService().then(hp => hp.hotPlugByPort())
-//});

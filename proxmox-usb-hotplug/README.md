@@ -69,8 +69,42 @@ echo flush = 1 >> conf.txt
 proxmox-usb-hotplug -c conf.txt
 ```
 
+## use as a service
+
+*/etc/usb-hotplug.conf*
+```
+password = prOxmOxp@sswOd
+deny-usb=001c:100d
+deny-usb=1a40:0101
+force-usb=258a:1006
+force-usb=18f8:0f97
+flush = 1
+no-hub=1
+```
+
+*proxmox-usb-hotplug.config.js*
+```javascript
+module.exports = {
+    apps: [{
+        name: "proxmoxUsbHotplug",
+        script: "proxmox-usb-hotplug",
+        args: ["--config", "/etc/usb-hotplug.conf"],
+    }]
+}
+```
+
+```bash
+chmod 600 /etc/usb-hotplug.conf
+npm install -g proxmox-usb-hotplug
+npm install -g pm2
+pm2 install pm2-logrotate
+pm2 startup
+# read the instruction
+pm2 status proxmox-usb-hotplug.config.js
+pm2 save
+```
+
 ## TODO
 
-- Connect forced-usb device after a main shutdown.
 - Deal with USB 3.x.
-- auto detect curent cluster name.
+- auto detect current cluster name.
