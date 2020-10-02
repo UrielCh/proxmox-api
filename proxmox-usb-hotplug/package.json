@@ -1,6 +1,6 @@
 {
   "name": "proxmox-usb-hotplug",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Hot Plug any new USB device to a running proxmox KVM",
   "main": "src/proxmox-usb-hotplug.js",
   "keywords": [

@@ -80,7 +80,7 @@ export default class HotPlugService {
                 //    continue;
                 //}
             }
-            console.log(devices);
+            // console.log(devices);
             if (!interval)
                 return;
             await delay(interval * 1000);
@@ -202,7 +202,7 @@ export default class HotPlugService {
                 return;
             }
             const key = `B${bus}P${port}`;
-            console.log(device);
+            // console.log(device);
             const ret = await qmMonitor.deviceAddByPort(key, { bus, port });
             console.log(`Add USB: ${manufacturer}(${deviceName})[${vendorId}:${productId}] with Key:${key} ret:${ret}`);
         });
