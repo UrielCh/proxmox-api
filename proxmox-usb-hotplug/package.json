@@ -1,6 +1,6 @@
 {
   "name": "proxmox-usb-hotplug",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Hot Plug any new USB device to a running proxmox KVM",
   "main": "src/proxmox-usb-hotplug.js",
   "keywords": [
@@ -20,6 +20,7 @@
     "type": "git",
     "url": "git+https://github.com/UrielCh/proxmox-api.git"
   },
+  "homepage": "https://github.com/UrielCh/proxmox-api/tree/master/proxmox-usb-hotplug",
   "bugs": "https://github.com/UrielCh/proxmox-api/issues",
   "scripts": {
     "build": "tsc -p .",
