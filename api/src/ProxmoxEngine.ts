@@ -2,6 +2,15 @@ import { ApiRequestable } from "./proxy";
 import fetch, { RequestInit, HeadersInit, Response } from 'node-fetch';
 import querystring from 'querystring';
 
+
+export interface ProxmoxEngineOptions {
+    host: string;
+    port?: number;
+    schema?: 'https' | 'http';
+    username?: string;
+    password: string;
+}
+
 /**
  * keep the API engine there is non direct acess needed
  */
@@ -14,7 +23,7 @@ export class ProxmoxEngine implements ApiRequestable {
     private port: number;
     private schema: 'http' | 'https';
 
-    constructor(options: { host: string, port?: number, schema?: 'https' | 'http', username?: string, password: string }) {
+    constructor(options: ProxmoxEngineOptions) {
         this.username = options.username || 'root@pam';
         this.password = options.password;
         this.host = options.host;
@@ -91,19 +100,20 @@ export class ProxmoxEngine implements ApiRequestable {
         let data: { data: any, errors?: any } = { data: null };
         if (contentType === 'application/json;charset=UTF-8') {
             data = await req.json();
-        } else {
-            // should never append
-            throw Error(`${httpMethod} ${requestUrl} unexpected contentType ${contentType}`);
+        } else if (!contentType) {
+            data.errors = await req.text();
+        } else { // should never append
+            throw Error(`${httpMethod} ${requestUrl} unexpected contentType "${contentType}" status Line:${req.status} ${req.statusText}`);
             // data.data = req.text();
         }
 
         switch (req.status) {
             case 400:
-                throw Error(`${httpMethod} ${requestUrl} return Error 400: ${JSON.stringify(data.errors)}`);
+                throw Error(`${httpMethod} ${requestUrl} return Error ${req.status} ${req.statusText}: ${JSON.stringify(data)}`);
             case 500:
-                throw Error(`${httpMethod} ${requestUrl} return Error 500 ${req.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${requestUrl} return Error ${req.status} ${req.statusText}: ${JSON.stringify(data)}`);
             case 401:
-                if (req.statusText === 'invalid PVE ticket') {
+                if (req.statusText === 'invalid PVE ticket' || req.statusText === 'permission denied - invalid PVE ticket') {
                     this.ticket = undefined;
                     if (!retries)
                         retries = 0;
@@ -111,7 +121,7 @@ export class ProxmoxEngine implements ApiRequestable {
                     if (retries <2)
                         return this.doRequest(httpMethod, path, pathTemplate, params, retries);
                 }
-                throw Error(`${httpMethod} ${requestUrl} return Error 401 ${req.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${requestUrl} return Error ${req.status} ${req.statusText}: ${JSON.stringify(data)}`);
             case 200:
                 return data.data;
             default:
