@@ -39,21 +39,31 @@ export interface USBInfo {
 }
 
 export class QmMonitor {
-    public calls: number = 0;
+    private _vmid: number;
+    private _node: string;
     monitor: (command: string) => Promise<string>;
 
-    constructor(private proxmox: Proxmox.Api, private node: string, private vmid: number) {
+    constructor(private proxmox: Proxmox.Api, node: string, vmid: number) {
+        this._node = node;
+        this._vmid = vmid;
         const call = proxmox.nodes.$(node).qemu.$(vmid).monitor.$post;
         this.monitor = (command) => {
-            this.calls++
+            // this.calls++
             return call({ command })
         };
     }
 
+    public get vmid(): number {
+        return this._vmid;
+    }
+
+    public get node(): string {
+        return this._node;
+    }
+    
     info(type: QemuInfoSimple): Promise<string>;
     info(type: QemuInfoOption, ...args: string[]): Promise<string>;
     info(type: QemuInfoParam, arg1: string, ...args: string[]): Promise<string>;
-
     async info(type: QemuInfoSimple | QemuInfoOption | QemuInfoParam, ...args: string[]): Promise<string> {
         let ext = args.join(' ');
         if (ext)
