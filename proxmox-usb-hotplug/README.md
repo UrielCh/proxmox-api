@@ -1,5 +1,7 @@
 # proxmox-usb-hotplug
 
+* [![NPM Version](https://img.shields.io/npm/v/proxmox-usb-hotplug.svg?style=flat)](https://www.npmjs.org/package/proxmox-usb-hotplug)
+
 This script monitor and plug any new USB device to running KVM hosted by a proxmox server.
 
 ```bash

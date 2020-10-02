@@ -1,6 +1,6 @@
 # Proxmox Api
 
-Typescript Api to manage proxmox servers.
+[![NPM Version](https://img.shields.io/npm/v/proxmox-api.svg?style=flat)](https://www.npmjs.org/package/proxmox-api) Typescript Api to manage proxmox servers.
 
 * [API Viewer](https://pve.proxmox.com/pve-docs/api-viewer/) 
 * [API Docs](https://pve.proxmox.com/wiki/Proxmox_VE_API)
@@ -32,6 +32,10 @@ To call `GET /api2/json/nodes` you will call `promox.nodes.$get()`
 The provided typing will assist you within intelisense, so you do not need to read any external doc.
 
 ## code sample
+
+
+* [![NPM Version](https://img.shields.io/npm/v/proxmox-usb-hotplug.svg?style=flat)](https://www.npmjs.org/package/proxmox-usb-hotplug) an hotplug usb service based on this API.
+
 
 ```bash
 npm install proxmox-api
