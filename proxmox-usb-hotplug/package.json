@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "commander": "^6.1.0",
+    "dev-input-reader": "0.0.1",
     "password-prompt": "^1.1.2",
     "proxmox-api": "^0.1.1",
     "usb": "^1.6.3"

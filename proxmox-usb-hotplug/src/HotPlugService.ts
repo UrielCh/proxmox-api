@@ -1,5 +1,6 @@
 import { QmMonitor, Proxmox } from "proxmox-api";
 import nodeUsb, { Device } from 'usb';
+import delay from './delay';
 
 export interface HotPlugServiceOption {
     vmid?: number;
@@ -48,8 +49,6 @@ const vendorFromDevice = async (device: Device): Promise<USBOverview & { manufac
     const deviceName = await getStringDescriptor(deviceDescriptor.iProduct);
     return { ...overview, manufacturer, deviceName };
 }
-
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export default class HotPlugService {
     private qmMonitor?: QmMonitor;
@@ -138,7 +137,6 @@ export default class HotPlugService {
         }
         return this.qmMonitor;
     }
-
 
     private async detachAll() {
         const qmMonitor = await this.getQmMonitor();
