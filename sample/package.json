@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "dev-input-reader": "0.0.1",
     "proxmox-api": "0.0.6"
   },
   "devDependencies": {

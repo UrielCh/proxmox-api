@@ -112,8 +112,9 @@ export default class HotPlugService {
             // MODE AUTODETECT
             if (this.qmMonitor) {
                 const info = await this.qmMonitor.info('status');
-                // the VM is off
-                if (!~info.includes('running'))
+                // VM status: running
+                // ERROR: VM 2001 not running
+                if (info.includes('not running'))
                     this.qmMonitor = undefined;
             }
         }
@@ -132,14 +133,14 @@ export default class HotPlugService {
             this.qmMonitor = new QmMonitor(this.proxmox, nodes[0].node, vmid);
             // New VM of first call
             if (this.options.flush)
-                await this.detachAll();
-            await this.attacheForced()
+                await this.detachAll(this.qmMonitor);
+            await this.attacheForced(this.qmMonitor)
         }
         return this.qmMonitor;
     }
 
-    private async detachAll() {
-        const qmMonitor = await this.getQmMonitor();
+    private async detachAll(qmMonitor: QmMonitor) {
+        // const qmMonitor = await this.getQmMonitor();
         if (qmMonitor) {
             const devices = await qmMonitor.infoUsb();
             for (const device of devices)
@@ -147,10 +148,10 @@ export default class HotPlugService {
         }
     }
 
-    private async attacheForced() {
+    private async attacheForced(qmMonitor: QmMonitor) {
         const forceUsb = this.options.forceUsb;
         //if (forceUsb && forceUsb.size) {
-        const qmMonitor = await this.getQmMonitor();
+        // const qmMonitor = await this.getQmMonitor();
         if (qmMonitor) {
             let devices: Device[] = nodeUsb.getDeviceList()
             for (const device of devices) {
@@ -206,5 +207,6 @@ export default class HotPlugService {
             }
             console.log(`remove USB: ${manufacturer}(${deviceName})[${vendorId}:${productId}]${action}`);
         });
+        this.watch(this.options.watch || 0);
     }
 }
