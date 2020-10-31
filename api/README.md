@@ -8,11 +8,11 @@
 Mapping 100% of available calls, contains all api documentation in typing file.
 code size < 10Ko including docs
 
-## usage
+## Usage
 
 ![intellisense](https://github.com/UrielCh/proxmox-api/blob/master/sample/usage.gif?raw=true "preview")
 
-### overview
+### Overview
 
 to use this API take the Path you want to call, and replace:
 - the `/` by `.`
@@ -31,7 +31,7 @@ To call `GET /api2/json/nodes` you will call `promox.nodes.$get()`
 
 The provided typing will assist you within intelisense, so you do not need to read any external doc.
 
-## code sample
+## Code sample
 
 
 * [![NPM Version](https://img.shields.io/npm/v/proxmox-usb-hotplug.svg?style=flat)](https://www.npmjs.org/package/proxmox-usb-hotplug) an hotplug usb service based on this API.
@@ -72,7 +72,7 @@ async function test() {
 test().catch(console.error);
 ```
 
-## notes
+## Notes
 
 - if the call path contains a hyphen, you will need to use the `['field']` syntax ex:
 
