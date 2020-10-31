@@ -73,3 +73,9 @@ async function test() {
 
 test().catch(console.error);
 ```
+
+## notes
+
+- if the call path contains a hyphen, you will need to use the `['field']` syntax ex:
+`theNode.qemu.$(vmid).agent['get-fsinfo'].$get()`
+
