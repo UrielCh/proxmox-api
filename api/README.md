@@ -36,13 +36,11 @@ The provided typing will assist you within intelisense, so you do not need to re
 
 * [![NPM Version](https://img.shields.io/npm/v/proxmox-usb-hotplug.svg?style=flat)](https://www.npmjs.org/package/proxmox-usb-hotplug) an hotplug usb service based on this API.
 
-
 ```bash
 npm install proxmox-api
 ```
 
-``` typescript
-
+```typescript
 import proxmoxApi from "proxmox-api";
 
 // authorize self signed cert if you do not use a valid SSL certificat
@@ -77,5 +75,8 @@ test().catch(console.error);
 ## notes
 
 - if the call path contains a hyphen, you will need to use the `['field']` syntax ex:
-`await theNode.qemu.$(vmid).agent['get-fsinfo'].$get()`
+
+```typescript
+await theNode.qemu.$(vmid).agent['get-fsinfo'].$get()
+```
 
