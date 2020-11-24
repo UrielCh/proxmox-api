@@ -2,6 +2,23 @@
 
 * [![NPM Version](https://img.shields.io/npm/v/proxmox-usb-hotplug.svg?style=flat)](https://www.npmjs.org/package/proxmox-usb-hotplug)
 
+## basic setup without configuration.
+
+```bash
+sudo apt-get install libudev-dev
+npm install -g proxmox-usb-hotplug
+# double check your user PATH env for a local bode bion path
+echo $PATH
+sudo -i
+# update PATH if needed
+proxmox-usb-hotplug
+# enter the your localhost root password, it will be replace by ************************ after pressing return key
+```
+
+if you have a single GFX passthrough, it will works out of the box.
+
+## usage
+
 This script monitor and plug any new USB device to running KVM hosted by a proxmox server.
 
 ```bash
