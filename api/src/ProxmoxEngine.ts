@@ -1,7 +1,7 @@
 import { ApiRequestable } from "./proxy";
 import fetch, { RequestInit, HeadersInit, Response } from 'node-fetch';
 import querystring from 'querystring';
-
+import AbortController from 'abort-controller';
 
 export interface ProxmoxEngineOptions {
     host: string;
@@ -9,6 +9,8 @@ export interface ProxmoxEngineOptions {
     schema?: 'https' | 'http';
     username?: string;
     password: string;
+    authTimeout?: number;
+    queryTimeout?: number;
 }
 
 /**
@@ -22,6 +24,8 @@ export class ProxmoxEngine implements ApiRequestable {
     private host: string;
     private port: number;
     private schema: 'http' | 'https';
+    private authTimeout: number;
+    private queryTimeout: number;
 
     constructor(options: ProxmoxEngineOptions) {
         this.username = options.username || 'root@pam';
@@ -29,7 +33,9 @@ export class ProxmoxEngine implements ApiRequestable {
         this.host = options.host;
         this.port = options.port || 8006;
         this.schema = options.schema || 'https';
-
+        this.authTimeout = options.authTimeout || 5000;
+        this.queryTimeout = options.queryTimeout || 60000;
+    
         if (!this.password) {
             const msg = `password is missing for Proxmox connection`;
             console.error(msg);
@@ -91,7 +97,11 @@ export class ProxmoxEngine implements ApiRequestable {
         }
         let req: Response;
         try {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), this.queryTimeout);
+            requestInit.signal = controller.signal;
             req = await fetch(requestUrl, requestInit);
+            clearTimeout(timeout);
         } catch (e) {
             console.error(`FaILED to call ${httpMethod} ${requestUrl}`, e)
             throw Error(`FaILED to call ${httpMethod} ${requestUrl}`);
@@ -136,13 +146,17 @@ export class ProxmoxEngine implements ApiRequestable {
         try {
             const password = this.password;
             const username = this.username;
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), this.authTimeout);
             const req = await fetch(requestUrl, {
+                signal: controller.signal,
                 method: 'POST',
                 body: querystring.encode({ username, password }),
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             });
+            clearTimeout(timeout);
             if (req.status !== 200) {
                 throw Error(`login failed with ${req.status}: ${req.statusText}`);
             }
