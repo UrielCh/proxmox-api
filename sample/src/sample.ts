@@ -1,14 +1,15 @@
-import { proxmoxApi } from "proxmox-api";
+import proxmoxApi, { ProxmoxEngineOptions } from "../../api/dist";
 
 // authorize self signed cert
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 async function test() {
     // load sample authentification info
-    const auth = await import('../../../auth');
-    const { host, password }  = auth.default;
+    const auth = (await import('../../../auth')) as any;
+    // const { host, password }
+    const opt  = auth.default as ProxmoxEngineOptions;
     // connect to proxmox
-    const promox = proxmoxApi({host, password});
+    const promox = proxmoxApi(opt);
     // liste nodes
     const nodes = await promox.nodes.$get();
     // iterate cluster nodes

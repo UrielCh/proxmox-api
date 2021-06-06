@@ -1,6 +1,6 @@
 # Proxmox Api
 
-Typescript Api to manage proxmox servers.
+[![NPM Version](https://img.shields.io/npm/v/proxmox-api.svg?style=flat)](https://www.npmjs.org/package/proxmox-api) Typescript Api to manage proxmox servers.
 
 * [API Viewer](https://pve.proxmox.com/pve-docs/api-viewer/) 
 * [API Docs](https://pve.proxmox.com/wiki/Proxmox_VE_API)
@@ -8,11 +8,11 @@ Typescript Api to manage proxmox servers.
 Mapping 100% of available calls, contains all api documentation in typing file.
 code size < 10Ko including docs
 
-## usage
+## Usage
 
 ![intellisense](https://github.com/UrielCh/proxmox-api/blob/master/sample/usage.gif?raw=true "preview")
 
-### overview
+### Overview
 
 to use this API take the Path you want to call, and replace:
 - the `/` by `.`
@@ -31,14 +31,16 @@ To call `GET /api2/json/nodes` you will call `promox.nodes.$get()`
 
 The provided typing will assist you within intelisense, so you do not need to read any external doc.
 
-## code sample
+## Code sample
+
+
+* [![NPM Version](https://img.shields.io/npm/v/proxmox-usb-hotplug.svg?style=flat)](https://www.npmjs.org/package/proxmox-usb-hotplug) an hotplug usb service based on this API.
 
 ```bash
 npm install proxmox-api
 ```
 
-``` typescript
-
+```typescript
 import proxmoxApi from "proxmox-api";
 
 // authorize self signed cert if you do not use a valid SSL certificat
@@ -69,3 +71,47 @@ async function test() {
 
 test().catch(console.error);
 ```
+
+### Initialisation alternavives:
+
+- keeping access to ProxmoxEngine object (that can be use to share a ticket, or to access it)
+
+```typescript
+import proxmoxApi, { ProxmoxEngine } from "proxmox-api";
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+async function test() {
+    // connect to proxmox
+    const engine = new ProxmoxEngine({host: '127.0.0.1', password: 'password', username: 'user1@pam'});
+    const promox = proxmoxApi(engine);
+}
+```
+
+- Using Api token
+
+
+```typescript
+import proxmoxApi from "proxmox-api";
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+async function test() {
+    // connect to proxmox
+    const promox = proxmoxApi({host: '127.0.0.1', tokenID: 'USER@REALM!TOKENID', tokenSecret: '12345678-1234-1234-1234-1234567890ab'});
+}
+```
+
+## Notes
+
+- if the call path contains a hyphen, you will need to use the `['field']` syntax ex:
+
+```typescript
+await theNode.qemu.$(vmid).agent['get-fsinfo'].$get()
+```
+
+## Changelog
+
+### V0.1.3
+ - add authTimeout option, to limit authentification time.
+ - add queryTimeout option to limit non auth request timeout.

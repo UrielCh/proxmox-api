@@ -3,15 +3,25 @@ import fetch, { RequestInit, HeadersInit, Response } from 'node-fetch';
 import querystring from 'querystring';
 import AbortController from 'abort-controller';
 
-export interface ProxmoxEngineOptions {
+export interface ProxmoxEngineOptionsCommon {
     host: string;
     port?: number;
     schema?: 'https' | 'http';
-    username?: string;
-    password: string;
     authTimeout?: number;
     queryTimeout?: number;
 }
+
+export interface ProxmoxEngineOptionsPass extends ProxmoxEngineOptionsCommon {
+    username?: string;
+    password: string;
+}
+
+export interface ProxmoxEngineOptionsToken extends ProxmoxEngineOptionsCommon {
+    tokenID: string;
+    tokenSecret: string;
+}
+
+export type ProxmoxEngineOptions = ProxmoxEngineOptionsToken | ProxmoxEngineOptionsPass;
 
 /**
  * keep the API engine there is non direct acess needed
@@ -28,22 +38,40 @@ export class ProxmoxEngine implements ApiRequestable {
     private queryTimeout: number;
 
     constructor(options: ProxmoxEngineOptions) {
-        this.username = options.username || 'root@pam';
-        this.password = options.password;
+        if ((options as ProxmoxEngineOptionsToken).tokenID) {
+            const optToken = options as ProxmoxEngineOptionsToken;
+            this.username = '';
+            this.password = '';
+            if (!optToken.tokenID.match(/.*@.+\!.+/)) {
+                const msg = 'invalid tokenID, format should look be like USER@REALM!TOKENID';
+                console.error(msg);
+                throw Error(msg)
+            }
+            if (!optToken.tokenSecret.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)) {
+                const msg = 'invalid tokenSecret, format should be an lowercased UUID like 12345678-1234-1234-1234-1234567890ab';
+                console.error(msg);
+                throw Error(msg)
+            }
+            // USER@REALM!TOKENID
+            this.ticket == `PVEAPIToken=${optToken.tokenID}=${optToken.tokenSecret}`;
+        } else {
+            const optPass = options as ProxmoxEngineOptionsPass;
+            this.username = optPass.username || 'root@pam';
+            this.password = optPass.password;
+            if (!this.password) {
+                const msg = `password is missing for Proxmox connection`;
+                console.error(msg);
+                throw Error(msg)
+            }
+        }
         this.host = options.host;
         this.port = options.port || 8006;
         this.schema = options.schema || 'https';
         this.authTimeout = options.authTimeout || 5000;
         this.queryTimeout = options.queryTimeout || 60000;
-    
-        if (!this.password) {
-            const msg = `password is missing for Proxmox connection`;
-            console.error(msg);
-            throw Error(msg)
-        }
     }
 
-    async doRequest(httpMethod: string, path: string, pathTemplate: string, params?: { [key: string]: any }, retries?: number): Promise<any> {
+    public async doRequest(httpMethod: string, path: string, pathTemplate: string, params?: { [key: string]: any }, retries?: number): Promise<any> {
         if (!this.ticket) {
             await this.getTicket();
         }
@@ -57,11 +85,17 @@ export class ProxmoxEngine implements ApiRequestable {
                 }
             }
 
-        const options: HeadersInit = {
+        let options: HeadersInit = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            cookie: `PVEAuthCookie=${this.ticket}`,
-            CSRFPreventionToken: this.CSRFPreventionToken as string
         };
+        // use token
+        if (!this.username) {
+            // PVEAPIToken=USER@REALM!TOKENID=UUID  // ticket
+            options.Authorization = this.ticket as string;
+        } else {
+            options.cookie = `PVEAuthCookie=${this.ticket}`;
+            options.CSRFPreventionToken = this.CSRFPreventionToken as string;
+        }
 
         /**
          * Append parameters
@@ -125,10 +159,12 @@ export class ProxmoxEngine implements ApiRequestable {
             case 401:
                 if (req.statusText === 'invalid PVE ticket' || req.statusText === 'permission denied - invalid PVE ticket') {
                     this.ticket = undefined;
+                    if (!this.username)
+                        retries = 10;
                     if (!retries)
                         retries = 0;
                     retries++;
-                    if (retries <2)
+                    if (retries < 2)
                         return this.doRequest(httpMethod, path, pathTemplate, params, retries);
                 }
                 throw Error(`${httpMethod} ${requestUrl} return Error ${req.status} ${req.statusText}: ${JSON.stringify(data)}`);
@@ -139,7 +175,7 @@ export class ProxmoxEngine implements ApiRequestable {
         }
     }
 
-    async getTicket(): Promise<string> {
+    public async getTicket(): Promise<string> {
         if (this.ticket)
             return this.ticket;
         const requestUrl = `${this.schema}://${this.host}:${this.port}/api2/json/access/ticket`;

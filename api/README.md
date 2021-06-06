@@ -72,6 +72,36 @@ async function test() {
 test().catch(console.error);
 ```
 
+### Initialisation alternavives:
+
+- keeping access to ProxmoxEngine object (that can be use to share a ticket, or to access it)
+
+```typescript
+import proxmoxApi, { ProxmoxEngine } from "proxmox-api";
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+async function test() {
+    // connect to proxmox
+    const engine = new ProxmoxEngine({host: '127.0.0.1', password: 'password', username: 'user1@pam'});
+    const promox = proxmoxApi(engine);
+}
+```
+
+- Using Api token
+
+
+```typescript
+import proxmoxApi from "proxmox-api";
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+async function test() {
+    // connect to proxmox
+    const promox = proxmoxApi({host: '127.0.0.1', tokenID: 'USER@REALM!TOKENID', tokenSecret: '12345678-1234-1234-1234-1234567890ab'});
+}
+```
+
 ## Notes
 
 - if the call path contains a hyphen, you will need to use the `['field']` syntax ex:
