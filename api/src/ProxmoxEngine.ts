@@ -53,7 +53,7 @@ export class ProxmoxEngine implements ApiRequestable {
                 throw Error(msg)
             }
             // USER@REALM!TOKENID
-            this.ticket == `PVEAPIToken=${optToken.tokenID}=${optToken.tokenSecret}`;
+            this.ticket = `PVEAPIToken=${optToken.tokenID}=${optToken.tokenSecret}`;
         } else {
             const optPass = options as ProxmoxEngineOptionsPass;
             this.username = optPass.username || 'root@pam';
@@ -96,7 +96,6 @@ export class ProxmoxEngine implements ApiRequestable {
             options.cookie = `PVEAuthCookie=${this.ticket}`;
             options.CSRFPreventionToken = this.CSRFPreventionToken as string;
         }
-
         /**
          * Append parameters
          */
