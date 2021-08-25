@@ -33,7 +33,7 @@
     "build": "tsc -p .",
     "prepare": "npm run clean && npm run build"
   },
-  "author": "Uriel Chemouni <uchemouni@gmail.com>",
+  "author": "Uriel Chemouni <uchemouni@gmail.com> (https://urielch.github.io/)",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/UrielCh/proxmox-api/issues"
