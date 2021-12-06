@@ -168,7 +168,7 @@ export class ProxmoxEngine implements ApiRequestable {
                 }
                 throw Error(`${httpMethod} ${requestUrl} return Error ${req.status} ${req.statusText}: ${JSON.stringify(data)}`);
             case 200:
-                return data.data;
+                return data.data;     
             default:
                 throw Error(`${httpMethod} ${requestUrl} connetion failed with ${req.status} ${req.statusText} return: ${JSON.stringify(data)}`);
         }
