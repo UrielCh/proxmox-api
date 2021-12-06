@@ -1,15 +1,453 @@
 export namespace Proxmox {
     /**
+     * CIDR of the (sub) network that is used for migration.
+     * @format CIDR
+     */
+    export type CIDR = string;
+    /**
+     * Declare a separate cluster network, OSDs will routeheartbeat, object replication and recovery traffic over it
+     * @format CIDR
+     * @maxLength 128
+     */
+    export type CIDR_1 = string;
+    /**
+     * Anycast router ipv4 address.
+     * @format CIDRv4
+     */
+    export type CIDRv4 = string;
+    /**
+     * Anycast router ipv6 address.
+     * @format CIDRv6
+     */
+    export type CIDRv6 = string;
+    /**
+     * Network/IP specification in CIDR format.
+     * @format IPorCIDR
+     */
+    export type IPorCIDR = string;
+    /**
+     * Network/IP specification in CIDR format.
+     * @format IPorCIDRorAlias
+     */
+    export type IPorCIDRorAlias = string;
+    /**
+     * OVS interface options.
+     * @maxLength 1024
+     */
+    export type String0_1024 = string;
+    /**
+     * Superuser (root) password of peer node.
+     * @maxLength 128
+     */
+    export type String0_128 = string;
+    /**
+     * LDAP filter for user sync.
+     * @maxLength 2048
+     */
+    export type String0_2048 = string;
+    /**
+     * The backup archive. Either the file system path to a .tar or .vma file (use '-' to pipe data from stdin) or a proxmox storage backup volume identifier.
+     * @maxLength 255
+     */
+    export type String0_255 = string;
+    /**
+     * CIFS domain.
+     * @maxLength 256
+     */
+    export type String0_256 = string;
+    /**
+     * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+     * @maxLength 40
+     */
+    export type String0_40 = string;
+    /**
      * Description.
      * @maxLength 4096
      */
     export type String0_4096 = string;
     /**
-     * Replication Job ID. The ID is composed of a Guest ID and a job number, separated by a hyphen, i.e. '<GUEST>-<JOBNUM>'.
-     * @pattern [1-9][0-9]{2,8}-\d{1,9}
-     * @format pve-replication-job-id
+     * Ticket from previous call to vncproxy.
+     * @maxLength 512
      */
-    export type pvereplicationjobid = string;
+    export type String0_512 = string;
+    /**
+     * The content to write into the file.
+     * @maxLength 61440
+     */
+    export type String0_61440 = string;
+    /**
+     * Verify ticket, and check if user have access 'privs' on 'path'
+     * @maxLength 64
+     */
+    export type String0_64 = string;
+    /**
+     * Data to pass as 'input-data' to the guest. Usually treated as STDIN to 'command'.
+     * @maxLength 65536
+     */
+    export type String0_65536 = string;
+    /**
+     * The new password.
+     * @minLength 5
+     * @maxLength 1024
+     */
+    export type String5_1024 = string;
+    /**
+     * Initial password.
+     * @minLength 5
+     * @maxLength 64
+     */
+    export type String5_64 = string;
+    /**
+     * Node specific ACME settings.
+     * @format {"account":{"default":"default","description":"ACME account config file name.","format":"pve-configid","format_description":"name","optional":1,"type":"string"},"domains":{"description":"List of domains for this node's ACME certificate","format":"pve-acme-domain-list","format_description":"domain[;domain;...]","optional":1,"type":"string"}}
+     */
+    export type Tacme = string;
+    /**
+     * ACME domain and validation plugin
+     * @format {"alias":{"description":"Alias for the Domain to verify ACME Challenge over DNS","format":"pve-acme-alias","format_description":"domain","optional":1,"type":"string"},"domain":{"default_key":1,"description":"domain for this node's ACME certificate","format":"pve-acme-domain","format_description":"domain","type":"string"},"plugin":{"default":"standalone","description":"The ACME plugin ID","format":"pve-configid","format_description":"name of the plugin configuration","optional":1,"type":"string"}}
+     */
+    export type Tacmedomain = string;
+    /**
+     * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name.
+     * @pattern [A-Za-z][A-Za-z0-9\-\_]+
+     * @minLength 2
+     * @maxLength 20
+     */
+    export type Taction = string;
+    /**
+     * The action to perform
+     */
+    export type Taction_1 = 'delete' | 'new' | 'confirm';
+    /**
+     * Enable/disable Qemu GuestAgent and its properties.
+     * @format {"enabled":{"default":0,"default_key":1,"description":"Enable/disable Qemu GuestAgent.","type":"boolean"},"fstrim_cloned_disks":{"default":0,"description":"Run fstrim after cloning/moving a disk.","optional":1,"type":"boolean"},"type":{"default":"virtio","description":"Select the agent type","enum":["virtio","isa"],"optional":1,"type":"string"}}
+     */
+    export type Tagent = string;
+    /**
+     * API plugin name
+     */
+    export type Tapi = 'acmedns' | 'acmeproxy' | 'active24' | 'ad' | 'ali' | 'autodns' | 'aws' | 'azure' | 'cf' | 'clouddns' | 'cloudns' | 'cn' | 'conoha' | 'constellix' | 'cx' | 'cyon' | 'da' | 'ddnss' | 'desec' | 'df' | 'dgon' | 'dnsimple' | 'do' | 'doapi' | 'domeneshop' | 'dp' | 'dpi' | 'dreamhost' | 'duckdns' | 'durabledns' | 'dyn' | 'dynu' | 'dynv6' | 'easydns' | 'euserv' | 'exoscale' | 'freedns' | 'gandi_livedns' | 'gcloud' | 'gd' | 'gdnsdk' | 'he' | 'hexonet' | 'hostingde' | 'infoblox' | 'internetbs' | 'inwx' | 'ispconfig' | 'jd' | 'kas' | 'kinghost' | 'knot' | 'leaseweb' | 'lexicon' | 'linode' | 'linode_v4' | 'loopia' | 'lua' | 'maradns' | 'me' | 'miab' | 'misaka' | 'myapi' | 'mydevil' | 'mydnsjp' | 'namecheap' | 'namecom' | 'namesilo' | 'nederhost' | 'neodigit' | 'netcup' | 'nic' | 'nsd' | 'nsone' | 'nsupdate' | 'nw' | 'one' | 'online' | 'openprovider' | 'opnsense' | 'ovh' | 'pdns' | 'pleskxml' | 'pointhq' | 'rackspace' | 'rcode0' | 'regru' | 'schlundtech' | 'selectel' | 'servercow' | 'tele3' | 'ultra' | 'unoeuro' | 'variomedia' | 'vscale' | 'vultr' | 'yandex' | 'zilore' | 'zone' | 'zonomi';
+    /**
+     * The application of the pool, 'rbd' by default.
+     */
+    export type Tapplication = 'rbd' | 'cephfs' | 'rgw';
+    /**
+     * Virtual processor architecture. Defaults to the host.
+     */
+    export type Tarch = 'x86_64' | 'aarch64';
+    /**
+     * OS architecture type.
+     */
+    export type Tarch_1 = 'amd64' | 'i386' | 'arm64' | 'armhf';
+    /**
+     * Configure a audio device, useful in combination with QXL/Spice.
+     * @format {"device":{"description":"Configure an audio device.","enum":["ich9-intel-hda","intel-hda","AC97"],"type":"string"},"driver":{"default":"spice","description":"Driver backend for the audio device.","enum":["spice"],"optional":1,"type":"string"}}
+     */
+    export type Taudio0 = string;
+    /**
+     * LDAP base domain name
+     * @pattern \w+=[^,]+(,\s*\w+=[^,]+)*
+     * @maxLength 256
+     */
+    export type Tbase_dn = string;
+    /**
+     * Select BIOS implementation.
+     */
+    export type Tbios = 'seabios' | 'ovmf';
+    /**
+     * Bonding mode.
+     */
+    export type Tbond_mode = 'balance-rr' | 'active-backup' | 'balance-xor' | 'broadcast' | '802.3ad' | 'balance-tlb' | 'balance-alb' | 'balance-slb' | 'lacp-balance-slb' | 'lacp-balance-tcp';
+    /**
+     * Selects the transmit hash policy to use for slave selection in balance-xor and 802.3ad modes.
+     */
+    export type Tbond_xmit_hash_policy = 'layer2' | 'layer2+3' | 'layer3+4';
+    /**
+     * Boot on floppy (a), hard disk (c), CD-ROM (d), or network (n).
+     * @pattern [acdn]{1,4}
+     */
+    export type Tboot = string;
+    /**
+     * Set bandwidth/io limits various operations.
+     * @format {"clone":{"description":"bandwidth limit in KiB/s for cloning disks","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"},"default":{"description":"default bandwidth limit in KiB/s","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"},"migration":{"description":"bandwidth limit in KiB/s for migrating guests (including moving local disks)","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"},"move":{"description":"bandwidth limit in KiB/s for moving disks","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"},"restore":{"description":"bandwidth limit in KiB/s for restoring guests from backups","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"}}
+     */
+    export type Tbwlimit = string;
+    /**
+     * The RRD consolidation function
+     */
+    export type Tcf = 'AVERAGE' | 'MAX';
+    /**
+     * Specifies the cloud-init configuration format. The default depends on the configured operating system type (`ostype`. We use the `nocloud` format for Linux, and `configdrive2` for windows.
+     */
+    export type Tcitype = 'configdrive2' | 'nocloud';
+    /**
+     * Run specific command or default to login.
+     */
+    export type Tcmd = 'login' | 'ceph_install' | 'upgrade';
+    /**
+     * Console mode. By default, the console command tries to open a connection to one of the available tty devices. By setting cmode to 'console' it tries to attach to /dev/console instead. If you set cmode to 'shell', it simply invokes a shell inside the container (no login).
+     */
+    export type Tcmode = 'shell' | 'console' | 'tty';
+    /**
+     * The QGA command.
+     */
+    export type Tcommand = 'fsfreeze-freeze' | 'fsfreeze-status' | 'fsfreeze-thaw' | 'fstrim' | 'get-fsinfo' | 'get-host-name' | 'get-memory-block-info' | 'get-memory-blocks' | 'get-osinfo' | 'get-time' | 'get-timezone' | 'get-users' | 'get-vcpus' | 'info' | 'network-get-interfaces' | 'ping' | 'shutdown' | 'suspend-disk' | 'suspend-hybrid' | 'suspend-ram';
+    /**
+     * Specify the command.
+     */
+    export type Tcommand_1 = 'reboot' | 'shutdown';
+    /**
+     * Compress dump file.
+     */
+    export type Tcompress = '0' | '1' | 'gzip' | 'lzo' | 'zstd';
+    /**
+     * The compression algorithm to use.
+     */
+    export type Tcompression = 'on' | 'off' | 'gzip' | 'lz4' | 'lzjb' | 'zle';
+    /**
+     * Select the default Console viewer. You can either use the builtin java applet (VNC; deprecated and maps to html5), an external virt-viewer comtatible application (SPICE), an HTML5 based vnc viewer (noVNC), or an HTML5 based console client (xtermjs). If the selected viewer is not available (e.g. SPICE not activated for the VM), the fallback is noVNC.
+     */
+    export type Tconsole = 'applet' | 'vv' | 'html5' | 'xtermjs';
+    /**
+     * Limit of CPU usage.
+     * NOTE: If the computer has 2 CPUs, it has total of '2' CPU time. Value '0' indicates no CPU limit.
+     * @minimum 0
+     * @maximum 128
+     * @type number
+     */
+    export type Tcpulimit = number;
+    /**
+     * URL of ACME CA directory endpoint.
+     * @pattern ^https?://.*
+     */
+    export type Tdirectory = string;
+    /**
+     * The disk you want to move.
+     */
+    export type Tdisk = 'ide0' | 'ide1' | 'ide2' | 'ide3' | 'scsi0' | 'scsi1' | 'scsi2' | 'scsi3' | 'scsi4' | 'scsi5' | 'scsi6' | 'scsi7' | 'scsi8' | 'scsi9' | 'scsi10' | 'scsi11' | 'scsi12' | 'scsi13' | 'scsi14' | 'scsi15' | 'scsi16' | 'scsi17' | 'scsi18' | 'scsi19' | 'scsi20' | 'scsi21' | 'scsi22' | 'scsi23' | 'scsi24' | 'scsi25' | 'scsi26' | 'scsi27' | 'scsi28' | 'scsi29' | 'scsi30' | 'virtio0' | 'virtio1' | 'virtio2' | 'virtio3' | 'virtio4' | 'virtio5' | 'virtio6' | 'virtio7' | 'virtio8' | 'virtio9' | 'virtio10' | 'virtio11' | 'virtio12' | 'virtio13' | 'virtio14' | 'virtio15' | 'sata0' | 'sata1' | 'sata2' | 'sata3' | 'sata4' | 'sata5' | 'efidisk0';
+    /**
+     * The disk you want to resize.
+     */
+    export type Tdisk_1 = 'rootfs' | 'mp0' | 'mp1' | 'mp2' | 'mp3' | 'mp4' | 'mp5' | 'mp6' | 'mp7' | 'mp8' | 'mp9' | 'mp10' | 'mp11' | 'mp12' | 'mp13' | 'mp14' | 'mp15' | 'mp16' | 'mp17' | 'mp18' | 'mp19' | 'mp20' | 'mp21' | 'mp22' | 'mp23' | 'mp24' | 'mp25' | 'mp26' | 'mp27' | 'mp28' | 'mp29' | 'mp30' | 'mp31' | 'mp32' | 'mp33' | 'mp34' | 'mp35' | 'mp36' | 'mp37' | 'mp38' | 'mp39' | 'mp40' | 'mp41' | 'mp42' | 'mp43' | 'mp44' | 'mp45' | 'mp46' | 'mp47' | 'mp48' | 'mp49' | 'mp50' | 'mp51' | 'mp52' | 'mp53' | 'mp54' | 'mp55' | 'mp56' | 'mp57' | 'mp58' | 'mp59' | 'mp60' | 'mp61' | 'mp62' | 'mp63' | 'mp64' | 'mp65' | 'mp66' | 'mp67' | 'mp68' | 'mp69' | 'mp70' | 'mp71' | 'mp72' | 'mp73' | 'mp74' | 'mp75' | 'mp76' | 'mp77' | 'mp78' | 'mp79' | 'mp80' | 'mp81' | 'mp82' | 'mp83' | 'mp84' | 'mp85' | 'mp86' | 'mp87' | 'mp88' | 'mp89' | 'mp90' | 'mp91' | 'mp92' | 'mp93' | 'mp94' | 'mp95' | 'mp96' | 'mp97' | 'mp98' | 'mp99' | 'mp100' | 'mp101' | 'mp102' | 'mp103' | 'mp104' | 'mp105' | 'mp106' | 'mp107' | 'mp108' | 'mp109' | 'mp110' | 'mp111' | 'mp112' | 'mp113' | 'mp114' | 'mp115' | 'mp116' | 'mp117' | 'mp118' | 'mp119' | 'mp120' | 'mp121' | 'mp122' | 'mp123' | 'mp124' | 'mp125' | 'mp126' | 'mp127' | 'mp128' | 'mp129' | 'mp130' | 'mp131' | 'mp132' | 'mp133' | 'mp134' | 'mp135' | 'mp136' | 'mp137' | 'mp138' | 'mp139' | 'mp140' | 'mp141' | 'mp142' | 'mp143' | 'mp144' | 'mp145' | 'mp146' | 'mp147' | 'mp148' | 'mp149' | 'mp150' | 'mp151' | 'mp152' | 'mp153' | 'mp154' | 'mp155' | 'mp156' | 'mp157' | 'mp158' | 'mp159' | 'mp160' | 'mp161' | 'mp162' | 'mp163' | 'mp164' | 'mp165' | 'mp166' | 'mp167' | 'mp168' | 'mp169' | 'mp170' | 'mp171' | 'mp172' | 'mp173' | 'mp174' | 'mp175' | 'mp176' | 'mp177' | 'mp178' | 'mp179' | 'mp180' | 'mp181' | 'mp182' | 'mp183' | 'mp184' | 'mp185' | 'mp186' | 'mp187' | 'mp188' | 'mp189' | 'mp190' | 'mp191' | 'mp192' | 'mp193' | 'mp194' | 'mp195' | 'mp196' | 'mp197' | 'mp198' | 'mp199' | 'mp200' | 'mp201' | 'mp202' | 'mp203' | 'mp204' | 'mp205' | 'mp206' | 'mp207' | 'mp208' | 'mp209' | 'mp210' | 'mp211' | 'mp212' | 'mp213' | 'mp214' | 'mp215' | 'mp216' | 'mp217' | 'mp218' | 'mp219' | 'mp220' | 'mp221' | 'mp222' | 'mp223' | 'mp224' | 'mp225' | 'mp226' | 'mp227' | 'mp228' | 'mp229' | 'mp230' | 'mp231' | 'mp232' | 'mp233' | 'mp234' | 'mp235' | 'mp236' | 'mp237' | 'mp238' | 'mp239' | 'mp240' | 'mp241' | 'mp242' | 'mp243' | 'mp244' | 'mp245' | 'mp246' | 'mp247' | 'mp248' | 'mp249' | 'mp250' | 'mp251' | 'mp252' | 'mp253' | 'mp254' | 'mp255';
+    /**
+     * Block device name
+     * @pattern ^/dev/[a-zA-Z0-9\/]+$
+     */
+    export type Tdisk_2 = string;
+    /**
+     * AD domain name
+     * @pattern \S+
+     * @maxLength 256
+     */
+    export type Tdomain = string;
+    /**
+     * Configure a Disk for storing EFI vars
+     * @format {"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"alias":"file"}}
+     */
+    export type Tefidisk0 = string;
+    /**
+     * Feature to check.
+     */
+    export type Tfeature = 'snapshot' | 'clone' | 'copy';
+    /**
+     * Allow containers access to advanced features.
+     * @format {"force_rw_sys":{"default":0,"description":"Mount /sys in unprivileged containers as `rw` instead of `mixed`. This can break networking under newer (>= v245) systemd-network use.","optional":1,"type":"boolean"},"fuse":{"default":0,"description":"Allow using 'fuse' file systems in a container. Note that interactions between fuse and the freezer cgroup can potentially cause I/O deadlocks.","optional":1,"type":"boolean"},"keyctl":{"default":0,"description":"For unprivileged containers only: Allow the use of the keyctl() system call. This is required to use docker inside a container. By default unprivileged containers will see this system call as non-existent. This is mostly a workaround for systemd-networkd, as it will treat it as a fatal error when some keyctl() operations are denied by the kernel due to lacking permissions. Essentially, you can choose between running systemd-networkd or docker.","optional":1,"type":"boolean"},"mknod":{"default":0,"description":"Allow unprivileged containers to use mknod() to add certain device nodes. This requires a kernel with seccomp trap to user space support (5.3 or newer). This is experimental.","optional":1,"type":"boolean"},"mount":{"description":"Allow mounting file systems of specific types. This should be a list of file system types as used with the mount command. Note that this can have negative effects on the container's security. With access to a loop device, mounting a file can circumvent the mknod permission of the devices cgroup, mounting an NFS file system can block the host's I/O completely and prevent it from rebooting, etc.","format_description":"fstype;fstype;...","optional":1,"pattern":"(?^:[a-zA-Z0-9_; ]+)","type":"string"},"nesting":{"default":0,"description":"Allow nesting. Best used with unprivileged containers with additional id mapping. Note that this will expose procfs and sysfs contents of the host to the guest.","optional":1,"type":"boolean"}}
+     */
+    export type Tfeatures = string;
+    /**
+     * Set the fencing mode of the HA cluster. Hardware mode needs a valid configuration of fence devices in /etc/pve/ha/fence.cfg. With both all two modes are used.
+     * WARNING: 'hardware' and 'both' are EXPERIMENTAL & WIP
+     */
+    export type Tfencing = 'watchdog' | 'hardware' | 'both';
+    /**
+     * The desired filesystem.
+     */
+    export type Tfilesystem = 'ext4' | 'xfs';
+    /**
+     * Certificate SHA 256 fingerprint.
+     * @pattern ([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2}
+     */
+    export type Tfingerprint = string;
+    /**
+     * Target format for file storage. Only valid for full clone.
+     */
+    export type Tformat = 'raw' | 'qcow2' | 'vmdk';
+    export type Tformat_1 = 'raw' | 'qcow2' | 'subvol';
+    /**
+     * Security Group name.
+     * @pattern [A-Za-z][A-Za-z0-9\-\_]+
+     * @minLength 2
+     * @maxLength 18
+     */
+    export type Tgroup = string;
+    /**
+     * Cluster wide HA settings.
+     * @format {"shutdown_policy":{"default":"conditional","description":"The policy for HA services on node shutdown. 'freeze' disables auto-recovery, 'failover' ensures recovery, 'conditional' recovers on poweroff and freezes on reboot. 'migrate' will migrate running services to other nodes, if possible. With 'freeze' or 'failover', HA Services will always get stopped first on shutdown.","enum":["freeze","failover","conditional","migrate"],"type":"string","verbose_description":"Describes the policy for handling HA services on poweroff or reboot of a node. Freeze will always freeze services which are still located on the node on shutdown, those services won't be recovered by the HA manager. Failover will not mark the services as frozen and thus the services will get recovered to other nodes, if the shutdown node does not come up again quickly (< 1min). 'conditional' chooses automatically depending on the type of shutdown, i.e., on a reboot the service will be frozen but on a poweroff the service will stay as is, and thus get recovered after about 2 minutes. Migrate will try to move all running services to another node when a reboot or shutdown was triggered. The poweroff process will only continue once no running services are located on the node anymore. If the node comes up again, the service will be moved back to the previously powered-off node, at least if no other migration, reloaction or recovery took place."}}
+     */
+    export type Tha = string;
+    /**
+     * Specify external http proxy which is used for downloads (example: 'http://username:password@host:port/')
+     * @pattern http://.*
+     */
+    export type Thttp_proxy = string;
+    /**
+     * Enable/disable hugepages memory.
+     */
+    export type Thugepages = 'any' | '2' | '1024';
+    /**
+     * Use volume as IDE hard disk or CD-ROM (n is 0 to 3).
+     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"model":{"description":"The drive's reported model name, url-encoded, up to 40 bytes long.","format":"urlencoded","format_description":"model","maxLength":120,"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
+     */
+    export type Tide = string;
+    /**
+     * Inter-VM shared memory. Useful for direct communication between VMs, or to the host.
+     * @format {"name":{"description":"The name of the file. Will be prefixed with 'pve-shm-'. Default is the VMID. Will be deleted when the VM is stopped.","format_description":"string","optional":1,"pattern":"[a-zA-Z0-9\\-]+","type":"string"},"size":{"description":"The size of the file in MB.","minimum":1,"type":"integer"}}
+     */
+    export type Tivshmem = string;
+    /**
+     * Proxmox VE subscription key
+     * @pattern pve([1248])([cbsp])-[0-9a-f]{10}
+     * @maxLength 32
+     */
+    export type Tkey = string;
+    /**
+     * Default keybord layout for vnc server.
+     */
+    export type Tkeyboard = 'de' | 'de-ch' | 'da' | 'en-gb' | 'en-us' | 'es' | 'fi' | 'fr' | 'fr-be' | 'fr-ca' | 'fr-ch' | 'hu' | 'is' | 'it' | 'ja' | 'lt' | 'mk' | 'nl' | 'no' | 'pl' | 'pt' | 'pt-br' | 'sv' | 'sl' | 'tr';
+    /**
+     * Default GUI language.
+     */
+    export type Tlanguage = 'ca' | 'da' | 'de' | 'en' | 'es' | 'eu' | 'fa' | 'fr' | 'he' | 'it' | 'ja' | 'nb' | 'nn' | 'pl' | 'pt_BR' | 'ru' | 'sl' | 'sv' | 'tr' | 'zh_CN' | 'zh_TW';
+    /**
+     * Address and priority information of a single corosync link. (up to 8 links supported; link0..link7)
+     * @format {"address":{"default_key":1,"description":"Hostname (or IP) of this corosync link address.","format":"address","format_description":"IP","type":"string"},"priority":{"default":0,"description":"The priority for the link when knet is used in 'passive' mode (default). Lower value means higher priority. Only valid for cluster create, ignored on node add.","maximum":255,"minimum":0,"optional":1,"type":"integer"}}
+     */
+    export type Tlink = string;
+    /**
+     * Lock/unlock the VM.
+     */
+    export type Tlock = 'backup' | 'clone' | 'create' | 'migrate' | 'rollback' | 'snapshot' | 'snapshot-delete' | 'suspending' | 'suspended';
+    /**
+     * Lock/unlock the VM.
+     */
+    export type Tlock_1 = 'backup' | 'create' | 'destroyed' | 'disk' | 'fstrim' | 'migrate' | 'mounted' | 'rollback' | 'snapshot' | 'snapshot-delete';
+    /**
+     * Log level for firewall rule.
+     */
+    export type Tlog = 'emerg' | 'alert' | 'crit' | 'err' | 'warning' | 'notice' | 'info' | 'debug' | 'nolog';
+    /**
+     * Log ratelimiting settings
+     * @format {"burst":{"default":5,"description":"Inital burst of packages which will get logged","minimum":0,"optional":1,"type":"integer"},"enable":{"default":"1","default_key":1,"description":"Enable or disable log rate limiting","type":"boolean"},"rate":{"default":"1/second","description":"Frequency with which the burst bucket gets refilled","format_description":"rate","optional":1,"pattern":"[1-9][0-9]*\\/(second|minute|hour|day)","type":"string"}}
+     */
+    export type Tlog_ratelimit = string;
+    /**
+     * Specifies the Qemu machine type.
+     * @pattern (pc|pc(-i440fx)?-\d+(\.\d+)+(\+pve\d+)?(\.pxe)?|q35|pc-q35-\d+(\.\d+)+(\+pve\d+)?(\.pxe)?|virt(?:-\d+(\.\d+)+)?(\+pve\d+)?)
+     * @maxLength 40
+     */
+    export type Tmachine = string;
+    /**
+     * Specify when to send an email
+     */
+    export type Tmailnotification = 'always' | 'failure';
+    /**
+     * Set maximum tolerated downtime (in seconds) for migrations.
+     * @minimum 0
+     * @type number
+     */
+    export type Tmigrate_downtime = number;
+    /**
+     * For cluster wide migration settings.
+     * @format {"network":{"description":"CIDR of the (sub) network that is used for migration.","format":"CIDR","format_description":"CIDR","optional":1,"type":"string"},"type":{"default":"secure","default_key":1,"description":"Migration traffic is encrypted using an SSH tunnel by default. On secure, completely private networks this can be disabled to increase performance.","enum":["secure","insecure"],"type":"string"}}
+     */
+    export type Tmigration = string;
+    /**
+     * Migration traffic is encrypted using an SSH tunnel by default. On secure, completely private networks this can be disabled to increase performance.
+     */
+    export type Tmigration_type = 'secure' | 'insecure';
+    /**
+     * Backup mode.
+     */
+    export type Tmode = 'snapshot' | 'suspend' | 'stop';
+    /**
+     * LDAP protocol mode.
+     */
+    export type Tmode_1 = 'ldap' | 'ldaps' | 'ldap+starttls';
+    /**
+     * Use volume as container mount point.
+     * @format {"acl":{"description":"Explicitly enable or disable ACL support.","optional":1,"type":"boolean"},"backup":{"description":"Whether to include the mount point in backups.","optional":1,"type":"boolean","verbose_description":"Whether to include the mount point in backups (only used for volume mount points)."},"mountoptions":{"description":"Extra mount options for rootfs/mps.","format_description":"opt[;opt...]","optional":1,"pattern":"(?^:(?^:(noatime|nodev|nosuid|noexec))(;(?^:(noatime|nodev|nosuid|noexec)))*)","type":"string"},"mp":{"description":"Path to the mount point as seen from inside the container (must not contain symlinks).","format":"pve-lxc-mp-string","format_description":"Path","type":"string","verbose_description":"Path to the mount point as seen from inside the container.\n\nNOTE: Must not contain any symlinks for security reasons."},"quota":{"description":"Enable user quotas inside the container (not supported with zfs subvolumes)","optional":1,"type":"boolean"},"replicate":{"default":1,"description":"Will include this volume to a storage replica job.","optional":1,"type":"boolean"},"ro":{"description":"Read-only mount point","optional":1,"type":"boolean"},"shared":{"default":0,"description":"Mark this non-volume mount point as available on multiple nodes (see 'nodes')","optional":1,"type":"boolean","verbose_description":"Mark this non-volume mount point as available on all nodes.\n\nWARNING: This option does not share the mount point automatically, it assumes it is shared already!"},"size":{"description":"Volume size (read only value).","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"default_key":1,"description":"Volume, device or directory to mount into the container.","format":"pve-lxc-mp-string","format_description":"volume","type":"string"}}
+     */
+    export type Tmp = string;
+    /**
+     * IP set name.
+     * @pattern [A-Za-z][A-Za-z0-9\-\_]+
+     * @minLength 2
+     * @maxLength 64
+     */
+    export type Tname = string;
+    /**
+     * Specify network devices.
+     * @format {"bridge":{"description":"Bridge to attach the network device to. The Proxmox VE standard bridge\nis called 'vmbr0'.\n\nIf you do not specify a bridge, we create a kvm user (NATed) network\ndevice, which provides DHCP and DNS services. The following addresses\nare used:\n\n 10.0.2.2   Gateway\n 10.0.2.3   DNS Server\n 10.0.2.4   SMB Server\n\nThe DHCP server assign addresses to the guest starting from 10.0.2.15.\n","format_description":"bridge","optional":1,"pattern":"[-_.\\w\\d]+","type":"string"},"e1000":{"alias":"macaddr","keyAlias":"model"},"e1000-82540em":{"alias":"macaddr","keyAlias":"model"},"e1000-82544gc":{"alias":"macaddr","keyAlias":"model"},"e1000-82545em":{"alias":"macaddr","keyAlias":"model"},"firewall":{"description":"Whether this interface should be protected by the firewall.","optional":1,"type":"boolean"},"i82551":{"alias":"macaddr","keyAlias":"model"},"i82557b":{"alias":"macaddr","keyAlias":"model"},"i82559er":{"alias":"macaddr","keyAlias":"model"},"link_down":{"description":"Whether this interface should be disconnected (like pulling the plug).","optional":1,"type":"boolean"},"macaddr":{"description":"MAC address. That address must be unique withing your network. This is automatically generated if not specified.","format":"mac-addr","format_description":"XX:XX:XX:XX:XX:XX","optional":1,"type":"string","verbose_description":"A common MAC address with the I/G (Individual/Group) bit not set."},"model":{"default_key":1,"description":"Network Card Model. The 'virtio' model provides the best performance with very low CPU overhead. If your guest does not support this driver, it is usually best to use 'e1000'.","enum":["rtl8139","ne2k_pci","e1000","pcnet","virtio","ne2k_isa","i82551","i82557b","i82559er","vmxnet3","e1000-82540em","e1000-82544gc","e1000-82545em"],"type":"string"},"mtu":{"description":"Force MTU, for VirtIO only. Set to '1' to use the bridge MTU","maximum":65520,"minimum":1,"optional":1,"type":"integer"},"ne2k_isa":{"alias":"macaddr","keyAlias":"model"},"ne2k_pci":{"alias":"macaddr","keyAlias":"model"},"pcnet":{"alias":"macaddr","keyAlias":"model"},"queues":{"description":"Number of packet queues to be used on the device.","maximum":16,"minimum":0,"optional":1,"type":"integer"},"rate":{"description":"Rate limit in mbps (megabytes per second) as floating point number.","minimum":0,"optional":1,"type":"number"},"rtl8139":{"alias":"macaddr","keyAlias":"model"},"tag":{"description":"VLAN tag to apply to packets on this interface.","maximum":4094,"minimum":1,"optional":1,"type":"integer"},"trunks":{"description":"VLAN trunks to pass through this interface.","format_description":"vlanid[;vlanid...]","optional":1,"pattern":"(?^:\\d+(?:-\\d+)?(?:;\\d+(?:-\\d+)?)*)","type":"string"},"virtio":{"alias":"macaddr","keyAlias":"model"},"vmxnet3":{"alias":"macaddr","keyAlias":"model"}}
+     */
+    export type Tnet = string;
+    /**
+     * Specifies network interfaces for the container.
+     * @format {"bridge":{"description":"Bridge to attach the network device to.","format_description":"bridge","optional":1,"pattern":"[-_.\\w\\d]+","type":"string"},"firewall":{"description":"Controls whether this interface's firewall rules should be used.","optional":1,"type":"boolean"},"gw":{"description":"Default gateway for IPv4 traffic.","format":"ipv4","format_description":"GatewayIPv4","optional":1,"type":"string"},"gw6":{"description":"Default gateway for IPv6 traffic.","format":"ipv6","format_description":"GatewayIPv6","optional":1,"type":"string"},"hwaddr":{"description":"The interface MAC address. This is dynamically allocated by default, but you can set that statically if needed, for example to always have the same link-local IPv6 address. (lxc.network.hwaddr)","format":"mac-addr","format_description":"XX:XX:XX:XX:XX:XX","optional":1,"type":"string","verbose_description":"A common MAC address with the I/G (Individual/Group) bit not set."},"ip":{"description":"IPv4 address in CIDR format.","format":"pve-ipv4-config","format_description":"(IPv4/CIDR|dhcp|manual)","optional":1,"type":"string"},"ip6":{"description":"IPv6 address in CIDR format.","format":"pve-ipv6-config","format_description":"(IPv6/CIDR|auto|dhcp|manual)","optional":1,"type":"string"},"mtu":{"description":"Maximum transfer unit of the interface. (lxc.network.mtu)","minimum":64,"optional":1,"type":"integer"},"name":{"description":"Name of the network device as seen from inside the container. (lxc.network.name)","format_description":"string","pattern":"[-_.\\w\\d]+","type":"string"},"rate":{"description":"Apply rate limiting to the interface","format_description":"mbps","optional":1,"type":"number"},"tag":{"description":"VLAN tag for this interface.","maximum":4094,"minimum":1,"optional":1,"type":"integer"},"trunks":{"description":"VLAN ids to pass through the interface","format_description":"vlanid[;vlanid...]","optional":1,"pattern":"(?^:\\d+(?:;\\d+)*)","type":"string"},"type":{"description":"Network interface type.","enum":["veth"],"optional":1,"type":"string"}}
+     */
+    export type Tnet_1 = string;
+    /**
+     * NUMA topology.
+     * @format {"cpus":{"description":"CPUs accessing this NUMA node.","format_description":"id[-id];...","pattern":"(?^:\\d+(?:-\\d+)?(?:;\\d+(?:-\\d+)?)*)","type":"string"},"hostnodes":{"description":"Host NUMA nodes to use.","format_description":"id[-id];...","optional":1,"pattern":"(?^:\\d+(?:-\\d+)?(?:;\\d+(?:-\\d+)?)*)","type":"string"},"memory":{"description":"Amount of memory this NUMA node provides.","optional":1,"type":"number"},"policy":{"description":"NUMA allocation policy.","enum":["preferred","bind","interleave"],"optional":1,"type":"string"}}
+     */
+    export type Tnuma = string;
+    /**
+     * Specify guest operating system. This is used to enable special
+     * optimization/features for specific operating systems:
+     * [horizontal]
+     * other;; unspecified OS
+     * wxp;; Microsoft Windows XP
+     * w2k;; Microsoft Windows 2000
+     * w2k3;; Microsoft Windows 2003
+     * w2k8;; Microsoft Windows 2008
+     * wvista;; Microsoft Windows Vista
+     * win7;; Microsoft Windows 7
+     * win8;; Microsoft Windows 8/2012/2012r2
+     * win10;; Microsoft Windows 10/2016
+     * l24;; Linux 2.4 Kernel
+     * l26;; Linux 2.6 - 5.X Kernel
+     * solaris;; Solaris/OpenSolaris/OpenIndiania kernel
+     * 
+     */
+    export type Tostype = 'other' | 'wxp' | 'w2k' | 'w2k3' | 'w2k8' | 'wvista' | 'win7' | 'win8' | 'win10' | 'l24' | 'l26' | 'solaris';
+    /**
+     * OS type. This is used to setup configuration inside the container, and corresponds to lxc setup scripts in /usr/share/lxc/config/<ostype>.common.conf. Value 'unmanaged' can be used to skip and OS specific setup.
+     */
+    export type Tostype_1 = 'debian' | 'ubuntu' | 'centos' | 'fedora' | 'opensuse' | 'archlinux' | 'alpine' | 'gentoo' | 'unmanaged';
+    /**
+     * Map host parallel devices (n is 0 to 2).
+     * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     * 
+     * @pattern /dev/parport\d+|/dev/usb/lp\d+
+     */
+    export type Tparallel = string;
+    /**
+     * Sets root password inside container.
+     * @minLength 5
+     */
+    export type Tpassword = string;
+    /**
+     * Input policy.
+     */
+    export type Tpolicy_in = 'ACCEPT' | 'REJECT' | 'DROP';
+    /**
+     * Return only a specific property from the node configuration.
+     */
+    export type Tproperty = 'acme' | 'acmedomain0' | 'acmedomain1' | 'acmedomain2' | 'acmedomain3' | 'acmedomain4' | 'acmedomain5' | 'description' | 'startall-onboot-delay' | 'wakeonlan';
+    /**
+     * The RAID level to use.
+     */
+    export type Traidlevel = 'single' | 'mirror' | 'raid10' | 'raidz' | 'raidz2' | 'raidz3';
     /**
      * Rate limit in mbps (megabytes per second) as floating point number.
      * @minimum 1
@@ -21,227 +459,100 @@ export namespace Proxmox {
      */
     export type Tremove_job = 'local' | 'full';
     /**
-     * Storage replication schedule. The format is a subset of `systemd` calendar events.
-     * @format pve-calendar-event
-     * @maxLength 128
+     * Configure a VirtIO-based Random Number Generator.
+     * @format {"max_bytes":{"default":1024,"description":"Maximum bytes of entropy injected into the guest every 'period' milliseconds. Prefer a lower value when using /dev/random as source. Use 0 to disable limiting (potentially dangerous!).","optional":1,"type":"integer"},"period":{"default":1000,"description":"Every 'period' milliseconds the entropy-injection quota is reset, allowing the guest to retrieve another 'max_bytes' of entropy.","optional":1,"type":"integer"},"source":{"default_key":1,"description":"The file on the host to gather entropy from. In most cases /dev/urandom should be preferred over /dev/random to avoid entropy-starvation issues on the host. Using urandom does *not* decrease security in any meaningful way, as it's still seeded from real entropy, and the bytes provided will most likely be mixed with real entropy on the guest as well. /dev/hwrng can be used to pass through a hardware RNG from the host.","enum":["/dev/urandom","/dev/random","/dev/hwrng"],"type":"string"}}
      */
-    export type pvecalendarevent = string;
+    export type Trng0 = string;
     /**
-     * Source of the replication.
-     * @format pve-node
+     * Use volume as container root.
+     * @format {"acl":{"description":"Explicitly enable or disable ACL support.","optional":1,"type":"boolean"},"mountoptions":{"description":"Extra mount options for rootfs/mps.","format_description":"opt[;opt...]","optional":1,"pattern":"(?^:(?^:(noatime|nodev|nosuid|noexec))(;(?^:(noatime|nodev|nosuid|noexec)))*)","type":"string"},"quota":{"description":"Enable user quotas inside the container (not supported with zfs subvolumes)","optional":1,"type":"boolean"},"replicate":{"default":1,"description":"Will include this volume to a storage replica job.","optional":1,"type":"boolean"},"ro":{"description":"Read-only mount point","optional":1,"type":"boolean"},"shared":{"default":0,"description":"Mark this non-volume mount point as available on multiple nodes (see 'nodes')","optional":1,"type":"boolean","verbose_description":"Mark this non-volume mount point as available on all nodes.\n\nWARNING: This option does not share the mount point automatically, it assumes it is shared already!"},"size":{"description":"Volume size (read only value).","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"default_key":1,"description":"Volume, device or directory to mount into the container.","format":"pve-lxc-mp-string","format_description":"volume","type":"string"}}
      */
-    export type pvenode = string;
+    export type Trootfs = string;
     /**
-     * Section type.
+     * Use volume as SATA hard disk or CD-ROM (n is 0 to 5).
+     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
      */
-    export type Ttype = 'local';
+    export type Tsata = string;
+    export type Tscope = 'all' | 'versions';
     /**
-     * A list of settings you want to delete.
-     * @format pve-configid-list
-     * @maxLength 4096
+     * Select what to sync.
      */
-    export type pveconfigidlist = string;
+    export type Tscope_1 = 'users' | 'groups' | 'both';
     /**
-     * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
-     * @maxLength 40
+     * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30).
+     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iothread":{"description":"Whether to use iothreads for this drive","optional":1,"type":"boolean"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"queues":{"description":"Number of queues.","minimum":2,"optional":1,"type":"integer"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"scsiblock":{"default":0,"description":"whether to use scsi-block for full passthrough of host block device\n\nWARNING: can lead to I/O errors in combination with low memory or high memory fragmentation on host","optional":1,"type":"boolean"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
      */
-    export type String0_40 = string;
+    export type Tscsi = string;
     /**
-     * The name of the cluster.
-     * @format pve-node
-     * @maxLength 15
+     * SCSI controller model
      */
-    export type pvenode_1 = string;
+    export type Tscsihw = 'lsi' | 'lsi53c810' | 'virtio-scsi-pci' | 'virtio-scsi-single' | 'megasas' | 'pvscsi';
     /**
-     * Address and priority information of a single corosync link. (up to 8 links supported; link0..link7)
-     * @format {"address":{"default_key":1,"description":"Hostname (or IP) of this corosync link address.","format":"address","format_description":"IP","type":"string"},"priority":{"default":0,"description":"The priority for the link when knet is used in 'passive' mode (default). Lower value means higher priority. Only valid for cluster create, ignored on node add.","maximum":255,"minimum":0,"optional":1,"type":"integer"}}
+     * Create a serial device inside the VM (n is 0 to 3), and pass through a
+     * host serial device (i.e. /dev/ttyS0), or create a unix socket on the
+     * host side (use 'qm terminal' to open a terminal connection).
+     * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     * 
+     * @pattern (/dev/.+|socket)
      */
-    export type Tlink = string;
+    export type Tserial = string;
     /**
-     * Node id for this node.
-     * @minimum 1
-     * @type integer
+     * opens a serial terminal (defaults to display)
      */
-    export type integer_Min1 = number;
+    export type Tserial_1 = 'serial0' | 'serial1' | 'serial2' | 'serial3';
     /**
-     * The JOIN_API_VERSION of the new node.
-     * @type integer
+     * Ceph service name.
+     * @pattern (ceph|mon|mds|osd|mgr)(\.[a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?)?
      */
-    export type integer = number;
+    export type Tservice = string;
     /**
-     * IP Address of node to add. Used as fallback if no links are given.
-     * @format ip
+     * Ceph service name.
+     * @pattern (mon|mds|osd|mgr)(\.[a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?)?
      */
-    export type ip = string;
+    export type Tservice_1 = string;
     /**
-     * Number of votes for this node
-     * @minimum 0
-     * @type integer
+     * Display all log since this date-time string.
+     * @pattern ^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}(:\d{2})?)?$
      */
-    export type integer_Min0 = number;
+    export type Tsince = string;
     /**
-     * Certificate SHA 256 fingerprint.
-     * @pattern ([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2}
+     * The new size. With the `+` sign the value is added to the actual size of the volume and without it, the value is taken as an absolute one. Shrinking disk size is not supported.
+     * @pattern \+?\d+(\.\d+)?[KMGT]?
      */
-    export type Tfingerprint = string;
+    export type Tsize = string;
     /**
-     * Superuser (root) password of peer node.
-     * @maxLength 128
+     * Size in kilobyte (1024 bytes). Optional suffixes 'M' (megabyte, 1024K) and 'G' (gigabyte, 1024M)
+     * @pattern \d+[MG]?
      */
-    export type String0_128 = string;
+    export type Tsize_1 = string;
     /**
-     * Security Group name.
-     * @pattern [A-Za-z][A-Za-z0-9\-\_]+
-     * @minLength 2
-     * @maxLength 18
+     * SMB protocol version
      */
-    export type Tgroup = string;
+    export type Tsmbversion = '2.0' | '2.1' | '3.0';
     /**
-     * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name.
-     * @pattern [A-Za-z][A-Za-z0-9\-\_]+
-     * @minLength 2
-     * @maxLength 20
+     * List archived, active or all tasks.
      */
-    export type Taction = string;
+    export type Tsource = 'archive' | 'active' | 'all';
     /**
-     * Restrict packet destination address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
-     * @format pve-fw-addr-spec
+     * Configure additional enhancements for SPICE.
+     * @format {"foldersharing":{"default":"0","description":"Enable folder sharing via SPICE. Needs Spice-WebDAV daemon installed in the VM.","optional":1,"type":"boolean"},"videostreaming":{"default":"off","description":"Enable video streaming. Uses compression for detected video streams.","enum":["off","all","filter"],"optional":1,"type":"string"}}
      */
-    export type pvefwaddrspec = string;
+    export type Tspice_enhancements = string;
     /**
-     * Restrict TCP/UDP destination port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
-     * @format pve-fw-dport-spec
+     * LDAPS TLS/SSL version. It's not recommended to use version older than 1.2!
      */
-    export type pvefwdportspec = string;
+    export type Tsslversion = 'tlsv1' | 'tlsv1_1' | 'tlsv1_2' | 'tlsv1_3';
     /**
-     * Network interface name. You have to use network configuration key names for VMs and containers ('net\d+'). Host related rules can use arbitrary strings.
-     * @format pve-iface
-     * @minLength 2
-     * @maxLength 20
+     * Set the initial date of the real time clock. Valid format for date are: 'now' or '2006-06-17T16:01:21' or '2006-06-17'.
+     * @pattern (now|\d{4}-\d{1,2}-\d{1,2}(T\d{1,2}:\d{1,2}:\d{1,2})?)
      */
-    export type pveiface = string;
-    /**
-     * Log level for firewall rule.
-     */
-    export type Tlog = 'emerg' | 'alert' | 'crit' | 'err' | 'warning' | 'notice' | 'info' | 'debug' | 'nolog';
-    /**
-     * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'.
-     * @format pve-fw-protocol-spec
-     */
-    export type pvefwprotocolspec = string;
-    /**
-     * Restrict TCP/UDP source port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
-     * @format pve-fw-sport-spec
-     */
-    export type pvefwsportspec = string;
-    /**
-     * Rule type.
-     */
-    export type Ttype_1 = 'in' | 'out' | 'group';
-    /**
-     * A list of settings you want to delete.
-     * @format pve-configid-list
-     */
-    export type pveconfigidlist_1 = string;
-    /**
-     * IP set name.
-     * @pattern [A-Za-z][A-Za-z0-9\-\_]+
-     * @minLength 2
-     * @maxLength 64
-     */
-    export type Tname = string;
-    /**
-     * Network/IP specification in CIDR format.
-     * @format IPorCIDRorAlias
-     */
-    export type IPorCIDRorAlias = string;
-    /**
-     * Network/IP specification in CIDR format.
-     * @format IPorCIDR
-     */
-    export type IPorCIDR = string;
-    /**
-     * Log ratelimiting settings
-     * @format {"burst":{"default":5,"description":"Inital burst of packages which will get logged","minimum":0,"optional":1,"type":"integer"},"enable":{"default":"1","default_key":1,"description":"Enable or disable log rate limiting","type":"boolean"},"rate":{"default":"1/second","description":"Frequency with which the burst bucket gets refilled","format_description":"rate","optional":1,"pattern":"[1-9][0-9]*\\/(second|minute|hour|day)","type":"string"}}
-     */
-    export type Tlog_ratelimit = string;
-    /**
-     * Input policy.
-     */
-    export type Tpolicy_in = 'ACCEPT' | 'REJECT' | 'DROP';
-    /**
-     * Only list references of specified type.
-     */
-    export type Ttype_2 = 'alias' | 'ipset';
-    /**
-     * Compress dump file.
-     */
-    export type Tcompress = '0' | '1' | 'gzip' | 'lzo' | 'zstd';
-    /**
-     * Day of week selection.
-     * @format pve-day-of-week-list
-     */
-    export type pvedayofweeklist = string;
-    /**
-     * Exclude specified guest systems (assumes --all)
-     * @format pve-vmid-list
-     */
-    export type pvevmidlist = string;
-    /**
-     * Exclude certain files/directories (shell globs).
-     * @format string-alist
-     */
-    export type stringalist = string;
-    /**
-     * Set CFQ ionice priority.
-     * @minimum 0
-     * @maximum 8
-     * @type integer
-     */
-    export type integer0_8 = number;
-    /**
-     * Specify when to send an email
-     */
-    export type Tmailnotification = 'always' | 'failure';
-    /**
-     * Comma-separated list of email addresses that should receive email notifications.
-     * @format string-list
-     */
-    export type stringlist = string;
-    /**
-     * Backup mode.
-     */
-    export type Tmode = 'snapshot' | 'suspend' | 'stop';
-    /**
-     * Unused, will be removed in a future release.
-     * @minimum 500
-     * @type integer
-     */
-    export type integer_Min500 = number;
+    export type Tstartdate = string;
     /**
      * Job Start time.
      * @pattern \d{1,2}:\d{1,2}
      */
     export type Tstarttime = string;
-    /**
-     * Store resulting file to this storage.
-     * @format pve-storage-id
-     */
-    export type pvestorageid = string;
-    /**
-     * Only list resources of specific type
-     */
-    export type Ttype_3 = 'ct' | 'vm';
-    /**
-     * The HA group identifier.
-     * @format pve-configid
-     */
-    export type pveconfigid = string;
-    /**
-     * HA resource ID. This consists of a resource type followed by a resource specific name, separated with colon (example: vm:100 / ct:100). For virtual machines and containers, you can simply use the VM or CT id as a shortcut (example: 100).
-     * @format pve-ha-resource-or-vm-id
-     */
-    export type pveharesourceorvmid = string;
     /**
      * Requested resource state. The CRM reads this state and acts accordingly.
      * Please note that `enabled` is just an alias for `started`.
@@ -268,10 +579,58 @@ export namespace Proxmox {
      */
     export type Tstate = 'started' | 'stopped' | 'enabled' | 'disabled' | 'ignored';
     /**
-     * List of cluster node members, where a priority can be given to each node. A resource bound to a group will run on the available nodes with the highest priority. If there are more nodes in the highest priority class, the services will get distributed to those nodes. The priorities have a relative meaning only.
-     * @format pve-ha-group-node-list
+     * Comma separated list of key=value pairs for specifying which LDAP attributes map to which PVE user field. For example, to map the LDAP attribute 'mail' to PVEs 'email', write  'email=mail'. By default, each PVE user field is represented  by an LDAP attribute of the same name.
+     * @pattern \w+=[^,]+(,\s*\w+=[^,]+)*
      */
-    export type pvehagroupnodelist = string;
+    export type Tsync_attributes = string;
+    /**
+     * Specify the time frame you are interested in.
+     */
+    export type Ttimeframe = 'hour' | 'day' | 'week' | 'month' | 'year';
+    /**
+     * Gluster transport: tcp or rdma
+     */
+    export type Ttransport = 'tcp' | 'rdma' | 'unix';
+    /**
+     * Section type.
+     */
+    export type Ttype = 'local';
+    /**
+     * Rule type.
+     */
+    export type Ttype_1 = 'in' | 'out' | 'group';
+    /**
+     * Config type.
+     */
+    export type Ttype_10 = 'user' | 'network' | 'meta';
+    /**
+     * Only list specific types of disks.
+     */
+    export type Ttype_11 = 'unused' | 'journal_disks';
+    /**
+     * Only list specific interface types.
+     */
+    export type Ttype_12 = 'bridge' | 'bond' | 'eth' | 'alias' | 'vlan' | 'OVSBridge' | 'OVSBond' | 'OVSPort' | 'OVSIntPort' | 'any_bridge';
+    /**
+     * Network interface type
+     */
+    export type Ttype_13 = 'bridge' | 'bond' | 'eth' | 'alias' | 'vlan' | 'OVSBridge' | 'OVSBond' | 'OVSPort' | 'OVSIntPort' | 'unknown';
+    /**
+     * Only list storage of specific type
+     */
+    export type Ttype_14 = 'cephfs' | 'cifs' | 'dir' | 'drbd' | 'glusterfs' | 'iscsi' | 'iscsidirect' | 'lvm' | 'lvmthin' | 'nfs' | 'pbs' | 'rbd' | 'zfs' | 'zfspool';
+    /**
+     * Realm type.
+     */
+    export type Ttype_15 = 'ad' | 'ldap' | 'pam' | 'pve';
+    /**
+     * Only list references of specified type.
+     */
+    export type Ttype_2 = 'alias' | 'ipset';
+    /**
+     * Only list resources of specific type
+     */
+    export type Ttype_3 = 'ct' | 'vm';
     /**
      * Group type.
      */
@@ -281,417 +640,60 @@ export namespace Proxmox {
      */
     export type Ttype_5 = 'dns' | 'standalone';
     /**
-     * API plugin name
-     */
-    export type Tapi = 'acmedns' | 'acmeproxy' | 'active24' | 'ad' | 'ali' | 'autodns' | 'aws' | 'azure' | 'cf' | 'clouddns' | 'cloudns' | 'cn' | 'conoha' | 'constellix' | 'cx' | 'cyon' | 'da' | 'ddnss' | 'desec' | 'df' | 'dgon' | 'dnsimple' | 'do' | 'doapi' | 'domeneshop' | 'dp' | 'dpi' | 'dreamhost' | 'duckdns' | 'durabledns' | 'dyn' | 'dynu' | 'dynv6' | 'easydns' | 'euserv' | 'exoscale' | 'freedns' | 'gandi_livedns' | 'gcloud' | 'gd' | 'gdnsdk' | 'he' | 'hexonet' | 'hostingde' | 'infoblox' | 'internetbs' | 'inwx' | 'ispconfig' | 'jd' | 'kas' | 'kinghost' | 'knot' | 'leaseweb' | 'lexicon' | 'linode' | 'linode_v4' | 'loopia' | 'lua' | 'maradns' | 'me' | 'miab' | 'misaka' | 'myapi' | 'mydevil' | 'mydnsjp' | 'namecheap' | 'namecom' | 'namesilo' | 'nederhost' | 'neodigit' | 'netcup' | 'nic' | 'nsd' | 'nsone' | 'nsupdate' | 'nw' | 'one' | 'online' | 'openprovider' | 'opnsense' | 'ovh' | 'pdns' | 'pleskxml' | 'pointhq' | 'rackspace' | 'rcode0' | 'regru' | 'schlundtech' | 'selectel' | 'servercow' | 'tele3' | 'ultra' | 'unoeuro' | 'variomedia' | 'vscale' | 'vultr' | 'yandex' | 'zilore' | 'zone' | 'zonomi';
-    /**
-     * List of cluster node names.
-     * @format pve-node-list
-     */
-    export type pvenodelist = string;
-    /**
-     * Extra delay in seconds to wait before requesting validation. Allows to cope with a long TTL of DNS records.
-     * @minimum 0
-     * @maximum 172800
-     * @type integer
-     */
-    export type integer0_172800 = number;
-    /**
-     * Contact email addresses.
-     * @format email-list
-     */
-    export type emaillist = string;
-    /**
-     * URL of ACME CA directory endpoint.
-     * @pattern ^https?://.*
-     */
-    export type Tdirectory = string;
-    export type Tscope = 'all' | 'versions';
-    /**
-     * Anycast router ipv4 address.
-     * @format CIDRv4
-     */
-    export type CIDRv4 = string;
-    /**
-     * Anycast router ipv6 address.
-     * @format CIDRv6
-     */
-    export type CIDRv6 = string;
-    /**
-     * Anycast router mac address
-     * @format mac-addr
-     */
-    export type macaddr = string;
-    /**
      * Type
      */
     export type Ttype_6 = 'vnet';
-    /**
-     * The SDN vnet object identifier.
-     * @format pve-sdn-vnet-id
-     */
-    export type pvesdnvnetid = string;
     /**
      * Only list sdn zones of specific type
      */
     export type Ttype_7 = 'evpn' | 'faucet' | 'qinq' | 'simple' | 'vlan' | 'vxlan';
     /**
-     * peers address list.
-     * @format ip-list
-     */
-    export type iplist = string;
-    /**
-     * Plugin type.
-     * @format pve-configid
-     */
-    export type pveconfigid_1 = 'evpn' | 'faucet' | 'qinq' | 'simple' | 'vlan' | 'vxlan';
-    export type Tvlanprotocol = '802.1q' | '802.1ad';
-    /**
-     * The SDN zone object identifier.
-     * @format pve-sdn-zone-id
-     */
-    export type pvesdnzoneid = string;
-    /**
      * Only list sdn controllers of specific type
      */
     export type Ttype_8 = 'evpn' | 'faucet';
-    /**
-     * The SDN controller object identifier.
-     * @format pve-sdn-controller-id
-     */
-    export type pvesdncontrollerid = string;
-    /**
-     * Plugin type.
-     * @format pve-configid
-     */
-    export type pveconfigid_2 = 'evpn' | 'faucet';
     export type Ttype_9 = 'vm' | 'storage' | 'node' | 'sdn';
-    /**
-     * Set bandwidth/io limits various operations.
-     * @format {"clone":{"description":"bandwidth limit in KiB/s for cloning disks","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"},"default":{"description":"default bandwidth limit in KiB/s","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"},"migration":{"description":"bandwidth limit in KiB/s for migrating guests (including moving local disks)","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"},"move":{"description":"bandwidth limit in KiB/s for moving disks","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"},"restore":{"description":"bandwidth limit in KiB/s for restoring guests from backups","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"}}
-     */
-    export type Tbwlimit = string;
-    /**
-     * Select the default Console viewer. You can either use the builtin java applet (VNC; deprecated and maps to html5), an external virt-viewer comtatible application (SPICE), an HTML5 based vnc viewer (noVNC), or an HTML5 based console client (xtermjs). If the selected viewer is not available (e.g. SPICE not activated for the VM), the fallback is noVNC.
-     */
-    export type Tconsole = 'applet' | 'vv' | 'html5' | 'xtermjs';
-    /**
-     * Specify email address to send notification from (default is root@$hostname)
-     * @format email-opt
-     */
-    export type emailopt = string;
-    /**
-     * Set the fencing mode of the HA cluster. Hardware mode needs a valid configuration of fence devices in /etc/pve/ha/fence.cfg. With both all two modes are used.
-     * WARNING: 'hardware' and 'both' are EXPERIMENTAL & WIP
-     */
-    export type Tfencing = 'watchdog' | 'hardware' | 'both';
-    /**
-     * Cluster wide HA settings.
-     * @format {"shutdown_policy":{"default":"conditional","description":"The policy for HA services on node shutdown. 'freeze' disables auto-recovery, 'failover' ensures recovery, 'conditional' recovers on poweroff and freezes on reboot. 'migrate' will migrate running services to other nodes, if possible. With 'freeze' or 'failover', HA Services will always get stopped first on shutdown.","enum":["freeze","failover","conditional","migrate"],"type":"string","verbose_description":"Describes the policy for handling HA services on poweroff or reboot of a node. Freeze will always freeze services which are still located on the node on shutdown, those services won't be recovered by the HA manager. Failover will not mark the services as frozen and thus the services will get recovered to other nodes, if the shutdown node does not come up again quickly (< 1min). 'conditional' chooses automatically depending on the type of shutdown, i.e., on a reboot the service will be frozen but on a poweroff the service will stay as is, and thus get recovered after about 2 minutes. Migrate will try to move all running services to another node when a reboot or shutdown was triggered. The poweroff process will only continue once no running services are located on the node anymore. If the node comes up again, the service will be moved back to the previously powered-off node, at least if no other migration, reloaction or recovery took place."}}
-     */
-    export type Tha = string;
-    /**
-     * Specify external http proxy which is used for downloads (example: 'http://username:password@host:port/')
-     * @pattern http://.*
-     */
-    export type Thttp_proxy = string;
-    /**
-     * Default keybord layout for vnc server.
-     */
-    export type Tkeyboard = 'de' | 'de-ch' | 'da' | 'en-gb' | 'en-us' | 'es' | 'fi' | 'fr' | 'fr-be' | 'fr-ca' | 'fr-ch' | 'hu' | 'is' | 'it' | 'ja' | 'lt' | 'mk' | 'nl' | 'no' | 'pl' | 'pt' | 'pt-br' | 'sv' | 'sl' | 'tr';
-    /**
-     * Default GUI language.
-     */
-    export type Tlanguage = 'ca' | 'da' | 'de' | 'en' | 'es' | 'eu' | 'fa' | 'fr' | 'he' | 'it' | 'ja' | 'nb' | 'nn' | 'pl' | 'pt_BR' | 'ru' | 'sl' | 'sv' | 'tr' | 'zh_CN' | 'zh_TW';
-    /**
-     * Prefix for autogenerated MAC addresses.
-     * @format mac-prefix
-     */
-    export type macprefix = string;
-    /**
-     * For cluster wide migration settings.
-     * @format {"network":{"description":"CIDR of the (sub) network that is used for migration.","format":"CIDR","format_description":"CIDR","optional":1,"type":"string"},"type":{"default":"secure","default_key":1,"description":"Migration traffic is encrypted using an SSH tunnel by default. On secure, completely private networks this can be disabled to increase performance.","enum":["secure","insecure"],"type":"string"}}
-     */
-    export type Tmigration = string;
     /**
      * u2f
      * @format {"appid":{"description":"U2F AppId URL override. Defaults to the origin.","format_description":"APPID","optional":1,"type":"string"},"origin":{"description":"U2F Origin override. Mostly useful for single nodes with a single URL.","format_description":"URL","optional":1,"type":"string"}}
      */
     export type Tu2f = string;
     /**
-     * The (unique) ID of the VM.
-     * @format pve-vmid
-     * @minimum 1
-     * @type integer
-     */
-    export type pvevmid = number;
-    /**
-     * Enable/disable Qemu GuestAgent and its properties.
-     * @format {"enabled":{"default":0,"default_key":1,"description":"Enable/disable Qemu GuestAgent.","type":"boolean"},"fstrim_cloned_disks":{"default":0,"description":"Run fstrim after cloning/moving a disk.","optional":1,"type":"boolean"},"type":{"default":"virtio","description":"Select the agent type","enum":["virtio","isa"],"optional":1,"type":"string"}}
-     */
-    export type Tagent = string;
-    /**
-     * Virtual processor architecture. Defaults to the host.
-     */
-    export type Tarch = 'x86_64' | 'aarch64';
-    /**
-     * The backup archive. Either the file system path to a .tar or .vma file (use '-' to pipe data from stdin) or a proxmox storage backup volume identifier.
-     * @maxLength 255
-     */
-    export type String0_255 = string;
-    /**
-     * Configure a audio device, useful in combination with QXL/Spice.
-     * @format {"device":{"description":"Configure an audio device.","enum":["ich9-intel-hda","intel-hda","AC97"],"type":"string"},"driver":{"default":"spice","description":"Driver backend for the audio device.","enum":["spice"],"optional":1,"type":"string"}}
-     */
-    export type Taudio0 = string;
-    /**
-     * Select BIOS implementation.
-     */
-    export type Tbios = 'seabios' | 'ovmf';
-    /**
-     * Boot on floppy (a), hard disk (c), CD-ROM (d), or network (n).
-     * @pattern [acdn]{1,4}
-     */
-    export type Tboot = string;
-    /**
-     * Enable booting from specified disk.
-     * @pattern (ide|sata|scsi|virtio)\d+
-     * @format pve-qm-bootdisk
-     */
-    export type pveqmbootdisk = string;
-    /**
-     * This is an alias for option -ide2
-     * @format pve-qm-ide
-     */
-    export type pveqmide = string;
-    /**
-     * cloud-init: Specify custom files to replace the automatically generated ones at start.
-     * @format pve-qm-cicustom
-     */
-    export type pveqmcicustom = string;
-    /**
-     * Specifies the cloud-init configuration format. The default depends on the configured operating system type (`ostype`. We use the `nocloud` format for Linux, and `configdrive2` for windows.
-     */
-    export type Tcitype = 'configdrive2' | 'nocloud';
-    /**
-     * Emulated CPU type.
-     * @format pve-vm-cpu-conf
-     */
-    export type pvevmcpuconf = string;
-    /**
-     * Limit of CPU usage.
-     * NOTE: If the computer has 2 CPUs, it has total of '2' CPU time. Value '0' indicates no CPU limit.
-     * @minimum 0
-     * @maximum 128
-     * @type number
-     */
-    export type Tcpulimit = number;
-    /**
-     * CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to weights of all the other running VMs.
-     * @minimum 2
-     * @maximum 262144
-     * @type integer
-     */
-    export type integer2_262144 = number;
-    /**
-     * Configure a Disk for storing EFI vars
-     * @format {"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"alias":"file"}}
-     */
-    export type Tefidisk0 = string;
-    /**
-     * Script that will be executed during various steps in the vms lifetime.
-     * @format pve-volume-id
-     */
-    export type pvevolumeid = string;
-    /**
-     * Map host PCI devices into guest.
-     * NOTE: This option allows direct access to host hardware. So it is no longer
-     * possible to migrate such machines - use with special care.
-     * CAUTION: Experimental! User reported problems with this option.
-     * 
-     * @format pve-qm-hostpci
-     */
-    export type pveqmhostpci = string;
-    /**
-     * Selectively enable hotplug features. This is a comma separated list of hotplug features: 'network', 'disk', 'cpu', 'memory' and 'usb'. Use '0' to disable hotplug completely. Value '1' is an alias for the default 'network,disk,usb'.
-     * @format pve-hotplug-features
-     */
-    export type pvehotplugfeatures = string;
-    /**
-     * Enable/disable hugepages memory.
-     */
-    export type Thugepages = 'any' | '2' | '1024';
-    /**
-     * Use volume as IDE hard disk or CD-ROM (n is 0 to 3).
-     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"model":{"description":"The drive's reported model name, url-encoded, up to 40 bytes long.","format":"urlencoded","format_description":"model","maxLength":120,"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
-     */
-    export type Tide = string;
-    /**
-     * cloud-init: Specify IP addresses and gateways for the corresponding interface.
-     * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
-     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
-     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
-     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
-     * 
-     * @format pve-qm-ipconfig
-     */
-    export type pveqmipconfig = string;
-    /**
-     * Inter-VM shared memory. Useful for direct communication between VMs, or to the host.
-     * @format {"name":{"description":"The name of the file. Will be prefixed with 'pve-shm-'. Default is the VMID. Will be deleted when the VM is stopped.","format_description":"string","optional":1,"pattern":"[a-zA-Z0-9\\-]+","type":"string"},"size":{"description":"The size of the file in MB.","minimum":1,"type":"integer"}}
-     */
-    export type Tivshmem = string;
-    /**
-     * Lock/unlock the VM.
-     */
-    export type Tlock = 'backup' | 'clone' | 'create' | 'migrate' | 'rollback' | 'snapshot' | 'snapshot-delete' | 'suspending' | 'suspended';
-    /**
-     * Specifies the Qemu machine type.
-     * @pattern (pc|pc(-i440fx)?-\d+(\.\d+)+(\+pve\d+)?(\.pxe)?|q35|pc-q35-\d+(\.\d+)+(\+pve\d+)?(\.pxe)?|virt(?:-\d+(\.\d+)+)?(\+pve\d+)?)
-     * @maxLength 40
-     */
-    export type Tmachine = string;
-    /**
-     * Amount of RAM for the VM in MB. This is the maximum available memory when you use the balloon device.
-     * @minimum 16
-     * @type integer
-     */
-    export type integer_Min16 = number;
-    /**
-     * Set maximum tolerated downtime (in seconds) for migrations.
-     * @minimum 0
-     * @type number
-     */
-    export type Tmigrate_downtime = number;
-    /**
-     * Set a name for the VM. Only used on the configuration web interface.
-     * @format dns-name
-     */
-    export type dnsname = string;
-    /**
-     * cloud-init: Sets DNS server IP address for a container. Create will automatically use the setting from the host if neither searchdomain nor nameserver are set.
-     * @format address-list
-     */
-    export type addresslist = string;
-    /**
-     * Specify network devices.
-     * @format {"bridge":{"description":"Bridge to attach the network device to. The Proxmox VE standard bridge\nis called 'vmbr0'.\n\nIf you do not specify a bridge, we create a kvm user (NATed) network\ndevice, which provides DHCP and DNS services. The following addresses\nare used:\n\n 10.0.2.2   Gateway\n 10.0.2.3   DNS Server\n 10.0.2.4   SMB Server\n\nThe DHCP server assign addresses to the guest starting from 10.0.2.15.\n","format_description":"bridge","optional":1,"pattern":"[-_.\\w\\d]+","type":"string"},"e1000":{"alias":"macaddr","keyAlias":"model"},"e1000-82540em":{"alias":"macaddr","keyAlias":"model"},"e1000-82544gc":{"alias":"macaddr","keyAlias":"model"},"e1000-82545em":{"alias":"macaddr","keyAlias":"model"},"firewall":{"description":"Whether this interface should be protected by the firewall.","optional":1,"type":"boolean"},"i82551":{"alias":"macaddr","keyAlias":"model"},"i82557b":{"alias":"macaddr","keyAlias":"model"},"i82559er":{"alias":"macaddr","keyAlias":"model"},"link_down":{"description":"Whether this interface should be disconnected (like pulling the plug).","optional":1,"type":"boolean"},"macaddr":{"description":"MAC address. That address must be unique withing your network. This is automatically generated if not specified.","format":"mac-addr","format_description":"XX:XX:XX:XX:XX:XX","optional":1,"type":"string","verbose_description":"A common MAC address with the I/G (Individual/Group) bit not set."},"model":{"default_key":1,"description":"Network Card Model. The 'virtio' model provides the best performance with very low CPU overhead. If your guest does not support this driver, it is usually best to use 'e1000'.","enum":["rtl8139","ne2k_pci","e1000","pcnet","virtio","ne2k_isa","i82551","i82557b","i82559er","vmxnet3","e1000-82540em","e1000-82544gc","e1000-82545em"],"type":"string"},"mtu":{"description":"Force MTU, for VirtIO only. Set to '1' to use the bridge MTU","maximum":65520,"minimum":1,"optional":1,"type":"integer"},"ne2k_isa":{"alias":"macaddr","keyAlias":"model"},"ne2k_pci":{"alias":"macaddr","keyAlias":"model"},"pcnet":{"alias":"macaddr","keyAlias":"model"},"queues":{"description":"Number of packet queues to be used on the device.","maximum":16,"minimum":0,"optional":1,"type":"integer"},"rate":{"description":"Rate limit in mbps (megabytes per second) as floating point number.","minimum":0,"optional":1,"type":"number"},"rtl8139":{"alias":"macaddr","keyAlias":"model"},"tag":{"description":"VLAN tag to apply to packets on this interface.","maximum":4094,"minimum":1,"optional":1,"type":"integer"},"trunks":{"description":"VLAN trunks to pass through this interface.","format_description":"vlanid[;vlanid...]","optional":1,"pattern":"(?^:\\d+(?:-\\d+)?(?:;\\d+(?:-\\d+)?)*)","type":"string"},"virtio":{"alias":"macaddr","keyAlias":"model"},"vmxnet3":{"alias":"macaddr","keyAlias":"model"}}
-     */
-    export type Tnet = string;
-    /**
-     * NUMA topology.
-     * @format {"cpus":{"description":"CPUs accessing this NUMA node.","format_description":"id[-id];...","pattern":"(?^:\\d+(?:-\\d+)?(?:;\\d+(?:-\\d+)?)*)","type":"string"},"hostnodes":{"description":"Host NUMA nodes to use.","format_description":"id[-id];...","optional":1,"pattern":"(?^:\\d+(?:-\\d+)?(?:;\\d+(?:-\\d+)?)*)","type":"string"},"memory":{"description":"Amount of memory this NUMA node provides.","optional":1,"type":"number"},"policy":{"description":"NUMA allocation policy.","enum":["preferred","bind","interleave"],"optional":1,"type":"string"}}
-     */
-    export type Tnuma = string;
-    /**
-     * Specify guest operating system. This is used to enable special
-     * optimization/features for specific operating systems:
-     * [horizontal]
-     * other;; unspecified OS
-     * wxp;; Microsoft Windows XP
-     * w2k;; Microsoft Windows 2000
-     * w2k3;; Microsoft Windows 2003
-     * w2k8;; Microsoft Windows 2008
-     * wvista;; Microsoft Windows Vista
-     * win7;; Microsoft Windows 7
-     * win8;; Microsoft Windows 8/2012/2012r2
-     * win10;; Microsoft Windows 10/2016
-     * l24;; Linux 2.4 Kernel
-     * l26;; Linux 2.6 - 5.X Kernel
-     * solaris;; Solaris/OpenSolaris/OpenIndiania kernel
-     * 
-     */
-    export type Tostype = 'other' | 'wxp' | 'w2k' | 'w2k3' | 'w2k8' | 'wvista' | 'win7' | 'win8' | 'win10' | 'l24' | 'l26' | 'solaris';
-    /**
-     * Map host parallel devices (n is 0 to 2).
-     * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
-     * CAUTION: Experimental! User reported problems with this option.
-     * 
-     * @pattern /dev/parport\d+|/dev/usb/lp\d+
-     */
-    export type Tparallel = string;
-    /**
-     * Add the VM to the specified pool.
-     * @format pve-poolid
-     */
-    export type pvepoolid = string;
-    /**
-     * Configure a VirtIO-based Random Number Generator.
-     * @format {"max_bytes":{"default":1024,"description":"Maximum bytes of entropy injected into the guest every 'period' milliseconds. Prefer a lower value when using /dev/random as source. Use 0 to disable limiting (potentially dangerous!).","optional":1,"type":"integer"},"period":{"default":1000,"description":"Every 'period' milliseconds the entropy-injection quota is reset, allowing the guest to retrieve another 'max_bytes' of entropy.","optional":1,"type":"integer"},"source":{"default_key":1,"description":"The file on the host to gather entropy from. In most cases /dev/urandom should be preferred over /dev/random to avoid entropy-starvation issues on the host. Using urandom does *not* decrease security in any meaningful way, as it's still seeded from real entropy, and the bytes provided will most likely be mixed with real entropy on the guest as well. /dev/hwrng can be used to pass through a hardware RNG from the host.","enum":["/dev/urandom","/dev/random","/dev/hwrng"],"type":"string"}}
-     */
-    export type Trng0 = string;
-    /**
-     * Use volume as SATA hard disk or CD-ROM (n is 0 to 5).
-     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
-     */
-    export type Tsata = string;
-    /**
-     * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30).
-     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iothread":{"description":"Whether to use iothreads for this drive","optional":1,"type":"boolean"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"queues":{"description":"Number of queues.","minimum":2,"optional":1,"type":"integer"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"scsiblock":{"default":0,"description":"whether to use scsi-block for full passthrough of host block device\n\nWARNING: can lead to I/O errors in combination with low memory or high memory fragmentation on host","optional":1,"type":"boolean"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
-     */
-    export type Tscsi = string;
-    /**
-     * SCSI controller model
-     */
-    export type Tscsihw = 'lsi' | 'lsi53c810' | 'virtio-scsi-pci' | 'virtio-scsi-single' | 'megasas' | 'pvscsi';
-    /**
-     * Create a serial device inside the VM (n is 0 to 3), and pass through a
-     * host serial device (i.e. /dev/ttyS0), or create a unix socket on the
-     * host side (use 'qm terminal' to open a terminal connection).
-     * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
-     * CAUTION: Experimental! User reported problems with this option.
-     * 
-     * @pattern (/dev/.+|socket)
-     */
-    export type Tserial = string;
-    /**
-     * Amount of memory shares for auto-ballooning. The larger the number is, the more memory this VM gets. Number is relative to weights of all other running VMs. Using zero disables auto-ballooning. Auto-ballooning is done by pvestatd.
-     * @minimum 0
-     * @maximum 50000
-     * @type integer
-     */
-    export type integer0_50000 = number;
-    /**
-     * Specify SMBIOS type 1 fields.
-     * @format pve-qm-smbios1
-     * @maxLength 512
-     */
-    export type pveqmsmbios1 = string;
-    /**
-     * Configure additional enhancements for SPICE.
-     * @format {"foldersharing":{"default":"0","description":"Enable folder sharing via SPICE. Needs Spice-WebDAV daemon installed in the VM.","optional":1,"type":"boolean"},"videostreaming":{"default":"off","description":"Enable video streaming. Uses compression for detected video streams.","enum":["off","all","filter"],"optional":1,"type":"string"}}
-     */
-    export type Tspice_enhancements = string;
-    /**
-     * cloud-init: Setup public SSH keys (one key per line, OpenSSH format).
-     * @format urlencoded
-     */
-    export type urlencoded = string;
-    /**
-     * Set the initial date of the real time clock. Valid format for date are: 'now' or '2006-06-17T16:01:21' or '2006-06-17'.
-     * @pattern (now|\d{4}-\d{1,2}-\d{1,2}(T\d{1,2}:\d{1,2}:\d{1,2})?)
-     */
-    export type Tstartdate = string;
-    /**
-     * Startup and shutdown behavior. Order is a non-negative number defining the general startup order. Shutdown in done with reverse ordering. Additionally you can set the 'up' or 'down' delay in seconds, which specifies a delay to wait before the next VM is started or stopped.
-     * @format pve-startup-order
-     */
-    export type pvestartuporder = string;
-    /**
-     * Tags of the VM. This is only meta information.
-     * @format pve-tag-list
-     */
-    export type pvetaglist = string;
-    /**
      * Reference to unused volumes. This is used internally, and should not be modified manually.
      * @format {"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id","format_description":"volume","type":"string"},"volume":{"alias":"file"}}
      */
     export type Tunused = string;
     /**
+     * Reference to unused volumes. This is used internally, and should not be modified manually.
+     * @format {"volume":{"default_key":1,"description":"The volume that is not used currently.","format":"pve-volume-id","format_description":"volume","type":"string"}}
+     */
+    export type Tunused_1 = string;
+    /**
      * Configure an USB device (n is 0 to 4).
      * @format {"host":{"default_key":1,"description":"The Host USB device or port or the value 'spice'. HOSTUSBDEVICE syntax is:\n\n 'bus-port(.port)*' (decimal numbers) or\n 'vendor_id:product_id' (hexadeciaml numbers) or\n 'spice'\n\nYou can use the 'lsusb -t' command to list existing usb devices.\n\nNOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.\n\nThe value 'spice' can be used to add a usb redirection devices for spice.\n","format":"pve-qm-usb-device","format_description":"HOSTUSBDEVICE|spice","type":"string"},"usb3":{"default":0,"description":"Specifies whether if given host option is a USB3 device or port.","optional":1,"type":"boolean"}}
      */
     export type Tusb = string;
+    /**
+     * LDAP user attribute name
+     * @pattern \S{2,}
+     * @maxLength 256
+     */
+    export type Tuser_attr = string;
+    /**
+     * User ID or full API token ID
+     * @pattern (?^:^(?^:[^\s:/]+)\@(?^:[A-Za-z][A-Za-z0-9\.\-_]+)(?:!(?^:[A-Za-z][A-Za-z0-9\.\-_]+))?$)
+     */
+    export type Tuserid = string;
+    /**
+     * UUID for the GPT table
+     * @pattern [a-fA-F0-9\-]+
+     * @maxLength 36
+     */
+    export type Tuuid = string;
+    /**
+     * @pattern [a-zA-Z0-9\.\+\_][a-zA-Z0-9\.\+\_\-]+
+     * @maxLength 100
+     */
+    export type Tvg = string;
     /**
      * Configure the VGA Hardware. If you want to use high resolution modes (>= 1280x1024x16) you may need to increase the vga memory option. Since QEMU 2.9 the default VGA display type is 'std' for all OS types besides some Windows versions (XP and older) which use 'cirrus'. The 'qxl' option enables the SPICE display server. For win* OS you can select how many independent displays you want, Linux guests can add displays them self.
      * You can also run without any graphic card, using a serial device as terminal.
@@ -703,6 +705,7 @@ export namespace Proxmox {
      * @format {"aio":{"description":"AIO type to use.","enum":["native","threads"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iothread":{"description":"Whether to use iothreads for this drive","optional":1,"type":"boolean"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"}}
      */
     export type Tvirtio = string;
+    export type Tvlanprotocol = '802.1q' | '802.1ad';
     /**
      * The VM generation ID (vmgenid) device exposes a 128-bit integer value identifier to the guest OS. This allows to notify the guest operating system when the virtual machine is executed with a different configuration (e.g. snapshot execution or creation from a template). The guest operating system notices the change, and is then able to react as appropriate by marking its copies of distributed databases as dirty, re-initializing its random number generator, etc.
      * Note that auto-creation only works when done throug API/CLI create or update methods, but not when manually editing the config file.
@@ -710,122 +713,86 @@ export namespace Proxmox {
      */
     export type Tvmgenid = string;
     /**
-     * Create a virtual hardware watchdog device. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified)
-     * @format pve-qm-watchdog
+     * If a block.wal is requested but the size is not given, will be automatically selected by: bluestore_block_wal_size from the ceph database (osd or global section) or config (osd or global section)in that order. If this is not available, it will be sized 1% of the size of the OSD device. Fails if the available size is not enough.
+     * @minimum 0.5
+     * @type number
      */
-    export type pveqmwatchdog = string;
-    /**
-     * The QGA command.
-     */
-    export type Tcommand = 'fsfreeze-freeze' | 'fsfreeze-status' | 'fsfreeze-thaw' | 'fstrim' | 'get-fsinfo' | 'get-host-name' | 'get-memory-block-info' | 'get-memory-blocks' | 'get-osinfo' | 'get-time' | 'get-timezone' | 'get-users' | 'get-vcpus' | 'info' | 'network-get-interfaces' | 'ping' | 'shutdown' | 'suspend-disk' | 'suspend-hybrid' | 'suspend-ram';
-    /**
-     * The new password.
-     * @minLength 5
-     * @maxLength 1024
-     */
-    export type String5_1024 = string;
-    /**
-     * Data to pass as 'input-data' to the guest. Usually treated as STDIN to 'command'.
-     * @maxLength 65536
-     */
-    export type String0_65536 = string;
-    /**
-     * The content to write into the file.
-     * @maxLength 61440
-     */
-    export type String0_61440 = string;
-    /**
-     * The RRD consolidation function
-     */
-    export type Tcf = 'AVERAGE' | 'MAX';
-    /**
-     * Specify the time frame you are interested in.
-     */
-    export type Ttimeframe = 'hour' | 'day' | 'week' | 'month' | 'year';
-    /**
-     * Fetch config values from given snapshot.
-     * @format pve-configid
-     * @maxLength 40
-     */
-    export type pveconfigid_3 = string;
-    /**
-     * Time to wait for the task to finish. We return 'null' if the task finish within that time.
-     * @minimum 1
-     * @maximum 30
-     * @type integer
-     */
-    export type integer1_30 = number;
-    /**
-     * opens a serial terminal (defaults to display)
-     */
-    export type Tserial_1 = 'serial0' | 'serial1' | 'serial2' | 'serial3';
-    /**
-     * Port number returned by previous vncproxy call.
-     * @minimum 5900
-     * @maximum 5999
-     * @type integer
-     */
-    export type integer5900_5999 = number;
-    /**
-     * Ticket from previous call to vncproxy.
-     * @maxLength 512
-     */
-    export type String0_512 = string;
+    export type Twal_size = number;
     /**
      * SPICE proxy server. This can be used by the client to specify the proxy server. All nodes in a cluster runs 'spiceproxy', so it is up to the client to choose one. By default, we return the node where the VM is currently running. As reasonable setting is to use same node you use to connect to the API (This is window.location.hostname for the JS GUI).
      * @format address
      */
     export type address = string;
     /**
-     * CIDR of the (sub) network that is used for migration.
-     * @format CIDR
+     * Server IP address (or DNS name)
+     * @format address
+     * @maxLength 256
      */
-    export type CIDR = string;
+    export type address_1 = string;
     /**
-     * Migration traffic is encrypted using an SSH tunnel by default. On secure, completely private networks this can be disabled to increase performance.
+     * cloud-init: Sets DNS server IP address for a container. Create will automatically use the setting from the host if neither searchdomain nor nameserver are set.
+     * @format address-list
      */
-    export type Tmigration_type = 'secure' | 'insecure';
+    export type addresslist = string;
     /**
-     * Mapping from source to target storages. Providing only a single storage ID maps all source storages to that storage. Providing the special value '1' will map each source storage to itself.
-     * @format storagepair-list
+     * Set a name for the VM. Only used on the configuration web interface.
+     * @format dns-name
      */
-    export type storagepairlist = string;
+    export type dnsname = string;
     /**
-     * Feature to check.
+     * Set a host name for the container.
+     * @format dns-name
+     * @maxLength 255
      */
-    export type Tfeature = 'snapshot' | 'clone' | 'copy';
+    export type dnsname_1 = string;
     /**
-     * Target format for file storage. Only valid for full clone.
+     * Sets DNS search domains for a container. Create will automatically use the setting from the host if you neither set searchdomain nor nameserver.
+     * @format dns-name-list
      */
-    export type Tformat = 'raw' | 'qcow2' | 'vmdk';
+    export type dnsnamelist = string;
     /**
-     * The disk you want to move.
+     * Contact email addresses.
+     * @format email-list
      */
-    export type Tdisk = 'ide0' | 'ide1' | 'ide2' | 'ide3' | 'scsi0' | 'scsi1' | 'scsi2' | 'scsi3' | 'scsi4' | 'scsi5' | 'scsi6' | 'scsi7' | 'scsi8' | 'scsi9' | 'scsi10' | 'scsi11' | 'scsi12' | 'scsi13' | 'scsi14' | 'scsi15' | 'scsi16' | 'scsi17' | 'scsi18' | 'scsi19' | 'scsi20' | 'scsi21' | 'scsi22' | 'scsi23' | 'scsi24' | 'scsi25' | 'scsi26' | 'scsi27' | 'scsi28' | 'scsi29' | 'scsi30' | 'virtio0' | 'virtio1' | 'virtio2' | 'virtio3' | 'virtio4' | 'virtio5' | 'virtio6' | 'virtio7' | 'virtio8' | 'virtio9' | 'virtio10' | 'virtio11' | 'virtio12' | 'virtio13' | 'virtio14' | 'virtio15' | 'sata0' | 'sata1' | 'sata2' | 'sata3' | 'sata4' | 'sata5' | 'efidisk0';
+    export type emaillist = string;
     /**
-     * The new size. With the `+` sign the value is added to the actual size of the volume and without it, the value is taken as an absolute one. Shrinking disk size is not supported.
-     * @pattern \+?\d+(\.\d+)?[KMGT]?
+     * Specify email address to send notification from (default is root@$hostname)
+     * @format email-opt
      */
-    export type Tsize = string;
+    export type emailopt = string;
     /**
-     * Config type.
+     * The JOIN_API_VERSION of the new node.
+     * @type integer
      */
-    export type Ttype_10 = 'user' | 'network' | 'meta';
+    export type integer = number;
     /**
-     * OS architecture type.
-     */
-    export type Tarch_1 = 'amd64' | 'i386' | 'arm64' | 'armhf';
-    /**
-     * Console mode. By default, the console command tries to open a connection to one of the available tty devices. By setting cmode to 'console' it tries to attach to /dev/console instead. If you set cmode to 'shell', it simply invokes a shell inside the container (no login).
-     */
-    export type Tcmode = 'shell' | 'console' | 'tty';
-    /**
-     * The number of cores assigned to the container. A container can use all available cores by default.
-     * @minimum 1
+     * Network mask.
+     * @minimum 0
      * @maximum 128
      * @type integer
      */
-    export type integer1_128 = number;
+    export type integer0_128 = number;
+    /**
+     * Extra delay in seconds to wait before requesting validation. Allows to cope with a long TTL of DNS records.
+     * @minimum 0
+     * @maximum 172800
+     * @type integer
+     */
+    export type integer0_172800 = number;
+    /**
+     * Initial delay in seconds, before starting all the Virtual Guests with on-boot enabled.
+     * @minimum 0
+     * @maximum 300
+     * @type integer
+     */
+    export type integer0_300 = number;
+    /**
+     * Amount of memory shares for auto-ballooning. The larger the number is, the more memory this VM gets. Number is relative to weights of all other running VMs. Using zero disables auto-ballooning. Auto-ballooning is done by pvestatd.
+     * @minimum 0
+     * @maximum 50000
+     * @type integer
+     */
+    export type integer0_50000 = number;
     /**
      * CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to the weights of all the other running VMs.
      * NOTE: You can disable fair-scheduler configuration by setting this to 0.
@@ -835,55 +802,6 @@ export namespace Proxmox {
      */
     export type integer0_500000 = number;
     /**
-     * Allow containers access to advanced features.
-     * @format {"force_rw_sys":{"default":0,"description":"Mount /sys in unprivileged containers as `rw` instead of `mixed`. This can break networking under newer (>= v245) systemd-network use.","optional":1,"type":"boolean"},"fuse":{"default":0,"description":"Allow using 'fuse' file systems in a container. Note that interactions between fuse and the freezer cgroup can potentially cause I/O deadlocks.","optional":1,"type":"boolean"},"keyctl":{"default":0,"description":"For unprivileged containers only: Allow the use of the keyctl() system call. This is required to use docker inside a container. By default unprivileged containers will see this system call as non-existent. This is mostly a workaround for systemd-networkd, as it will treat it as a fatal error when some keyctl() operations are denied by the kernel due to lacking permissions. Essentially, you can choose between running systemd-networkd or docker.","optional":1,"type":"boolean"},"mknod":{"default":0,"description":"Allow unprivileged containers to use mknod() to add certain device nodes. This requires a kernel with seccomp trap to user space support (5.3 or newer). This is experimental.","optional":1,"type":"boolean"},"mount":{"description":"Allow mounting file systems of specific types. This should be a list of file system types as used with the mount command. Note that this can have negative effects on the container's security. With access to a loop device, mounting a file can circumvent the mknod permission of the devices cgroup, mounting an NFS file system can block the host's I/O completely and prevent it from rebooting, etc.","format_description":"fstype;fstype;...","optional":1,"pattern":"(?^:[a-zA-Z0-9_; ]+)","type":"string"},"nesting":{"default":0,"description":"Allow nesting. Best used with unprivileged containers with additional id mapping. Note that this will expose procfs and sysfs contents of the host to the guest.","optional":1,"type":"boolean"}}
-     */
-    export type Tfeatures = string;
-    /**
-     * Set a host name for the container.
-     * @format dns-name
-     * @maxLength 255
-     */
-    export type dnsname_1 = string;
-    /**
-     * Lock/unlock the VM.
-     */
-    export type Tlock_1 = 'backup' | 'create' | 'destroyed' | 'disk' | 'fstrim' | 'migrate' | 'mounted' | 'rollback' | 'snapshot' | 'snapshot-delete';
-    /**
-     * Use volume as container mount point.
-     * @format {"acl":{"description":"Explicitly enable or disable ACL support.","optional":1,"type":"boolean"},"backup":{"description":"Whether to include the mount point in backups.","optional":1,"type":"boolean","verbose_description":"Whether to include the mount point in backups (only used for volume mount points)."},"mountoptions":{"description":"Extra mount options for rootfs/mps.","format_description":"opt[;opt...]","optional":1,"pattern":"(?^:(?^:(noatime|nodev|nosuid|noexec))(;(?^:(noatime|nodev|nosuid|noexec)))*)","type":"string"},"mp":{"description":"Path to the mount point as seen from inside the container (must not contain symlinks).","format":"pve-lxc-mp-string","format_description":"Path","type":"string","verbose_description":"Path to the mount point as seen from inside the container.\n\nNOTE: Must not contain any symlinks for security reasons."},"quota":{"description":"Enable user quotas inside the container (not supported with zfs subvolumes)","optional":1,"type":"boolean"},"replicate":{"default":1,"description":"Will include this volume to a storage replica job.","optional":1,"type":"boolean"},"ro":{"description":"Read-only mount point","optional":1,"type":"boolean"},"shared":{"default":0,"description":"Mark this non-volume mount point as available on multiple nodes (see 'nodes')","optional":1,"type":"boolean","verbose_description":"Mark this non-volume mount point as available on all nodes.\n\nWARNING: This option does not share the mount point automatically, it assumes it is shared already!"},"size":{"description":"Volume size (read only value).","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"default_key":1,"description":"Volume, device or directory to mount into the container.","format":"pve-lxc-mp-string","format_description":"volume","type":"string"}}
-     */
-    export type Tmp = string;
-    /**
-     * Specifies network interfaces for the container.
-     * @format {"bridge":{"description":"Bridge to attach the network device to.","format_description":"bridge","optional":1,"pattern":"[-_.\\w\\d]+","type":"string"},"firewall":{"description":"Controls whether this interface's firewall rules should be used.","optional":1,"type":"boolean"},"gw":{"description":"Default gateway for IPv4 traffic.","format":"ipv4","format_description":"GatewayIPv4","optional":1,"type":"string"},"gw6":{"description":"Default gateway for IPv6 traffic.","format":"ipv6","format_description":"GatewayIPv6","optional":1,"type":"string"},"hwaddr":{"description":"The interface MAC address. This is dynamically allocated by default, but you can set that statically if needed, for example to always have the same link-local IPv6 address. (lxc.network.hwaddr)","format":"mac-addr","format_description":"XX:XX:XX:XX:XX:XX","optional":1,"type":"string","verbose_description":"A common MAC address with the I/G (Individual/Group) bit not set."},"ip":{"description":"IPv4 address in CIDR format.","format":"pve-ipv4-config","format_description":"(IPv4/CIDR|dhcp|manual)","optional":1,"type":"string"},"ip6":{"description":"IPv6 address in CIDR format.","format":"pve-ipv6-config","format_description":"(IPv6/CIDR|auto|dhcp|manual)","optional":1,"type":"string"},"mtu":{"description":"Maximum transfer unit of the interface. (lxc.network.mtu)","minimum":64,"optional":1,"type":"integer"},"name":{"description":"Name of the network device as seen from inside the container. (lxc.network.name)","format_description":"string","pattern":"[-_.\\w\\d]+","type":"string"},"rate":{"description":"Apply rate limiting to the interface","format_description":"mbps","optional":1,"type":"number"},"tag":{"description":"VLAN tag for this interface.","maximum":4094,"minimum":1,"optional":1,"type":"integer"},"trunks":{"description":"VLAN ids to pass through the interface","format_description":"vlanid[;vlanid...]","optional":1,"pattern":"(?^:\\d+(?:;\\d+)*)","type":"string"},"type":{"description":"Network interface type.","enum":["veth"],"optional":1,"type":"string"}}
-     */
-    export type Tnet_1 = string;
-    /**
-     * OS type. This is used to setup configuration inside the container, and corresponds to lxc setup scripts in /usr/share/lxc/config/<ostype>.common.conf. Value 'unmanaged' can be used to skip and OS specific setup.
-     */
-    export type Tostype_1 = 'debian' | 'ubuntu' | 'centos' | 'fedora' | 'opensuse' | 'archlinux' | 'alpine' | 'gentoo' | 'unmanaged';
-    /**
-     * Sets root password inside container.
-     * @minLength 5
-     */
-    export type Tpassword = string;
-    /**
-     * Use volume as container root.
-     * @format {"acl":{"description":"Explicitly enable or disable ACL support.","optional":1,"type":"boolean"},"mountoptions":{"description":"Extra mount options for rootfs/mps.","format_description":"opt[;opt...]","optional":1,"pattern":"(?^:(?^:(noatime|nodev|nosuid|noexec))(;(?^:(noatime|nodev|nosuid|noexec)))*)","type":"string"},"quota":{"description":"Enable user quotas inside the container (not supported with zfs subvolumes)","optional":1,"type":"boolean"},"replicate":{"default":1,"description":"Will include this volume to a storage replica job.","optional":1,"type":"boolean"},"ro":{"description":"Read-only mount point","optional":1,"type":"boolean"},"shared":{"default":0,"description":"Mark this non-volume mount point as available on multiple nodes (see 'nodes')","optional":1,"type":"boolean","verbose_description":"Mark this non-volume mount point as available on all nodes.\n\nWARNING: This option does not share the mount point automatically, it assumes it is shared already!"},"size":{"description":"Volume size (read only value).","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"default_key":1,"description":"Volume, device or directory to mount into the container.","format":"pve-lxc-mp-string","format_description":"volume","type":"string"}}
-     */
-    export type Trootfs = string;
-    /**
-     * Sets DNS search domains for a container. Create will automatically use the setting from the host if you neither set searchdomain nor nameserver.
-     * @format dns-name-list
-     */
-    export type dnsnamelist = string;
-    /**
-     * Time zone to use in the container. If option isn't set, then nothing will be done. Can be set to 'host' to match the host time zone, or an arbitrary time zone option from /usr/share/zoneinfo/zone.tab
-     * @format pve-ct-timezone
-     */
-    export type pvecttimezone = string;
-    /**
      * Specify the number of tty available to the container
      * @minimum 0
      * @maximum 6
@@ -891,10 +809,19 @@ export namespace Proxmox {
      */
     export type integer0_6 = number;
     /**
-     * Reference to unused volumes. This is used internally, and should not be modified manually.
-     * @format {"volume":{"default_key":1,"description":"The volume that is not used currently.","format":"pve-volume-id","format_description":"volume","type":"string"}}
+     * Set CFQ ionice priority.
+     * @minimum 0
+     * @maximum 8
+     * @type integer
      */
-    export type Tunused_1 = string;
+    export type integer0_8 = number;
+    /**
+     * MTU.
+     * @minimum 1280
+     * @maximum 65520
+     * @type integer
+     */
+    export type integer1280_65520 = number;
     /**
      * sets the height of the console in pixels.
      * @minimum 16
@@ -910,32 +837,40 @@ export namespace Proxmox {
      */
     export type integer16_4096 = number;
     /**
-     * The disk you want to resize.
-     */
-    export type Tdisk_1 = 'rootfs' | 'mp0' | 'mp1' | 'mp2' | 'mp3' | 'mp4' | 'mp5' | 'mp6' | 'mp7' | 'mp8' | 'mp9' | 'mp10' | 'mp11' | 'mp12' | 'mp13' | 'mp14' | 'mp15' | 'mp16' | 'mp17' | 'mp18' | 'mp19' | 'mp20' | 'mp21' | 'mp22' | 'mp23' | 'mp24' | 'mp25' | 'mp26' | 'mp27' | 'mp28' | 'mp29' | 'mp30' | 'mp31' | 'mp32' | 'mp33' | 'mp34' | 'mp35' | 'mp36' | 'mp37' | 'mp38' | 'mp39' | 'mp40' | 'mp41' | 'mp42' | 'mp43' | 'mp44' | 'mp45' | 'mp46' | 'mp47' | 'mp48' | 'mp49' | 'mp50' | 'mp51' | 'mp52' | 'mp53' | 'mp54' | 'mp55' | 'mp56' | 'mp57' | 'mp58' | 'mp59' | 'mp60' | 'mp61' | 'mp62' | 'mp63' | 'mp64' | 'mp65' | 'mp66' | 'mp67' | 'mp68' | 'mp69' | 'mp70' | 'mp71' | 'mp72' | 'mp73' | 'mp74' | 'mp75' | 'mp76' | 'mp77' | 'mp78' | 'mp79' | 'mp80' | 'mp81' | 'mp82' | 'mp83' | 'mp84' | 'mp85' | 'mp86' | 'mp87' | 'mp88' | 'mp89' | 'mp90' | 'mp91' | 'mp92' | 'mp93' | 'mp94' | 'mp95' | 'mp96' | 'mp97' | 'mp98' | 'mp99' | 'mp100' | 'mp101' | 'mp102' | 'mp103' | 'mp104' | 'mp105' | 'mp106' | 'mp107' | 'mp108' | 'mp109' | 'mp110' | 'mp111' | 'mp112' | 'mp113' | 'mp114' | 'mp115' | 'mp116' | 'mp117' | 'mp118' | 'mp119' | 'mp120' | 'mp121' | 'mp122' | 'mp123' | 'mp124' | 'mp125' | 'mp126' | 'mp127' | 'mp128' | 'mp129' | 'mp130' | 'mp131' | 'mp132' | 'mp133' | 'mp134' | 'mp135' | 'mp136' | 'mp137' | 'mp138' | 'mp139' | 'mp140' | 'mp141' | 'mp142' | 'mp143' | 'mp144' | 'mp145' | 'mp146' | 'mp147' | 'mp148' | 'mp149' | 'mp150' | 'mp151' | 'mp152' | 'mp153' | 'mp154' | 'mp155' | 'mp156' | 'mp157' | 'mp158' | 'mp159' | 'mp160' | 'mp161' | 'mp162' | 'mp163' | 'mp164' | 'mp165' | 'mp166' | 'mp167' | 'mp168' | 'mp169' | 'mp170' | 'mp171' | 'mp172' | 'mp173' | 'mp174' | 'mp175' | 'mp176' | 'mp177' | 'mp178' | 'mp179' | 'mp180' | 'mp181' | 'mp182' | 'mp183' | 'mp184' | 'mp185' | 'mp186' | 'mp187' | 'mp188' | 'mp189' | 'mp190' | 'mp191' | 'mp192' | 'mp193' | 'mp194' | 'mp195' | 'mp196' | 'mp197' | 'mp198' | 'mp199' | 'mp200' | 'mp201' | 'mp202' | 'mp203' | 'mp204' | 'mp205' | 'mp206' | 'mp207' | 'mp208' | 'mp209' | 'mp210' | 'mp211' | 'mp212' | 'mp213' | 'mp214' | 'mp215' | 'mp216' | 'mp217' | 'mp218' | 'mp219' | 'mp220' | 'mp221' | 'mp222' | 'mp223' | 'mp224' | 'mp225' | 'mp226' | 'mp227' | 'mp228' | 'mp229' | 'mp230' | 'mp231' | 'mp232' | 'mp233' | 'mp234' | 'mp235' | 'mp236' | 'mp237' | 'mp238' | 'mp239' | 'mp240' | 'mp241' | 'mp242' | 'mp243' | 'mp244' | 'mp245' | 'mp246' | 'mp247' | 'mp248' | 'mp249' | 'mp250' | 'mp251' | 'mp252' | 'mp253' | 'mp254' | 'mp255';
-    /**
-     * If a block.wal is requested but the size is not given, will be automatically selected by: bluestore_block_wal_size from the ceph database (osd or global section) or config (osd or global section)in that order. If this is not available, it will be sized 1% of the size of the OSD device. Fails if the available size is not enough.
-     * @minimum 0.5
-     * @type number
-     */
-    export type Twal_size = number;
-    /**
-     * Number of placement groups for the backing data pool. The metadata pool will use a quarter of this.
-     * @minimum 8
-     * @maximum 32768
+     * The number of cores assigned to the container. A container can use all available cores by default.
+     * @minimum 1
+     * @maximum 128
      * @type integer
      */
-    export type integer8_32768 = number;
+    export type integer1_128 = number;
     /**
-     * Only list specific types of disks.
+     * The redundancy count specifies the number of nodes to which the resource should be deployed. It must be at least 1 and at most the number of nodes in the cluster.
+     * @minimum 1
+     * @maximum 16
+     * @type integer
      */
-    export type Ttype_11 = 'unused' | 'journal_disks';
+    export type integer1_16 = number;
     /**
-     * Declare a separate cluster network, OSDs will routeheartbeat, object replication and recovery traffic over it
-     * @format CIDR
-     * @maxLength 128
+     * Time to wait for the task to finish. We return 'null' if the task finish within that time.
+     * @minimum 1
+     * @maximum 30
+     * @type integer
      */
-    export type CIDR_1 = string;
+    export type integer1_30 = number;
+    /**
+     * Specify a VLan tag (used by OVSPort, OVSIntPort, OVSBond)
+     * @minimum 1
+     * @maximum 4094
+     * @type integer
+     */
+    export type integer1_4094 = number;
+    /**
+     * Server port.
+     * @minimum 1
+     * @maximum 65535
+     * @type integer
+     */
+    export type integer1_65535 = number;
     /**
      * Minimum number of available replicas per object to allow I/O
      * @minimum 1
@@ -943,6 +878,27 @@ export namespace Proxmox {
      * @type integer
      */
     export type integer1_7 = number;
+    /**
+     * CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to weights of all the other running VMs.
+     * @minimum 2
+     * @maximum 262144
+     * @type integer
+     */
+    export type integer2_262144 = number;
+    /**
+     * Conntrack syn recv timeout.
+     * @minimum 30
+     * @maximum 60
+     * @type integer
+     */
+    export type integer30_60 = number;
+    /**
+     * Port number returned by previous vncproxy call.
+     * @minimum 5900
+     * @maximum 5999
+     * @type integer
+     */
+    export type integer5900_5999 = number;
     /**
      * Placement group bits, used to specify the default number of placement groups.
      * NOTE: 'osd pool default pg num' does not work for default pools.
@@ -952,131 +908,12 @@ export namespace Proxmox {
      */
     export type integer6_14 = number;
     /**
-     * Ceph service name.
-     * @pattern (ceph|mon|mds|osd|mgr)(\.[a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?)?
-     */
-    export type Tservice = string;
-    /**
-     * Ceph service name.
-     * @pattern (mon|mds|osd|mgr)(\.[a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?)?
-     */
-    export type Tservice_1 = string;
-    /**
-     * The application of the pool, 'rbd' by default.
-     */
-    export type Tapplication = 'rbd' | 'cephfs' | 'rgw';
-    /**
-     * Proxmox VE subscription key
-     * @pattern pve([1248])([cbsp])-[0-9a-f]{10}
-     * @maxLength 32
-     */
-    export type Tkey = string;
-    /**
-     * Only list specific interface types.
-     */
-    export type Ttype_12 = 'bridge' | 'bond' | 'eth' | 'alias' | 'vlan' | 'OVSBridge' | 'OVSBond' | 'OVSPort' | 'OVSIntPort' | 'any_bridge';
-    /**
-     * IP address.
-     * @format ipv4
-     */
-    export type ipv4 = string;
-    /**
-     * IP address.
-     * @format ipv6
-     */
-    export type ipv6 = string;
-    /**
-     * Specify the primary interface for active-backup bond.
-     * @format pve-iface
-     */
-    export type pveiface_1 = string;
-    /**
-     * Bonding mode.
-     */
-    export type Tbond_mode = 'balance-rr' | 'active-backup' | 'balance-xor' | 'broadcast' | '802.3ad' | 'balance-tlb' | 'balance-alb' | 'balance-slb' | 'lacp-balance-slb' | 'lacp-balance-tcp';
-    /**
-     * Selects the transmit hash policy to use for slave selection in balance-xor and 802.3ad modes.
-     */
-    export type Tbond_xmit_hash_policy = 'layer2' | 'layer2+3' | 'layer3+4';
-    /**
-     * Specify the interfaces you want to add to your bridge.
-     * @format pve-iface-list
-     */
-    export type pveifacelist = string;
-    /**
-     * MTU.
-     * @minimum 1280
-     * @maximum 65520
+     * Number of placement groups for the backing data pool. The metadata pool will use a quarter of this.
+     * @minimum 8
+     * @maximum 32768
      * @type integer
      */
-    export type integer1280_65520 = number;
-    /**
-     * Network mask.
-     * @format ipv4mask
-     */
-    export type ipv4mask = string;
-    /**
-     * Network mask.
-     * @minimum 0
-     * @maximum 128
-     * @type integer
-     */
-    export type integer0_128 = number;
-    /**
-     * OVS interface options.
-     * @maxLength 1024
-     */
-    export type String0_1024 = string;
-    /**
-     * Specify a VLan tag (used by OVSPort, OVSIntPort, OVSBond)
-     * @minimum 1
-     * @maximum 4094
-     * @type integer
-     */
-    export type integer1_4094 = number;
-    /**
-     * Network interface type
-     */
-    export type Ttype_13 = 'bridge' | 'bond' | 'eth' | 'alias' | 'vlan' | 'OVSBridge' | 'OVSBond' | 'OVSPort' | 'OVSIntPort' | 'unknown';
-    /**
-     * List archived, active or all tasks.
-     */
-    export type Tsource = 'archive' | 'active' | 'all';
-    /**
-     * The server address (name or IP).
-     * @format pve-storage-server
-     */
-    export type pvestorageserver = string;
-    /**
-     * The iSCSI portal (IP or DNS name with optional port).
-     * @format pve-storage-portal-dns
-     */
-    export type pvestorageportaldns = string;
-    /**
-     * @pattern [a-zA-Z0-9\.\+\_][a-zA-Z0-9\.\+\_\-]+
-     * @maxLength 100
-     */
-    export type Tvg = string;
-    /**
-     * Only list stores which support this content type.
-     * @format pve-storage-content-list
-     */
-    export type pvestoragecontentlist = string;
-    /**
-     * Only list content of this type.
-     * @format pve-storage-content
-     */
-    export type pvestoragecontent = string;
-    export type Tformat_1 = 'raw' | 'qcow2' | 'subvol';
-    /**
-     * Size in kilobyte (1024 bytes). Optional suffixes 'M' (megabyte, 1024K) and 'G' (gigabyte, 1024M)
-     * @pattern \d+[MG]?
-     */
-    export type Tsize_1 = string;
-    /**
-     * The desired filesystem.
-     */
-    export type Tfilesystem = 'ext4' | 'xfs';
+    export type integer8_32768 = number;
     /**
      * Pool sector size exponent.
      * @minimum 9
@@ -1085,24 +922,23 @@ export namespace Proxmox {
      */
     export type integer9_16 = number;
     /**
-     * The compression algorithm to use.
+     * Number of votes for this node
+     * @minimum 0
+     * @type integer
      */
-    export type Tcompression = 'on' | 'off' | 'gzip' | 'lz4' | 'lzjb' | 'zle';
+    export type integer_Min0 = number;
     /**
-     * The RAID level to use.
+     * Node id for this node.
+     * @minimum 1
+     * @type integer
      */
-    export type Traidlevel = 'single' | 'mirror' | 'raid10' | 'raidz' | 'raidz2' | 'raidz3';
+    export type integer_Min1 = number;
     /**
-     * Block device name
-     * @pattern ^/dev/[a-zA-Z0-9\/]+$
+     * Amount of RAM for the VM in MB. This is the maximum available memory when you use the balloon device.
+     * @minimum 16
+     * @type integer
      */
-    export type Tdisk_2 = string;
-    /**
-     * UUID for the GPT table
-     * @pattern [a-fA-F0-9\-]+
-     * @maxLength 36
-     */
-    export type Tuuid = string;
+    export type integer_Min16 = number;
     /**
      * Maximum number of tracked connections.
      * @minimum 32768
@@ -1110,18 +946,63 @@ export namespace Proxmox {
      */
     export type integer_Min32768 = number;
     /**
+     * Unused, will be removed in a future release.
+     * @minimum 500
+     * @type integer
+     */
+    export type integer_Min500 = number;
+    /**
      * Conntrack established timeout.
      * @minimum 7875
      * @type integer
      */
     export type integer_Min7875 = number;
     /**
-     * Conntrack syn recv timeout.
-     * @minimum 30
-     * @maximum 60
-     * @type integer
+     * IP Address of node to add. Used as fallback if no links are given.
+     * @format ip
      */
-    export type integer30_60 = number;
+    export type ip = string;
+    /**
+     * peers address list.
+     * @format ip-list
+     */
+    export type iplist = string;
+    /**
+     * IP address.
+     * @format ipv4
+     */
+    export type ipv4 = string;
+    /**
+     * Network mask.
+     * @format ipv4mask
+     */
+    export type ipv4mask = string;
+    /**
+     * IP address.
+     * @format ipv6
+     */
+    export type ipv6 = string;
+    /**
+     * LDAP attribute representing a groups name. If not set or found, the first value of the DN will be used as name.
+     * @format ldap-simple-attr
+     * @maxLength 256
+     */
+    export type ldapsimpleattr = string;
+    /**
+     * The objectclasses for groups.
+     * @format ldap-simple-attr-list
+     */
+    export type ldapsimpleattrlist = string;
+    /**
+     * Anycast router mac address
+     * @format mac-addr
+     */
+    export type macaddr = string;
+    /**
+     * Prefix for autogenerated MAC addresses.
+     * @format mac-prefix
+     */
+    export type macprefix = string;
     /**
      * PEM encoded certificate (chain).
      * @format pem-certificate-chain
@@ -1133,112 +1014,202 @@ export namespace Proxmox {
      */
     export type pemstring = string;
     /**
-     * Return only a specific property from the node configuration.
+     * Storage replication schedule. The format is a subset of `systemd` calendar events.
+     * @format pve-calendar-event
+     * @maxLength 128
      */
-    export type Tproperty = 'acme' | 'acmedomain0' | 'acmedomain1' | 'acmedomain2' | 'acmedomain3' | 'acmedomain4' | 'acmedomain5' | 'description' | 'startall-onboot-delay' | 'wakeonlan';
+    export type pvecalendarevent = string;
     /**
-     * Node specific ACME settings.
-     * @format {"account":{"default":"default","description":"ACME account config file name.","format":"pve-configid","format_description":"name","optional":1,"type":"string"},"domains":{"description":"List of domains for this node's ACME certificate","format":"pve-acme-domain-list","format_description":"domain[;domain;...]","optional":1,"type":"string"}}
+     * The HA group identifier.
+     * @format pve-configid
      */
-    export type Tacme = string;
+    export type pveconfigid = string;
     /**
-     * ACME domain and validation plugin
-     * @format {"alias":{"description":"Alias for the Domain to verify ACME Challenge over DNS","format":"pve-acme-alias","format_description":"domain","optional":1,"type":"string"},"domain":{"default_key":1,"description":"domain for this node's ACME certificate","format":"pve-acme-domain","format_description":"domain","type":"string"},"plugin":{"default":"standalone","description":"The ACME plugin ID","format":"pve-configid","format_description":"name of the plugin configuration","optional":1,"type":"string"}}
+     * Plugin type.
+     * @format pve-configid
      */
-    export type Tacmedomain = string;
+    export type pveconfigid_1 = 'evpn' | 'faucet' | 'qinq' | 'simple' | 'vlan' | 'vxlan';
     /**
-     * Initial delay in seconds, before starting all the Virtual Guests with on-boot enabled.
-     * @minimum 0
-     * @maximum 300
-     * @type integer
+     * Plugin type.
+     * @format pve-configid
      */
-    export type integer0_300 = number;
+    export type pveconfigid_2 = 'evpn' | 'faucet';
     /**
-     * Specify the command.
+     * Fetch config values from given snapshot.
+     * @format pve-configid
+     * @maxLength 40
      */
-    export type Tcommand_1 = 'reboot' | 'shutdown';
+    export type pveconfigid_3 = string;
     /**
-     * Display all log since this date-time string.
-     * @pattern ^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}(:\d{2})?)?$
+     * A list of settings you want to delete.
+     * @format pve-configid-list
+     * @maxLength 4096
      */
-    export type Tsince = string;
+    export type pveconfigidlist = string;
     /**
-     * Run specific command or default to login.
+     * A list of settings you want to delete.
+     * @format pve-configid-list
      */
-    export type Tcmd = 'login' | 'ceph_install' | 'upgrade';
+    export type pveconfigidlist_1 = string;
     /**
-     * Only list storage of specific type
+     * Time zone to use in the container. If option isn't set, then nothing will be done. Can be set to 'host' to match the host time zone, or an arbitrary time zone option from /usr/share/zoneinfo/zone.tab
+     * @format pve-ct-timezone
      */
-    export type Ttype_14 = 'cephfs' | 'cifs' | 'dir' | 'drbd' | 'glusterfs' | 'iscsi' | 'iscsidirect' | 'lvm' | 'lvmthin' | 'nfs' | 'pbs' | 'rbd' | 'zfs' | 'zfspool';
+    export type pvecttimezone = string;
     /**
-     * CIFS domain.
-     * @maxLength 256
+     * Day of week selection.
+     * @format pve-day-of-week-list
      */
-    export type String0_256 = string;
+    export type pvedayofweeklist = string;
     /**
-     * NFS export path.
-     * @format pve-storage-path
+     * Restrict packet destination address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
+     * @format pve-fw-addr-spec
      */
-    export type pvestoragepath = string;
+    export type pvefwaddrspec = string;
     /**
-     * Default image format.
-     * @format pve-storage-format
+     * Restrict TCP/UDP destination port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
+     * @format pve-fw-dport-spec
      */
-    export type pvestorageformat = string;
+    export type pvefwdportspec = string;
     /**
-     * IP addresses of monitors (for external clusters).
-     * @format pve-storage-portal-dns-list
+     * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'.
+     * @format pve-fw-protocol-spec
      */
-    export type pvestorageportaldnslist = string;
+    export type pvefwprotocolspec = string;
     /**
-     * NFS mount options (see 'man nfs')
-     * @format pve-storage-options
+     * Restrict TCP/UDP source port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
+     * @format pve-fw-sport-spec
      */
-    export type pvestorageoptions = string;
-    /**
-     * The redundancy count specifies the number of nodes to which the resource should be deployed. It must be at least 1 and at most the number of nodes in the cluster.
-     * @minimum 1
-     * @maximum 16
-     * @type integer
-     */
-    export type integer1_16 = number;
-    /**
-     * SMB protocol version
-     */
-    export type Tsmbversion = '2.0' | '2.1' | '3.0';
-    /**
-     * LVM thin pool LV name.
-     * @format pve-storage-vgname
-     */
-    export type pvestoragevgname = string;
-    /**
-     * Gluster transport: tcp or rdma
-     */
-    export type Ttransport = 'tcp' | 'rdma' | 'unix';
-    /**
-     * @format pve-groupid-list
-     */
-    export type pvegroupidlist = string;
-    /**
-     * Initial password.
-     * @minLength 5
-     * @maxLength 64
-     */
-    export type String5_64 = string;
-    /**
-     * User ID
-     * @format pve-userid
-     * @maxLength 64
-     */
-    export type pveuserid = string;
+    export type pvefwsportspec = string;
     /**
      * @format pve-groupid
      */
     export type pvegroupid = string;
     /**
+     * @format pve-groupid-list
+     */
+    export type pvegroupidlist = string;
+    /**
+     * List of cluster node members, where a priority can be given to each node. A resource bound to a group will run on the available nodes with the highest priority. If there are more nodes in the highest priority class, the services will get distributed to those nodes. The priorities have a relative meaning only.
+     * @format pve-ha-group-node-list
+     */
+    export type pvehagroupnodelist = string;
+    /**
+     * HA resource ID. This consists of a resource type followed by a resource specific name, separated with colon (example: vm:100 / ct:100). For virtual machines and containers, you can simply use the VM or CT id as a shortcut (example: 100).
+     * @format pve-ha-resource-or-vm-id
+     */
+    export type pveharesourceorvmid = string;
+    /**
+     * Selectively enable hotplug features. This is a comma separated list of hotplug features: 'network', 'disk', 'cpu', 'memory' and 'usb'. Use '0' to disable hotplug completely. Value '1' is an alias for the default 'network,disk,usb'.
+     * @format pve-hotplug-features
+     */
+    export type pvehotplugfeatures = string;
+    /**
+     * Network interface name. You have to use network configuration key names for VMs and containers ('net\d+'). Host related rules can use arbitrary strings.
+     * @format pve-iface
+     * @minLength 2
+     * @maxLength 20
+     */
+    export type pveiface = string;
+    /**
+     * Specify the primary interface for active-backup bond.
+     * @format pve-iface
+     */
+    export type pveiface_1 = string;
+    /**
+     * Specify the interfaces you want to add to your bridge.
+     * @format pve-iface-list
+     */
+    export type pveifacelist = string;
+    /**
+     * Source of the replication.
+     * @format pve-node
+     */
+    export type pvenode = string;
+    /**
+     * The name of the cluster.
+     * @format pve-node
+     * @maxLength 15
+     */
+    export type pvenode_1 = string;
+    /**
+     * List of cluster node names.
+     * @format pve-node-list
+     */
+    export type pvenodelist = string;
+    /**
+     * Add the VM to the specified pool.
+     * @format pve-poolid
+     */
+    export type pvepoolid = string;
+    /**
      * @format pve-priv-list
      */
     export type pveprivlist = string;
+    /**
+     * Verify ticket, and check if user have access 'privs' on 'path'
+     * @format pve-priv-list
+     * @maxLength 64
+     */
+    export type pveprivlist_1 = string;
+    /**
+     * Enable booting from specified disk.
+     * @pattern (ide|sata|scsi|virtio)\d+
+     * @format pve-qm-bootdisk
+     */
+    export type pveqmbootdisk = string;
+    /**
+     * cloud-init: Specify custom files to replace the automatically generated ones at start.
+     * @format pve-qm-cicustom
+     */
+    export type pveqmcicustom = string;
+    /**
+     * Map host PCI devices into guest.
+     * NOTE: This option allows direct access to host hardware. So it is no longer
+     * possible to migrate such machines - use with special care.
+     * CAUTION: Experimental! User reported problems with this option.
+     * 
+     * @format pve-qm-hostpci
+     */
+    export type pveqmhostpci = string;
+    /**
+     * This is an alias for option -ide2
+     * @format pve-qm-ide
+     */
+    export type pveqmide = string;
+    /**
+     * cloud-init: Specify IP addresses and gateways for the corresponding interface.
+     * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
+     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
+     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
+     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+     * 
+     * @format pve-qm-ipconfig
+     */
+    export type pveqmipconfig = string;
+    /**
+     * Specify SMBIOS type 1 fields.
+     * @format pve-qm-smbios1
+     * @maxLength 512
+     */
+    export type pveqmsmbios1 = string;
+    /**
+     * Create a virtual hardware watchdog device. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified)
+     * @format pve-qm-watchdog
+     */
+    export type pveqmwatchdog = string;
+    /**
+     * Authentication domain ID
+     * @format pve-realm
+     * @maxLength 32
+     */
+    export type pverealm = string;
+    /**
+     * Replication Job ID. The ID is composed of a Guest ID and a job number, separated by a hyphen, i.e. '<GUEST>-<JOBNUM>'.
+     * @pattern [1-9][0-9]{2,8}-\d{1,9}
+     * @format pve-replication-job-id
+     */
+    export type pvereplicationjobid = string;
     /**
      * @format pve-roleid
      */
@@ -1249,80 +1220,85 @@ export namespace Proxmox {
      */
     export type pveroleidlist = string;
     /**
-     * List of API tokens.
-     * @format pve-tokenid-list
+     * The SDN controller object identifier.
+     * @format pve-sdn-controller-id
      */
-    export type pvetokenidlist = string;
+    export type pvesdncontrollerid = string;
     /**
-     * List of users.
-     * @format pve-userid-list
+     * The SDN vnet object identifier.
+     * @format pve-sdn-vnet-id
      */
-    export type pveuseridlist = string;
+    export type pvesdnvnetid = string;
     /**
-     * LDAP base domain name
-     * @pattern \w+=[^,]+(,\s*\w+=[^,]+)*
-     * @maxLength 256
+     * The SDN zone object identifier.
+     * @format pve-sdn-zone-id
      */
-    export type Tbase_dn = string;
+    export type pvesdnzoneid = string;
     /**
-     * AD domain name
-     * @pattern \S+
-     * @maxLength 256
+     * Startup and shutdown behavior. Order is a non-negative number defining the general startup order. Shutdown in done with reverse ordering. Additionally you can set the 'up' or 'down' delay in seconds, which specifies a delay to wait before the next VM is started or stopped.
+     * @format pve-startup-order
      */
-    export type Tdomain = string;
+    export type pvestartuporder = string;
     /**
-     * LDAP filter for user sync.
-     * @maxLength 2048
+     * Only list content of this type.
+     * @format pve-storage-content
      */
-    export type String0_2048 = string;
+    export type pvestoragecontent = string;
     /**
-     * The objectclasses for groups.
-     * @format ldap-simple-attr-list
+     * Only list stores which support this content type.
+     * @format pve-storage-content-list
      */
-    export type ldapsimpleattrlist = string;
+    export type pvestoragecontentlist = string;
     /**
-     * LDAP attribute representing a groups name. If not set or found, the first value of the DN will be used as name.
-     * @format ldap-simple-attr
-     * @maxLength 256
+     * Default image format.
+     * @format pve-storage-format
      */
-    export type ldapsimpleattr = string;
+    export type pvestorageformat = string;
     /**
-     * LDAP protocol mode.
+     * Store resulting file to this storage.
+     * @format pve-storage-id
      */
-    export type Tmode_1 = 'ldap' | 'ldaps' | 'ldap+starttls';
+    export type pvestorageid = string;
     /**
-     * Server port.
-     * @minimum 1
-     * @maximum 65535
-     * @type integer
+     * List of storage IDs.
+     * @format pve-storage-id-list
      */
-    export type integer1_65535 = number;
+    export type pvestorageidlist = string;
     /**
-     * Authentication domain ID
-     * @format pve-realm
-     * @maxLength 32
+     * NFS mount options (see 'man nfs')
+     * @format pve-storage-options
      */
-    export type pverealm = string;
+    export type pvestorageoptions = string;
     /**
-     * Server IP address (or DNS name)
-     * @format address
-     * @maxLength 256
+     * NFS export path.
+     * @format pve-storage-path
      */
-    export type address_1 = string;
+    export type pvestoragepath = string;
     /**
-     * LDAPS TLS/SSL version. It's not recommended to use version older than 1.2!
+     * The iSCSI portal (IP or DNS name with optional port).
+     * @format pve-storage-portal-dns
      */
-    export type Tsslversion = 'tlsv1' | 'tlsv1_1' | 'tlsv1_2' | 'tlsv1_3';
+    export type pvestorageportaldns = string;
     /**
-     * The default options for behavior of synchronizations.
-     * @format realm-sync-options
+     * IP addresses of monitors (for external clusters).
+     * @format pve-storage-portal-dns-list
      */
-    export type realmsyncoptions = string;
+    export type pvestorageportaldnslist = string;
     /**
-     * Comma separated list of key=value pairs for specifying which LDAP attributes map to which PVE user field. For example, to map the LDAP attribute 'mail' to PVEs 'email', write  'email=mail'. By default, each PVE user field is represented  by an LDAP attribute of the same name.
-     * @pattern \w+=[^,]+(,\s*\w+=[^,]+)*
+     * The server address (name or IP).
+     * @format pve-storage-server
      */
-    export type Tsync_attributes = string;
+    export type pvestorageserver = string;
+    /**
+     * LVM thin pool LV name.
+     * @format pve-storage-vgname
+     */
+    export type pvestoragevgname = string;
+    /**
+     * Tags of the VM. This is only meta information.
+     * @format pve-tag-list
+     */
+    export type pvetaglist = string;
     /**
      * Use Two-factor authentication.
      * @format pve-tfa-config
@@ -1330,349 +1306,474 @@ export namespace Proxmox {
      */
     export type pvetfaconfig = string;
     /**
-     * Realm type.
-     */
-    export type Ttype_15 = 'ad' | 'ldap' | 'pam' | 'pve';
-    /**
-     * LDAP user attribute name
-     * @pattern \S{2,}
-     * @maxLength 256
-     */
-    export type Tuser_attr = string;
-    /**
-     * Select what to sync.
-     */
-    export type Tscope_1 = 'users' | 'groups' | 'both';
-    /**
-     * Verify ticket, and check if user have access 'privs' on 'path'
-     * @maxLength 64
-     */
-    export type String0_64 = string;
-    /**
-     * Verify ticket, and check if user have access 'privs' on 'path'
-     * @format pve-priv-list
-     * @maxLength 64
-     */
-    export type pveprivlist_1 = string;
-    /**
-     * The action to perform
-     */
-    export type Taction_1 = 'delete' | 'new' | 'confirm';
-    /**
      * When adding TOTP, the shared secret value.
      * @format pve-tfa-secret
      */
     export type pvetfasecret = string;
     /**
-     * User ID or full API token ID
-     * @pattern (?^:^(?^:[^\s:/]+)\@(?^:[A-Za-z][A-Za-z0-9\.\-_]+)(?:!(?^:[A-Za-z][A-Za-z0-9\.\-_]+))?$)
+     * List of API tokens.
+     * @format pve-tokenid-list
      */
-    export type Tuserid = string;
+    export type pvetokenidlist = string;
     /**
-     * List of storage IDs.
-     * @format pve-storage-id-list
+     * User ID
+     * @format pve-userid
+     * @maxLength 64
      */
-    export type pvestorageidlist = string;
+    export type pveuserid = string;
     /**
-     * Returned by GET /cluster
+     * List of users.
+     * @format pve-userid-list
      */
-    export interface clusterIndex {
+    export type pveuseridlist = string;
+    /**
+     * Emulated CPU type.
+     * @format pve-vm-cpu-conf
+     */
+    export type pvevmcpuconf = string;
+    /**
+     * The (unique) ID of the VM.
+     * @format pve-vmid
+     * @minimum 1
+     * @type integer
+     */
+    export type pvevmid = number;
+    /**
+     * Exclude specified guest systems (assumes --all)
+     * @format pve-vmid-list
+     */
+    export type pvevmidlist = string;
+    /**
+     * Script that will be executed during various steps in the vms lifetime.
+     * @format pve-volume-id
+     */
+    export type pvevolumeid = string;
+    /**
+     * The default options for behavior of synchronizations.
+     * @format realm-sync-options
+     */
+    export type realmsyncoptions = string;
+    /**
+     * Mapping from source to target storages. Providing only a single storage ID maps all source storages to that storage. Providing the special value '1' will map each source storage to itself.
+     * @format storagepair-list
+     */
+    export type storagepairlist = string;
+    /**
+     * Exclude certain files/directories (shell globs).
+     * @format string-alist
+     */
+    export type stringalist = string;
+    /**
+     * Comma-separated list of email addresses that should receive email notifications.
+     * @format string-list
+     */
+    export type stringlist = string;
+    /**
+     * cloud-init: Setup public SSH keys (one key per line, OpenSSH format).
+     * @format urlencoded
+     */
+    export type urlencoded = string;
+    /**
+     * Returned by GET /access/acl
+     */
+    export interface accessAclReadAcl {
+        /**
+         * Access control path
+         */
+        path: string;
+        /**
+         * Allow to propagate (inherit) permissions.
+         */
+        propagate?: boolean;
+        roleid: string;
+        type: string;
+        ugid: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/replication
+     * Returned by GET /access/domains
      */
-    export interface clusterReplicationIndex {
+    export interface accessDomainsIndex {
+        /**
+         * A comment. The GUI use this text when you select a domain (Realm) on the login window.
+         */
+        comment?: string;
+        realm: string;
+        /**
+         * Two-factor authentication provider.
+         */
+        tfa?: string;
+        type: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/config
+     * Returned by GET /access/groups
      */
-    export interface clusterConfigIndex {
+    export interface accessGroupsIndex {
+        comment?: string;
+        groupid: string;
+        /**
+         * list of users which form this group
+         */
+        users?: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/config/nodes
+     * Returned by GET /access/groups/{groupid}
      */
-    export interface clusterConfigNodesNodes {
-        node: string;
+    export interface accessGroupsReadGroup {
+        comment?: string;
+        members: string[];
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /cluster/config/nodes/{node}
+     * Returned by GET /access
      */
-    export interface clusterConfigNodesAddnode {
-        corosync_authkey: string;
-        corosync_conf: string;
-        warnings: string[];
+    export interface accessIndex {
+        subdir: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/config/join
+     * Returned by GET /access/roles
      */
-    export interface clusterConfigJoinJoinInfo {
-        config_digest: string;
-        nodelist: {
+    export interface accessRolesIndex {
+        privs?: string;
+        roleid: string;
+        special?: boolean;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /access/roles/{roleid}
+     */
+    export interface accessRolesReadRole {
+        'Datastore.Allocate'?: boolean;
+        'Datastore.AllocateSpace'?: boolean;
+        'Datastore.AllocateTemplate'?: boolean;
+        'Datastore.Audit'?: boolean;
+        'Group.Allocate'?: boolean;
+        'Permissions.Modify'?: boolean;
+        'Pool.Allocate'?: boolean;
+        'Realm.Allocate'?: boolean;
+        'Realm.AllocateUser'?: boolean;
+        'SDN.Allocate'?: boolean;
+        'SDN.Audit'?: boolean;
+        'Sys.Audit'?: boolean;
+        'Sys.Console'?: boolean;
+        'Sys.Modify'?: boolean;
+        'Sys.PowerMgmt'?: boolean;
+        'Sys.Syslog'?: boolean;
+        'User.Modify'?: boolean;
+        'VM.Allocate'?: boolean;
+        'VM.Audit'?: boolean;
+        'VM.Backup'?: boolean;
+        'VM.Clone'?: boolean;
+        'VM.Config.CDROM'?: boolean;
+        'VM.Config.CPU'?: boolean;
+        'VM.Config.Cloudinit'?: boolean;
+        'VM.Config.Disk'?: boolean;
+        'VM.Config.HWType'?: boolean;
+        'VM.Config.Memory'?: boolean;
+        'VM.Config.Network'?: boolean;
+        'VM.Config.Options'?: boolean;
+        'VM.Console'?: boolean;
+        'VM.Migrate'?: boolean;
+        'VM.Monitor'?: boolean;
+        'VM.PowerMgmt'?: boolean;
+        'VM.Snapshot'?: boolean;
+        'VM.Snapshot.Rollback'?: boolean;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by POST /access/tfa
+     */
+    export interface accessTfaVerifyTfa {
+        ticket: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by POST /access/ticket
+     */
+    export interface accessTicketCreateTicket {
+        CSRFPreventionToken?: string;
+        clustername?: string;
+        ticket?: string;
+        username: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /access/users
+     */
+    export interface accessUsersIndex {
+        comment?: string;
+        email?: string;
+        /**
+         * Enable the account (default). You can set this to '0' to disable the account
+         */
+        enable?: boolean;
+        /**
+         * Account expiration date (seconds since epoch). '0' means no expiration date.
+         */
+        expire?: number;
+        firstname?: string;
+        groups?: string;
+        /**
+         * Keys for two factor auth (yubico).
+         */
+        keys?: string;
+        lastname?: string;
+        tokens?: {
+                comment?: string;
                 /**
-                 * The cluster node name.
+                 * API token expiration date (seconds since epoch). '0' means no expiration date.
                  */
-                name: string;
+                expire?: number;
                 /**
-                 * Node id for this node.
+                 * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
                  */
-                nodeid?: number;
-                pve_addr: string;
+                privsep?: boolean;
                 /**
-                 * Certificate SHA 256 fingerprint.
+                 * User-specific token identifier.
                  */
-                pve_fp: string;
-                quorum_votes: number;
-                /**
-                 * Address and priority information of a single corosync link. (up to 8 links supported; link0..link7)
-                 */
-                ring0_addr?: string;
+                tokenid: string;
             }[];
         /**
-         * The cluster node name.
+         * User ID
          */
-        preferred_node: string;
-        totem: any;
+        userid: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/firewall
+     * Returned by GET /access/users/{userid}
      */
-    export interface clusterFirewallIndex {
+    export interface accessUsersReadUser {
+        comment?: string;
+        email?: string;
+        /**
+         * Enable the account (default). You can set this to '0' to disable the account
+         */
+        enable?: boolean;
+        /**
+         * Account expiration date (seconds since epoch). '0' means no expiration date.
+         */
+        expire?: number;
+        firstname?: string;
+        groups?: string[];
+        /**
+         * Keys for two factor auth (yubico).
+         */
+        keys?: string;
+        lastname?: string;
+        tokens?: any;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/firewall/groups
+     * Returned by GET /access/users/{userid}/tfa
      */
-    export interface clusterFirewallGroupsListSecurityGroups {
+    export interface accessUsersTfaReadUserTfaType {
+        /**
+         * The type of TFA the users realm has set, if any.
+         */
+        realm?: string;
+        /**
+         * The type of TFA the user has set, if any.
+         */
+        user?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by POST /access/users/{userid}/token/{tokenid}
+     */
+    export interface accessUsersTokenGenerateToken {
+        /**
+         * The full token id.
+         */
+        'full-tokenid': string;
+        info: {
+                comment?: string;
+                /**
+                 * API token expiration date (seconds since epoch). '0' means no expiration date.
+                 */
+                expire?: number;
+                /**
+                 * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
+                 */
+                privsep?: boolean;
+            };
+        /**
+         * API token value used for authentication.
+         */
+        value: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /access/users/{userid}/token/{tokenid}
+     */
+    export interface accessUsersTokenReadToken {
         comment?: string;
         /**
-         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+         * API token expiration date (seconds since epoch). '0' means no expiration date.
          */
-        digest: string;
+        expire?: number;
         /**
-         * Security Group name.
+         * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
          */
-        group: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/firewall/groups/{group}
-     */
-    export interface clusterFirewallGroupsGetRules {
-        pos: number;
+        privsep?: boolean;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/firewall/groups/{group}/{pos}
+     * Returned by GET /access/users/{userid}/token
      */
-    export interface clusterFirewallGroupsGetRule {
-        action: string;
-        comment?: string;
-        dest?: string;
-        dport?: string;
-        enable?: number;
-        iface?: string;
-        ipversion?: number;
-        /**
-         * Log level for firewall rule
-         */
-        log?: string;
-        macro?: string;
-        pos: number;
-        proto?: string;
-        source?: string;
-        sport?: string;
-        type: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/firewall/rules
-     */
-    export interface clusterFirewallRulesGetRules {
-        pos: number;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/firewall/rules/{pos}
-     */
-    export interface clusterFirewallRulesGetRule {
-        action: string;
-        comment?: string;
-        dest?: string;
-        dport?: string;
-        enable?: number;
-        iface?: string;
-        ipversion?: number;
-        /**
-         * Log level for firewall rule
-         */
-        log?: string;
-        macro?: string;
-        pos: number;
-        proto?: string;
-        source?: string;
-        sport?: string;
-        type: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/firewall/ipset
-     */
-    export interface clusterFirewallIpsetIpsetIndex {
+    export interface accessUsersTokenTokenIndex {
         comment?: string;
         /**
-         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+         * API token expiration date (seconds since epoch). '0' means no expiration date.
          */
-        digest: string;
+        expire?: number;
         /**
-         * IP set name.
+         * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
          */
-        name: string;
+        privsep?: boolean;
+        /**
+         * User-specific token identifier.
+         */
+        tokenid: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/firewall/ipset/{name}
+     * Returned by PUT /access/users/{userid}/token/{tokenid}
      */
-    export interface clusterFirewallIpsetGetIpset {
-        cidr: string;
+    export interface accessUsersTokenUpdateTokenInfo {
         comment?: string;
         /**
-         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+         * API token expiration date (seconds since epoch). '0' means no expiration date.
          */
-        digest: string;
-        nomatch?: boolean;
+        expire?: number;
+        /**
+         * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
+         */
+        privsep?: boolean;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/firewall/aliases
+     * Returned by GET /cluster/acme/account
      */
-    export interface clusterFirewallAliasesGetAliases {
-        cidr: string;
-        comment?: string;
-        /**
-         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
-         */
-        digest: string;
-        name: string;
+    export interface clusterAcmeAccountAccountIndex {
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/firewall/options
+     * Returned by GET /cluster/acme/account/{name}
      */
-    export interface clusterFirewallOptionsGetOptions {
+    export interface clusterAcmeAccountGetAccount {
+        account?: any;
         /**
-         * Enable ebtables rules cluster wide.
+         * URL of ACME CA directory endpoint.
          */
-        ebtables?: boolean;
-        /**
-         * Enable or disable the firewall cluster wide.
-         */
-        enable?: number;
-        /**
-         * Log ratelimiting settings
-         */
-        log_ratelimit?: string;
-        /**
-         * Input policy.
-         */
-        policy_in?: string;
-        /**
-         * Output policy.
-         */
-        policy_out?: string;
+        directory?: string;
+        location?: string;
+        tos?: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/firewall/macros
+     * Returned by GET /cluster/acme/challenge-schema
      */
-    export interface clusterFirewallMacrosGetMacros {
-        /**
-         * More verbose description (if available).
-         */
-        descr: string;
-        /**
-         * Macro name.
-         */
-        macro: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/firewall/refs
-     */
-    export interface clusterFirewallRefsRefs {
-        comment?: string;
-        name: string;
-        ref: string;
-        type: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/backup
-     */
-    export interface clusterBackupIndex {
-        /**
-         * The job ID.
-         */
+    export interface clusterAcmeChallengeSchemaChallengeschema {
         id: string;
+        /**
+         * Human readable name, falls back to id
+         */
+        name: string;
+        schema: any;
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/acme/directories
+     */
+    export interface clusterAcmeDirectoriesGetDirectories {
+        name: string;
+        /**
+         * URL of ACME CA directory endpoint.
+         */
+        url: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/acme
+     */
+    export interface clusterAcmeIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/acme/plugins
+     */
+    export interface clusterAcmePluginsIndex {
+        /**
+         * Unique identifier for ACME plugin instance.
+         */
+        plugin: string;
         /**
          * additionalProperties
          */
@@ -1723,6 +1824,19 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /cluster/backup
+     */
+    export interface clusterBackupIndex {
+        /**
+         * The job ID.
+         */
+        id: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /cluster/backupinfo/not_backed_up
      */
     export interface clusterBackupinfoNotBackedUpGetGuestsNotInBackup {
@@ -1738,6 +1852,312 @@ export namespace Proxmox {
          * VMID of the guest.
          */
         vmid: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/ceph
+     */
+    export interface clusterCephCephindex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/ceph/flags
+     */
+    export interface clusterCephFlagsGetAllFlags {
+        /**
+         * Flag name.
+         */
+        name: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/config
+     */
+    export interface clusterConfigIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/config/join
+     */
+    export interface clusterConfigJoinJoinInfo {
+        config_digest: string;
+        nodelist: {
+                /**
+                 * The cluster node name.
+                 */
+                name: string;
+                /**
+                 * Node id for this node.
+                 */
+                nodeid?: number;
+                pve_addr: string;
+                /**
+                 * Certificate SHA 256 fingerprint.
+                 */
+                pve_fp: string;
+                quorum_votes: number;
+                /**
+                 * Address and priority information of a single corosync link. (up to 8 links supported; link0..link7)
+                 */
+                ring0_addr?: string;
+            }[];
+        /**
+         * The cluster node name.
+         */
+        preferred_node: string;
+        totem: any;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by POST /cluster/config/nodes/{node}
+     */
+    export interface clusterConfigNodesAddnode {
+        corosync_authkey: string;
+        corosync_conf: string;
+        warnings: string[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/config/nodes
+     */
+    export interface clusterConfigNodesNodes {
+        node: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/firewall/aliases
+     */
+    export interface clusterFirewallAliasesGetAliases {
+        cidr: string;
+        comment?: string;
+        /**
+         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+         */
+        digest: string;
+        name: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/firewall/groups/{group}/{pos}
+     */
+    export interface clusterFirewallGroupsGetRule {
+        action: string;
+        comment?: string;
+        dest?: string;
+        dport?: string;
+        enable?: number;
+        iface?: string;
+        ipversion?: number;
+        /**
+         * Log level for firewall rule
+         */
+        log?: string;
+        macro?: string;
+        pos: number;
+        proto?: string;
+        source?: string;
+        sport?: string;
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/firewall/groups/{group}
+     */
+    export interface clusterFirewallGroupsGetRules {
+        pos: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/firewall/groups
+     */
+    export interface clusterFirewallGroupsListSecurityGroups {
+        comment?: string;
+        /**
+         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+         */
+        digest: string;
+        /**
+         * Security Group name.
+         */
+        group: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/firewall
+     */
+    export interface clusterFirewallIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/firewall/ipset/{name}
+     */
+    export interface clusterFirewallIpsetGetIpset {
+        cidr: string;
+        comment?: string;
+        /**
+         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+         */
+        digest: string;
+        nomatch?: boolean;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/firewall/ipset
+     */
+    export interface clusterFirewallIpsetIpsetIndex {
+        comment?: string;
+        /**
+         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+         */
+        digest: string;
+        /**
+         * IP set name.
+         */
+        name: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/firewall/macros
+     */
+    export interface clusterFirewallMacrosGetMacros {
+        /**
+         * More verbose description (if available).
+         */
+        descr: string;
+        /**
+         * Macro name.
+         */
+        macro: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/firewall/options
+     */
+    export interface clusterFirewallOptionsGetOptions {
+        /**
+         * Enable ebtables rules cluster wide.
+         */
+        ebtables?: boolean;
+        /**
+         * Enable or disable the firewall cluster wide.
+         */
+        enable?: number;
+        /**
+         * Log ratelimiting settings
+         */
+        log_ratelimit?: string;
+        /**
+         * Input policy.
+         */
+        policy_in?: string;
+        /**
+         * Output policy.
+         */
+        policy_out?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/firewall/refs
+     */
+    export interface clusterFirewallRefsRefs {
+        comment?: string;
+        name: string;
+        ref: string;
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/firewall/rules/{pos}
+     */
+    export interface clusterFirewallRulesGetRule {
+        action: string;
+        comment?: string;
+        dest?: string;
+        dport?: string;
+        enable?: number;
+        iface?: string;
+        ipversion?: number;
+        /**
+         * Log level for firewall rule
+         */
+        log?: string;
+        macro?: string;
+        pos: number;
+        proto?: string;
+        source?: string;
+        sport?: string;
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/firewall/rules
+     */
+    export interface clusterFirewallRulesGetRules {
+        pos: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/ha/groups
+     */
+    export interface clusterHaGroupsIndex {
+        group: string;
         /**
          * additionalProperties
          */
@@ -1805,16 +2225,6 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/ha/groups
-     */
-    export interface clusterHaGroupsIndex {
-        group: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
      * Returned by GET /cluster/ha/status
      */
     export interface clusterHaStatusIndex {
@@ -1824,140 +2234,9 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/acme
+     * Returned by GET /cluster
      */
-    export interface clusterAcmeIndex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/acme/plugins
-     */
-    export interface clusterAcmePluginsIndex {
-        /**
-         * Unique identifier for ACME plugin instance.
-         */
-        plugin: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/acme/account
-     */
-    export interface clusterAcmeAccountAccountIndex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/acme/account/{name}
-     */
-    export interface clusterAcmeAccountGetAccount {
-        account?: any;
-        /**
-         * URL of ACME CA directory endpoint.
-         */
-        directory?: string;
-        location?: string;
-        tos?: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/acme/directories
-     */
-    export interface clusterAcmeDirectoriesGetDirectories {
-        name: string;
-        /**
-         * URL of ACME CA directory endpoint.
-         */
-        url: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/acme/challenge-schema
-     */
-    export interface clusterAcmeChallengeSchemaChallengeschema {
-        id: string;
-        /**
-         * Human readable name, falls back to id
-         */
-        name: string;
-        schema: any;
-        type: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/ceph
-     */
-    export interface clusterCephCephindex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/ceph/flags
-     */
-    export interface clusterCephFlagsGetAllFlags {
-        /**
-         * Flag name.
-         */
-        name: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/sdn
-     */
-    export interface clusterSdnIndex {
-        id: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/sdn/vnets
-     */
-    export interface clusterSdnVnetsIndex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/sdn/zones
-     */
-    export interface clusterSdnZonesIndex {
-        type: string;
-        zone: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /cluster/sdn/controllers
-     */
-    export interface clusterSdnControllersIndex {
-        controller: string;
-        type: string;
+    export interface clusterIndex {
         /**
          * additionalProperties
          */
@@ -1967,6 +2246,15 @@ export namespace Proxmox {
      * Returned by GET /cluster/log
      */
     export interface clusterLogLog {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/replication
+     */
+    export interface clusterReplicationIndex {
         /**
          * additionalProperties
          */
@@ -2039,10 +2327,41 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/tasks
+     * Returned by GET /cluster/sdn/controllers
      */
-    export interface clusterTasksTasks {
-        upid: string;
+    export interface clusterSdnControllersIndex {
+        controller: string;
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn
+     */
+    export interface clusterSdnIndex {
+        id: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/vnets
+     */
+    export interface clusterSdnVnetsIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/zones
+     */
+    export interface clusterSdnZonesIndex {
+        type: string;
+        zone: string;
         /**
          * additionalProperties
          */
@@ -2090,6 +2409,820 @@ export namespace Proxmox {
          * [cluster] Current version of the corosync configuration file.
          */
         version?: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/tasks
+     */
+    export interface clusterTasksTasks {
+        upid: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/aplinfo
+     */
+    export interface nodesAplinfoAplinfo {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/apt
+     */
+    export interface nodesAptIndex {
+        id: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/apt/update
+     */
+    export interface nodesAptUpdateListUpdates {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/apt/versions
+     */
+    export interface nodesAptVersionsVersions {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/ceph/configdb
+     */
+    export interface nodesCephConfigdbConfigdb {
+        can_update_at_runtime: boolean;
+        level: string;
+        mask: string;
+        name: string;
+        section: string;
+        value: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/ceph/disks
+     */
+    export interface nodesCephDisksDisks {
+        dev: string;
+        gpt: boolean;
+        model?: string;
+        osdid: number;
+        serial?: string;
+        size: number;
+        used?: string;
+        vendor?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/ceph/fs
+     */
+    export interface nodesCephFsIndex {
+        /**
+         * The name of the data pool.
+         */
+        data_pool: string;
+        /**
+         * The name of the metadata pool.
+         */
+        metadata_pool: string;
+        /**
+         * The ceph filesystem name.
+         */
+        name: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/ceph
+     */
+    export interface nodesCephIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/ceph/log
+     */
+    export interface nodesCephLogLog {
+        /**
+         * Line number
+         */
+        n: number;
+        /**
+         * Line text
+         */
+        t: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/ceph/mds
+     */
+    export interface nodesCephMdsIndex {
+        addr?: string;
+        host?: string;
+        /**
+         * The name (ID) for the MDS
+         */
+        name: string;
+        rank?: number;
+        /**
+         * If true, the standby MDS is polling the active MDS for faster recovery (hot standby).
+         */
+        standby_replay?: boolean;
+        /**
+         * State of the MDS
+         */
+        state: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/ceph/mgr
+     */
+    export interface nodesCephMgrIndex {
+        addr?: string;
+        host?: string;
+        /**
+         * The name (ID) for the MGR
+         */
+        name: string;
+        /**
+         * State of the MGR
+         */
+        state: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/ceph/mon
+     */
+    export interface nodesCephMonListmon {
+        addr?: string;
+        host?: string;
+        name: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/ceph/pools
+     */
+    export interface nodesCephPoolsLspools {
+        bytes_used: number;
+        crush_rule: number;
+        crush_rule_name: string;
+        min_size: number;
+        percent_used: number;
+        pg_autoscale_mode?: string;
+        pg_num: number;
+        pool: number;
+        pool_name: string;
+        size: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/ceph/rules
+     */
+    export interface nodesCephRulesRules {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/certificates/acme
+     */
+    export interface nodesCertificatesAcmeIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by POST /nodes/{node}/certificates/custom
+     */
+    export interface nodesCertificatesCustomUploadCustomCert {
+        filename?: string;
+        /**
+         * Certificate SHA 256 fingerprint.
+         */
+        fingerprint?: string;
+        /**
+         * Certificate issuer name.
+         */
+        issuer?: string;
+        /**
+         * Certificate's notAfter timestamp (UNIX epoch).
+         */
+        notafter?: number;
+        /**
+         * Certificate's notBefore timestamp (UNIX epoch).
+         */
+        notbefore?: number;
+        /**
+         * Certificate in PEM format
+         */
+        pem?: string;
+        /**
+         * Certificate's public key size
+         */
+        'public-key-bits'?: number;
+        /**
+         * Certificate's public key algorithm
+         */
+        'public-key-type'?: string;
+        /**
+         * List of Certificate's SubjectAlternativeName entries.
+         */
+        san?: string[];
+        /**
+         * Certificate subject name.
+         */
+        subject?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/certificates
+     */
+    export interface nodesCertificatesIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/certificates/info
+     */
+    export interface nodesCertificatesInfoInfo {
+        filename?: string;
+        /**
+         * Certificate SHA 256 fingerprint.
+         */
+        fingerprint?: string;
+        /**
+         * Certificate issuer name.
+         */
+        issuer?: string;
+        /**
+         * Certificate's notAfter timestamp (UNIX epoch).
+         */
+        notafter?: number;
+        /**
+         * Certificate's notBefore timestamp (UNIX epoch).
+         */
+        notbefore?: number;
+        /**
+         * Certificate in PEM format
+         */
+        pem?: string;
+        /**
+         * Certificate's public key size
+         */
+        'public-key-bits'?: number;
+        /**
+         * Certificate's public key algorithm
+         */
+        'public-key-type'?: string;
+        /**
+         * List of Certificate's SubjectAlternativeName entries.
+         */
+        san?: string[];
+        /**
+         * Certificate subject name.
+         */
+        subject?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/cpu
+     */
+    export interface nodesCpuIndex {
+        /**
+         * True if this is a custom CPU model.
+         */
+        custom: boolean;
+        /**
+         * Name of the CPU model. Identifies it for subsequent API calls. Prefixed with 'custom-' for custom models.
+         */
+        name: string;
+        /**
+         * CPU vendor visible to the guest when this model is selected. Vendor of 'reported-model' in case of custom models.
+         */
+        vendor: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/disks/directory
+     */
+    export interface nodesDisksDirectoryIndex {
+        /**
+         * The mounted device.
+         */
+        device: string;
+        /**
+         * The mount options.
+         */
+        options: string;
+        /**
+         * The mount path.
+         */
+        path: string;
+        /**
+         * The filesystem type.
+         */
+        type: string;
+        /**
+         * The path of the mount unit.
+         */
+        unitfile: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/disks
+     */
+    export interface nodesDisksIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/disks/list
+     */
+    export interface nodesDisksListList {
+        /**
+         * The device path
+         */
+        devpath: string;
+        gpt: boolean;
+        health?: string;
+        model?: string;
+        osdid: number;
+        serial?: string;
+        size: number;
+        used?: string;
+        vendor?: string;
+        wwn?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/disks/lvm
+     */
+    export interface nodesDisksLvmIndex {
+        children: {
+                /**
+                 * The underlying physical volumes
+                 */
+                children?: {
+                        /**
+                         * The free bytes in the physical volume
+                         */
+                        free: number;
+                        leaf: boolean;
+                        /**
+                         * The name of the physical volume
+                         */
+                        name: string;
+                        /**
+                         * The size of the physical volume in bytes
+                         */
+                        size: number;
+                    }[];
+                /**
+                 * The free bytes in the volume group
+                 */
+                free: number;
+                leaf: boolean;
+                /**
+                 * The name of the volume group
+                 */
+                name: string;
+                /**
+                 * The size of the volume group in bytes
+                 */
+                size: number;
+            }[];
+        leaf: boolean;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/disks/lvmthin
+     */
+    export interface nodesDisksLvmthinIndex {
+        /**
+         * The name of the thinpool.
+         */
+        lv: string;
+        /**
+         * The size of the thinpool in bytes.
+         */
+        lv_size: number;
+        /**
+         * The size of the metadata lv in bytes.
+         */
+        metadata_size: number;
+        /**
+         * The used bytes of the metadata lv.
+         */
+        metadata_used: number;
+        /**
+         * The used bytes of the thinpool.
+         */
+        used: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/disks/smart
+     */
+    export interface nodesDisksSmartSmart {
+        attributes?: string[];
+        health: string;
+        text?: string;
+        type?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/disks/zfs/{name}
+     */
+    export interface nodesDisksZfsDetail {
+        /**
+         * Information about the recommended action to fix the state.
+         */
+        action?: string;
+        /**
+         * The pool configuration information, including the vdevs for each section (e.g. spares, cache), may be nested.
+         */
+        children: {
+                cksum?: number;
+                /**
+                 * An optional message about the vdev.
+                 */
+                msg: string;
+                /**
+                 * The name of the vdev or section.
+                 */
+                name: string;
+                read?: number;
+                /**
+                 * The state of the vdev.
+                 */
+                state?: string;
+                write?: number;
+            }[];
+        /**
+         * Information about the errors on the zpool.
+         */
+        errors: string;
+        /**
+         * The name of the zpool.
+         */
+        name: string;
+        /**
+         * Information about the last/current scrub.
+         */
+        scan: string;
+        /**
+         * The state of the zpool.
+         */
+        state: string;
+        /**
+         * Information about the state of the zpool.
+         */
+        status?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/disks/zfs
+     */
+    export interface nodesDisksZfsIndex {
+        alloc: number;
+        dedup: number;
+        frag: number;
+        free: number;
+        health: string;
+        name: string;
+        size: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/dns
+     */
+    export interface nodesDnsDns {
+        /**
+         * First name server IP address.
+         */
+        dns1?: string;
+        /**
+         * Second name server IP address.
+         */
+        dns2?: string;
+        /**
+         * Third name server IP address.
+         */
+        dns3?: string;
+        /**
+         * Search domain for host-name lookup.
+         */
+        search?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/firewall
+     */
+    export interface nodesFirewallIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/firewall/log
+     */
+    export interface nodesFirewallLogLog {
+        /**
+         * Line number
+         */
+        n: number;
+        /**
+         * Line text
+         */
+        t: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/firewall/options
+     */
+    export interface nodesFirewallOptionsGetOptions {
+        /**
+         * Enable host firewall rules.
+         */
+        enable?: boolean;
+        /**
+         * Log level for incoming traffic.
+         */
+        log_level_in?: string;
+        /**
+         * Log level for outgoing traffic.
+         */
+        log_level_out?: string;
+        /**
+         * Enable logging of conntrack information.
+         */
+        log_nf_conntrack?: boolean;
+        /**
+         * Enable NDP (Neighbor Discovery Protocol).
+         */
+        ndp?: boolean;
+        /**
+         * Allow invalid packets on connection tracking.
+         */
+        nf_conntrack_allow_invalid?: boolean;
+        /**
+         * Maximum number of tracked connections.
+         */
+        nf_conntrack_max?: number;
+        /**
+         * Conntrack established timeout.
+         */
+        nf_conntrack_tcp_timeout_established?: number;
+        /**
+         * Conntrack syn recv timeout.
+         */
+        nf_conntrack_tcp_timeout_syn_recv?: number;
+        /**
+         * Enable SMURFS filter.
+         */
+        nosmurfs?: boolean;
+        /**
+         * Enable synflood protection
+         */
+        protection_synflood?: boolean;
+        /**
+         * Synflood protection rate burst by ip src.
+         */
+        protection_synflood_burst?: number;
+        /**
+         * Synflood protection rate syn/sec by ip src.
+         */
+        protection_synflood_rate?: number;
+        /**
+         * Log level for SMURFS filter.
+         */
+        smurf_log_level?: string;
+        /**
+         * Log level for illegal tcp flags filter.
+         */
+        tcp_flags_log_level?: string;
+        /**
+         * Filter illegal combinations of TCP flags.
+         */
+        tcpflags?: boolean;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/firewall/rules/{pos}
+     */
+    export interface nodesFirewallRulesGetRule {
+        action: string;
+        comment?: string;
+        dest?: string;
+        dport?: string;
+        enable?: number;
+        iface?: string;
+        ipversion?: number;
+        /**
+         * Log level for firewall rule
+         */
+        log?: string;
+        macro?: string;
+        pos: number;
+        proto?: string;
+        source?: string;
+        sport?: string;
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/firewall/rules
+     */
+    export interface nodesFirewallRulesGetRules {
+        pos: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/hardware
+     */
+    export interface nodesHardwareIndex {
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/hardware/pci/{pciid}/mdev
+     */
+    export interface nodesHardwarePciMdevMdevscan {
+        /**
+         * The number of still available instances of this type.
+         */
+        available: number;
+        description: string;
+        /**
+         * The name of the mdev type.
+         */
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/hardware/pci/{pciid}
+     */
+    export interface nodesHardwarePciPciindex {
+        method: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/hardware/pci
+     */
+    export interface nodesHardwarePciPciscan {
+        /**
+         * The PCI Class of the device.
+         */
+        class: string;
+        /**
+         * The Device ID.
+         */
+        device: string;
+        device_name?: string;
+        /**
+         * The PCI ID.
+         */
+        id: string;
+        /**
+         * The IOMMU group in which the device is in. If no IOMMU group is detected, it is set to -1.
+         */
+        iommugroup: number;
+        /**
+         * If set, marks that the device is capable of creating mediated devices.
+         */
+        mdev?: boolean;
+        /**
+         * The Subsystem Device ID.
+         */
+        subsystem_device?: string;
+        subsystem_device_name?: string;
+        /**
+         * The Subsystem Vendor ID.
+         */
+        subsystem_vendor?: string;
+        subsystem_vendor_name?: string;
+        /**
+         * The Vendor ID.
+         */
+        vendor: string;
+        vendor_name?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/hosts
+     */
+    export interface nodesHostsGetEtcHosts {
+        /**
+         * The content of /etc/hosts.
+         */
+        data: string;
+        /**
+         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
         /**
          * additionalProperties
          */
@@ -2150,117 +3283,186 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu
+     * Returned by GET /nodes/{node}/lxc/{vmid}/config
      */
-    export interface nodesQemuVm {
+    export interface nodesLxcConfigVmConfig {
         /**
-         * Maximum usable CPUs.
+         * OS architecture type.
          */
-        cpus?: number;
+        arch?: string;
         /**
-         * The current config lock, if any.
+         * Console mode. By default, the console command tries to open a connection to one of the available tty devices. By setting cmode to 'console' it tries to attach to /dev/console instead. If you set cmode to 'shell', it simply invokes a shell inside the container (no login).
+         */
+        cmode?: string;
+        /**
+         * Attach a console device (/dev/console) to the container.
+         */
+        console?: boolean;
+        /**
+         * The number of cores assigned to the container. A container can use all available cores by default.
+         */
+        cores?: number;
+        /**
+         * Limit of CPU usage.
+         * NOTE: If the computer has 2 CPUs, it has a total of '2' CPU time. Value '0' indicates no CPU limit.
+         */
+        cpulimit?: number;
+        /**
+         * CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to the weights of all the other running VMs.
+         * NOTE: You can disable fair-scheduler configuration by setting this to 0.
+         */
+        cpuunits?: number;
+        /**
+         * Container description. Only used on the configuration web interface.
+         */
+        description?: string;
+        /**
+         * SHA1 digest of configuration file. This can be used to prevent concurrent modifications.
+         */
+        digest: string;
+        /**
+         * Allow containers access to advanced features.
+         */
+        features?: string;
+        /**
+         * Script that will be exectued during various steps in the containers lifetime.
+         */
+        hookscript?: string;
+        /**
+         * Set a host name for the container.
+         */
+        hostname?: string;
+        /**
+         * Lock/unlock the VM.
          */
         lock?: string;
         /**
-         * Root disk size in bytes.
+         * Array of lxc low-level configurations ([[key1, value1], [key2, value2] ...]).
          */
-        maxdisk?: number;
+        lxc?: string[][];
         /**
-         * Maximum memory in bytes.
+         * Amount of RAM for the VM in MB.
          */
-        maxmem?: number;
+        memory?: number;
         /**
-         * VM name.
+         * Use volume as container mount point.
          */
-        name?: string;
+        mp0?: string;
         /**
-         * PID of running qemu process.
+         * Use volume as container mount point.
          */
-        pid?: number;
+        mp1?: string;
         /**
-         * Qemu QMP agent status.
+         * Use volume as container mount point.
          */
-        qmpstatus?: string;
+        mp2?: string;
         /**
-         * Qemu process status.
+         * Use volume as container mount point.
          */
-        status: string;
+        mp3?: string;
         /**
-         * The current configured tags, if any
+         * Sets DNS server IP address for a container. Create will automatically use the setting from the host if you neither set searchdomain nor nameserver.
+         */
+        nameserver?: string;
+        /**
+         * Specifies network interfaces for the container.
+         */
+        net0?: string;
+        /**
+         * Specifies network interfaces for the container.
+         */
+        net1?: string;
+        /**
+         * Specifies network interfaces for the container.
+         */
+        net2?: string;
+        /**
+         * Specifies network interfaces for the container.
+         */
+        net3?: string;
+        /**
+         * Specifies whether a VM will be started during system bootup.
+         */
+        onboot?: boolean;
+        /**
+         * OS type. This is used to setup configuration inside the container, and corresponds to lxc setup scripts in /usr/share/lxc/config/<ostype>.common.conf. Value 'unmanaged' can be used to skip and OS specific setup.
+         */
+        ostype?: string;
+        /**
+         * Sets the protection flag of the container. This will prevent the CT or CT's disk remove/update operation.
+         */
+        protection?: boolean;
+        /**
+         * Use volume as container root.
+         */
+        rootfs?: string;
+        /**
+         * Sets DNS search domains for a container. Create will automatically use the setting from the host if you neither set searchdomain nor nameserver.
+         */
+        searchdomain?: string;
+        /**
+         * Startup and shutdown behavior. Order is a non-negative number defining the general startup order. Shutdown in done with reverse ordering. Additionally you can set the 'up' or 'down' delay in seconds, which specifies a delay to wait before the next VM is started or stopped.
+         */
+        startup?: string;
+        /**
+         * Amount of SWAP for the VM in MB.
+         */
+        swap?: number;
+        /**
+         * Tags of the Container. This is only meta information.
          */
         tags?: string;
         /**
-         * Uptime.
+         * Enable/disable Template.
          */
-        uptime?: number;
+        template?: boolean;
         /**
-         * The (unique) ID of the VM.
+         * Time zone to use in the container. If option isn't set, then nothing will be done. Can be set to 'host' to match the host time zone, or an arbitrary time zone option from /usr/share/zoneinfo/zone.tab
          */
-        vmid: number;
+        timezone?: string;
         /**
-         * additionalProperties
+         * Specify the number of tty available to the container
          */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}
-     */
-    export interface nodesQemuVmdiridx {
-        subdir: string;
+        tty?: number;
         /**
-         * additionalProperties
+         * Makes the container run as unprivileged user. (Should not be modified manually.)
          */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall
-     */
-    export interface nodesQemuFirewallIndex {
+        unprivileged?: boolean;
         /**
-         * additionalProperties
+         * Reference to unused volumes. This is used internally, and should not be modified manually.
          */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/rules
-     */
-    export interface nodesQemuFirewallRulesGetRules {
-        pos: number;
+        unused0?: string;
+        /**
+         * Reference to unused volumes. This is used internally, and should not be modified manually.
+         */
+        unused1?: string;
+        /**
+         * Reference to unused volumes. This is used internally, and should not be modified manually.
+         */
+        unused2?: string;
+        /**
+         * Reference to unused volumes. This is used internally, and should not be modified manually.
+         */
+        unused3?: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/rules/{pos}
+     * Returned by GET /nodes/{node}/lxc/{vmid}/feature
      */
-    export interface nodesQemuFirewallRulesGetRule {
-        action: string;
-        comment?: string;
-        dest?: string;
-        dport?: string;
-        enable?: number;
-        iface?: string;
-        ipversion?: number;
-        /**
-         * Log level for firewall rule
-         */
-        log?: string;
-        macro?: string;
-        pos: number;
-        proto?: string;
-        source?: string;
-        sport?: string;
-        type: string;
+    export interface nodesLxcFeatureVmFeature {
+        hasFeature: boolean;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/aliases
+     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/aliases
      */
-    export interface nodesQemuFirewallAliasesGetAliases {
+    export interface nodesLxcFirewallAliasesGetAliases {
         cidr: string;
         comment?: string;
         /**
@@ -2274,9 +3476,34 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/ipset
+     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall
      */
-    export interface nodesQemuFirewallIpsetIpsetIndex {
+    export interface nodesLxcFirewallIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}
+     */
+    export interface nodesLxcFirewallIpsetGetIpset {
+        cidr: string;
+        comment?: string;
+        /**
+         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+         */
+        digest: string;
+        nomatch?: boolean;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/ipset
+     */
+    export interface nodesLxcFirewallIpsetIpsetIndex {
         comment?: string;
         /**
          * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
@@ -2292,25 +3519,26 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}
+     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/log
      */
-    export interface nodesQemuFirewallIpsetGetIpset {
-        cidr: string;
-        comment?: string;
+    export interface nodesLxcFirewallLogLog {
         /**
-         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+         * Line number
          */
-        digest: string;
-        nomatch?: boolean;
+        n: number;
+        /**
+         * Line text
+         */
+        t: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/options
+     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/options
      */
-    export interface nodesQemuFirewallOptionsGetOptions {
+    export interface nodesLxcFirewallOptionsGetOptions {
         /**
          * Enable DHCP.
          */
@@ -2357,26 +3585,9 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/log
+     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/refs
      */
-    export interface nodesQemuFirewallLogLog {
-        /**
-         * Line number
-         */
-        n: number;
-        /**
-         * Line text
-         */
-        t: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/refs
-     */
-    export interface nodesQemuFirewallRefsRefs {
+    export interface nodesLxcFirewallRefsRefs {
         comment?: string;
         name: string;
         type: string;
@@ -2386,9 +3597,316 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/agent
+     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/rules/{pos}
      */
-    export interface nodesQemuAgentIndex {
+    export interface nodesLxcFirewallRulesGetRule {
+        action: string;
+        comment?: string;
+        dest?: string;
+        dport?: string;
+        enable?: number;
+        iface?: string;
+        ipversion?: number;
+        /**
+         * Log level for firewall rule
+         */
+        log?: string;
+        macro?: string;
+        pos: number;
+        proto?: string;
+        source?: string;
+        sport?: string;
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/rules
+     */
+    export interface nodesLxcFirewallRulesGetRules {
+        pos: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/lxc/{vmid}/pending
+     */
+    export interface nodesLxcPendingVmPending {
+        /**
+         * Indicates a pending delete request if present and not 0.
+         */
+        delete?: number;
+        /**
+         * Configuration option name.
+         */
+        key: string;
+        /**
+         * Pending value.
+         */
+        pending?: string;
+        /**
+         * Current value.
+         */
+        value?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/lxc/{vmid}/rrd
+     */
+    export interface nodesLxcRrdRrd {
+        filename: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/lxc/{vmid}/rrddata
+     */
+    export interface nodesLxcRrddataRrddata {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/lxc/{vmid}/snapshot
+     */
+    export interface nodesLxcSnapshotList {
+        /**
+         * Snapshot description.
+         */
+        description: string;
+        /**
+         * Snapshot identifier. Value 'current' identifies the current VM.
+         */
+        name: string;
+        /**
+         * Parent snapshot identifier.
+         */
+        parent?: string;
+        /**
+         * Snapshot creation time
+         */
+        snaptime?: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/lxc/{vmid}/snapshot/{snapname}
+     */
+    export interface nodesLxcSnapshotSnapshotCmdIdx {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by POST /nodes/{node}/lxc/{vmid}/spiceproxy
+     */
+    export interface nodesLxcSpiceproxySpiceproxy {
+        host: string;
+        password: string;
+        proxy: string;
+        'tls-port': number;
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/lxc/{vmid}/status/current
+     */
+    export interface nodesLxcStatusCurrentVmStatus {
+        /**
+         * Maximum usable CPUs.
+         */
+        cpus?: number;
+        /**
+         * HA manager service status.
+         */
+        ha: any;
+        /**
+         * The current config lock, if any.
+         */
+        lock?: string;
+        /**
+         * Root disk size in bytes.
+         */
+        maxdisk?: number;
+        /**
+         * Maximum memory in bytes.
+         */
+        maxmem?: number;
+        /**
+         * Maximum SWAP memory in bytes.
+         */
+        maxswap?: number;
+        /**
+         * Container name.
+         */
+        name?: string;
+        /**
+         * LXC Container status.
+         */
+        status: string;
+        /**
+         * The current configured tags, if any.
+         */
+        tags?: string;
+        /**
+         * Uptime.
+         */
+        uptime?: number;
+        /**
+         * The (unique) ID of the VM.
+         */
+        vmid: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/lxc/{vmid}/status
+     */
+    export interface nodesLxcStatusVmcmdidx {
+        subdir: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by POST /nodes/{node}/lxc/{vmid}/termproxy
+     */
+    export interface nodesLxcTermproxyTermproxy {
+        port: number;
+        ticket: string;
+        upid: string;
+        user: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/lxc
+     */
+    export interface nodesLxcVm {
+        /**
+         * Maximum usable CPUs.
+         */
+        cpus?: number;
+        /**
+         * The current config lock, if any.
+         */
+        lock?: string;
+        /**
+         * Root disk size in bytes.
+         */
+        maxdisk?: number;
+        /**
+         * Maximum memory in bytes.
+         */
+        maxmem?: number;
+        /**
+         * Maximum SWAP memory in bytes.
+         */
+        maxswap?: number;
+        /**
+         * Container name.
+         */
+        name?: string;
+        /**
+         * LXC Container status.
+         */
+        status: string;
+        /**
+         * The current configured tags, if any.
+         */
+        tags?: string;
+        /**
+         * Uptime.
+         */
+        uptime?: number;
+        /**
+         * The (unique) ID of the VM.
+         */
+        vmid: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/lxc/{vmid}
+     */
+    export interface nodesLxcVmdiridx {
+        subdir: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by POST /nodes/{node}/lxc/{vmid}/vncproxy
+     */
+    export interface nodesLxcVncproxyVncproxy {
+        cert: string;
+        port: number;
+        ticket: string;
+        upid: string;
+        user: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/lxc/{vmid}/vncwebsocket
+     */
+    export interface nodesLxcVncwebsocketVncwebsocket {
+        port: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/netstat
+     */
+    export interface nodesNetstatNetstat {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/network
+     */
+    export interface nodesNetworkIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/network/{iface}
+     */
+    export interface nodesNetworkNetworkConfig {
+        method: string;
+        type: string;
         /**
          * additionalProperties
          */
@@ -2462,19 +3980,9 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/rrd
+     * Returned by GET /nodes/{node}/qemu/{vmid}/agent
      */
-    export interface nodesQemuRrdRrd {
-        filename: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/rrddata
-     */
-    export interface nodesQemuRrddataRrddata {
+    export interface nodesQemuAgentIndex {
         /**
          * additionalProperties
          */
@@ -3069,6 +4577,216 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/{node}/qemu/{vmid}/feature
+     */
+    export interface nodesQemuFeatureVmFeature {
+        hasFeature: boolean;
+        nodes: string[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/aliases
+     */
+    export interface nodesQemuFirewallAliasesGetAliases {
+        cidr: string;
+        comment?: string;
+        /**
+         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+         */
+        digest: string;
+        name: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall
+     */
+    export interface nodesQemuFirewallIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}
+     */
+    export interface nodesQemuFirewallIpsetGetIpset {
+        cidr: string;
+        comment?: string;
+        /**
+         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+         */
+        digest: string;
+        nomatch?: boolean;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/ipset
+     */
+    export interface nodesQemuFirewallIpsetIpsetIndex {
+        comment?: string;
+        /**
+         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+         */
+        digest: string;
+        /**
+         * IP set name.
+         */
+        name: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/log
+     */
+    export interface nodesQemuFirewallLogLog {
+        /**
+         * Line number
+         */
+        n: number;
+        /**
+         * Line text
+         */
+        t: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/options
+     */
+    export interface nodesQemuFirewallOptionsGetOptions {
+        /**
+         * Enable DHCP.
+         */
+        dhcp?: boolean;
+        /**
+         * Enable/disable firewall rules.
+         */
+        enable?: boolean;
+        /**
+         * Enable default IP filters. This is equivalent to adding an empty ipfilter-net<id> ipset for every interface. Such ipsets implicitly contain sane default restrictions such as restricting IPv6 link local addresses to the one derived from the interface's MAC address. For containers the configured IP addresses will be implicitly added.
+         */
+        ipfilter?: boolean;
+        /**
+         * Log level for incoming traffic.
+         */
+        log_level_in?: string;
+        /**
+         * Log level for outgoing traffic.
+         */
+        log_level_out?: string;
+        /**
+         * Enable/disable MAC address filter.
+         */
+        macfilter?: boolean;
+        /**
+         * Enable NDP (Neighbor Discovery Protocol).
+         */
+        ndp?: boolean;
+        /**
+         * Input policy.
+         */
+        policy_in?: string;
+        /**
+         * Output policy.
+         */
+        policy_out?: string;
+        /**
+         * Allow sending Router Advertisement.
+         */
+        radv?: boolean;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/refs
+     */
+    export interface nodesQemuFirewallRefsRefs {
+        comment?: string;
+        name: string;
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/rules/{pos}
+     */
+    export interface nodesQemuFirewallRulesGetRule {
+        action: string;
+        comment?: string;
+        dest?: string;
+        dport?: string;
+        enable?: number;
+        iface?: string;
+        ipversion?: number;
+        /**
+         * Log level for firewall rule
+         */
+        log?: string;
+        macro?: string;
+        pos: number;
+        proto?: string;
+        source?: string;
+        sport?: string;
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/rules
+     */
+    export interface nodesQemuFirewallRulesGetRules {
+        pos: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/qemu/{vmid}/migrate
+     */
+    export interface nodesQemuMigrateMigrateVmPrecondition {
+        /**
+         * List nodes allowed for offline migration, only passed if VM is offline
+         */
+        allowed_nodes?: string[];
+        /**
+         * List local disks including CD-Rom, unsused and not referenced disks
+         */
+        local_disks: string[];
+        /**
+         * List local resources e.g. pci, usb
+         */
+        local_resources: string[];
+        /**
+         * List not allowed nodes with additional informations, only passed if VM is offline
+         */
+        not_allowed_nodes?: any;
+        running: boolean;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /nodes/{node}/qemu/{vmid}/pending
      */
     export interface nodesQemuPendingVmPending {
@@ -3094,41 +4812,57 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/qemu/{vmid}/vncproxy
+     * Returned by GET /nodes/{node}/qemu/{vmid}/rrd
      */
-    export interface nodesQemuVncproxyVncproxy {
-        cert: string;
-        /**
-         * Returned if requested with 'generate-password' param. Consists of printable ASCII characters ('!' .. '~').
-         */
-        password?: string;
-        port: string;
-        ticket: string;
-        upid: string;
-        user: string;
+    export interface nodesQemuRrdRrd {
+        filename: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/qemu/{vmid}/termproxy
+     * Returned by GET /nodes/{node}/qemu/{vmid}/rrddata
      */
-    export interface nodesQemuTermproxyTermproxy {
-        port: number;
-        ticket: string;
-        upid: string;
-        user: string;
+    export interface nodesQemuRrddataRrddata {
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/vncwebsocket
+     * Returned by GET /nodes/{node}/qemu/{vmid}/snapshot/{snapname}
      */
-    export interface nodesQemuVncwebsocketVncwebsocket {
-        port: string;
+    export interface nodesQemuSnapshotSnapshotCmdIdx {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/qemu/{vmid}/snapshot
+     */
+    export interface nodesQemuSnapshotSnapshotList {
+        /**
+         * Snapshot description.
+         */
+        description: string;
+        /**
+         * Snapshot identifier. Value 'current' identifies the current VM.
+         */
+        name: string;
+        /**
+         * Parent snapshot identifier.
+         */
+        parent?: string;
+        /**
+         * Snapshot creation time
+         */
+        snaptime?: number;
+        /**
+         * Snapshot includes RAM.
+         */
+        vmstate?: boolean;
         /**
          * additionalProperties
          */
@@ -3150,16 +4884,6 @@ export namespace Proxmox {
         'host-subject'?: string;
         'release-cursor'?: string;
         'secure-attention'?: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/status
-     */
-    export interface nodesQemuStatusVmcmdidx {
-        subdir: string;
         /**
          * additionalProperties
          */
@@ -3235,105 +4959,32 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/feature
+     * Returned by GET /nodes/{node}/qemu/{vmid}/status
      */
-    export interface nodesQemuFeatureVmFeature {
-        hasFeature: boolean;
-        nodes: string[];
+    export interface nodesQemuStatusVmcmdidx {
+        subdir: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/migrate
+     * Returned by POST /nodes/{node}/qemu/{vmid}/termproxy
      */
-    export interface nodesQemuMigrateMigrateVmPrecondition {
-        /**
-         * List nodes allowed for offline migration, only passed if VM is offline
-         */
-        allowed_nodes?: string[];
-        /**
-         * List local disks including CD-Rom, unsused and not referenced disks
-         */
-        local_disks: string[];
-        /**
-         * List local resources e.g. pci, usb
-         */
-        local_resources: string[];
-        /**
-         * List not allowed nodes with additional informations, only passed if VM is offline
-         */
-        not_allowed_nodes?: any;
-        running: boolean;
+    export interface nodesQemuTermproxyTermproxy {
+        port: number;
+        ticket: string;
+        upid: string;
+        user: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/snapshot
+     * Returned by GET /nodes/{node}/qemu
      */
-    export interface nodesQemuSnapshotSnapshotList {
-        /**
-         * Snapshot description.
-         */
-        description: string;
-        /**
-         * Snapshot identifier. Value 'current' identifies the current VM.
-         */
-        name: string;
-        /**
-         * Parent snapshot identifier.
-         */
-        parent?: string;
-        /**
-         * Snapshot creation time
-         */
-        snaptime?: number;
-        /**
-         * Snapshot includes RAM.
-         */
-        vmstate?: boolean;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/snapshot/{snapname}
-     */
-    export interface nodesQemuSnapshotSnapshotCmdIdx {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/cpu
-     */
-    export interface nodesCpuIndex {
-        /**
-         * True if this is a custom CPU model.
-         */
-        custom: boolean;
-        /**
-         * Name of the CPU model. Identifies it for subsequent API calls. Prefixed with 'custom-' for custom models.
-         */
-        name: string;
-        /**
-         * CPU vendor visible to the guest when this model is selected. Vendor of 'reported-model' in case of custom models.
-         */
-        vendor: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc
-     */
-    export interface nodesLxcVm {
+    export interface nodesQemuVm {
         /**
          * Maximum usable CPUs.
          */
@@ -3351,19 +5002,23 @@ export namespace Proxmox {
          */
         maxmem?: number;
         /**
-         * Maximum SWAP memory in bytes.
-         */
-        maxswap?: number;
-        /**
-         * Container name.
+         * VM name.
          */
         name?: string;
         /**
-         * LXC Container status.
+         * PID of running qemu process.
+         */
+        pid?: number;
+        /**
+         * Qemu QMP agent status.
+         */
+        qmpstatus?: string;
+        /**
+         * Qemu process status.
          */
         status: string;
         /**
-         * The current configured tags, if any.
+         * The current configured tags, if any
          */
         tags?: string;
         /**
@@ -3380,9 +5035,9 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}
+     * Returned by GET /nodes/{node}/qemu/{vmid}
      */
-    export interface nodesLxcVmdiridx {
+    export interface nodesQemuVmdiridx {
         subdir: string;
         /**
          * additionalProperties
@@ -3390,467 +5045,15 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/config
+     * Returned by POST /nodes/{node}/qemu/{vmid}/vncproxy
      */
-    export interface nodesLxcConfigVmConfig {
-        /**
-         * OS architecture type.
-         */
-        arch?: string;
-        /**
-         * Console mode. By default, the console command tries to open a connection to one of the available tty devices. By setting cmode to 'console' it tries to attach to /dev/console instead. If you set cmode to 'shell', it simply invokes a shell inside the container (no login).
-         */
-        cmode?: string;
-        /**
-         * Attach a console device (/dev/console) to the container.
-         */
-        console?: boolean;
-        /**
-         * The number of cores assigned to the container. A container can use all available cores by default.
-         */
-        cores?: number;
-        /**
-         * Limit of CPU usage.
-         * NOTE: If the computer has 2 CPUs, it has a total of '2' CPU time. Value '0' indicates no CPU limit.
-         */
-        cpulimit?: number;
-        /**
-         * CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to the weights of all the other running VMs.
-         * NOTE: You can disable fair-scheduler configuration by setting this to 0.
-         */
-        cpuunits?: number;
-        /**
-         * Container description. Only used on the configuration web interface.
-         */
-        description?: string;
-        /**
-         * SHA1 digest of configuration file. This can be used to prevent concurrent modifications.
-         */
-        digest: string;
-        /**
-         * Allow containers access to advanced features.
-         */
-        features?: string;
-        /**
-         * Script that will be exectued during various steps in the containers lifetime.
-         */
-        hookscript?: string;
-        /**
-         * Set a host name for the container.
-         */
-        hostname?: string;
-        /**
-         * Lock/unlock the VM.
-         */
-        lock?: string;
-        /**
-         * Array of lxc low-level configurations ([[key1, value1], [key2, value2] ...]).
-         */
-        lxc?: string[][];
-        /**
-         * Amount of RAM for the VM in MB.
-         */
-        memory?: number;
-        /**
-         * Use volume as container mount point.
-         */
-        mp0?: string;
-        /**
-         * Use volume as container mount point.
-         */
-        mp1?: string;
-        /**
-         * Use volume as container mount point.
-         */
-        mp2?: string;
-        /**
-         * Use volume as container mount point.
-         */
-        mp3?: string;
-        /**
-         * Sets DNS server IP address for a container. Create will automatically use the setting from the host if you neither set searchdomain nor nameserver.
-         */
-        nameserver?: string;
-        /**
-         * Specifies network interfaces for the container.
-         */
-        net0?: string;
-        /**
-         * Specifies network interfaces for the container.
-         */
-        net1?: string;
-        /**
-         * Specifies network interfaces for the container.
-         */
-        net2?: string;
-        /**
-         * Specifies network interfaces for the container.
-         */
-        net3?: string;
-        /**
-         * Specifies whether a VM will be started during system bootup.
-         */
-        onboot?: boolean;
-        /**
-         * OS type. This is used to setup configuration inside the container, and corresponds to lxc setup scripts in /usr/share/lxc/config/<ostype>.common.conf. Value 'unmanaged' can be used to skip and OS specific setup.
-         */
-        ostype?: string;
-        /**
-         * Sets the protection flag of the container. This will prevent the CT or CT's disk remove/update operation.
-         */
-        protection?: boolean;
-        /**
-         * Use volume as container root.
-         */
-        rootfs?: string;
-        /**
-         * Sets DNS search domains for a container. Create will automatically use the setting from the host if you neither set searchdomain nor nameserver.
-         */
-        searchdomain?: string;
-        /**
-         * Startup and shutdown behavior. Order is a non-negative number defining the general startup order. Shutdown in done with reverse ordering. Additionally you can set the 'up' or 'down' delay in seconds, which specifies a delay to wait before the next VM is started or stopped.
-         */
-        startup?: string;
-        /**
-         * Amount of SWAP for the VM in MB.
-         */
-        swap?: number;
-        /**
-         * Tags of the Container. This is only meta information.
-         */
-        tags?: string;
-        /**
-         * Enable/disable Template.
-         */
-        template?: boolean;
-        /**
-         * Time zone to use in the container. If option isn't set, then nothing will be done. Can be set to 'host' to match the host time zone, or an arbitrary time zone option from /usr/share/zoneinfo/zone.tab
-         */
-        timezone?: string;
-        /**
-         * Specify the number of tty available to the container
-         */
-        tty?: number;
-        /**
-         * Makes the container run as unprivileged user. (Should not be modified manually.)
-         */
-        unprivileged?: boolean;
-        /**
-         * Reference to unused volumes. This is used internally, and should not be modified manually.
-         */
-        unused0?: string;
-        /**
-         * Reference to unused volumes. This is used internally, and should not be modified manually.
-         */
-        unused1?: string;
-        /**
-         * Reference to unused volumes. This is used internally, and should not be modified manually.
-         */
-        unused2?: string;
-        /**
-         * Reference to unused volumes. This is used internally, and should not be modified manually.
-         */
-        unused3?: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/status
-     */
-    export interface nodesLxcStatusVmcmdidx {
-        subdir: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/status/current
-     */
-    export interface nodesLxcStatusCurrentVmStatus {
-        /**
-         * Maximum usable CPUs.
-         */
-        cpus?: number;
-        /**
-         * HA manager service status.
-         */
-        ha: any;
-        /**
-         * The current config lock, if any.
-         */
-        lock?: string;
-        /**
-         * Root disk size in bytes.
-         */
-        maxdisk?: number;
-        /**
-         * Maximum memory in bytes.
-         */
-        maxmem?: number;
-        /**
-         * Maximum SWAP memory in bytes.
-         */
-        maxswap?: number;
-        /**
-         * Container name.
-         */
-        name?: string;
-        /**
-         * LXC Container status.
-         */
-        status: string;
-        /**
-         * The current configured tags, if any.
-         */
-        tags?: string;
-        /**
-         * Uptime.
-         */
-        uptime?: number;
-        /**
-         * The (unique) ID of the VM.
-         */
-        vmid: number;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/snapshot
-     */
-    export interface nodesLxcSnapshotList {
-        /**
-         * Snapshot description.
-         */
-        description: string;
-        /**
-         * Snapshot identifier. Value 'current' identifies the current VM.
-         */
-        name: string;
-        /**
-         * Parent snapshot identifier.
-         */
-        parent?: string;
-        /**
-         * Snapshot creation time
-         */
-        snaptime?: number;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/snapshot/{snapname}
-     */
-    export interface nodesLxcSnapshotSnapshotCmdIdx {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall
-     */
-    export interface nodesLxcFirewallIndex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/rules
-     */
-    export interface nodesLxcFirewallRulesGetRules {
-        pos: number;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/rules/{pos}
-     */
-    export interface nodesLxcFirewallRulesGetRule {
-        action: string;
-        comment?: string;
-        dest?: string;
-        dport?: string;
-        enable?: number;
-        iface?: string;
-        ipversion?: number;
-        /**
-         * Log level for firewall rule
-         */
-        log?: string;
-        macro?: string;
-        pos: number;
-        proto?: string;
-        source?: string;
-        sport?: string;
-        type: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/aliases
-     */
-    export interface nodesLxcFirewallAliasesGetAliases {
-        cidr: string;
-        comment?: string;
-        /**
-         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
-         */
-        digest: string;
-        name: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/ipset
-     */
-    export interface nodesLxcFirewallIpsetIpsetIndex {
-        comment?: string;
-        /**
-         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
-         */
-        digest: string;
-        /**
-         * IP set name.
-         */
-        name: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}
-     */
-    export interface nodesLxcFirewallIpsetGetIpset {
-        cidr: string;
-        comment?: string;
-        /**
-         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
-         */
-        digest: string;
-        nomatch?: boolean;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/options
-     */
-    export interface nodesLxcFirewallOptionsGetOptions {
-        /**
-         * Enable DHCP.
-         */
-        dhcp?: boolean;
-        /**
-         * Enable/disable firewall rules.
-         */
-        enable?: boolean;
-        /**
-         * Enable default IP filters. This is equivalent to adding an empty ipfilter-net<id> ipset for every interface. Such ipsets implicitly contain sane default restrictions such as restricting IPv6 link local addresses to the one derived from the interface's MAC address. For containers the configured IP addresses will be implicitly added.
-         */
-        ipfilter?: boolean;
-        /**
-         * Log level for incoming traffic.
-         */
-        log_level_in?: string;
-        /**
-         * Log level for outgoing traffic.
-         */
-        log_level_out?: string;
-        /**
-         * Enable/disable MAC address filter.
-         */
-        macfilter?: boolean;
-        /**
-         * Enable NDP (Neighbor Discovery Protocol).
-         */
-        ndp?: boolean;
-        /**
-         * Input policy.
-         */
-        policy_in?: string;
-        /**
-         * Output policy.
-         */
-        policy_out?: string;
-        /**
-         * Allow sending Router Advertisement.
-         */
-        radv?: boolean;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/log
-     */
-    export interface nodesLxcFirewallLogLog {
-        /**
-         * Line number
-         */
-        n: number;
-        /**
-         * Line text
-         */
-        t: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/refs
-     */
-    export interface nodesLxcFirewallRefsRefs {
-        comment?: string;
-        name: string;
-        type: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/rrd
-     */
-    export interface nodesLxcRrdRrd {
-        filename: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/rrddata
-     */
-    export interface nodesLxcRrddataRrddata {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by POST /nodes/{node}/lxc/{vmid}/vncproxy
-     */
-    export interface nodesLxcVncproxyVncproxy {
+    export interface nodesQemuVncproxyVncproxy {
         cert: string;
-        port: number;
+        /**
+         * Returned if requested with 'generate-password' param. Consists of printable ASCII characters ('!' .. '~').
+         */
+        password?: string;
+        port: string;
         ticket: string;
         upid: string;
         user: string;
@@ -3860,22 +5063,9 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/lxc/{vmid}/termproxy
+     * Returned by GET /nodes/{node}/qemu/{vmid}/vncwebsocket
      */
-    export interface nodesLxcTermproxyTermproxy {
-        port: number;
-        ticket: string;
-        upid: string;
-        user: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/vncwebsocket
-     */
-    export interface nodesLxcVncwebsocketVncwebsocket {
+    export interface nodesQemuVncwebsocketVncwebsocket {
         port: string;
         /**
          * additionalProperties
@@ -3883,194 +5073,18 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/lxc/{vmid}/spiceproxy
+     * Returned by GET /nodes/{node}/replication/{id}
      */
-    export interface nodesLxcSpiceproxySpiceproxy {
-        host: string;
-        password: string;
-        proxy: string;
-        'tls-port': number;
-        type: string;
+    export interface nodesReplicationIndex {
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/feature
+     * Returned by GET /nodes/{node}/replication/{id}/log
      */
-    export interface nodesLxcFeatureVmFeature {
-        hasFeature: boolean;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/pending
-     */
-    export interface nodesLxcPendingVmPending {
-        /**
-         * Indicates a pending delete request if present and not 0.
-         */
-        delete?: number;
-        /**
-         * Configuration option name.
-         */
-        key: string;
-        /**
-         * Pending value.
-         */
-        pending?: string;
-        /**
-         * Current value.
-         */
-        value?: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/ceph
-     */
-    export interface nodesCephIndex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/ceph/mds
-     */
-    export interface nodesCephMdsIndex {
-        addr?: string;
-        host?: string;
-        /**
-         * The name (ID) for the MDS
-         */
-        name: string;
-        rank?: number;
-        /**
-         * If true, the standby MDS is polling the active MDS for faster recovery (hot standby).
-         */
-        standby_replay?: boolean;
-        /**
-         * State of the MDS
-         */
-        state: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/ceph/mgr
-     */
-    export interface nodesCephMgrIndex {
-        addr?: string;
-        host?: string;
-        /**
-         * The name (ID) for the MGR
-         */
-        name: string;
-        /**
-         * State of the MGR
-         */
-        state: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/ceph/mon
-     */
-    export interface nodesCephMonListmon {
-        addr?: string;
-        host?: string;
-        name: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/ceph/fs
-     */
-    export interface nodesCephFsIndex {
-        /**
-         * The name of the data pool.
-         */
-        data_pool: string;
-        /**
-         * The name of the metadata pool.
-         */
-        metadata_pool: string;
-        /**
-         * The ceph filesystem name.
-         */
-        name: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/ceph/disks
-     */
-    export interface nodesCephDisksDisks {
-        dev: string;
-        gpt: boolean;
-        model?: string;
-        osdid: number;
-        serial?: string;
-        size: number;
-        used?: string;
-        vendor?: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/ceph/configdb
-     */
-    export interface nodesCephConfigdbConfigdb {
-        can_update_at_runtime: boolean;
-        level: string;
-        mask: string;
-        name: string;
-        section: string;
-        value: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/ceph/pools
-     */
-    export interface nodesCephPoolsLspools {
-        bytes_used: number;
-        crush_rule: number;
-        crush_rule_name: string;
-        min_size: number;
-        percent_used: number;
-        pg_autoscale_mode?: string;
-        pg_num: number;
-        pool: number;
-        pool_name: string;
-        size: number;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/ceph/log
-     */
-    export interface nodesCephLogLog {
+    export interface nodesReplicationLogReadJobLog {
         /**
          * Line number
          */
@@ -4085,144 +5099,29 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/ceph/rules
+     * Returned by GET /nodes/{node}/replication
      */
-    export interface nodesCephRulesRules {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/services
-     */
-    export interface nodesServicesIndex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/services/{service}
-     */
-    export interface nodesServicesSrvcmdidx {
-        subdir: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/network
-     */
-    export interface nodesNetworkIndex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/network/{iface}
-     */
-    export interface nodesNetworkNetworkConfig {
-        method: string;
-        type: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/tasks
-     */
-    export interface nodesTasksNodeTasks {
-        endtime?: number;
+    export interface nodesReplicationStatus {
         id: string;
-        node: string;
-        pid: number;
-        pstart: number;
-        starttime: number;
-        status?: string;
-        type: string;
-        upid: string;
-        user: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/tasks/{upid}
+     * Returned by GET /nodes/{node}/rrd
      */
-    export interface nodesTasksUpidIndex {
+    export interface nodesRrdRrd {
+        filename: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/tasks/{upid}/log
+     * Returned by GET /nodes/{node}/rrddata
      */
-    export interface nodesTasksLogReadTaskLog {
-        /**
-         * Line number
-         */
-        n: number;
-        /**
-         * Line text
-         */
-        t: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/tasks/{upid}/status
-     */
-    export interface nodesTasksStatusReadTaskStatus {
-        pid: number;
-        status: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/scan
-     */
-    export interface nodesScanIndex {
-        method: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/scan/zfs
-     */
-    export interface nodesScanZfsZfsscan {
-        /**
-         * ZFS pool name.
-         */
-        pool: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/scan/nfs
-     */
-    export interface nodesScanNfsNfsscan {
-        /**
-         * NFS export options.
-         */
-        options: string;
-        /**
-         * The exported path.
-         */
-        path: string;
+    export interface nodesRrddataRrddata {
         /**
          * additionalProperties
          */
@@ -4253,6 +5152,16 @@ export namespace Proxmox {
          * The volume name.
          */
         volname: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/scan
+     */
+    export interface nodesScanIndex {
+        method: string;
         /**
          * additionalProperties
          */
@@ -4302,6 +5211,23 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/{node}/scan/nfs
+     */
+    export interface nodesScanNfsNfsscan {
+        /**
+         * NFS export options.
+         */
+        options: string;
+        /**
+         * The exported path.
+         */
+        path: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /nodes/{node}/scan/usb
      */
     export interface nodesScanUsbUsbscan {
@@ -4323,9 +5249,102 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/hardware
+     * Returned by GET /nodes/{node}/scan/zfs
      */
-    export interface nodesHardwareIndex {
+    export interface nodesScanZfsZfsscan {
+        /**
+         * ZFS pool name.
+         */
+        pool: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/sdn
+     */
+    export interface nodesSdnSdnindex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/sdn/zones/{zone}/content
+     */
+    export interface nodesSdnZonesContentIndex {
+        /**
+         * Status.
+         */
+        status?: string;
+        /**
+         * Status details
+         */
+        statusmsg?: string;
+        /**
+         * Vnet identifier.
+         */
+        vnet: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/sdn/zones/{zone}
+     */
+    export interface nodesSdnZonesDiridx {
+        subdir: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/sdn/zones
+     */
+    export interface nodesSdnZonesIndex {
+        /**
+         * Status of zone
+         */
+        status: string;
+        /**
+         * The SDN zone object identifier.
+         */
+        zone: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/services
+     */
+    export interface nodesServicesIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/services/{service}
+     */
+    export interface nodesServicesSrvcmdidx {
+        subdir: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by POST /nodes/{node}/spiceshell
+     */
+    export interface nodesSpiceshellSpiceshell {
+        host: string;
+        password: string;
+        proxy: string;
+        'tls-port': number;
         type: string;
         /**
          * additionalProperties
@@ -4333,73 +5352,47 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/hardware/pci
+     * Returned by GET /nodes/{node}/storage/{storage}/content
      */
-    export interface nodesHardwarePciPciscan {
+    export interface nodesStorageContentIndex {
         /**
-         * The PCI Class of the device.
+         * Creation time (seconds since the UNIX Epoch).
          */
-        class: string;
+        ctime?: number;
         /**
-         * The Device ID.
+         * Format identifier ('raw', 'qcow2', 'subvol', 'iso', 'tgz' ...)
          */
-        device: string;
-        device_name?: string;
+        format: string;
         /**
-         * The PCI ID.
+         * Volume identifier of parent (for linked cloned).
          */
-        id: string;
+        parent?: string;
         /**
-         * The IOMMU group in which the device is in. If no IOMMU group is detected, it is set to -1.
+         * Volume size in bytes.
          */
-        iommugroup: number;
+        size: number;
         /**
-         * If set, marks that the device is capable of creating mediated devices.
+         * Used space. Please note that most storage plugins do not report anything useful here.
          */
-        mdev?: boolean;
+        used?: number;
         /**
-         * The Subsystem Device ID.
+         * Associated Owner VMID.
          */
-        subsystem_device?: string;
-        subsystem_device_name?: string;
+        vmid?: number;
         /**
-         * The Subsystem Vendor ID.
+         * Volume identifier.
          */
-        subsystem_vendor?: string;
-        subsystem_vendor_name?: string;
-        /**
-         * The Vendor ID.
-         */
-        vendor: string;
-        vendor_name?: string;
+        volid: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/hardware/pci/{pciid}
+     * Returned by GET /nodes/{node}/storage/{storage}
      */
-    export interface nodesHardwarePciPciindex {
-        method: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/hardware/pci/{pciid}/mdev
-     */
-    export interface nodesHardwarePciMdevMdevscan {
-        /**
-         * The number of still available instances of this type.
-         */
-        available: number;
-        description: string;
-        /**
-         * The name of the mdev type.
-         */
-        type: string;
+    export interface nodesStorageDiridx {
+        subdir: string;
         /**
          * additionalProperties
          */
@@ -4455,53 +5448,6 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/storage/{storage}
-     */
-    export interface nodesStorageDiridx {
-        subdir: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/storage/{storage}/content
-     */
-    export interface nodesStorageContentIndex {
-        /**
-         * Creation time (seconds since the UNIX Epoch).
-         */
-        ctime?: number;
-        /**
-         * Format identifier ('raw', 'qcow2', 'subvol', 'iso', 'tgz' ...)
-         */
-        format: string;
-        /**
-         * Volume identifier of parent (for linked cloned).
-         */
-        parent?: string;
-        /**
-         * Volume size in bytes.
-         */
-        size: number;
-        /**
-         * Used space. Please note that most storage plugins do not report anything useful here.
-         */
-        used?: number;
-        /**
-         * Associated Owner VMID.
-         */
-        vmid?: number;
-        /**
-         * Volume identifier.
-         */
-        volid: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
      * Returned by GET /nodes/{node}/storage/{storage}/rrd
      */
     export interface nodesStorageRrdRrd {
@@ -4515,635 +5461,6 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/storage/{storage}/rrddata
      */
     export interface nodesStorageRrddataRrddata {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/disks
-     */
-    export interface nodesDisksIndex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/disks/lvm
-     */
-    export interface nodesDisksLvmIndex {
-        children: {
-                /**
-                 * The underlying physical volumes
-                 */
-                children?: {
-                        /**
-                         * The free bytes in the physical volume
-                         */
-                        free: number;
-                        leaf: boolean;
-                        /**
-                         * The name of the physical volume
-                         */
-                        name: string;
-                        /**
-                         * The size of the physical volume in bytes
-                         */
-                        size: number;
-                    }[];
-                /**
-                 * The free bytes in the volume group
-                 */
-                free: number;
-                leaf: boolean;
-                /**
-                 * The name of the volume group
-                 */
-                name: string;
-                /**
-                 * The size of the volume group in bytes
-                 */
-                size: number;
-            }[];
-        leaf: boolean;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/disks/lvmthin
-     */
-    export interface nodesDisksLvmthinIndex {
-        /**
-         * The name of the thinpool.
-         */
-        lv: string;
-        /**
-         * The size of the thinpool in bytes.
-         */
-        lv_size: number;
-        /**
-         * The size of the metadata lv in bytes.
-         */
-        metadata_size: number;
-        /**
-         * The used bytes of the metadata lv.
-         */
-        metadata_used: number;
-        /**
-         * The used bytes of the thinpool.
-         */
-        used: number;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/disks/directory
-     */
-    export interface nodesDisksDirectoryIndex {
-        /**
-         * The mounted device.
-         */
-        device: string;
-        /**
-         * The mount options.
-         */
-        options: string;
-        /**
-         * The mount path.
-         */
-        path: string;
-        /**
-         * The filesystem type.
-         */
-        type: string;
-        /**
-         * The path of the mount unit.
-         */
-        unitfile: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/disks/zfs
-     */
-    export interface nodesDisksZfsIndex {
-        alloc: number;
-        dedup: number;
-        frag: number;
-        free: number;
-        health: string;
-        name: string;
-        size: number;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/disks/zfs/{name}
-     */
-    export interface nodesDisksZfsDetail {
-        /**
-         * Information about the recommended action to fix the state.
-         */
-        action?: string;
-        /**
-         * The pool configuration information, including the vdevs for each section (e.g. spares, cache), may be nested.
-         */
-        children: {
-                cksum?: number;
-                /**
-                 * An optional message about the vdev.
-                 */
-                msg: string;
-                /**
-                 * The name of the vdev or section.
-                 */
-                name: string;
-                read?: number;
-                /**
-                 * The state of the vdev.
-                 */
-                state?: string;
-                write?: number;
-            }[];
-        /**
-         * Information about the errors on the zpool.
-         */
-        errors: string;
-        /**
-         * The name of the zpool.
-         */
-        name: string;
-        /**
-         * Information about the last/current scrub.
-         */
-        scan: string;
-        /**
-         * The state of the zpool.
-         */
-        state: string;
-        /**
-         * Information about the state of the zpool.
-         */
-        status?: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/disks/list
-     */
-    export interface nodesDisksListList {
-        /**
-         * The device path
-         */
-        devpath: string;
-        gpt: boolean;
-        health?: string;
-        model?: string;
-        osdid: number;
-        serial?: string;
-        size: number;
-        used?: string;
-        vendor?: string;
-        wwn?: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/disks/smart
-     */
-    export interface nodesDisksSmartSmart {
-        attributes?: string[];
-        health: string;
-        text?: string;
-        type?: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/apt
-     */
-    export interface nodesAptIndex {
-        id: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/apt/update
-     */
-    export interface nodesAptUpdateListUpdates {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/apt/versions
-     */
-    export interface nodesAptVersionsVersions {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/firewall
-     */
-    export interface nodesFirewallIndex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/firewall/rules
-     */
-    export interface nodesFirewallRulesGetRules {
-        pos: number;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/firewall/rules/{pos}
-     */
-    export interface nodesFirewallRulesGetRule {
-        action: string;
-        comment?: string;
-        dest?: string;
-        dport?: string;
-        enable?: number;
-        iface?: string;
-        ipversion?: number;
-        /**
-         * Log level for firewall rule
-         */
-        log?: string;
-        macro?: string;
-        pos: number;
-        proto?: string;
-        source?: string;
-        sport?: string;
-        type: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/firewall/options
-     */
-    export interface nodesFirewallOptionsGetOptions {
-        /**
-         * Enable host firewall rules.
-         */
-        enable?: boolean;
-        /**
-         * Log level for incoming traffic.
-         */
-        log_level_in?: string;
-        /**
-         * Log level for outgoing traffic.
-         */
-        log_level_out?: string;
-        /**
-         * Enable logging of conntrack information.
-         */
-        log_nf_conntrack?: boolean;
-        /**
-         * Enable NDP (Neighbor Discovery Protocol).
-         */
-        ndp?: boolean;
-        /**
-         * Allow invalid packets on connection tracking.
-         */
-        nf_conntrack_allow_invalid?: boolean;
-        /**
-         * Maximum number of tracked connections.
-         */
-        nf_conntrack_max?: number;
-        /**
-         * Conntrack established timeout.
-         */
-        nf_conntrack_tcp_timeout_established?: number;
-        /**
-         * Conntrack syn recv timeout.
-         */
-        nf_conntrack_tcp_timeout_syn_recv?: number;
-        /**
-         * Enable SMURFS filter.
-         */
-        nosmurfs?: boolean;
-        /**
-         * Enable synflood protection
-         */
-        protection_synflood?: boolean;
-        /**
-         * Synflood protection rate burst by ip src.
-         */
-        protection_synflood_burst?: number;
-        /**
-         * Synflood protection rate syn/sec by ip src.
-         */
-        protection_synflood_rate?: number;
-        /**
-         * Log level for SMURFS filter.
-         */
-        smurf_log_level?: string;
-        /**
-         * Log level for illegal tcp flags filter.
-         */
-        tcp_flags_log_level?: string;
-        /**
-         * Filter illegal combinations of TCP flags.
-         */
-        tcpflags?: boolean;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/firewall/log
-     */
-    export interface nodesFirewallLogLog {
-        /**
-         * Line number
-         */
-        n: number;
-        /**
-         * Line text
-         */
-        t: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/replication
-     */
-    export interface nodesReplicationStatus {
-        id: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/replication/{id}
-     */
-    export interface nodesReplicationIndex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/replication/{id}/log
-     */
-    export interface nodesReplicationLogReadJobLog {
-        /**
-         * Line number
-         */
-        n: number;
-        /**
-         * Line text
-         */
-        t: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/certificates
-     */
-    export interface nodesCertificatesIndex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/certificates/acme
-     */
-    export interface nodesCertificatesAcmeIndex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/certificates/info
-     */
-    export interface nodesCertificatesInfoInfo {
-        filename?: string;
-        /**
-         * Certificate SHA 256 fingerprint.
-         */
-        fingerprint?: string;
-        /**
-         * Certificate issuer name.
-         */
-        issuer?: string;
-        /**
-         * Certificate's notAfter timestamp (UNIX epoch).
-         */
-        notafter?: number;
-        /**
-         * Certificate's notBefore timestamp (UNIX epoch).
-         */
-        notbefore?: number;
-        /**
-         * Certificate in PEM format
-         */
-        pem?: string;
-        /**
-         * Certificate's public key size
-         */
-        'public-key-bits'?: number;
-        /**
-         * Certificate's public key algorithm
-         */
-        'public-key-type'?: string;
-        /**
-         * List of Certificate's SubjectAlternativeName entries.
-         */
-        san?: string[];
-        /**
-         * Certificate subject name.
-         */
-        subject?: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by POST /nodes/{node}/certificates/custom
-     */
-    export interface nodesCertificatesCustomUploadCustomCert {
-        filename?: string;
-        /**
-         * Certificate SHA 256 fingerprint.
-         */
-        fingerprint?: string;
-        /**
-         * Certificate issuer name.
-         */
-        issuer?: string;
-        /**
-         * Certificate's notAfter timestamp (UNIX epoch).
-         */
-        notafter?: number;
-        /**
-         * Certificate's notBefore timestamp (UNIX epoch).
-         */
-        notbefore?: number;
-        /**
-         * Certificate in PEM format
-         */
-        pem?: string;
-        /**
-         * Certificate's public key size
-         */
-        'public-key-bits'?: number;
-        /**
-         * Certificate's public key algorithm
-         */
-        'public-key-type'?: string;
-        /**
-         * List of Certificate's SubjectAlternativeName entries.
-         */
-        san?: string[];
-        /**
-         * Certificate subject name.
-         */
-        subject?: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/sdn
-     */
-    export interface nodesSdnSdnindex {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/sdn/zones
-     */
-    export interface nodesSdnZonesIndex {
-        /**
-         * Status of zone
-         */
-        status: string;
-        /**
-         * The SDN zone object identifier.
-         */
-        zone: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/sdn/zones/{zone}
-     */
-    export interface nodesSdnZonesDiridx {
-        subdir: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/sdn/zones/{zone}/content
-     */
-    export interface nodesSdnZonesContentIndex {
-        /**
-         * Status.
-         */
-        status?: string;
-        /**
-         * Status details
-         */
-        statusmsg?: string;
-        /**
-         * Vnet identifier.
-         */
-        vnet: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/version
-     */
-    export interface nodesVersionVersion {
-        /**
-         * The current installed Proxmox VE Release
-         */
-        release: string;
-        /**
-         * The short git commit hash ID from which this version was build
-         */
-        repoid: string;
-        /**
-         * The current installed pve-manager package version
-         */
-        version: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/netstat
-     */
-    export interface nodesNetstatNetstat {
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/rrd
-     */
-    export interface nodesRrdRrd {
-        filename: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/rrddata
-     */
-    export interface nodesRrddataRrddata {
         /**
          * additionalProperties
          */
@@ -5167,14 +5484,56 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/vncshell
+     * Returned by GET /nodes/{node}/tasks/{upid}/log
      */
-    export interface nodesVncshellVncshell {
-        cert: string;
-        port: number;
-        ticket: string;
+    export interface nodesTasksLogReadTaskLog {
+        /**
+         * Line number
+         */
+        n: number;
+        /**
+         * Line text
+         */
+        t: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/tasks
+     */
+    export interface nodesTasksNodeTasks {
+        endtime?: number;
+        id: string;
+        node: string;
+        pid: number;
+        pstart: number;
+        starttime: number;
+        status?: string;
+        type: string;
         upid: string;
         user: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/tasks/{upid}/status
+     */
+    export interface nodesTasksStatusReadTaskStatus {
+        pid: number;
+        status: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/tasks/{upid}
+     */
+    export interface nodesTasksUpidIndex {
         /**
          * additionalProperties
          */
@@ -5188,55 +5547,6 @@ export namespace Proxmox {
         ticket: string;
         upid: string;
         user: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/vncwebsocket
-     */
-    export interface nodesVncwebsocketVncwebsocket {
-        port: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by POST /nodes/{node}/spiceshell
-     */
-    export interface nodesSpiceshellSpiceshell {
-        host: string;
-        password: string;
-        proxy: string;
-        'tls-port': number;
-        type: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/dns
-     */
-    export interface nodesDnsDns {
-        /**
-         * First name server IP address.
-         */
-        dns1?: string;
-        /**
-         * Second name server IP address.
-         */
-        dns2?: string;
-        /**
-         * Third name server IP address.
-         */
-        dns3?: string;
-        /**
-         * Search domain for host-name lookup.
-         */
-        search?: string;
         /**
          * additionalProperties
          */
@@ -5264,365 +5574,45 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/aplinfo
+     * Returned by GET /nodes/{node}/version
      */
-    export interface nodesAplinfoAplinfo {
+    export interface nodesVersionVersion {
+        /**
+         * The current installed Proxmox VE Release
+         */
+        release: string;
+        /**
+         * The short git commit hash ID from which this version was build
+         */
+        repoid: string;
+        /**
+         * The current installed pve-manager package version
+         */
+        version: string;
         /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/hosts
+     * Returned by POST /nodes/{node}/vncshell
      */
-    export interface nodesHostsGetEtcHosts {
-        /**
-         * The content of /etc/hosts.
-         */
-        data: string;
-        /**
-         * Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
-         */
-        digest?: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /storage
-     */
-    export interface storageIndex {
-        storage: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /access
-     */
-    export interface accessIndex {
-        subdir: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /access/users
-     */
-    export interface accessUsersIndex {
-        comment?: string;
-        email?: string;
-        /**
-         * Enable the account (default). You can set this to '0' to disable the account
-         */
-        enable?: boolean;
-        /**
-         * Account expiration date (seconds since epoch). '0' means no expiration date.
-         */
-        expire?: number;
-        firstname?: string;
-        groups?: string;
-        /**
-         * Keys for two factor auth (yubico).
-         */
-        keys?: string;
-        lastname?: string;
-        tokens?: {
-                comment?: string;
-                /**
-                 * API token expiration date (seconds since epoch). '0' means no expiration date.
-                 */
-                expire?: number;
-                /**
-                 * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
-                 */
-                privsep?: boolean;
-                /**
-                 * User-specific token identifier.
-                 */
-                tokenid: string;
-            }[];
-        /**
-         * User ID
-         */
-        userid: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /access/users/{userid}
-     */
-    export interface accessUsersReadUser {
-        comment?: string;
-        email?: string;
-        /**
-         * Enable the account (default). You can set this to '0' to disable the account
-         */
-        enable?: boolean;
-        /**
-         * Account expiration date (seconds since epoch). '0' means no expiration date.
-         */
-        expire?: number;
-        firstname?: string;
-        groups?: string[];
-        /**
-         * Keys for two factor auth (yubico).
-         */
-        keys?: string;
-        lastname?: string;
-        tokens?: any;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /access/users/{userid}/tfa
-     */
-    export interface accessUsersTfaReadUserTfaType {
-        /**
-         * The type of TFA the users realm has set, if any.
-         */
-        realm?: string;
-        /**
-         * The type of TFA the user has set, if any.
-         */
-        user?: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /access/users/{userid}/token
-     */
-    export interface accessUsersTokenTokenIndex {
-        comment?: string;
-        /**
-         * API token expiration date (seconds since epoch). '0' means no expiration date.
-         */
-        expire?: number;
-        /**
-         * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
-         */
-        privsep?: boolean;
-        /**
-         * User-specific token identifier.
-         */
-        tokenid: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /access/users/{userid}/token/{tokenid}
-     */
-    export interface accessUsersTokenReadToken {
-        comment?: string;
-        /**
-         * API token expiration date (seconds since epoch). '0' means no expiration date.
-         */
-        expire?: number;
-        /**
-         * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
-         */
-        privsep?: boolean;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by POST /access/users/{userid}/token/{tokenid}
-     */
-    export interface accessUsersTokenGenerateToken {
-        /**
-         * The full token id.
-         */
-        'full-tokenid': string;
-        info: {
-                comment?: string;
-                /**
-                 * API token expiration date (seconds since epoch). '0' means no expiration date.
-                 */
-                expire?: number;
-                /**
-                 * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
-                 */
-                privsep?: boolean;
-            };
-        /**
-         * API token value used for authentication.
-         */
-        value: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by PUT /access/users/{userid}/token/{tokenid}
-     */
-    export interface accessUsersTokenUpdateTokenInfo {
-        comment?: string;
-        /**
-         * API token expiration date (seconds since epoch). '0' means no expiration date.
-         */
-        expire?: number;
-        /**
-         * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
-         */
-        privsep?: boolean;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /access/groups
-     */
-    export interface accessGroupsIndex {
-        comment?: string;
-        groupid: string;
-        /**
-         * list of users which form this group
-         */
-        users?: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /access/groups/{groupid}
-     */
-    export interface accessGroupsReadGroup {
-        comment?: string;
-        members: string[];
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /access/roles
-     */
-    export interface accessRolesIndex {
-        privs?: string;
-        roleid: string;
-        special?: boolean;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /access/roles/{roleid}
-     */
-    export interface accessRolesReadRole {
-        'Datastore.Allocate'?: boolean;
-        'Datastore.AllocateSpace'?: boolean;
-        'Datastore.AllocateTemplate'?: boolean;
-        'Datastore.Audit'?: boolean;
-        'Group.Allocate'?: boolean;
-        'Permissions.Modify'?: boolean;
-        'Pool.Allocate'?: boolean;
-        'Realm.Allocate'?: boolean;
-        'Realm.AllocateUser'?: boolean;
-        'SDN.Allocate'?: boolean;
-        'SDN.Audit'?: boolean;
-        'Sys.Audit'?: boolean;
-        'Sys.Console'?: boolean;
-        'Sys.Modify'?: boolean;
-        'Sys.PowerMgmt'?: boolean;
-        'Sys.Syslog'?: boolean;
-        'User.Modify'?: boolean;
-        'VM.Allocate'?: boolean;
-        'VM.Audit'?: boolean;
-        'VM.Backup'?: boolean;
-        'VM.Clone'?: boolean;
-        'VM.Config.CDROM'?: boolean;
-        'VM.Config.CPU'?: boolean;
-        'VM.Config.Cloudinit'?: boolean;
-        'VM.Config.Disk'?: boolean;
-        'VM.Config.HWType'?: boolean;
-        'VM.Config.Memory'?: boolean;
-        'VM.Config.Network'?: boolean;
-        'VM.Config.Options'?: boolean;
-        'VM.Console'?: boolean;
-        'VM.Migrate'?: boolean;
-        'VM.Monitor'?: boolean;
-        'VM.PowerMgmt'?: boolean;
-        'VM.Snapshot'?: boolean;
-        'VM.Snapshot.Rollback'?: boolean;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /access/acl
-     */
-    export interface accessAclReadAcl {
-        /**
-         * Access control path
-         */
-        path: string;
-        /**
-         * Allow to propagate (inherit) permissions.
-         */
-        propagate?: boolean;
-        roleid: string;
-        type: string;
-        ugid: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /access/domains
-     */
-    export interface accessDomainsIndex {
-        /**
-         * A comment. The GUI use this text when you select a domain (Realm) on the login window.
-         */
-        comment?: string;
-        realm: string;
-        /**
-         * Two-factor authentication provider.
-         */
-        tfa?: string;
-        type: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by POST /access/ticket
-     */
-    export interface accessTicketCreateTicket {
-        CSRFPreventionToken?: string;
-        clustername?: string;
-        ticket?: string;
-        username: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by POST /access/tfa
-     */
-    export interface accessTfaVerifyTfa {
+    export interface nodesVncshellVncshell {
+        cert: string;
+        port: number;
         ticket: string;
+        upid: string;
+        user: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/vncwebsocket
+     */
+    export interface nodesVncwebsocketVncwebsocket {
+        port: string;
         /**
          * additionalProperties
          */
@@ -5650,6 +5640,16 @@ export namespace Proxmox {
                 type: string;
                 vmid?: number;
             }[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /storage
+     */
+    export interface storageIndex {
+        storage: string;
         /**
          * additionalProperties
          */

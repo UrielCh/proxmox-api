@@ -89,7 +89,8 @@ export interface PveParametersString extends PveParametersCommon {
 export interface PveParametersBoolean extends PveParametersCommon {
     type: 'boolean';
     default?: number | '1' | '0' | "yes" | 'off';
-    title?: string; // NEW PVE 7
+    // @since PVE 7
+    title?: string;
     // reference to an other key of the current object
     requires?: string; // "delete" | "todisk" | "archive" | "db_dev" | "wal_dev";
     typetext?: string; //"<boolean>" | "<string>" | "<integer>" | "<integer> (0 - N)" | "<number> (1 - N)" | "<integer> (1 - N)" | "[address=]<IP> [,priority=<integer>]"|"[[type=]<enum>] [,memory=<integer>]"|"<integer> (0 - 8)"| "<volume>"| "[meta=<volume>] [,network=<volume>] [,user=<volume>]"|"<integer> (16 - N)"| "<number> (0 - N)" | "<type>:<name>"| "<node>[:<pri>]{,<node>[:<pri>]}*"|"<name>"|"[gw=<GatewayIPv4>] [,gw6=<GatewayIPv6>] [,ip=<IPv4Format/CIDR>] [,ip6=<IPv6Format/CIDR>]"|"[file=]<volume> [,aio=<native|threads>] [,backup=<1|0>] [,bps=<bps>] [,bps_max_length=<seconds>] [,bps_rd=<bps>] [,bps_rd_max_length=<seconds>] [,bps_wr=<bps>] [,bps_wr_max_length=<seconds>] [,cache=<enum>] [,cyls=<integer>] [,detect_zeroes=<1|0>] [,discard=<ignore|on>] [,format=<enum>] [,heads=<integer>] [,iops=<iops>] [,iops_max=<iops>] [,iops_max_length=<seconds>] [,iops_rd=<iops>] [,iops_rd_max=<iops>] [,iops_rd_max_length=<seconds>] [,iops_wr=<iops>] [,iops_wr_max=<iops>] [,iops_wr_max_length=<seconds>] [,mbps=<mbps>] [,mbps_max=<mbps>] [,mbps_rd=<mbps>] [,mbps_rd_max=<mbps>] [,mbps_wr=<mbps>] [,mbps_wr_max=<mbps>] [,media=<cdrom|disk>] [,model=<model>] [,replicate=<1|0>] [,rerror=<ignore|report|stop>] [,secs=<integer>] [,serial=<serial>] [,shared=<1|0>] [,size=<DiskSize>] [,snapshot=<1|0>] [,ssd=<1|0>] [,trans=<none|lba|auto>] [,werror=<enum>] [,wwn=<wwn>]"|"size=<integer> [,name=<string>]";
@@ -101,7 +102,8 @@ export interface PveCallParametersNull extends PveParametersCommon {
 
 export interface PveParametersArray extends PveParametersCommon {
     type: "array";
-    title?: string; // NEW PVE 7
+    // @since PVE 7
+    title?: string;
     // if not set use a PveParametersString
     items?: PveParametersObject | PveParametersString | PveParametersArray | PveParametersNumber | PveParametersInteger, // subset of PveCallParameters,
     links?: { href: string, rel: "child" }[];
@@ -110,7 +112,8 @@ export interface PveParametersArray extends PveParametersCommon {
 
 export interface PveParametersObject extends PveParametersCommon {
     type: "object";
-    title?: string; // NEW PVE 7
+    // @since PVE 7
+    title?: string;
     properties?: { [name: string]: PveParametersString | PveParametersArray | PveParametersBoolean | PveParametersObject | PveParametersInteger | PveParametersNumber};
 }
 
@@ -119,7 +122,7 @@ export interface PveParametersUndef extends PveParametersCommon {
     properties?: { [name: string]: PveParametersString | PveParametersArray | PveParametersBoolean | PveParametersObject | PveParametersInteger | PveParametersNumber};
 }
 
-// NEW PVE 7.0
+// @since PVE 7
 export interface PveParametersAny extends PveParametersCommon {
     type: "any";
 }

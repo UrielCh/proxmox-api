@@ -1,4 +1,5 @@
 import pveapi from './pveapi6';
+// import pveapi from './pveapi7';
 import { pveApiNode, PveCallParameters, PveCallDesc, PveParametersArray, PveParametersObject, PveHttpMtd, PveParametersUndef } from './pveapiModel';
 import fs from 'fs';
 import path from 'path';
@@ -45,7 +46,8 @@ const unNify = (propName: string): string[] => {
 const TAB = '    ';
 
 export class Generator {
-    retTypes = [] as string[];
+    // retTypes = [] as string[];
+    retTypes: { [key: string]: string } = {};
 
     code = [] as string[];
     // lineoffset = '';
@@ -57,15 +59,35 @@ export class Generator {
         const header = 'export namespace Proxmox {';
         const typings = this.getNewType().join(EOL)
         const code = this.code.join(EOL);
-        const retTypes = this.retTypes.join(EOL);
+        // const retTypes = this.retTypes.join(EOL);
+        const retTypes = this.getretTypes().join(EOL);
         const footer = `}${EOL}export default Proxmox;`;
 
         return header + EOL + typings + EOL + retTypes + EOL + code + EOL + footer + EOL;
     }
 
     getNewType(): string[] {
-        return Object.values(this.usedNamed);
+        const keys = Object.keys(this.usedNamed);
+        keys.sort();
+        const types: string[] = [];
+        for (const key of keys) {
+            types.push(this.usedNamed[key]);
+        }
+        return types;
+        // return Object.values(this.usedNamed);
     }
+
+    getretTypes(): string[] {
+        const keys = Object.keys(this.retTypes);
+        keys.sort();
+        const types: string[] = [];
+        for (const key of keys) {
+            types.push(this.retTypes[key]);
+        }
+        return types;
+        // return Object.values(this.usedNamed);
+    }
+
 
     mapType2(pveType: PveCallParameters, name: string): string {
         name = name.replace(/-/g, '');
@@ -150,6 +172,7 @@ export class Generator {
         let newType = `${newTypePrefix}`;
         let i = 1;
         while (this.usedNamed[newType]) {
+            // handle colision
             newType = `${newTypePrefix}_${i++}`;
         }
         this.type2TypeName[key] = newType;
@@ -429,10 +452,14 @@ export class Generator {
             // this.retTypes.push(`export type ${TypeName} = ${fullType};`);
         }
         else {
-            this.retTypes.push(`${TAB}/**`);
-            this.retTypes.push(`${TAB} * Returned by ${theInfo.method} ${node.path}`);
-            this.retTypes.push(`${TAB} */`);
-            this.retTypes.push(`${TAB}export interface ${typeName} ${fullType}`);
+            const code = [
+                `${TAB}/**`,
+                `${TAB} * Returned by ${theInfo.method} ${node.path}`,
+                `${TAB} */`,
+                `${TAB}export interface ${typeName} ${fullType}`,
+            ];
+            this.retTypes[typeName] = code.join(EOL);
+//            this.retTypes.push(
         }
         return typeName + retTypeOptfix;
     }
@@ -440,5 +467,6 @@ export class Generator {
 const gen = new Generator();
 gen.start();
 const dest = path.join(__dirname, '..', '..', 'api', 'src', 'model.ts');
-console.log('writing to ', dest);
+console.log(`Writing to ${dest}`);
 fs.writeFileSync(dest, gen.getFinalData(), { encoding: 'utf8' })
+console.log(`${dest} Updated.`);
