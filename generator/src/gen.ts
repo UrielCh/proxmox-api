@@ -1,4 +1,4 @@
-import pveapi from './pveapi';
+import pveapi from './pveapi6';
 import { pveApiNode, PveCallParameters, PveCallDesc, PveParametersArray, PveParametersObject, PveHttpMtd, PveParametersUndef } from './pveapiModel';
 import fs from 'fs';
 import path from 'path';
@@ -418,6 +418,8 @@ export class Generator {
             return 'boolean' + retTypeOptfix
         } else if (returns.type === 'string') {
             return 'string' + retTypeOptfix
+        } else if (returns.type === 'any') {
+            return 'any'
         } else if (returns.properties) {
             fullType = this.genModelObject(returns, `${TAB}`, additionalProperties || 1);
         }

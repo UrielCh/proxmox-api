@@ -1,6 +1,5 @@
 # api client generator
 
-
 to submit change to the main proxmox:
 
 ##  api-viewer present here:
@@ -20,7 +19,11 @@ T.map(A=>`git clone https://git.proxmox.com/git/${A}`).join('\n')
 ```
 grep -r 'Mark replication job for removal' pve*
 
+## API doc fixs:
 
+replace "minimum": "0" by  "minimum": 0
+replace "optional": "1" by  "optional": 1
+add missing "type": "string" in parameter without "type" field
 
 ## project
 git clone https://git.proxmox.com/git/aab.git
