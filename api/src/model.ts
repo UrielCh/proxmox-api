@@ -11,12 +11,12 @@ export namespace Proxmox {
      */
     export type CIDR_1 = string;
     /**
-     * Anycast router ipv4 address.
+     * IPv4 CIDR.
      * @format CIDRv4
      */
     export type CIDRv4 = string;
     /**
-     * Anycast router ipv6 address.
+     * IPv6 CIDR.
      * @format CIDRv6
      */
     export type CIDRv6 = string;
@@ -66,7 +66,7 @@ export namespace Proxmox {
      */
     export type String0_4096 = string;
     /**
-     * Ticket from previous call to vncproxy.
+     * Description for the Job.
      * @maxLength 512
      */
     export type String0_512 = string;
@@ -81,10 +81,20 @@ export namespace Proxmox {
      */
     export type String0_64 = string;
     /**
-     * Data to pass as 'input-data' to the guest. Usually treated as STDIN to 'command'.
+     * Datacenter description. Shown in the web-interface datacenter notes panel. This is saved as comment inside the configuration file.
      * @maxLength 65536
      */
     export type String0_65536 = string;
+    /**
+     * Digest to detect modifications.
+     * @maxLength 80
+     */
+    export type String0_80 = string;
+    /**
+     * Description for the VM. Shown in the web-interface VM's summary. This is saved as comment inside the configuration file.
+     * @maxLength 8192
+     */
+    export type String0_8192 = string;
     /**
      * The new password.
      * @minLength 5
@@ -115,20 +125,22 @@ export namespace Proxmox {
      */
     export type Taction = string;
     /**
-     * The action to perform
-     */
-    export type Taction_1 = 'confirm' | 'delete' | 'new';
-    /**
-     * Enable/disable Qemu GuestAgent and its properties.
-     * @format {"enabled":{"default":0,"default_key":1,"description":"Enable/disable Qemu GuestAgent.","type":"boolean"},"fstrim_cloned_disks":{"default":0,"description":"Run fstrim after cloning/moving a disk.","optional":1,"type":"boolean"},"type":{"default":"virtio","description":"Select the agent type","enum":["virtio","isa"],"optional":1,"type":"string"}}
+     * Enable/disable communication with the Qemu Guest Agent and its properties.
+     * @format {"enabled":{"default":0,"default_key":1,"description":"Enable/disable communication with a Qemu Guest Agent (QGA) running in the VM.","type":"boolean"},"fstrim_cloned_disks":{"default":0,"description":"Run fstrim after moving a disk or migrating the VM.","optional":1,"type":"boolean"},"type":{"default":"virtio","description":"Select the agent type","enum":["virtio","isa"],"optional":1,"type":"string"}}
      */
     export type Tagent = string;
     /**
+     * alias name of the vnet
+     * @pattern (?^i:[\(\)-_.\w\d\s]{0,256})
+     * @maxLength 256
+     */
+    export type Talias = string;
+    /**
      * API plugin name
      */
-    export type Tapi = 'acmedns' | 'acmeproxy' | 'active24' | 'ad' | 'ali' | 'autodns' | 'aws' | 'azure' | 'cf' | 'clouddns' | 'cloudns' | 'cn' | 'conoha' | 'constellix' | 'cx' | 'cyon' | 'da' | 'ddnss' | 'desec' | 'df' | 'dgon' | 'dnsimple' | 'do' | 'doapi' | 'domeneshop' | 'dp' | 'dpi' | 'dreamhost' | 'duckdns' | 'durabledns' | 'dyn' | 'dynu' | 'dynv6' | 'easydns' | 'euserv' | 'exoscale' | 'freedns' | 'gandi_livedns' | 'gcloud' | 'gd' | 'gdnsdk' | 'he' | 'hexonet' | 'hostingde' | 'infoblox' | 'internetbs' | 'inwx' | 'ispconfig' | 'jd' | 'kas' | 'kinghost' | 'knot' | 'leaseweb' | 'lexicon' | 'linode' | 'linode_v4' | 'loopia' | 'lua' | 'maradns' | 'me' | 'miab' | 'misaka' | 'myapi' | 'mydevil' | 'mydnsjp' | 'namecheap' | 'namecom' | 'namesilo' | 'nederhost' | 'neodigit' | 'netcup' | 'nic' | 'nsd' | 'nsone' | 'nsupdate' | 'nw' | 'one' | 'online' | 'openprovider' | 'opnsense' | 'ovh' | 'pdns' | 'pleskxml' | 'pointhq' | 'rackspace' | 'rcode0' | 'regru' | 'schlundtech' | 'selectel' | 'servercow' | 'tele3' | 'ultra' | 'unoeuro' | 'variomedia' | 'vscale' | 'vultr' | 'yandex' | 'zilore' | 'zone' | 'zonomi';
+    export type Tapi = '1984hosting' | 'acmedns' | 'acmeproxy' | 'active24' | 'ad' | 'ali' | 'anx' | 'arvan' | 'aurora' | 'autodns' | 'aws' | 'azion' | 'azure' | 'cf' | 'clouddns' | 'cloudns' | 'cn' | 'conoha' | 'constellix' | 'cx' | 'cyon' | 'da' | 'ddnss' | 'desec' | 'df' | 'dgon' | 'dnsimple' | 'do' | 'doapi' | 'domeneshop' | 'dp' | 'dpi' | 'dreamhost' | 'duckdns' | 'durabledns' | 'dyn' | 'dynu' | 'dynv6' | 'easydns' | 'edgedns' | 'euserv' | 'exoscale' | 'freedns' | 'gandi_livedns' | 'gcloud' | 'gd' | 'gdnsdk' | 'he' | 'hetzner' | 'hexonet' | 'hostingde' | 'huaweicloud' | 'infoblox' | 'infomaniak' | 'internetbs' | 'inwx' | 'ionos' | 'ispconfig' | 'jd' | 'joker' | 'kappernet' | 'kas' | 'kinghost' | 'knot' | 'leaseweb' | 'lexicon' | 'linode' | 'linode_v4' | 'loopia' | 'lua' | 'maradns' | 'me' | 'miab' | 'misaka' | 'myapi' | 'mydevil' | 'mydnsjp' | 'namecheap' | 'namecom' | 'namesilo' | 'nederhost' | 'neodigit' | 'netcup' | 'netlify' | 'nic' | 'njalla' | 'nm' | 'nsd' | 'nsone' | 'nsupdate' | 'nw' | 'oci' | 'one' | 'online' | 'openprovider' | 'openstack' | 'opnsense' | 'ovh' | 'pdns' | 'pleskxml' | 'pointhq' | 'porkbun' | 'rackcorp' | 'rackspace' | 'rcode0' | 'regru' | 'scaleway' | 'schlundtech' | 'selectel' | 'servercow' | 'simply' | 'tele3' | 'transip' | 'ultra' | 'unoeuro' | 'variomedia' | 'veesp' | 'vscale' | 'vultr' | 'websupport' | 'world4you' | 'yandex' | 'zilore' | 'zone' | 'zonomi';
     /**
-     * The application of the pool, 'rbd' by default.
+     * The application of the pool.
      */
     export type Tapplication = 'cephfs' | 'rbd' | 'rgw';
     /**
@@ -141,7 +153,7 @@ export namespace Proxmox {
     export type Tarch_1 = 'amd64' | 'arm64' | 'armhf' | 'i386';
     /**
      * Configure a audio device, useful in combination with QXL/Spice.
-     * @format {"device":{"description":"Configure an audio device.","enum":["ich9-intel-hda","intel-hda","AC97"],"type":"string"},"driver":{"default":"spice","description":"Driver backend for the audio device.","enum":["spice"],"optional":1,"type":"string"}}
+     * @format {"device":{"description":"Configure an audio device.","enum":["ich9-intel-hda","intel-hda","AC97"],"type":"string"},"driver":{"default":"spice","description":"Driver backend for the audio device.","enum":["spice","none"],"optional":1,"type":"string"}}
      */
     export type Taudio0 = string;
     /**
@@ -163,11 +175,6 @@ export namespace Proxmox {
      */
     export type Tbond_xmit_hash_policy = 'layer2' | 'layer2+3' | 'layer3+4';
     /**
-     * Boot on floppy (a), hard disk (c), CD-ROM (d), or network (n).
-     * @pattern [acdn]{1,4}
-     */
-    export type Tboot = string;
-    /**
      * Set bandwidth/io limits various operations.
      * @format {"clone":{"description":"bandwidth limit in KiB/s for cloning disks","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"},"default":{"description":"default bandwidth limit in KiB/s","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"},"migration":{"description":"bandwidth limit in KiB/s for migrating guests (including moving local disks)","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"},"move":{"description":"bandwidth limit in KiB/s for moving disks","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"},"restore":{"description":"bandwidth limit in KiB/s for restoring guests from backups","format_description":"LIMIT","minimum":0,"optional":1,"type":"number"}}
      */
@@ -177,9 +184,13 @@ export namespace Proxmox {
      */
     export type Tcf = 'AVERAGE' | 'MAX';
     /**
+     * The algorithm to calculate the checksum of the file.
+     */
+    export type Tchecksumalgorithm = 'md5' | 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
+    /**
      * Specifies the cloud-init configuration format. The default depends on the configured operating system type (`ostype`. We use the `nocloud` format for Linux, and `configdrive2` for windows.
      */
-    export type Tcitype = 'configdrive2' | 'nocloud';
+    export type Tcitype = 'configdrive2' | 'nocloud' | 'opennebula';
     /**
      * Run specific command or default to login.
      */
@@ -203,7 +214,7 @@ export namespace Proxmox {
     /**
      * The compression algorithm to use.
      */
-    export type Tcompression = 'gzip' | 'lz4' | 'lzjb' | 'off' | 'on' | 'zle';
+    export type Tcompression = 'gzip' | 'lz4' | 'lzjb' | 'off' | 'on' | 'zle' | 'zstd';
     /**
      * Select the default Console viewer. You can either use the builtin java applet (VNC; deprecated and maps to html5), an external virt-viewer comtatible application (SPICE), an HTML5 based vnc viewer (noVNC), or an HTML5 based console client (xtermjs). If the selected viewer is not available (e.g. SPICE not activated for the VM), the fallback is noVNC.
      */
@@ -217,6 +228,18 @@ export namespace Proxmox {
      */
     export type Tcpulimit = number;
     /**
+     * Limit of CPU usage.
+     * NOTE: If the computer has 2 CPUs, it has a total of '2' CPU time. Value '0' indicates no CPU limit.
+     * @minimum 0
+     * @maximum 8192
+     * @type number
+     */
+    export type Tcpulimit_1 = number;
+    /**
+     * The rule to use for mapping object placement in the cluster.
+     */
+    export type Tcrush_rule = string;
+    /**
      * URL of ACME CA directory endpoint.
      * @pattern ^https?://.*
      */
@@ -224,16 +247,20 @@ export namespace Proxmox {
     /**
      * The disk you want to move.
      */
-    export type Tdisk = 'efidisk0' | 'ide0' | 'ide1' | 'ide2' | 'ide3' | 'sata0' | 'sata1' | 'sata2' | 'sata3' | 'sata4' | 'sata5' | 'scsi0' | 'scsi1' | 'scsi10' | 'scsi11' | 'scsi12' | 'scsi13' | 'scsi14' | 'scsi15' | 'scsi16' | 'scsi17' | 'scsi18' | 'scsi19' | 'scsi2' | 'scsi20' | 'scsi21' | 'scsi22' | 'scsi23' | 'scsi24' | 'scsi25' | 'scsi26' | 'scsi27' | 'scsi28' | 'scsi29' | 'scsi3' | 'scsi30' | 'scsi4' | 'scsi5' | 'scsi6' | 'scsi7' | 'scsi8' | 'scsi9' | 'virtio0' | 'virtio1' | 'virtio10' | 'virtio11' | 'virtio12' | 'virtio13' | 'virtio14' | 'virtio15' | 'virtio2' | 'virtio3' | 'virtio4' | 'virtio5' | 'virtio6' | 'virtio7' | 'virtio8' | 'virtio9';
+    export type Tdisk = 'efidisk0' | 'ide0' | 'ide1' | 'ide2' | 'ide3' | 'sata0' | 'sata1' | 'sata2' | 'sata3' | 'sata4' | 'sata5' | 'scsi0' | 'scsi1' | 'scsi10' | 'scsi11' | 'scsi12' | 'scsi13' | 'scsi14' | 'scsi15' | 'scsi16' | 'scsi17' | 'scsi18' | 'scsi19' | 'scsi2' | 'scsi20' | 'scsi21' | 'scsi22' | 'scsi23' | 'scsi24' | 'scsi25' | 'scsi26' | 'scsi27' | 'scsi28' | 'scsi29' | 'scsi3' | 'scsi30' | 'scsi4' | 'scsi5' | 'scsi6' | 'scsi7' | 'scsi8' | 'scsi9' | 'tpmstate0' | 'unused0' | 'unused1' | 'unused10' | 'unused100' | 'unused101' | 'unused102' | 'unused103' | 'unused104' | 'unused105' | 'unused106' | 'unused107' | 'unused108' | 'unused109' | 'unused11' | 'unused110' | 'unused111' | 'unused112' | 'unused113' | 'unused114' | 'unused115' | 'unused116' | 'unused117' | 'unused118' | 'unused119' | 'unused12' | 'unused120' | 'unused121' | 'unused122' | 'unused123' | 'unused124' | 'unused125' | 'unused126' | 'unused127' | 'unused128' | 'unused129' | 'unused13' | 'unused130' | 'unused131' | 'unused132' | 'unused133' | 'unused134' | 'unused135' | 'unused136' | 'unused137' | 'unused138' | 'unused139' | 'unused14' | 'unused140' | 'unused141' | 'unused142' | 'unused143' | 'unused144' | 'unused145' | 'unused146' | 'unused147' | 'unused148' | 'unused149' | 'unused15' | 'unused150' | 'unused151' | 'unused152' | 'unused153' | 'unused154' | 'unused155' | 'unused156' | 'unused157' | 'unused158' | 'unused159' | 'unused16' | 'unused160' | 'unused161' | 'unused162' | 'unused163' | 'unused164' | 'unused165' | 'unused166' | 'unused167' | 'unused168' | 'unused169' | 'unused17' | 'unused170' | 'unused171' | 'unused172' | 'unused173' | 'unused174' | 'unused175' | 'unused176' | 'unused177' | 'unused178' | 'unused179' | 'unused18' | 'unused180' | 'unused181' | 'unused182' | 'unused183' | 'unused184' | 'unused185' | 'unused186' | 'unused187' | 'unused188' | 'unused189' | 'unused19' | 'unused190' | 'unused191' | 'unused192' | 'unused193' | 'unused194' | 'unused195' | 'unused196' | 'unused197' | 'unused198' | 'unused199' | 'unused2' | 'unused20' | 'unused200' | 'unused201' | 'unused202' | 'unused203' | 'unused204' | 'unused205' | 'unused206' | 'unused207' | 'unused208' | 'unused209' | 'unused21' | 'unused210' | 'unused211' | 'unused212' | 'unused213' | 'unused214' | 'unused215' | 'unused216' | 'unused217' | 'unused218' | 'unused219' | 'unused22' | 'unused220' | 'unused221' | 'unused222' | 'unused223' | 'unused224' | 'unused225' | 'unused226' | 'unused227' | 'unused228' | 'unused229' | 'unused23' | 'unused230' | 'unused231' | 'unused232' | 'unused233' | 'unused234' | 'unused235' | 'unused236' | 'unused237' | 'unused238' | 'unused239' | 'unused24' | 'unused240' | 'unused241' | 'unused242' | 'unused243' | 'unused244' | 'unused245' | 'unused246' | 'unused247' | 'unused248' | 'unused249' | 'unused25' | 'unused250' | 'unused251' | 'unused252' | 'unused253' | 'unused254' | 'unused255' | 'unused26' | 'unused27' | 'unused28' | 'unused29' | 'unused3' | 'unused30' | 'unused31' | 'unused32' | 'unused33' | 'unused34' | 'unused35' | 'unused36' | 'unused37' | 'unused38' | 'unused39' | 'unused4' | 'unused40' | 'unused41' | 'unused42' | 'unused43' | 'unused44' | 'unused45' | 'unused46' | 'unused47' | 'unused48' | 'unused49' | 'unused5' | 'unused50' | 'unused51' | 'unused52' | 'unused53' | 'unused54' | 'unused55' | 'unused56' | 'unused57' | 'unused58' | 'unused59' | 'unused6' | 'unused60' | 'unused61' | 'unused62' | 'unused63' | 'unused64' | 'unused65' | 'unused66' | 'unused67' | 'unused68' | 'unused69' | 'unused7' | 'unused70' | 'unused71' | 'unused72' | 'unused73' | 'unused74' | 'unused75' | 'unused76' | 'unused77' | 'unused78' | 'unused79' | 'unused8' | 'unused80' | 'unused81' | 'unused82' | 'unused83' | 'unused84' | 'unused85' | 'unused86' | 'unused87' | 'unused88' | 'unused89' | 'unused9' | 'unused90' | 'unused91' | 'unused92' | 'unused93' | 'unused94' | 'unused95' | 'unused96' | 'unused97' | 'unused98' | 'unused99' | 'virtio0' | 'virtio1' | 'virtio10' | 'virtio11' | 'virtio12' | 'virtio13' | 'virtio14' | 'virtio15' | 'virtio2' | 'virtio3' | 'virtio4' | 'virtio5' | 'virtio6' | 'virtio7' | 'virtio8' | 'virtio9';
     /**
      * The disk you want to resize.
      */
-    export type Tdisk_1 = 'mp0' | 'mp1' | 'mp10' | 'mp100' | 'mp101' | 'mp102' | 'mp103' | 'mp104' | 'mp105' | 'mp106' | 'mp107' | 'mp108' | 'mp109' | 'mp11' | 'mp110' | 'mp111' | 'mp112' | 'mp113' | 'mp114' | 'mp115' | 'mp116' | 'mp117' | 'mp118' | 'mp119' | 'mp12' | 'mp120' | 'mp121' | 'mp122' | 'mp123' | 'mp124' | 'mp125' | 'mp126' | 'mp127' | 'mp128' | 'mp129' | 'mp13' | 'mp130' | 'mp131' | 'mp132' | 'mp133' | 'mp134' | 'mp135' | 'mp136' | 'mp137' | 'mp138' | 'mp139' | 'mp14' | 'mp140' | 'mp141' | 'mp142' | 'mp143' | 'mp144' | 'mp145' | 'mp146' | 'mp147' | 'mp148' | 'mp149' | 'mp15' | 'mp150' | 'mp151' | 'mp152' | 'mp153' | 'mp154' | 'mp155' | 'mp156' | 'mp157' | 'mp158' | 'mp159' | 'mp16' | 'mp160' | 'mp161' | 'mp162' | 'mp163' | 'mp164' | 'mp165' | 'mp166' | 'mp167' | 'mp168' | 'mp169' | 'mp17' | 'mp170' | 'mp171' | 'mp172' | 'mp173' | 'mp174' | 'mp175' | 'mp176' | 'mp177' | 'mp178' | 'mp179' | 'mp18' | 'mp180' | 'mp181' | 'mp182' | 'mp183' | 'mp184' | 'mp185' | 'mp186' | 'mp187' | 'mp188' | 'mp189' | 'mp19' | 'mp190' | 'mp191' | 'mp192' | 'mp193' | 'mp194' | 'mp195' | 'mp196' | 'mp197' | 'mp198' | 'mp199' | 'mp2' | 'mp20' | 'mp200' | 'mp201' | 'mp202' | 'mp203' | 'mp204' | 'mp205' | 'mp206' | 'mp207' | 'mp208' | 'mp209' | 'mp21' | 'mp210' | 'mp211' | 'mp212' | 'mp213' | 'mp214' | 'mp215' | 'mp216' | 'mp217' | 'mp218' | 'mp219' | 'mp22' | 'mp220' | 'mp221' | 'mp222' | 'mp223' | 'mp224' | 'mp225' | 'mp226' | 'mp227' | 'mp228' | 'mp229' | 'mp23' | 'mp230' | 'mp231' | 'mp232' | 'mp233' | 'mp234' | 'mp235' | 'mp236' | 'mp237' | 'mp238' | 'mp239' | 'mp24' | 'mp240' | 'mp241' | 'mp242' | 'mp243' | 'mp244' | 'mp245' | 'mp246' | 'mp247' | 'mp248' | 'mp249' | 'mp25' | 'mp250' | 'mp251' | 'mp252' | 'mp253' | 'mp254' | 'mp255' | 'mp26' | 'mp27' | 'mp28' | 'mp29' | 'mp3' | 'mp30' | 'mp31' | 'mp32' | 'mp33' | 'mp34' | 'mp35' | 'mp36' | 'mp37' | 'mp38' | 'mp39' | 'mp4' | 'mp40' | 'mp41' | 'mp42' | 'mp43' | 'mp44' | 'mp45' | 'mp46' | 'mp47' | 'mp48' | 'mp49' | 'mp5' | 'mp50' | 'mp51' | 'mp52' | 'mp53' | 'mp54' | 'mp55' | 'mp56' | 'mp57' | 'mp58' | 'mp59' | 'mp6' | 'mp60' | 'mp61' | 'mp62' | 'mp63' | 'mp64' | 'mp65' | 'mp66' | 'mp67' | 'mp68' | 'mp69' | 'mp7' | 'mp70' | 'mp71' | 'mp72' | 'mp73' | 'mp74' | 'mp75' | 'mp76' | 'mp77' | 'mp78' | 'mp79' | 'mp8' | 'mp80' | 'mp81' | 'mp82' | 'mp83' | 'mp84' | 'mp85' | 'mp86' | 'mp87' | 'mp88' | 'mp89' | 'mp9' | 'mp90' | 'mp91' | 'mp92' | 'mp93' | 'mp94' | 'mp95' | 'mp96' | 'mp97' | 'mp98' | 'mp99' | 'rootfs';
+    export type Tdisk_1 = 'efidisk0' | 'ide0' | 'ide1' | 'ide2' | 'ide3' | 'sata0' | 'sata1' | 'sata2' | 'sata3' | 'sata4' | 'sata5' | 'scsi0' | 'scsi1' | 'scsi10' | 'scsi11' | 'scsi12' | 'scsi13' | 'scsi14' | 'scsi15' | 'scsi16' | 'scsi17' | 'scsi18' | 'scsi19' | 'scsi2' | 'scsi20' | 'scsi21' | 'scsi22' | 'scsi23' | 'scsi24' | 'scsi25' | 'scsi26' | 'scsi27' | 'scsi28' | 'scsi29' | 'scsi3' | 'scsi30' | 'scsi4' | 'scsi5' | 'scsi6' | 'scsi7' | 'scsi8' | 'scsi9' | 'tpmstate0' | 'virtio0' | 'virtio1' | 'virtio10' | 'virtio11' | 'virtio12' | 'virtio13' | 'virtio14' | 'virtio15' | 'virtio2' | 'virtio3' | 'virtio4' | 'virtio5' | 'virtio6' | 'virtio7' | 'virtio8' | 'virtio9';
+    /**
+     * The disk you want to resize.
+     */
+    export type Tdisk_2 = 'mp0' | 'mp1' | 'mp10' | 'mp100' | 'mp101' | 'mp102' | 'mp103' | 'mp104' | 'mp105' | 'mp106' | 'mp107' | 'mp108' | 'mp109' | 'mp11' | 'mp110' | 'mp111' | 'mp112' | 'mp113' | 'mp114' | 'mp115' | 'mp116' | 'mp117' | 'mp118' | 'mp119' | 'mp12' | 'mp120' | 'mp121' | 'mp122' | 'mp123' | 'mp124' | 'mp125' | 'mp126' | 'mp127' | 'mp128' | 'mp129' | 'mp13' | 'mp130' | 'mp131' | 'mp132' | 'mp133' | 'mp134' | 'mp135' | 'mp136' | 'mp137' | 'mp138' | 'mp139' | 'mp14' | 'mp140' | 'mp141' | 'mp142' | 'mp143' | 'mp144' | 'mp145' | 'mp146' | 'mp147' | 'mp148' | 'mp149' | 'mp15' | 'mp150' | 'mp151' | 'mp152' | 'mp153' | 'mp154' | 'mp155' | 'mp156' | 'mp157' | 'mp158' | 'mp159' | 'mp16' | 'mp160' | 'mp161' | 'mp162' | 'mp163' | 'mp164' | 'mp165' | 'mp166' | 'mp167' | 'mp168' | 'mp169' | 'mp17' | 'mp170' | 'mp171' | 'mp172' | 'mp173' | 'mp174' | 'mp175' | 'mp176' | 'mp177' | 'mp178' | 'mp179' | 'mp18' | 'mp180' | 'mp181' | 'mp182' | 'mp183' | 'mp184' | 'mp185' | 'mp186' | 'mp187' | 'mp188' | 'mp189' | 'mp19' | 'mp190' | 'mp191' | 'mp192' | 'mp193' | 'mp194' | 'mp195' | 'mp196' | 'mp197' | 'mp198' | 'mp199' | 'mp2' | 'mp20' | 'mp200' | 'mp201' | 'mp202' | 'mp203' | 'mp204' | 'mp205' | 'mp206' | 'mp207' | 'mp208' | 'mp209' | 'mp21' | 'mp210' | 'mp211' | 'mp212' | 'mp213' | 'mp214' | 'mp215' | 'mp216' | 'mp217' | 'mp218' | 'mp219' | 'mp22' | 'mp220' | 'mp221' | 'mp222' | 'mp223' | 'mp224' | 'mp225' | 'mp226' | 'mp227' | 'mp228' | 'mp229' | 'mp23' | 'mp230' | 'mp231' | 'mp232' | 'mp233' | 'mp234' | 'mp235' | 'mp236' | 'mp237' | 'mp238' | 'mp239' | 'mp24' | 'mp240' | 'mp241' | 'mp242' | 'mp243' | 'mp244' | 'mp245' | 'mp246' | 'mp247' | 'mp248' | 'mp249' | 'mp25' | 'mp250' | 'mp251' | 'mp252' | 'mp253' | 'mp254' | 'mp255' | 'mp26' | 'mp27' | 'mp28' | 'mp29' | 'mp3' | 'mp30' | 'mp31' | 'mp32' | 'mp33' | 'mp34' | 'mp35' | 'mp36' | 'mp37' | 'mp38' | 'mp39' | 'mp4' | 'mp40' | 'mp41' | 'mp42' | 'mp43' | 'mp44' | 'mp45' | 'mp46' | 'mp47' | 'mp48' | 'mp49' | 'mp5' | 'mp50' | 'mp51' | 'mp52' | 'mp53' | 'mp54' | 'mp55' | 'mp56' | 'mp57' | 'mp58' | 'mp59' | 'mp6' | 'mp60' | 'mp61' | 'mp62' | 'mp63' | 'mp64' | 'mp65' | 'mp66' | 'mp67' | 'mp68' | 'mp69' | 'mp7' | 'mp70' | 'mp71' | 'mp72' | 'mp73' | 'mp74' | 'mp75' | 'mp76' | 'mp77' | 'mp78' | 'mp79' | 'mp8' | 'mp80' | 'mp81' | 'mp82' | 'mp83' | 'mp84' | 'mp85' | 'mp86' | 'mp87' | 'mp88' | 'mp89' | 'mp9' | 'mp90' | 'mp91' | 'mp92' | 'mp93' | 'mp94' | 'mp95' | 'mp96' | 'mp97' | 'mp98' | 'mp99' | 'rootfs';
     /**
      * Block device name
      * @pattern ^/dev/[a-zA-Z0-9\/]+$
      */
-    export type Tdisk_2 = string;
+    export type Tdisk_3 = string;
     /**
      * AD domain name
      * @pattern \S+
@@ -241,8 +268,8 @@ export namespace Proxmox {
      */
     export type Tdomain = string;
     /**
-     * Configure a Disk for storing EFI vars
-     * @format {"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"alias":"file"}}
+     * Configure a Disk for storing EFI vars. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Note that SIZE_IN_GiB is ignored here and that the default EFI vars are copied to the volume instead.
+     * @format {"efitype":{"default":"2m","description":"Size and type of the OVMF EFI vars. '4m' is newer and recommended, and required for Secure Boot. For backwards compatibility, '2m' is used if not otherwise specified.","enum":["2m","4m"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"pre-enrolled-keys":{"default":0,"description":"Use am EFI vars template with distribution-specific and Microsoft Standard keys enrolled, if used with 'efitype=4m'. Note that this will enable Secure Boot by default, though it can still be turned off from within the VM.","optional":1,"type":"boolean"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"alias":"file"}}
      */
     export type Tefidisk0 = string;
     /**
@@ -295,10 +322,11 @@ export namespace Proxmox {
      */
     export type Thugepages = '1024' | '2' | 'any';
     /**
-     * Use volume as IDE hard disk or CD-ROM (n is 0 to 3).
-     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"model":{"description":"The drive's reported model name, url-encoded, up to 40 bytes long.","format":"urlencoded","format_description":"model","maxLength":120,"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
+     * Use volume as IDE hard disk or CD-ROM (n is 0 to 3). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
+     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads","io_uring"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"model":{"description":"The drive's reported model name, url-encoded, up to 40 bytes long.","format":"urlencoded","format_description":"model","maxLength":120,"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
      */
     export type Tide = string;
+    export type Tinfluxdbproto = 'http' | 'https' | 'udp';
     /**
      * Inter-VM shared memory. Useful for direct communication between VMs, or to the host.
      * @format {"name":{"description":"The name of the file. Will be prefixed with 'pve-shm-'. Default is the VMID. Will be deleted when the VM is stopped.","format_description":"string","optional":1,"pattern":"[a-zA-Z0-9\\-]+","type":"string"},"size":{"description":"The size of the file in MB.","minimum":1,"type":"integer"}}
@@ -337,7 +365,7 @@ export namespace Proxmox {
     export type Tlog = 'alert' | 'crit' | 'debug' | 'emerg' | 'err' | 'info' | 'nolog' | 'notice' | 'warning';
     /**
      * Log ratelimiting settings
-     * @format {"burst":{"default":5,"description":"Inital burst of packages which will get logged","minimum":0,"optional":1,"type":"integer"},"enable":{"default":"1","default_key":1,"description":"Enable or disable log rate limiting","type":"boolean"},"rate":{"default":"1/second","description":"Frequency with which the burst bucket gets refilled","format_description":"rate","optional":1,"pattern":"[1-9][0-9]*\\/(second|minute|hour|day)","type":"string"}}
+     * @format {"burst":{"default":5,"description":"Initial burst of packages which will always get logged before the rate is applied","minimum":0,"optional":1,"type":"integer"},"enable":{"default":"1","default_key":1,"description":"Enable or disable log rate limiting","type":"boolean"},"rate":{"default":"1/second","description":"Frequency with which the burst bucket gets refilled","format_description":"rate","optional":1,"pattern":"[1-9][0-9]*\\/(second|minute|hour|day)","type":"string"}}
      */
     export type Tlog_ratelimit = string;
     /**
@@ -374,7 +402,7 @@ export namespace Proxmox {
      */
     export type Tmode_1 = 'ldap' | 'ldap+starttls' | 'ldaps';
     /**
-     * Use volume as container mount point.
+     * Use volume as container mount point. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
      * @format {"acl":{"description":"Explicitly enable or disable ACL support.","optional":1,"type":"boolean"},"backup":{"description":"Whether to include the mount point in backups.","optional":1,"type":"boolean","verbose_description":"Whether to include the mount point in backups (only used for volume mount points)."},"mountoptions":{"description":"Extra mount options for rootfs/mps.","format_description":"opt[;opt...]","optional":1,"pattern":"(?^:(?^:(noatime|nodev|nosuid|noexec))(;(?^:(noatime|nodev|nosuid|noexec)))*)","type":"string"},"mp":{"description":"Path to the mount point as seen from inside the container (must not contain symlinks).","format":"pve-lxc-mp-string","format_description":"Path","type":"string","verbose_description":"Path to the mount point as seen from inside the container.\n\nNOTE: Must not contain any symlinks for security reasons."},"quota":{"description":"Enable user quotas inside the container (not supported with zfs subvolumes)","optional":1,"type":"boolean"},"replicate":{"default":1,"description":"Will include this volume to a storage replica job.","optional":1,"type":"boolean"},"ro":{"description":"Read-only mount point","optional":1,"type":"boolean"},"shared":{"default":0,"description":"Mark this non-volume mount point as available on multiple nodes (see 'nodes')","optional":1,"type":"boolean","verbose_description":"Mark this non-volume mount point as available on all nodes.\n\nWARNING: This option does not share the mount point automatically, it assumes it is shared already!"},"size":{"description":"Volume size (read only value).","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"default_key":1,"description":"Volume, device or directory to mount into the container.","format":"pve-lxc-mp-string","format_description":"volume","type":"string"}}
      */
     export type Tmp = string;
@@ -386,8 +414,12 @@ export namespace Proxmox {
      */
     export type Tname = string;
     /**
+     * The name of the pool. It must be unique.
+     */
+    export type Tname_1 = string;
+    /**
      * Specify network devices.
-     * @format {"bridge":{"description":"Bridge to attach the network device to. The Proxmox VE standard bridge\nis called 'vmbr0'.\n\nIf you do not specify a bridge, we create a kvm user (NATed) network\ndevice, which provides DHCP and DNS services. The following addresses\nare used:\n\n 10.0.2.2   Gateway\n 10.0.2.3   DNS Server\n 10.0.2.4   SMB Server\n\nThe DHCP server assign addresses to the guest starting from 10.0.2.15.\n","format_description":"bridge","optional":1,"pattern":"[-_.\\w\\d]+","type":"string"},"e1000":{"alias":"macaddr","keyAlias":"model"},"e1000-82540em":{"alias":"macaddr","keyAlias":"model"},"e1000-82544gc":{"alias":"macaddr","keyAlias":"model"},"e1000-82545em":{"alias":"macaddr","keyAlias":"model"},"firewall":{"description":"Whether this interface should be protected by the firewall.","optional":1,"type":"boolean"},"i82551":{"alias":"macaddr","keyAlias":"model"},"i82557b":{"alias":"macaddr","keyAlias":"model"},"i82559er":{"alias":"macaddr","keyAlias":"model"},"link_down":{"description":"Whether this interface should be disconnected (like pulling the plug).","optional":1,"type":"boolean"},"macaddr":{"description":"MAC address. That address must be unique withing your network. This is automatically generated if not specified.","format":"mac-addr","format_description":"XX:XX:XX:XX:XX:XX","optional":1,"type":"string","verbose_description":"A common MAC address with the I/G (Individual/Group) bit not set."},"model":{"default_key":1,"description":"Network Card Model. The 'virtio' model provides the best performance with very low CPU overhead. If your guest does not support this driver, it is usually best to use 'e1000'.","enum":["rtl8139","ne2k_pci","e1000","pcnet","virtio","ne2k_isa","i82551","i82557b","i82559er","vmxnet3","e1000-82540em","e1000-82544gc","e1000-82545em"],"type":"string"},"mtu":{"description":"Force MTU, for VirtIO only. Set to '1' to use the bridge MTU","maximum":65520,"minimum":1,"optional":1,"type":"integer"},"ne2k_isa":{"alias":"macaddr","keyAlias":"model"},"ne2k_pci":{"alias":"macaddr","keyAlias":"model"},"pcnet":{"alias":"macaddr","keyAlias":"model"},"queues":{"description":"Number of packet queues to be used on the device.","maximum":16,"minimum":0,"optional":1,"type":"integer"},"rate":{"description":"Rate limit in mbps (megabytes per second) as floating point number.","minimum":0,"optional":1,"type":"number"},"rtl8139":{"alias":"macaddr","keyAlias":"model"},"tag":{"description":"VLAN tag to apply to packets on this interface.","maximum":4094,"minimum":1,"optional":1,"type":"integer"},"trunks":{"description":"VLAN trunks to pass through this interface.","format_description":"vlanid[;vlanid...]","optional":1,"pattern":"(?^:\\d+(?:-\\d+)?(?:;\\d+(?:-\\d+)?)*)","type":"string"},"virtio":{"alias":"macaddr","keyAlias":"model"},"vmxnet3":{"alias":"macaddr","keyAlias":"model"}}
+     * @format {"bridge":{"description":"Bridge to attach the network device to. The Proxmox VE standard bridge\nis called 'vmbr0'.\n\nIf you do not specify a bridge, we create a kvm user (NATed) network\ndevice, which provides DHCP and DNS services. The following addresses\nare used:\n\n 10.0.2.2   Gateway\n 10.0.2.3   DNS Server\n 10.0.2.4   SMB Server\n\nThe DHCP server assign addresses to the guest starting from 10.0.2.15.\n","format_description":"bridge","optional":1,"pattern":"[-_.\\w\\d]+","type":"string"},"e1000":{"alias":"macaddr","keyAlias":"model"},"e1000-82540em":{"alias":"macaddr","keyAlias":"model"},"e1000-82544gc":{"alias":"macaddr","keyAlias":"model"},"e1000-82545em":{"alias":"macaddr","keyAlias":"model"},"e1000e":{"alias":"macaddr","keyAlias":"model"},"firewall":{"description":"Whether this interface should be protected by the firewall.","optional":1,"type":"boolean"},"i82551":{"alias":"macaddr","keyAlias":"model"},"i82557b":{"alias":"macaddr","keyAlias":"model"},"i82559er":{"alias":"macaddr","keyAlias":"model"},"link_down":{"description":"Whether this interface should be disconnected (like pulling the plug).","optional":1,"type":"boolean"},"macaddr":{"description":"MAC address. That address must be unique withing your network. This is automatically generated if not specified.","format":"mac-addr","format_description":"XX:XX:XX:XX:XX:XX","optional":1,"type":"string","verbose_description":"A common MAC address with the I/G (Individual/Group) bit not set."},"model":{"default_key":1,"description":"Network Card Model. The 'virtio' model provides the best performance with very low CPU overhead. If your guest does not support this driver, it is usually best to use 'e1000'.","enum":["e1000","e1000-82540em","e1000-82544gc","e1000-82545em","e1000e","i82551","i82557b","i82559er","ne2k_isa","ne2k_pci","pcnet","rtl8139","virtio","vmxnet3"],"type":"string"},"mtu":{"description":"Force MTU, for VirtIO only. Set to '1' to use the bridge MTU","maximum":65520,"minimum":1,"optional":1,"type":"integer"},"ne2k_isa":{"alias":"macaddr","keyAlias":"model"},"ne2k_pci":{"alias":"macaddr","keyAlias":"model"},"pcnet":{"alias":"macaddr","keyAlias":"model"},"queues":{"description":"Number of packet queues to be used on the device.","maximum":16,"minimum":0,"optional":1,"type":"integer"},"rate":{"description":"Rate limit in mbps (megabytes per second) as floating point number.","minimum":0,"optional":1,"type":"number"},"rtl8139":{"alias":"macaddr","keyAlias":"model"},"tag":{"description":"VLAN tag to apply to packets on this interface.","maximum":4094,"minimum":1,"optional":1,"type":"integer"},"trunks":{"description":"VLAN trunks to pass through this interface.","format_description":"vlanid[;vlanid...]","optional":1,"pattern":"(?^:\\d+(?:-\\d+)?(?:;\\d+(?:-\\d+)?)*)","type":"string"},"virtio":{"alias":"macaddr","keyAlias":"model"},"vmxnet3":{"alias":"macaddr","keyAlias":"model"}}
      */
     export type Tnet = string;
     /**
@@ -412,20 +444,22 @@ export namespace Proxmox {
      * wvista;; Microsoft Windows Vista
      * win7;; Microsoft Windows 7
      * win8;; Microsoft Windows 8/2012/2012r2
-     * win10;; Microsoft Windows 10/2016
+     * win10;; Microsoft Windows 10/2016/2019
+     * win11;; Microsoft Windows 11/2022
      * l24;; Linux 2.4 Kernel
      * l26;; Linux 2.6 - 5.X Kernel
      * solaris;; Solaris/OpenSolaris/OpenIndiania kernel
      * 
      */
-    export type Tostype = 'l24' | 'l26' | 'other' | 'solaris' | 'w2k' | 'w2k3' | 'w2k8' | 'win10' | 'win7' | 'win8' | 'wvista' | 'wxp';
+    export type Tostype = 'l24' | 'l26' | 'other' | 'solaris' | 'w2k' | 'w2k3' | 'w2k8' | 'win10' | 'win11' | 'win7' | 'win8' | 'wvista' | 'wxp';
     /**
      * OS type. This is used to setup configuration inside the container, and corresponds to lxc setup scripts in /usr/share/lxc/config/<ostype>.common.conf. Value 'unmanaged' can be used to skip and OS specific setup.
      */
-    export type Tostype_1 = 'alpine' | 'archlinux' | 'centos' | 'debian' | 'fedora' | 'gentoo' | 'opensuse' | 'ubuntu' | 'unmanaged';
+    export type Tostype_1 = 'alpine' | 'archlinux' | 'centos' | 'debian' | 'devuan' | 'fedora' | 'gentoo' | 'opensuse' | 'ubuntu' | 'unmanaged';
     /**
      * Map host parallel devices (n is 0 to 2).
-     * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
+     * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such
+     * machines - use with special care.
      * CAUTION: Experimental! User reported problems with this option.
      * 
      * @pattern /dev/parport\d+|/dev/usb/lp\d+
@@ -437,13 +471,25 @@ export namespace Proxmox {
      */
     export type Tpassword = string;
     /**
+     * The automatic PG scaling mode of the pool.
+     */
+    export type Tpg_autoscale_mode = 'off' | 'on' | 'warn';
+    /**
      * Input policy.
      */
     export type Tpolicy_in = 'ACCEPT' | 'DROP' | 'REJECT';
     /**
+     * Preallocation mode for raw and qcow2 images. Using 'metadata' on raw images results in preallocation=off.
+     */
+    export type Tpreallocation = 'falloc' | 'full' | 'metadata' | 'off';
+    /**
      * Return only a specific property from the node configuration.
      */
     export type Tproperty = 'acme' | 'acmedomain0' | 'acmedomain1' | 'acmedomain2' | 'acmedomain3' | 'acmedomain4' | 'acmedomain5' | 'description' | 'startall-onboot-delay' | 'wakeonlan';
+    /**
+     * Protocol to send graphite data. TCP or UDP (default)
+     */
+    export type Tproto = 'tcp' | 'udp';
     /**
      * The RAID level to use.
      */
@@ -460,7 +506,7 @@ export namespace Proxmox {
     export type Tremove_job = 'full' | 'local';
     /**
      * Configure a VirtIO-based Random Number Generator.
-     * @format {"max_bytes":{"default":1024,"description":"Maximum bytes of entropy injected into the guest every 'period' milliseconds. Prefer a lower value when using /dev/random as source. Use 0 to disable limiting (potentially dangerous!).","optional":1,"type":"integer"},"period":{"default":1000,"description":"Every 'period' milliseconds the entropy-injection quota is reset, allowing the guest to retrieve another 'max_bytes' of entropy.","optional":1,"type":"integer"},"source":{"default_key":1,"description":"The file on the host to gather entropy from. In most cases /dev/urandom should be preferred over /dev/random to avoid entropy-starvation issues on the host. Using urandom does *not* decrease security in any meaningful way, as it's still seeded from real entropy, and the bytes provided will most likely be mixed with real entropy on the guest as well. /dev/hwrng can be used to pass through a hardware RNG from the host.","enum":["/dev/urandom","/dev/random","/dev/hwrng"],"type":"string"}}
+     * @format {"max_bytes":{"default":1024,"description":"Maximum bytes of entropy allowed to get injected into the guest every 'period' milliseconds. Prefer a lower value when using '/dev/random' as source. Use `0` to disable limiting (potentially dangerous!).","optional":1,"type":"integer"},"period":{"default":1000,"description":"Every 'period' milliseconds the entropy-injection quota is reset, allowing the guest to retrieve another 'max_bytes' of entropy.","optional":1,"type":"integer"},"source":{"default_key":1,"description":"The file on the host to gather entropy from. In most cases '/dev/urandom' should be preferred over '/dev/random' to avoid entropy-starvation issues on the host. Using urandom does *not* decrease security in any meaningful way, as it's still seeded from real entropy, and the bytes provided will most likely be mixed with real entropy on the guest as well. '/dev/hwrng' can be used to pass through a hardware RNG from the host.","enum":["/dev/urandom","/dev/random","/dev/hwrng"],"type":"string"}}
      */
     export type Trng0 = string;
     /**
@@ -469,8 +515,8 @@ export namespace Proxmox {
      */
     export type Trootfs = string;
     /**
-     * Use volume as SATA hard disk or CD-ROM (n is 0 to 5).
-     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
+     * Use volume as SATA hard disk or CD-ROM (n is 0 to 5). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
+     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads","io_uring"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
      */
     export type Tsata = string;
     export type Tscope = 'all' | 'versions';
@@ -479,8 +525,8 @@ export namespace Proxmox {
      */
     export type Tscope_1 = 'both' | 'groups' | 'users';
     /**
-     * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30).
-     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iothread":{"description":"Whether to use iothreads for this drive","optional":1,"type":"boolean"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"queues":{"description":"Number of queues.","minimum":2,"optional":1,"type":"integer"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"scsiblock":{"default":0,"description":"whether to use scsi-block for full passthrough of host block device\n\nWARNING: can lead to I/O errors in combination with low memory or high memory fragmentation on host","optional":1,"type":"boolean"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
+     * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
+     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads","io_uring"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iothread":{"description":"Whether to use iothreads for this drive","optional":1,"type":"boolean"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"queues":{"description":"Number of queues.","minimum":2,"optional":1,"type":"integer"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"ro":{"description":"Whether the drive is read-only.","optional":1,"type":"boolean"},"scsiblock":{"default":0,"description":"whether to use scsi-block for full passthrough of host block device\n\nWARNING: can lead to I/O errors in combination with low memory or high memory fragmentation on host","optional":1,"type":"boolean"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
      */
     export type Tscsi = string;
     /**
@@ -491,7 +537,8 @@ export namespace Proxmox {
      * Create a serial device inside the VM (n is 0 to 3), and pass through a
      * host serial device (i.e. /dev/ttyS0), or create a unix socket on the
      * host side (use 'qm terminal' to open a terminal connection).
-     * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
+     * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines -
+     * use with special care.
      * CAUTION: Experimental! User reported problems with this option.
      * 
      * @pattern (/dev/.+|socket)
@@ -527,9 +574,9 @@ export namespace Proxmox {
      */
     export type Tsize_1 = string;
     /**
-     * SMB protocol version
+     * SMB protocol version. 'default' if not set, negotiates the highest SMB2+ version supported by both the client and server.
      */
-    export type Tsmbversion = '2.0' | '2.1' | '3.0';
+    export type Tsmbversion = '2.0' | '2.1' | '3' | '3.0' | '3.11' | 'default';
     /**
      * List archived, active or all tasks.
      */
@@ -544,7 +591,7 @@ export namespace Proxmox {
      */
     export type Tsslversion = 'tlsv1' | 'tlsv1_1' | 'tlsv1_2' | 'tlsv1_3';
     /**
-     * Set the initial date of the real time clock. Valid format for date are: 'now' or '2006-06-17T16:01:21' or '2006-06-17'.
+     * Set the initial date of the real time clock. Valid format for date are:'now' or '2006-06-17T16:01:21' or '2006-06-17'.
      * @pattern (now|\d{4}-\d{1,2}-\d{1,2}(T\d{1,2}:\d{1,2}:\d{1,2})?)
      */
     export type Tstartdate = string;
@@ -584,9 +631,28 @@ export namespace Proxmox {
      */
     export type Tsync_attributes = string;
     /**
+     * The estimated target size of the pool for the PG autoscaler.
+     * @pattern ^(\d+(\.\d+)?)([KMGT])?$
+     */
+    export type Ttarget_size = string;
+    /**
+     * The estimated target ratio of the pool for the PG autoscaler.
+     * @type number
+     */
+    export type Ttarget_size_ratio = number;
+    /**
+     * The config key the volume will be moved to. Default is the source volume key.
+     */
+    export type Ttargetvolume = 'mp0' | 'mp1' | 'mp10' | 'mp100' | 'mp101' | 'mp102' | 'mp103' | 'mp104' | 'mp105' | 'mp106' | 'mp107' | 'mp108' | 'mp109' | 'mp11' | 'mp110' | 'mp111' | 'mp112' | 'mp113' | 'mp114' | 'mp115' | 'mp116' | 'mp117' | 'mp118' | 'mp119' | 'mp12' | 'mp120' | 'mp121' | 'mp122' | 'mp123' | 'mp124' | 'mp125' | 'mp126' | 'mp127' | 'mp128' | 'mp129' | 'mp13' | 'mp130' | 'mp131' | 'mp132' | 'mp133' | 'mp134' | 'mp135' | 'mp136' | 'mp137' | 'mp138' | 'mp139' | 'mp14' | 'mp140' | 'mp141' | 'mp142' | 'mp143' | 'mp144' | 'mp145' | 'mp146' | 'mp147' | 'mp148' | 'mp149' | 'mp15' | 'mp150' | 'mp151' | 'mp152' | 'mp153' | 'mp154' | 'mp155' | 'mp156' | 'mp157' | 'mp158' | 'mp159' | 'mp16' | 'mp160' | 'mp161' | 'mp162' | 'mp163' | 'mp164' | 'mp165' | 'mp166' | 'mp167' | 'mp168' | 'mp169' | 'mp17' | 'mp170' | 'mp171' | 'mp172' | 'mp173' | 'mp174' | 'mp175' | 'mp176' | 'mp177' | 'mp178' | 'mp179' | 'mp18' | 'mp180' | 'mp181' | 'mp182' | 'mp183' | 'mp184' | 'mp185' | 'mp186' | 'mp187' | 'mp188' | 'mp189' | 'mp19' | 'mp190' | 'mp191' | 'mp192' | 'mp193' | 'mp194' | 'mp195' | 'mp196' | 'mp197' | 'mp198' | 'mp199' | 'mp2' | 'mp20' | 'mp200' | 'mp201' | 'mp202' | 'mp203' | 'mp204' | 'mp205' | 'mp206' | 'mp207' | 'mp208' | 'mp209' | 'mp21' | 'mp210' | 'mp211' | 'mp212' | 'mp213' | 'mp214' | 'mp215' | 'mp216' | 'mp217' | 'mp218' | 'mp219' | 'mp22' | 'mp220' | 'mp221' | 'mp222' | 'mp223' | 'mp224' | 'mp225' | 'mp226' | 'mp227' | 'mp228' | 'mp229' | 'mp23' | 'mp230' | 'mp231' | 'mp232' | 'mp233' | 'mp234' | 'mp235' | 'mp236' | 'mp237' | 'mp238' | 'mp239' | 'mp24' | 'mp240' | 'mp241' | 'mp242' | 'mp243' | 'mp244' | 'mp245' | 'mp246' | 'mp247' | 'mp248' | 'mp249' | 'mp25' | 'mp250' | 'mp251' | 'mp252' | 'mp253' | 'mp254' | 'mp255' | 'mp26' | 'mp27' | 'mp28' | 'mp29' | 'mp3' | 'mp30' | 'mp31' | 'mp32' | 'mp33' | 'mp34' | 'mp35' | 'mp36' | 'mp37' | 'mp38' | 'mp39' | 'mp4' | 'mp40' | 'mp41' | 'mp42' | 'mp43' | 'mp44' | 'mp45' | 'mp46' | 'mp47' | 'mp48' | 'mp49' | 'mp5' | 'mp50' | 'mp51' | 'mp52' | 'mp53' | 'mp54' | 'mp55' | 'mp56' | 'mp57' | 'mp58' | 'mp59' | 'mp6' | 'mp60' | 'mp61' | 'mp62' | 'mp63' | 'mp64' | 'mp65' | 'mp66' | 'mp67' | 'mp68' | 'mp69' | 'mp7' | 'mp70' | 'mp71' | 'mp72' | 'mp73' | 'mp74' | 'mp75' | 'mp76' | 'mp77' | 'mp78' | 'mp79' | 'mp8' | 'mp80' | 'mp81' | 'mp82' | 'mp83' | 'mp84' | 'mp85' | 'mp86' | 'mp87' | 'mp88' | 'mp89' | 'mp9' | 'mp90' | 'mp91' | 'mp92' | 'mp93' | 'mp94' | 'mp95' | 'mp96' | 'mp97' | 'mp98' | 'mp99' | 'rootfs' | 'unused0' | 'unused1' | 'unused10' | 'unused100' | 'unused101' | 'unused102' | 'unused103' | 'unused104' | 'unused105' | 'unused106' | 'unused107' | 'unused108' | 'unused109' | 'unused11' | 'unused110' | 'unused111' | 'unused112' | 'unused113' | 'unused114' | 'unused115' | 'unused116' | 'unused117' | 'unused118' | 'unused119' | 'unused12' | 'unused120' | 'unused121' | 'unused122' | 'unused123' | 'unused124' | 'unused125' | 'unused126' | 'unused127' | 'unused128' | 'unused129' | 'unused13' | 'unused130' | 'unused131' | 'unused132' | 'unused133' | 'unused134' | 'unused135' | 'unused136' | 'unused137' | 'unused138' | 'unused139' | 'unused14' | 'unused140' | 'unused141' | 'unused142' | 'unused143' | 'unused144' | 'unused145' | 'unused146' | 'unused147' | 'unused148' | 'unused149' | 'unused15' | 'unused150' | 'unused151' | 'unused152' | 'unused153' | 'unused154' | 'unused155' | 'unused156' | 'unused157' | 'unused158' | 'unused159' | 'unused16' | 'unused160' | 'unused161' | 'unused162' | 'unused163' | 'unused164' | 'unused165' | 'unused166' | 'unused167' | 'unused168' | 'unused169' | 'unused17' | 'unused170' | 'unused171' | 'unused172' | 'unused173' | 'unused174' | 'unused175' | 'unused176' | 'unused177' | 'unused178' | 'unused179' | 'unused18' | 'unused180' | 'unused181' | 'unused182' | 'unused183' | 'unused184' | 'unused185' | 'unused186' | 'unused187' | 'unused188' | 'unused189' | 'unused19' | 'unused190' | 'unused191' | 'unused192' | 'unused193' | 'unused194' | 'unused195' | 'unused196' | 'unused197' | 'unused198' | 'unused199' | 'unused2' | 'unused20' | 'unused200' | 'unused201' | 'unused202' | 'unused203' | 'unused204' | 'unused205' | 'unused206' | 'unused207' | 'unused208' | 'unused209' | 'unused21' | 'unused210' | 'unused211' | 'unused212' | 'unused213' | 'unused214' | 'unused215' | 'unused216' | 'unused217' | 'unused218' | 'unused219' | 'unused22' | 'unused220' | 'unused221' | 'unused222' | 'unused223' | 'unused224' | 'unused225' | 'unused226' | 'unused227' | 'unused228' | 'unused229' | 'unused23' | 'unused230' | 'unused231' | 'unused232' | 'unused233' | 'unused234' | 'unused235' | 'unused236' | 'unused237' | 'unused238' | 'unused239' | 'unused24' | 'unused240' | 'unused241' | 'unused242' | 'unused243' | 'unused244' | 'unused245' | 'unused246' | 'unused247' | 'unused248' | 'unused249' | 'unused25' | 'unused250' | 'unused251' | 'unused252' | 'unused253' | 'unused254' | 'unused255' | 'unused26' | 'unused27' | 'unused28' | 'unused29' | 'unused3' | 'unused30' | 'unused31' | 'unused32' | 'unused33' | 'unused34' | 'unused35' | 'unused36' | 'unused37' | 'unused38' | 'unused39' | 'unused4' | 'unused40' | 'unused41' | 'unused42' | 'unused43' | 'unused44' | 'unused45' | 'unused46' | 'unused47' | 'unused48' | 'unused49' | 'unused5' | 'unused50' | 'unused51' | 'unused52' | 'unused53' | 'unused54' | 'unused55' | 'unused56' | 'unused57' | 'unused58' | 'unused59' | 'unused6' | 'unused60' | 'unused61' | 'unused62' | 'unused63' | 'unused64' | 'unused65' | 'unused66' | 'unused67' | 'unused68' | 'unused69' | 'unused7' | 'unused70' | 'unused71' | 'unused72' | 'unused73' | 'unused74' | 'unused75' | 'unused76' | 'unused77' | 'unused78' | 'unused79' | 'unused8' | 'unused80' | 'unused81' | 'unused82' | 'unused83' | 'unused84' | 'unused85' | 'unused86' | 'unused87' | 'unused88' | 'unused89' | 'unused9' | 'unused90' | 'unused91' | 'unused92' | 'unused93' | 'unused94' | 'unused95' | 'unused96' | 'unused97' | 'unused98' | 'unused99';
+    /**
      * Specify the time frame you are interested in.
      */
     export type Ttimeframe = 'day' | 'hour' | 'month' | 'week' | 'year';
+    /**
+     * Configure a Disk for storing TPM state. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Note that SIZE_IN_GiB is ignored here and that the default size of 4 MiB will always be used instead. The format is also fixed to 'raw'.
+     * @format {"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"version":{"default":"v2.0","description":"The TPM interface version. v2.0 is newer and should be preferred. Note that this cannot be changed later on.","enum":["v1.2","v2.0"],"optional":1,"type":"string"},"volume":{"alias":"file"}}
+     */
+    export type Ttpmstate0 = string;
     /**
      * Gluster transport: tcp or rdma
      */
@@ -600,33 +666,50 @@ export namespace Proxmox {
      */
     export type Ttype_1 = 'group' | 'in' | 'out';
     /**
+     * Only list sdn ipams of specific type
+     */
+    export type Ttype_10 = 'netbox' | 'phpipam' | 'pve';
+    /**
+     * Only list sdn dns of specific type
+     */
+    export type Ttype_11 = 'powerdns';
+    export type Ttype_12 = 'node' | 'sdn' | 'storage' | 'vm';
+    /**
      * Config type.
      */
-    export type Ttype_10 = 'meta' | 'network' | 'user';
-    /**
-     * Only list specific types of disks.
-     */
-    export type Ttype_11 = 'journal_disks' | 'unused';
+    export type Ttype_13 = 'meta' | 'network' | 'user';
     /**
      * Only list specific interface types.
      */
-    export type Ttype_12 = 'OVSBond' | 'OVSBridge' | 'OVSIntPort' | 'OVSPort' | 'alias' | 'any_bridge' | 'bond' | 'bridge' | 'eth' | 'vlan';
+    export type Ttype_14 = 'OVSBond' | 'OVSBridge' | 'OVSIntPort' | 'OVSPort' | 'alias' | 'any_bridge' | 'bond' | 'bridge' | 'eth' | 'vlan';
     /**
      * Network interface type
      */
-    export type Ttype_13 = 'OVSBond' | 'OVSBridge' | 'OVSIntPort' | 'OVSPort' | 'alias' | 'bond' | 'bridge' | 'eth' | 'unknown' | 'vlan';
+    export type Ttype_15 = 'OVSBond' | 'OVSBridge' | 'OVSIntPort' | 'OVSPort' | 'alias' | 'bond' | 'bridge' | 'eth' | 'unknown' | 'vlan';
+    /**
+     * Either 'qemu' or 'lxc'. Only consider backups for guests of this type.
+     */
+    export type Ttype_16 = 'lxc' | 'qemu';
+    /**
+     * Only list specific types of disks.
+     */
+    export type Ttype_17 = 'journal_disks' | 'unused';
     /**
      * Only list storage of specific type
      */
-    export type Ttype_14 = 'cephfs' | 'cifs' | 'dir' | 'drbd' | 'glusterfs' | 'iscsi' | 'iscsidirect' | 'lvm' | 'lvmthin' | 'nfs' | 'pbs' | 'rbd' | 'zfs' | 'zfspool';
+    export type Ttype_18 = 'btrfs' | 'cephfs' | 'cifs' | 'dir' | 'glusterfs' | 'iscsi' | 'iscsidirect' | 'lvm' | 'lvmthin' | 'nfs' | 'pbs' | 'rbd' | 'zfs' | 'zfspool';
     /**
      * Realm type.
      */
-    export type Ttype_15 = 'ad' | 'ldap' | 'pam' | 'pve';
+    export type Ttype_19 = 'ad' | 'ldap' | 'openid' | 'pam' | 'pve';
     /**
      * Only list references of specified type.
      */
     export type Ttype_2 = 'alias' | 'ipset';
+    /**
+     * TFA Entry Type.
+     */
+    export type Ttype_20 = 'recovery' | 'totp' | 'u2f' | 'webauthn' | 'yubico';
     /**
      * Only list resources of specific type
      */
@@ -643,15 +726,15 @@ export namespace Proxmox {
      * Type
      */
     export type Ttype_6 = 'vnet';
+    export type Ttype_7 = 'subnet';
     /**
-     * Only list sdn zones of specific type
+     * Only list SDN zones of specific type
      */
-    export type Ttype_7 = 'evpn' | 'faucet' | 'qinq' | 'simple' | 'vlan' | 'vxlan';
+    export type Ttype_8 = 'evpn' | 'faucet' | 'qinq' | 'simple' | 'vlan' | 'vxlan';
     /**
      * Only list sdn controllers of specific type
      */
-    export type Ttype_8 = 'evpn' | 'faucet';
-    export type Ttype_9 = 'node' | 'sdn' | 'storage' | 'vm';
+    export type Ttype_9 = 'bgp' | 'evpn' | 'faucet';
     /**
      * u2f
      * @format {"appid":{"description":"U2F AppId URL override. Defaults to the origin.","format_description":"APPID","optional":1,"type":"string"},"origin":{"description":"U2F Origin override. Mostly useful for single nodes with a single URL.","format_description":"URL","optional":1,"type":"string"}}
@@ -668,8 +751,13 @@ export namespace Proxmox {
      */
     export type Tunused_1 = string;
     /**
+     * The URL to download the file from.
+     * @pattern https?://.*
+     */
+    export type Turl = string;
+    /**
      * Configure an USB device (n is 0 to 4).
-     * @format {"host":{"default_key":1,"description":"The Host USB device or port or the value 'spice'. HOSTUSBDEVICE syntax is:\n\n 'bus-port(.port)*' (decimal numbers) or\n 'vendor_id:product_id' (hexadeciaml numbers) or\n 'spice'\n\nYou can use the 'lsusb -t' command to list existing usb devices.\n\nNOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.\n\nThe value 'spice' can be used to add a usb redirection devices for spice.\n","format":"pve-qm-usb-device","format_description":"HOSTUSBDEVICE|spice","type":"string"},"usb3":{"default":0,"description":"Specifies whether if given host option is a USB3 device or port.","optional":1,"type":"boolean"}}
+     * @format {"host":{"default_key":1,"description":"The Host USB device or port or the value 'spice'. HOSTUSBDEVICE syntax is:\n\n 'bus-port(.port)*' (decimal numbers) or\n 'vendor_id:product_id' (hexadeciaml numbers) or\n 'spice'\n\nYou can use the 'lsusb -t' command to list existing usb devices.\n\nNOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such\nmachines - use with special care.\n\nThe value 'spice' can be used to add a usb redirection devices for spice.\n","format":"pve-qm-usb-device","format_description":"HOSTUSBDEVICE|spice","type":"string"},"usb3":{"default":0,"description":"Specifies whether if given host option is a USB3 device or port.","optional":1,"type":"boolean"}}
      */
     export type Tusb = string;
     /**
@@ -683,6 +771,10 @@ export namespace Proxmox {
      * @pattern (?^:^(?^:[^\s:/]+)\@(?^:[A-Za-z][A-Za-z0-9\.\-_]+)(?:!(?^:[A-Za-z][A-Za-z0-9\.\-_]+))?$)
      */
     export type Tuserid = string;
+    /**
+     * OpenID claim used to generate the unique username.
+     */
+    export type Tusernameclaim = 'email' | 'subject' | 'username';
     /**
      * UUID for the GPT table
      * @pattern [a-fA-F0-9\-]+
@@ -701,14 +793,14 @@ export namespace Proxmox {
      */
     export type Tvga = string;
     /**
-     * Use volume as VIRTIO hard disk (n is 0 to 15).
-     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iothread":{"description":"Whether to use iothreads for this drive","optional":1,"type":"boolean"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"}}
+     * Use volume as VIRTIO hard disk (n is 0 to 15). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
+     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads","io_uring"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iothread":{"description":"Whether to use iothreads for this drive","optional":1,"type":"boolean"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"ro":{"description":"Whether the drive is read-only.","optional":1,"type":"boolean"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"}}
      */
     export type Tvirtio = string;
     export type Tvlanprotocol = '802.1ad' | '802.1q';
     /**
      * The VM generation ID (vmgenid) device exposes a 128-bit integer value identifier to the guest OS. This allows to notify the guest operating system when the virtual machine is executed with a different configuration (e.g. snapshot execution or creation from a template). The guest operating system notices the change, and is then able to react as appropriate by marking its copies of distributed databases as dirty, re-initializing its random number generator, etc.
-     * Note that auto-creation only works when done throug API/CLI create or update methods, but not when manually editing the config file.
+     * Note that auto-creation only works when done through API/CLI create or update methods, but not when manually editing the config file.
      * @pattern (?:[a-fA-F0-9]{8}(?:-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}|[01])
      */
     export type Tvmgenid = string;
@@ -717,9 +809,14 @@ export namespace Proxmox {
      * @minimum 0.5
      * @type number
      */
-    export type Twal_size = number;
+    export type Twal_dev_size = number;
     /**
-     * SPICE proxy server. This can be used by the client to specify the proxy server. All nodes in a cluster runs 'spiceproxy', so it is up to the client to choose one. By default, we return the node where the VM is currently running. As reasonable setting is to use same node you use to connect to the API (This is window.location.hostname for the JS GUI).
+     * webauthn configuration
+     * @format {"id":{"description":"Relying part ID. Must be the domain name without protocol, port or location. Changing this *will* break existing credentials.","format_description":"DOMAINNAME","optional":1,"type":"string"},"origin":{"description":"Site origin. Must be a `https://` URL (or `http://localhost`). Should contain the address users type in their browsers to access the web interface. Changing this *may* break existing credentials.","format_description":"URL","optional":1,"type":"string"},"rp":{"description":"Relying party name. Any text identifier. Changing this *may* break existing credentials.","format_description":"RELYING_PARTY","optional":1,"type":"string"}}
+     */
+    export type Twebauthn = string;
+    /**
+     * server dns name or IP address
      * @format address
      */
     export type address = string;
@@ -730,12 +827,14 @@ export namespace Proxmox {
      */
     export type address_1 = string;
     /**
-     * cloud-init: Sets DNS server IP address for a container. Create will automatically use the setting from the host if neither searchdomain nor nameserver are set.
+     * cloud-init: Sets DNS server IP address for a container. Create will'
+     * 	    .' automatically use the setting from the host if neither searchdomain nor nameserver'
+     * 	    .' are set.
      * @format address-list
      */
     export type addresslist = string;
     /**
-     * Set a name for the VM. Only used on the configuration web interface.
+     * dns domain zone prefix  ex: 'adm' -> <hostname>.adm.mydomain.com
      * @format dns-name
      */
     export type dnsname = string;
@@ -760,6 +859,16 @@ export namespace Proxmox {
      * @format email-opt
      */
     export type emailopt = string;
+    /**
+     * Comma-separated list of email addresses or users that should receive email notifications.
+     * @format email-or-username-list
+     */
+    export type emailorusernamelist = string;
+    /**
+     * root graphite path (ex: proxmox.mycluster.mykey)
+     * @format graphite-path
+     */
+    export type graphitepath = string;
     /**
      * The JOIN_API_VERSION of the new node.
      * @type integer
@@ -837,19 +946,12 @@ export namespace Proxmox {
      */
     export type integer16_4096 = number;
     /**
-     * The number of cores assigned to the container. A container can use all available cores by default.
+     * Number of event-iteration to simulate and return.
      * @minimum 1
-     * @maximum 128
+     * @maximum 100
      * @type integer
      */
-    export type integer1_128 = number;
-    /**
-     * The redundancy count specifies the number of nodes to which the resource should be deployed. It must be at least 1 and at most the number of nodes in the cluster.
-     * @minimum 1
-     * @maximum 16
-     * @type integer
-     */
-    export type integer1_16 = number;
+    export type integer1_100 = number;
     /**
      * Time to wait for the task to finish. We return 'null' if the task finish within that time.
      * @minimum 1
@@ -858,6 +960,13 @@ export namespace Proxmox {
      */
     export type integer1_30 = number;
     /**
+     * Number of placement groups.
+     * @minimum 1
+     * @maximum 32768
+     * @type integer
+     */
+    export type integer1_32768 = number;
+    /**
      * Specify a VLan tag (used by OVSPort, OVSIntPort, OVSBond)
      * @minimum 1
      * @maximum 4094
@@ -865,19 +974,47 @@ export namespace Proxmox {
      */
     export type integer1_4094 = number;
     /**
-     * Server port.
+     * Optional port.
      * @minimum 1
      * @maximum 65535
      * @type integer
      */
     export type integer1_65535 = number;
     /**
-     * Minimum number of available replicas per object to allow I/O
+     * server network port
+     * @minimum 1
+     * @maximum 65536
+     * @type integer
+     */
+    export type integer1_65536 = number;
+    /**
+     * Minimum number of replicas per object
      * @minimum 1
      * @maximum 7
      * @type integer
      */
     export type integer1_7 = number;
+    /**
+     * Number of replicas per object
+     * @minimum 1
+     * @maximum 7
+     * @type integer
+     */
+    export type integer1_7_1 = number;
+    /**
+     * Minimum number of available replicas per object to allow I/O
+     * @minimum 1
+     * @maximum 7
+     * @type integer
+     */
+    export type integer1_7_2 = number;
+    /**
+     * The number of cores assigned to the container. A container can use all available cores by default.
+     * @minimum 1
+     * @maximum 8192
+     * @type integer
+     */
+    export type integer1_8192 = number;
     /**
      * CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to weights of all the other running VMs.
      * @minimum 2
@@ -892,6 +1029,13 @@ export namespace Proxmox {
      * @type integer
      */
     export type integer30_60 = number;
+    /**
+     * MTU for metrics transmission over UDP
+     * @minimum 512
+     * @maximum 65536
+     * @type integer
+     */
+    export type integer512_65536 = number;
     /**
      * Port number returned by previous vncproxy call.
      * @minimum 5900
@@ -922,13 +1066,19 @@ export namespace Proxmox {
      */
     export type integer9_16 = number;
     /**
-     * Number of votes for this node
+     * Minimal number of placement groups.
+     * @maximum 32768
+     * @type integer
+     */
+    export type integerMax32768 = number;
+    /**
+     * graphite TCP socket timeout (default=1)
      * @minimum 0
      * @type integer
      */
     export type integer_Min0 = number;
     /**
-     * Node id for this node.
+     * InfluxDB max-body-size in bytes. Requests are batched up to this size.
      * @minimum 1
      * @type integer
      */
@@ -945,12 +1095,6 @@ export namespace Proxmox {
      * @type integer
      */
     export type integer_Min32768 = number;
-    /**
-     * Unused, will be removed in a future release.
-     * @minimum 500
-     * @type integer
-     */
-    export type integer_Min500 = number;
     /**
      * Conntrack established timeout.
      * @minimum 7875
@@ -994,7 +1138,12 @@ export namespace Proxmox {
      */
     export type ldapsimpleattrlist = string;
     /**
-     * Anycast router mac address
+     * Sets DNS server IP address for a container. Create will automatically use the setting from the host if you neither set searchdomain nor nameserver.
+     * @format lxc-ip-with-ll-iface-list
+     */
+    export type lxcipwithllifacelist = string;
+    /**
+     * Anycast logical router mac address
      * @format mac-addr
      */
     export type macaddr = string;
@@ -1014,32 +1163,52 @@ export namespace Proxmox {
      */
     export type pemstring = string;
     /**
+     * Use these retention options instead of those from the storage configuration.
+     * @format prune-backups
+     */
+    export type prunebackups = string;
+    /**
      * Storage replication schedule. The format is a subset of `systemd` calendar events.
      * @format pve-calendar-event
      * @maxLength 128
      */
     export type pvecalendarevent = string;
     /**
-     * The HA group identifier.
+     * Plugin type.
      * @format pve-configid
      */
-    export type pveconfigid = string;
+    export type pveconfigid = 'graphite' | 'influxdb';
+    /**
+     * Job ID (will be autogenerated).
+     * @format pve-configid
+     */
+    export type pveconfigid_1 = string;
     /**
      * Plugin type.
      * @format pve-configid
      */
-    export type pveconfigid_1 = 'evpn' | 'faucet' | 'qinq' | 'simple' | 'vlan' | 'vxlan';
+    export type pveconfigid_2 = 'evpn' | 'faucet' | 'qinq' | 'simple' | 'vlan' | 'vxlan';
     /**
      * Plugin type.
      * @format pve-configid
      */
-    export type pveconfigid_2 = 'evpn' | 'faucet';
+    export type pveconfigid_3 = 'bgp' | 'evpn' | 'faucet';
+    /**
+     * Plugin type.
+     * @format pve-configid
+     */
+    export type pveconfigid_4 = 'netbox' | 'phpipam' | 'pve';
+    /**
+     * Plugin type.
+     * @format pve-configid
+     */
+    export type pveconfigid_5 = 'powerdns';
     /**
      * Fetch config values from given snapshot.
      * @format pve-configid
      * @maxLength 40
      */
-    export type pveconfigid_3 = string;
+    export type pveconfigid_6 = string;
     /**
      * A list of settings you want to delete.
      * @format pve-configid-list
@@ -1064,6 +1233,7 @@ export namespace Proxmox {
     /**
      * Restrict packet destination address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
      * @format pve-fw-addr-spec
+     * @maxLength 512
      */
     export type pvefwaddrspec = string;
     /**
@@ -1071,6 +1241,11 @@ export namespace Proxmox {
      * @format pve-fw-dport-spec
      */
     export type pvefwdportspec = string;
+    /**
+     * Specify icmp-type. Only valid if proto equals 'icmp'.
+     * @format pve-fw-icmp-type-spec
+     */
+    export type pvefwicmptypespec = string;
     /**
      * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'.
      * @format pve-fw-protocol-spec
@@ -1100,7 +1275,7 @@ export namespace Proxmox {
      */
     export type pveharesourceorvmid = string;
     /**
-     * Selectively enable hotplug features. This is a comma separated list of hotplug features: 'network', 'disk', 'cpu', 'memory' and 'usb'. Use '0' to disable hotplug completely. Value '1' is an alias for the default 'network,disk,usb'.
+     * Selectively enable hotplug features. This is a comma separated list of hotplug features: 'network', 'disk', 'cpu', 'memory' and 'usb'. Use '0' to disable hotplug completely. Using '1' as value is an alias for the default `network,disk,usb`.
      * @format pve-hotplug-features
      */
     export type pvehotplugfeatures = string;
@@ -1122,7 +1297,7 @@ export namespace Proxmox {
      */
     export type pveifacelist = string;
     /**
-     * Source of the replication.
+     * For internal use, to detect if the guest was stolen.
      * @format pve-node
      */
     export type pvenode = string;
@@ -1153,7 +1328,12 @@ export namespace Proxmox {
      */
     export type pveprivlist_1 = string;
     /**
-     * Enable booting from specified disk.
+     * Specify guest boot order. Use the 'order=' sub-property as usage with no key or 'legacy=' is deprecated.
+     * @format pve-qm-boot
+     */
+    export type pveqmboot = string;
+    /**
+     * Enable booting from specified disk. Deprecated: Use 'boot: order=foo;bar' instead.
      * @pattern (ide|sata|scsi|virtio)\d+
      * @format pve-qm-bootdisk
      */
@@ -1180,9 +1360,12 @@ export namespace Proxmox {
     /**
      * cloud-init: Specify IP addresses and gateways for the corresponding interface.
      * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
-     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
-     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
-     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+     * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit
+     * gateway should be provided.
+     * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration. This requires
+     * cloud-init 19.4 or newer.
+     * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using
+     * dhcp on IPv4.
      * 
      * @format pve-qm-ipconfig
      */
@@ -1225,6 +1408,21 @@ export namespace Proxmox {
      */
     export type pvesdncontrollerid = string;
     /**
+     * The SDN dns object identifier.
+     * @format pve-sdn-dns-id
+     */
+    export type pvesdndnsid = string;
+    /**
+     * The SDN ipam object identifier.
+     * @format pve-sdn-ipam-id
+     */
+    export type pvesdnipamid = string;
+    /**
+     * The SDN subnet object identifier.
+     * @format pve-sdn-subnet-id
+     */
+    export type pvesdnsubnetid = string;
+    /**
      * The SDN vnet object identifier.
      * @format pve-sdn-vnet-id
      */
@@ -1244,6 +1442,11 @@ export namespace Proxmox {
      * @format pve-storage-content
      */
     export type pvestoragecontent = string;
+    /**
+     * Content type.
+     * @format pve-storage-content
+     */
+    export type pvestoragecontent_1 = 'iso' | 'vztmpl';
     /**
      * Only list stores which support this content type.
      * @format pve-storage-content-list
@@ -1300,16 +1503,16 @@ export namespace Proxmox {
      */
     export type pvetaglist = string;
     /**
+     * List of Task States that should be returned.
+     * @format pve-task-status-type-list
+     */
+    export type pvetaskstatustypelist = string;
+    /**
      * Use Two-factor authentication.
      * @format pve-tfa-config
      * @maxLength 128
      */
     export type pvetfaconfig = string;
-    /**
-     * When adding TOTP, the shared secret value.
-     * @format pve-tfa-secret
-     */
-    export type pvetfasecret = string;
     /**
      * List of API tokens.
      * @format pve-tokenid-list
@@ -1355,16 +1558,16 @@ export namespace Proxmox {
     export type realmsyncoptions = string;
     /**
      * Mapping from source to target storages. Providing only a single storage ID maps all source storages to that storage. Providing the special value '1' will map each source storage to itself.
-     * @format storagepair-list
+     * @format storage-pair-list
      */
     export type storagepairlist = string;
     /**
-     * Exclude certain files/directories (shell globs).
+     * Exclude certain files/directories (shell globs). Paths starting with '/' are anchored to the container's root,  other paths match relative to each subdirectory.
      * @format string-alist
      */
     export type stringalist = string;
     /**
-     * Comma-separated list of email addresses that should receive email notifications.
+     * A list of blacklisted PCI classes, which will not be returned. Following are filtered by default: Memory Controller (05), Bridge (06) and Processor (0b).
      * @format string-list
      */
     export type stringlist = string;
@@ -1449,6 +1652,30 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /access/openid
+     */
+    export interface accessOpenidIndex {
+        subdir: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by POST /access/openid/login
+     */
+    export interface accessOpenidLoginLogin {
+        CSRFPreventionToken: string;
+        cap: any;
+        clustername?: string;
+        ticket: string;
+        username: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /access/roles
      */
     export interface accessRolesIndex {
@@ -1471,6 +1698,7 @@ export namespace Proxmox {
         'Group.Allocate'?: boolean;
         'Permissions.Modify'?: boolean;
         'Pool.Allocate'?: boolean;
+        'Pool.Audit'?: boolean;
         'Realm.Allocate'?: boolean;
         'Realm.AllocateUser'?: boolean;
         'SDN.Allocate'?: boolean;
@@ -1499,6 +1727,120 @@ export namespace Proxmox {
         'VM.PowerMgmt'?: boolean;
         'VM.Snapshot'?: boolean;
         'VM.Snapshot.Rollback'?: boolean;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by POST /access/tfa/{userid}
+     */
+    export interface accessTfaAddTfaEntry {
+        /**
+         * When adding u2f entries, this contains a challenge the user must respond to in order to finish the registration.
+         */
+        challenge?: string;
+        /**
+         * The id of a newly added TFA entry.
+         */
+        id: string;
+        /**
+         * When adding recovery codes, this contains the list of codes to be displayed to the user
+         */
+        recovery?: string[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /access/tfa/{userid}/{id}
+     */
+    export interface accessTfaGetTfaEntry {
+        /**
+         * Creation time of this entry as unix epoch.
+         */
+        created: number;
+        /**
+         * User chosen description for this entry.
+         */
+        description: string;
+        /**
+         * Whether this TFA entry is currently enabled.
+         */
+        enable?: boolean;
+        /**
+         * The id used to reference this entry.
+         */
+        id: string;
+        /**
+         * TFA Entry Type.
+         */
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /access/tfa
+     */
+    export interface accessTfaListTfa {
+        entries: {
+                /**
+                 * Creation time of this entry as unix epoch.
+                 */
+                created: number;
+                /**
+                 * User chosen description for this entry.
+                 */
+                description: string;
+                /**
+                 * Whether this TFA entry is currently enabled.
+                 */
+                enable?: boolean;
+                /**
+                 * The id used to reference this entry.
+                 */
+                id: string;
+                /**
+                 * TFA Entry Type.
+                 */
+                type: string;
+            }[];
+        /**
+         * User this entry belongs to.
+         */
+        userid: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /access/tfa/{userid}
+     */
+    export interface accessTfaListUserTfa {
+        /**
+         * Creation time of this entry as unix epoch.
+         */
+        created: number;
+        /**
+         * User chosen description for this entry.
+         */
+        description: string;
+        /**
+         * Whether this TFA entry is currently enabled.
+         */
+        enable?: boolean;
+        /**
+         * The id used to reference this entry.
+         */
+        id: string;
+        /**
+         * TFA Entry Type.
+         */
+        type: string;
         /**
          * additionalProperties
          */
@@ -1548,6 +1890,10 @@ export namespace Proxmox {
          */
         keys?: string;
         lastname?: string;
+        /**
+         * The type of the users realm
+         */
+        'realm-type'?: string;
         tokens?: {
                 comment?: string;
                 /**
@@ -1608,7 +1954,11 @@ export namespace Proxmox {
          */
         realm?: string;
         /**
-         * The type of TFA the user has set, if any.
+         * Array of the user configured TFA types, if any. Only available if 'multiple' was not passed.
+         */
+        types?: string[];
+        /**
+         * The type of TFA the user has set, if any. Only set if 'multiple' was not passed.
          */
         user?: string;
         /**
@@ -1837,9 +2187,22 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/backupinfo/not_backed_up
+     * Returned by GET /cluster/backup-info
      */
-    export interface clusterBackupinfoNotBackedUpGetGuestsNotInBackup {
+    export interface clusterBackupInfoIndex {
+        /**
+         * API sub-directory endpoint
+         */
+        subdir: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/backup-info/not-backed-up
+     */
+    export interface clusterBackupInfoNotBackedUpGetGuestsNotInBackup {
         /**
          * Name of the guest
          */
@@ -1970,6 +2333,7 @@ export namespace Proxmox {
         dest?: string;
         dport?: string;
         enable?: number;
+        'icmp-type'?: string;
         iface?: string;
         ipversion?: number;
         /**
@@ -2126,6 +2490,7 @@ export namespace Proxmox {
         dest?: string;
         dport?: string;
         enable?: number;
+        'icmp-type'?: string;
         iface?: string;
         ipversion?: number;
         /**
@@ -2243,9 +2608,77 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /cluster/jobs
+     */
+    export interface clusterJobsIndex {
+        /**
+         * API sub-directory endpoint
+         */
+        subdir: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/jobs/schedule-analyze
+     */
+    export interface clusterJobsScheduleAnalyzeScheduleAnalyze {
+        /**
+         * UNIX timestamp for the run.
+         */
+        timestamp: number;
+        /**
+         * UTC timestamp for the run.
+         */
+        utc: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /cluster/log
      */
     export interface clusterLogLog {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/metrics
+     */
+    export interface clusterMetricsIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/metrics/server
+     */
+    export interface clusterMetricsServerServerIndex {
+        /**
+         * Flag to disable the plugin.
+         */
+        disable: boolean;
+        /**
+         * The ID of the entry.
+         */
+        id: string;
+        /**
+         * Server network port
+         */
+        port: number;
+        /**
+         * Server dns name or IP address
+         */
+        server: string;
+        /**
+         * Plugin type.
+         */
+        type: string;
         /**
          * additionalProperties
          */
@@ -2264,6 +2697,10 @@ export namespace Proxmox {
      * Returned by GET /cluster/resources
      */
     export interface clusterResourcesResources {
+        /**
+         * Allowed storage content types (when type == storage).
+         */
+        content?: string;
         /**
          * CPU utilization (when type in node,qemu,lxc).
          */
@@ -2298,9 +2735,17 @@ export namespace Proxmox {
          */
         mem?: string;
         /**
+         * Name of the resource.
+         */
+        name?: string;
+        /**
          * The cluster node name (when type in node,storage,qemu,lxc).
          */
         node?: string;
+        /**
+         * More specific type, if available.
+         */
+        plugintype?: string;
         /**
          * The pool name (when type in pool,qemu,lxc).
          */
@@ -2331,6 +2776,19 @@ export namespace Proxmox {
      */
     export interface clusterSdnControllersIndex {
         controller: string;
+        pending?: string;
+        state?: string;
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/dns
+     */
+    export interface clusterSdnDnsIndex {
+        dns: string;
         type: string;
         /**
          * additionalProperties
@@ -2348,6 +2806,17 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /cluster/sdn/ipams
+     */
+    export interface clusterSdnIpamsIndex {
+        ipam: string;
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /cluster/sdn/vnets
      */
     export interface clusterSdnVnetsIndex {
@@ -2357,9 +2826,26 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /cluster/sdn/vnets/{vnet}/subnets
+     */
+    export interface clusterSdnVnetsSubnetsIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /cluster/sdn/zones
      */
     export interface clusterSdnZonesIndex {
+        dns?: string;
+        dnszone?: string;
+        ipam?: string;
+        mtu?: number;
+        nodes?: string;
+        pending?: string;
+        reversedns?: string;
+        state?: string;
         type: string;
         zone: string;
         /**
@@ -2444,6 +2930,131 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/{node}/apt/repositories
+     */
+    export interface nodesAptRepositoriesRepositories {
+        /**
+         * Common digest of all files.
+         */
+        digest: string;
+        /**
+         * List of problematic repository files.
+         */
+        errors: {
+                /**
+                 * The error message
+                 */
+                error: string;
+                /**
+                 * Path to the problematic file.
+                 */
+                path: string;
+            }[];
+        /**
+         * List of parsed repository files.
+         */
+        files: {
+                /**
+                 * Digest of the file as bytes.
+                 */
+                digest: any[];
+                /**
+                 * Format of the file.
+                 */
+                'file-type': string;
+                /**
+                 * Path to the problematic file.
+                 */
+                path: string;
+                /**
+                 * The parsed repositories.
+                 */
+                repositories: {
+                        /**
+                         * Associated comment
+                         */
+                        Comment?: string;
+                        /**
+                         * List of repository components
+                         */
+                        Components?: string[];
+                        /**
+                         * Whether the repository is enabled or not
+                         */
+                        Enabled: boolean;
+                        /**
+                         * Format of the defining file.
+                         */
+                        FileType: string;
+                        /**
+                         * Additional options
+                         */
+                        Options?: {
+                                Key: string;
+                                Values: string[];
+                            }[];
+                        /**
+                         * List of package distribuitions
+                         */
+                        Suites: string[];
+                        /**
+                         * List of package types.
+                         */
+                        Types: string[];
+                        /**
+                         * List of repository URIs.
+                         */
+                        URIs: string[];
+                    }[];
+            }[];
+        /**
+         * Additional information/warnings for APT repositories.
+         */
+        infos: {
+                /**
+                 * Index of the associated repository within the file.
+                 */
+                index: string;
+                /**
+                 * Kind of the information (e.g. warning).
+                 */
+                kind: string;
+                /**
+                 * Information message.
+                 */
+                message: string;
+                /**
+                 * Path to the associated file.
+                 */
+                path: string;
+                /**
+                 * Property from which the info originates.
+                 */
+                property?: string;
+            }[];
+        /**
+         * List of standard repositories and their configuration status
+         */
+        'standard-repos': {
+                /**
+                 * Handle to identify the repository.
+                 */
+                handle: string;
+                /**
+                 * Full name of the repository.
+                 */
+                name: string;
+                /**
+                 * Indicating enabled/disabled status, if the repository is configured.
+                 */
+                status?: boolean;
+            }[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /nodes/{node}/apt/update
      */
     export interface nodesAptUpdateListUpdates {
@@ -2462,6 +3073,66 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/{node}/capabilities
+     */
+    export interface nodesCapabilitiesIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/capabilities/qemu/cpu
+     */
+    export interface nodesCapabilitiesQemuCpuIndex {
+        /**
+         * True if this is a custom CPU model.
+         */
+        custom: boolean;
+        /**
+         * Name of the CPU model. Identifies it for subsequent API calls. Prefixed with 'custom-' for custom models.
+         */
+        name: string;
+        /**
+         * CPU vendor visible to the guest when this model is selected. Vendor of 'reported-model' in case of custom models.
+         */
+        vendor: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/capabilities/qemu/machines
+     */
+    export interface nodesCapabilitiesQemuMachinesTypes {
+        /**
+         * Full name of machine type and version.
+         */
+        id: string;
+        /**
+         * The machine type.
+         */
+        type: string;
+        /**
+         * The machine version.
+         */
+        version: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/capabilities/qemu
+     */
+    export interface nodesCapabilitiesQemuQemuCapsIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /nodes/{node}/ceph/configdb
      */
     export interface nodesCephConfigdbConfigdb {
@@ -2471,23 +3142,6 @@ export namespace Proxmox {
         name: string;
         section: string;
         value: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
-     * Returned by GET /nodes/{node}/ceph/disks
-     */
-    export interface nodesCephDisksDisks {
-        dev: string;
-        gpt: boolean;
-        model?: string;
-        osdid: number;
-        serial?: string;
-        size: number;
-        used?: string;
-        vendor?: string;
         /**
          * additionalProperties
          */
@@ -2596,9 +3250,73 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/{node}/ceph/pools/{name}
+     */
+    export interface nodesCephPoolsGetpool {
+        /**
+         * The application of the pool.
+         */
+        application?: string;
+        application_list?: string[];
+        autoscale_status?: any;
+        /**
+         * The rule to use for mapping object placement in the cluster.
+         */
+        crush_rule?: string;
+        fast_read: boolean;
+        hashpspool: boolean;
+        id: number;
+        /**
+         * Minimum number of replicas per object
+         */
+        min_size?: number;
+        /**
+         * The name of the pool. It must be unique.
+         */
+        name: string;
+        'nodeep-scrub': boolean;
+        nodelete: boolean;
+        nopgchange: boolean;
+        noscrub: boolean;
+        nosizechange: boolean;
+        /**
+         * The automatic PG scaling mode of the pool.
+         */
+        pg_autoscale_mode?: string;
+        /**
+         * Number of placement groups.
+         */
+        pg_num?: number;
+        /**
+         * Minimal number of placement groups.
+         */
+        pg_num_min?: number;
+        pgp_num: number;
+        /**
+         * Number of replicas per object
+         */
+        size?: number;
+        statistics?: any;
+        /**
+         * The estimated target size of the pool for the PG autoscaler.
+         */
+        target_size?: string;
+        /**
+         * The estimated target ratio of the pool for the PG autoscaler.
+         */
+        target_size_ratio?: number;
+        use_gmt_hitset: boolean;
+        write_fadvise_dontneed: boolean;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /nodes/{node}/ceph/pools
      */
     export interface nodesCephPoolsLspools {
+        autoscale_status?: any;
         bytes_used: number;
         crush_rule: number;
         crush_rule_name: string;
@@ -2606,9 +3324,13 @@ export namespace Proxmox {
         percent_used: number;
         pg_autoscale_mode?: string;
         pg_num: number;
+        pg_num_final?: number;
+        pg_num_min?: number;
         pool: number;
         pool_name: string;
         size: number;
+        target_size?: number;
+        target_size_ratio?: number;
         /**
          * additionalProperties
          */
@@ -2734,27 +3456,6 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/cpu
-     */
-    export interface nodesCpuIndex {
-        /**
-         * True if this is a custom CPU model.
-         */
-        custom: boolean;
-        /**
-         * Name of the CPU model. Identifies it for subsequent API calls. Prefixed with 'custom-' for custom models.
-         */
-        name: string;
-        /**
-         * CPU vendor visible to the guest when this model is selected. Vendor of 'reported-model' in case of custom models.
-         */
-        vendor: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
      * Returned by GET /nodes/{node}/disks/directory
      */
     export interface nodesDisksDirectoryIndex {
@@ -2804,6 +3505,10 @@ export namespace Proxmox {
         health?: string;
         model?: string;
         osdid: number;
+        /**
+         * For partitions only. The device path of the disk the partition resides on.
+         */
+        parent?: string;
         serial?: string;
         size: number;
         used?: string;
@@ -2882,6 +3587,10 @@ export namespace Proxmox {
          */
         used: number;
         /**
+         * The associated volume group.
+         */
+        vg: string;
+        /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
@@ -2938,7 +3647,7 @@ export namespace Proxmox {
         /**
          * Information about the last/current scrub.
          */
-        scan: string;
+        scan?: string;
         /**
          * The state of the zpool.
          */
@@ -3101,6 +3810,7 @@ export namespace Proxmox {
         dest?: string;
         dport?: string;
         enable?: number;
+        'icmp-type'?: string;
         iface?: string;
         ipversion?: number;
         /**
@@ -3212,6 +3922,27 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/{node}/hardware/usb
+     */
+    export interface nodesHardwareUsbUsbscan {
+        busnum: number;
+        class: number;
+        devnum: number;
+        level: number;
+        manufacturer?: string;
+        port: number;
+        prodid: string;
+        product?: string;
+        serial?: string;
+        speed: string;
+        usbpath?: string;
+        vendid: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /nodes/{node}/hosts
      */
     export interface nodesHostsGetEtcHosts {
@@ -3313,7 +4044,11 @@ export namespace Proxmox {
          */
         cpuunits?: number;
         /**
-         * Container description. Only used on the configuration web interface.
+         * Try to be more verbose. For now this only enables debug log-level on start.
+         */
+        debug?: boolean;
+        /**
+         * Description for the Container. Shown in the web-interface CT's summary. This is saved as comment inside the configuration file.
          */
         description?: string;
         /**
@@ -3345,19 +4080,19 @@ export namespace Proxmox {
          */
         memory?: number;
         /**
-         * Use volume as container mount point.
+         * Use volume as container mount point. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         mp0?: string;
         /**
-         * Use volume as container mount point.
+         * Use volume as container mount point. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         mp1?: string;
         /**
-         * Use volume as container mount point.
+         * Use volume as container mount point. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         mp2?: string;
         /**
-         * Use volume as container mount point.
+         * Use volume as container mount point. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         mp3?: string;
         /**
@@ -3605,6 +4340,7 @@ export namespace Proxmox {
         dest?: string;
         dport?: string;
         enable?: number;
+        'icmp-type'?: string;
         iface?: string;
         ipversion?: number;
         /**
@@ -3997,7 +4733,7 @@ export namespace Proxmox {
          */
         acpi?: boolean;
         /**
-         * Enable/disable Qemu GuestAgent and its properties.
+         * Enable/disable communication with the Qemu Guest Agent and its properties.
          */
         agent?: string;
         /**
@@ -4027,11 +4763,11 @@ export namespace Proxmox {
          */
         bios?: string;
         /**
-         * Boot on floppy (a), hard disk (c), CD-ROM (d), or network (n).
+         * Specify guest boot order. Use the 'order=' sub-property as usage with no key or 'legacy=' is deprecated.
          */
         boot?: string;
         /**
-         * Enable booting from specified disk.
+         * Enable booting from specified disk. Deprecated: Use 'boot: order=foo;bar' instead.
          */
         bootdisk?: string;
         /**
@@ -4072,7 +4808,7 @@ export namespace Proxmox {
          */
         cpuunits?: number;
         /**
-         * Description for the VM. Only used on the configuration web interface. This is saved as comment inside the configuration file.
+         * Description for the VM. Shown in the web-interface VM's summary. This is saved as comment inside the configuration file.
          */
         description?: string;
         /**
@@ -4080,7 +4816,7 @@ export namespace Proxmox {
          */
         digest: string;
         /**
-         * Configure a Disk for storing EFI vars
+         * Configure a Disk for storing EFI vars. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Note that SIZE_IN_GiB is ignored here and that the default EFI vars are copied to the volume instead.
          */
         efidisk0?: string;
         /**
@@ -4148,7 +4884,7 @@ export namespace Proxmox {
          */
         hostpci7?: string;
         /**
-         * Selectively enable hotplug features. This is a comma separated list of hotplug features: 'network', 'disk', 'cpu', 'memory' and 'usb'. Use '0' to disable hotplug completely. Value '1' is an alias for the default 'network,disk,usb'.
+         * Selectively enable hotplug features. This is a comma separated list of hotplug features: 'network', 'disk', 'cpu', 'memory' and 'usb'. Use '0' to disable hotplug completely. Using '1' as value is an alias for the default `network,disk,usb`.
          */
         hotplug?: string;
         /**
@@ -4156,90 +4892,114 @@ export namespace Proxmox {
          */
         hugepages?: string;
         /**
-         * Use volume as IDE hard disk or CD-ROM (n is 0 to 3).
+         * Use volume as IDE hard disk or CD-ROM (n is 0 to 3). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         ide0?: string;
         /**
-         * Use volume as IDE hard disk or CD-ROM (n is 0 to 3).
+         * Use volume as IDE hard disk or CD-ROM (n is 0 to 3). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         ide1?: string;
         /**
-         * Use volume as IDE hard disk or CD-ROM (n is 0 to 3).
+         * Use volume as IDE hard disk or CD-ROM (n is 0 to 3). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         ide2?: string;
         /**
-         * Use volume as IDE hard disk or CD-ROM (n is 0 to 3).
+         * Use volume as IDE hard disk or CD-ROM (n is 0 to 3). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         ide3?: string;
         /**
          * cloud-init: Specify IP addresses and gateways for the corresponding interface.
          * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
-         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
-         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
-         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit
+         * gateway should be provided.
+         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration. This requires
+         * cloud-init 19.4 or newer.
+         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using
+         * dhcp on IPv4.
          * 
          */
         ipconfig0?: string;
         /**
          * cloud-init: Specify IP addresses and gateways for the corresponding interface.
          * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
-         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
-         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
-         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit
+         * gateway should be provided.
+         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration. This requires
+         * cloud-init 19.4 or newer.
+         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using
+         * dhcp on IPv4.
          * 
          */
         ipconfig1?: string;
         /**
          * cloud-init: Specify IP addresses and gateways for the corresponding interface.
          * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
-         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
-         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
-         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit
+         * gateway should be provided.
+         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration. This requires
+         * cloud-init 19.4 or newer.
+         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using
+         * dhcp on IPv4.
          * 
          */
         ipconfig2?: string;
         /**
          * cloud-init: Specify IP addresses and gateways for the corresponding interface.
          * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
-         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
-         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
-         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit
+         * gateway should be provided.
+         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration. This requires
+         * cloud-init 19.4 or newer.
+         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using
+         * dhcp on IPv4.
          * 
          */
         ipconfig3?: string;
         /**
          * cloud-init: Specify IP addresses and gateways for the corresponding interface.
          * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
-         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
-         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
-         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit
+         * gateway should be provided.
+         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration. This requires
+         * cloud-init 19.4 or newer.
+         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using
+         * dhcp on IPv4.
          * 
          */
         ipconfig4?: string;
         /**
          * cloud-init: Specify IP addresses and gateways for the corresponding interface.
          * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
-         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
-         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
-         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit
+         * gateway should be provided.
+         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration. This requires
+         * cloud-init 19.4 or newer.
+         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using
+         * dhcp on IPv4.
          * 
          */
         ipconfig5?: string;
         /**
          * cloud-init: Specify IP addresses and gateways for the corresponding interface.
          * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
-         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
-         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
-         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit
+         * gateway should be provided.
+         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration. This requires
+         * cloud-init 19.4 or newer.
+         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using
+         * dhcp on IPv4.
          * 
          */
         ipconfig6?: string;
         /**
          * cloud-init: Specify IP addresses and gateways for the corresponding interface.
          * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
-         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided.
-         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration.
-         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
+         * The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit
+         * gateway should be provided.
+         * For IPv6 the special string 'auto' can be used to use stateless autoconfiguration. This requires
+         * cloud-init 19.4 or newer.
+         * If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using
+         * dhcp on IPv4.
          * 
          */
         ipconfig7?: string;
@@ -4248,7 +5008,11 @@ export namespace Proxmox {
          */
         ivshmem?: string;
         /**
-         * Keybord layout for vnc server. Default is read from the '/etc/pve/datacenter.cfg' configuration file.It should not be necessary to set it.
+         * Use together with hugepages. If enabled, hugepages will not not be deleted after VM shutdown and can be used for subsequent starts.
+         */
+        keephugepages?: boolean;
+        /**
+         * Keyboard layout for VNC server. The default is read from the'/etc/pve/datacenter.cfg' configuration file. It should not be necessary to set it.
          */
         keyboard?: string;
         /**
@@ -4256,7 +5020,7 @@ export namespace Proxmox {
          */
         kvm?: boolean;
         /**
-         * Set the real time clock to local time. This is enabled by default if ostype indicates a Microsoft OS.
+         * Set the real time clock (RTC) to local time. This is enabled by default if the `ostype` indicates a Microsoft Windows OS.
          */
         localtime?: boolean;
         /**
@@ -4284,7 +5048,9 @@ export namespace Proxmox {
          */
         name?: string;
         /**
-         * cloud-init: Sets DNS server IP address for a container. Create will automatically use the setting from the host if neither searchdomain nor nameserver are set.
+         * cloud-init: Sets DNS server IP address for a container. Create will'
+         * .' automatically use the setting from the host if neither searchdomain nor nameserver'
+         * .' are set.
          */
         nameserver?: string;
         /**
@@ -4339,7 +5105,8 @@ export namespace Proxmox {
          * wvista;; Microsoft Windows Vista
          * win7;; Microsoft Windows 7
          * win8;; Microsoft Windows 8/2012/2012r2
-         * win10;; Microsoft Windows 10/2016
+         * win10;; Microsoft Windows 10/2016/2019
+         * win11;; Microsoft Windows 11/2022
          * l24;; Linux 2.4 Kernel
          * l26;; Linux 2.6 - 5.X Kernel
          * solaris;; Solaris/OpenSolaris/OpenIndiania kernel
@@ -4347,25 +5114,29 @@ export namespace Proxmox {
         ostype?: string;
         /**
          * Map host parallel devices (n is 0 to 2).
-         * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
+         * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such
+         * machines - use with special care.
          * CAUTION: Experimental! User reported problems with this option.
          */
         parallel0?: string;
         /**
          * Map host parallel devices (n is 0 to 2).
-         * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
+         * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such
+         * machines - use with special care.
          * CAUTION: Experimental! User reported problems with this option.
          */
         parallel1?: string;
         /**
          * Map host parallel devices (n is 0 to 2).
-         * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
+         * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such
+         * machines - use with special care.
          * CAUTION: Experimental! User reported problems with this option.
          */
         parallel2?: string;
         /**
          * Map host parallel devices (n is 0 to 2).
-         * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
+         * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such
+         * machines - use with special care.
          * CAUTION: Experimental! User reported problems with this option.
          */
         parallel3?: string;
@@ -4382,35 +5153,35 @@ export namespace Proxmox {
          */
         rng0?: string;
         /**
-         * Use volume as SATA hard disk or CD-ROM (n is 0 to 5).
+         * Use volume as SATA hard disk or CD-ROM (n is 0 to 5). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         sata0?: string;
         /**
-         * Use volume as SATA hard disk or CD-ROM (n is 0 to 5).
+         * Use volume as SATA hard disk or CD-ROM (n is 0 to 5). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         sata1?: string;
         /**
-         * Use volume as SATA hard disk or CD-ROM (n is 0 to 5).
+         * Use volume as SATA hard disk or CD-ROM (n is 0 to 5). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         sata2?: string;
         /**
-         * Use volume as SATA hard disk or CD-ROM (n is 0 to 5).
+         * Use volume as SATA hard disk or CD-ROM (n is 0 to 5). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         sata3?: string;
         /**
-         * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30).
+         * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         scsi0?: string;
         /**
-         * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30).
+         * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         scsi1?: string;
         /**
-         * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30).
+         * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         scsi2?: string;
         /**
-         * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30).
+         * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         scsi3?: string;
         /**
@@ -4418,14 +5189,17 @@ export namespace Proxmox {
          */
         scsihw?: string;
         /**
-         * cloud-init: Sets DNS search domains for a container. Create will automatically use the setting from the host if neither searchdomain nor nameserver are set.
+         * cloud-init: Sets DNS search domains for a container. Create will'
+         * .' automatically use the setting from the host if neither searchdomain nor nameserver'
+         * .' are set.
          */
         searchdomain?: string;
         /**
          * Create a serial device inside the VM (n is 0 to 3), and pass through a
          * host serial device (i.e. /dev/ttyS0), or create a unix socket on the
          * host side (use 'qm terminal' to open a terminal connection).
-         * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
+         * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines -
+         * use with special care.
          * CAUTION: Experimental! User reported problems with this option.
          */
         serial0?: string;
@@ -4433,7 +5207,8 @@ export namespace Proxmox {
          * Create a serial device inside the VM (n is 0 to 3), and pass through a
          * host serial device (i.e. /dev/ttyS0), or create a unix socket on the
          * host side (use 'qm terminal' to open a terminal connection).
-         * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
+         * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines -
+         * use with special care.
          * CAUTION: Experimental! User reported problems with this option.
          */
         serial1?: string;
@@ -4441,7 +5216,8 @@ export namespace Proxmox {
          * Create a serial device inside the VM (n is 0 to 3), and pass through a
          * host serial device (i.e. /dev/ttyS0), or create a unix socket on the
          * host side (use 'qm terminal' to open a terminal connection).
-         * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
+         * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines -
+         * use with special care.
          * CAUTION: Experimental! User reported problems with this option.
          */
         serial2?: string;
@@ -4449,7 +5225,8 @@ export namespace Proxmox {
          * Create a serial device inside the VM (n is 0 to 3), and pass through a
          * host serial device (i.e. /dev/ttyS0), or create a unix socket on the
          * host side (use 'qm terminal' to open a terminal connection).
-         * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
+         * NOTE: If you pass through a host serial device, it is no longer possible to migrate such machines -
+         * use with special care.
          * CAUTION: Experimental! User reported problems with this option.
          */
         serial3?: string;
@@ -4478,7 +5255,7 @@ export namespace Proxmox {
          */
         sshkeys?: string;
         /**
-         * Set the initial date of the real time clock. Valid format for date are: 'now' or '2006-06-17T16:01:21' or '2006-06-17'.
+         * Set the initial date of the real time clock. Valid format for date are:'now' or '2006-06-17T16:01:21' or '2006-06-17'.
          */
         startdate?: string;
         /**
@@ -4486,7 +5263,7 @@ export namespace Proxmox {
          */
         startup?: string;
         /**
-         * Enable/disable the USB tablet device. This device is usually needed to allow absolute mouse positioning with VNC. Else the mouse runs out of sync with normal VNC clients. If you're running lots of console-only guests on one host, you may consider disabling this to save some context switches. This is turned off by default if you use spice (-vga=qxl).
+         * Enable/disable the USB tablet device. This device is usually needed to allow absolute mouse positioning with VNC. Else the mouse runs out of sync with normal VNC clients. If you're running lots of console-only guests on one host, you may consider disabling this to save some context switches. This is turned off by default if you use spice (`qm set <vmid> --vga qxl`).
          */
         tablet?: boolean;
         /**
@@ -4501,6 +5278,10 @@ export namespace Proxmox {
          * Enable/disable Template.
          */
         template?: boolean;
+        /**
+         * Configure a Disk for storing TPM state. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Note that SIZE_IN_GiB is ignored here and that the default size of 4 MiB will always be used instead. The format is also fixed to 'raw'.
+         */
+        tpmstate0?: string;
         /**
          * Reference to unused volumes. This is used internally, and should not be modified manually.
          */
@@ -4543,24 +5324,24 @@ export namespace Proxmox {
          */
         vga?: string;
         /**
-         * Use volume as VIRTIO hard disk (n is 0 to 15).
+         * Use volume as VIRTIO hard disk (n is 0 to 15). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         virtio0?: string;
         /**
-         * Use volume as VIRTIO hard disk (n is 0 to 15).
+         * Use volume as VIRTIO hard disk (n is 0 to 15). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         virtio1?: string;
         /**
-         * Use volume as VIRTIO hard disk (n is 0 to 15).
+         * Use volume as VIRTIO hard disk (n is 0 to 15). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         virtio2?: string;
         /**
-         * Use volume as VIRTIO hard disk (n is 0 to 15).
+         * Use volume as VIRTIO hard disk (n is 0 to 15). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
          */
         virtio3?: string;
         /**
          * The VM generation ID (vmgenid) device exposes a 128-bit integer value identifier to the guest OS. This allows to notify the guest operating system when the virtual machine is executed with a different configuration (e.g. snapshot execution or creation from a template). The guest operating system notices the change, and is then able to react as appropriate by marking its copies of distributed databases as dirty, re-initializing its random number generator, etc.
-         * Note that auto-creation only works when done throug API/CLI create or update methods, but not when manually editing the config file.
+         * Note that auto-creation only works when done through API/CLI create or update methods, but not when manually editing the config file.
          */
         vmgenid?: string;
         /**
@@ -4733,6 +5514,7 @@ export namespace Proxmox {
         dest?: string;
         dport?: string;
         enable?: number;
+        'icmp-type'?: string;
         iface?: string;
         ipversion?: number;
         /**
@@ -4877,13 +5659,6 @@ export namespace Proxmox {
         proxy: string;
         'tls-port': number;
         type: string;
-        'toggle-fullscreen'?: string;
-        ca?: string;
-        title?: string;
-        'delete-this-file'?: number;
-        'host-subject'?: string;
-        'release-cursor'?: string;
-        'secure-attention'?: string;
         /**
          * additionalProperties
          */
@@ -4930,6 +5705,14 @@ export namespace Proxmox {
          */
         qmpstatus?: string;
         /**
+         * The currently running machine type (if running).
+         */
+        'running-machine'?: string;
+        /**
+         * The currently running QEMU version (if running).
+         */
+        'running-qemu'?: string;
+        /**
          * Qemu VGA configuration supports spice.
          */
         spice?: boolean;
@@ -4941,10 +5724,6 @@ export namespace Proxmox {
          * The current configured tags, if any
          */
         tags?: string;
-        /**
-         * is this VM a teplate
-         */
-        template?: number;
         /**
          * Uptime.
          */
@@ -5014,6 +5793,14 @@ export namespace Proxmox {
          */
         qmpstatus?: string;
         /**
+         * The currently running machine type (if running).
+         */
+        'running-machine'?: string;
+        /**
+         * The currently running QEMU version (if running).
+         */
+        'running-qemu'?: string;
+        /**
          * Qemu process status.
          */
         status: string;
@@ -5053,7 +5840,7 @@ export namespace Proxmox {
          * Returned if requested with 'generate-password' param. Consists of printable ASCII characters ('!' .. '~').
          */
         password?: string;
-        port: string;
+        port: number;
         ticket: string;
         upid: string;
         user: string;
@@ -5067,6 +5854,18 @@ export namespace Proxmox {
      */
     export interface nodesQemuVncwebsocketVncwebsocket {
         port: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/query-url-metadata
+     */
+    export interface nodesQueryUrlMetadataQueryUrlMetadata {
+        filename?: string;
+        mimetype?: string;
+        size?: number;
         /**
          * additionalProperties
          */
@@ -5228,21 +6027,17 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/scan/usb
+     * Returned by GET /nodes/{node}/scan/pbs
      */
-    export interface nodesScanUsbUsbscan {
-        busnum: number;
-        class: number;
-        devnum: number;
-        level: number;
-        manufacturer?: string;
-        port: number;
-        prodid: string;
-        product?: string;
-        serial?: string;
-        speed: string;
-        usbpath?: string;
-        vendid: string;
+    export interface nodesScanPbsPbsscan {
+        /**
+         * Comment from server.
+         */
+        comment?: string;
+        /**
+         * The datastore name.
+         */
+        store: string;
         /**
          * additionalProperties
          */
@@ -5360,13 +6155,25 @@ export namespace Proxmox {
          */
         ctime?: number;
         /**
+         * If whole backup is encrypted, value is the fingerprint or '1'  if encrypted. Only useful for the Proxmox Backup Server storage type.
+         */
+        encrypted?: string;
+        /**
          * Format identifier ('raw', 'qcow2', 'subvol', 'iso', 'tgz' ...)
          */
         format: string;
         /**
+         * Optional notes. If they contain multiple lines, only the first one is returned here.
+         */
+        notes?: string;
+        /**
          * Volume identifier of parent (for linked cloned).
          */
         parent?: string;
+        /**
+         * Protection status. Currently only supported for backups.
+         */
+        protected?: boolean;
         /**
          * Volume size in bytes.
          */
@@ -5375,6 +6182,19 @@ export namespace Proxmox {
          * Used space. Please note that most storage plugins do not report anything useful here.
          */
         used?: number;
+        /**
+         * Last backup verification result, only useful for PBS storages.
+         */
+        verification?: {
+                /**
+                 * Last backup verification state.
+                 */
+                state: string;
+                /**
+                 * Last backup verification UPID.
+                 */
+                upid: string;
+            };
         /**
          * Associated Owner VMID.
          */
@@ -5389,10 +6209,76 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/{node}/storage/{storage}/content/{volume}
+     */
+    export interface nodesStorageContentInfo {
+        /**
+         * Format identifier ('raw', 'qcow2', 'subvol', 'iso', 'tgz' ...)
+         */
+        format: string;
+        /**
+         * Optional notes.
+         */
+        notes?: string;
+        /**
+         * The Path
+         */
+        path: string;
+        /**
+         * Protection status. Currently only supported for backups.
+         */
+        protected?: boolean;
+        /**
+         * Volume size in bytes.
+         */
+        size: number;
+        /**
+         * Used space. Please note that most storage plugins do not report anything useful here.
+         */
+        used: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /nodes/{node}/storage/{storage}
      */
     export interface nodesStorageDiridx {
         subdir: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/storage/{storage}/file-restore/list
+     */
+    export interface nodesStorageFileRestoreListList {
+        /**
+         * base64 path of the current entry
+         */
+        filepath: string;
+        /**
+         * If this entry is a leaf in the directory graph.
+         */
+        leaf: boolean;
+        /**
+         * Entry last-modified time (unix timestamp).
+         */
+        mtime?: number;
+        /**
+         * Entry file size.
+         */
+        size?: number;
+        /**
+         * Entry display text.
+         */
+        text: string;
+        /**
+         * Entry type.
+         */
+        type: string;
         /**
          * additionalProperties
          */
@@ -5442,6 +6328,35 @@ export namespace Proxmox {
          * Used fraction (used/total).
          */
         used_fraction?: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/{node}/storage/{storage}/prunebackups
+     */
+    export interface nodesStoragePrunebackupsDryrun {
+        /**
+         * Creation time of the backup (seconds since the UNIX epoch).
+         */
+        ctime: number;
+        /**
+         * Whether the backup would be kept or removed. Backups that are protected or don't use the standard naming scheme are not removed.
+         */
+        mark: string;
+        /**
+         * One of 'qemu', 'lxc', 'openvz' or 'unknown'.
+         */
+        type: string;
+        /**
+         * The VM the backup belongs to.
+         */
+        vmid?: number;
+        /**
+         * Backup volume ID.
+         */
+        volid: string;
         /**
          * additionalProperties
          */
@@ -5523,8 +6438,15 @@ export namespace Proxmox {
      * Returned by GET /nodes/{node}/tasks/{upid}/status
      */
     export interface nodesTasksStatusReadTaskStatus {
+        exitstatus?: string;
+        id: string;
+        node: string;
         pid: number;
+        starttime: number;
         status: string;
+        type: string;
+        upid: string;
+        user: string;
         /**
          * additionalProperties
          */
@@ -5619,6 +6541,119 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/{node}/vzdump/defaults
+     */
+    export interface nodesVzdumpDefaultsDefaults {
+        /**
+         * Backup all known guest systems on this host.
+         */
+        all?: boolean;
+        /**
+         * Limit I/O bandwidth (KBytes per second).
+         */
+        bwlimit?: number;
+        /**
+         * Compress dump file.
+         */
+        compress?: string;
+        /**
+         * Store resulting files to specified directory.
+         */
+        dumpdir?: string;
+        /**
+         * Exclude specified guest systems (assumes --all)
+         */
+        exclude?: string;
+        /**
+         * Exclude certain files/directories (shell globs). Paths starting with '/' are anchored to the container's root,  other paths match relative to each subdirectory.
+         */
+        'exclude-path'?: string;
+        /**
+         * Set CFQ ionice priority.
+         */
+        ionice?: number;
+        /**
+         * Maximal time to wait for the global lock (minutes).
+         */
+        lockwait?: number;
+        /**
+         * Specify when to send an email
+         */
+        mailnotification?: string;
+        /**
+         * Comma-separated list of email addresses or users that should receive email notifications.
+         */
+        mailto?: string;
+        /**
+         * Deprecated: use 'prune-backups' instead. Maximal number of backup files per guest system.
+         */
+        maxfiles?: number;
+        /**
+         * Backup mode.
+         */
+        mode?: string;
+        /**
+         * Only run if executed on this node.
+         */
+        node?: string;
+        /**
+         * Use pigz instead of gzip when N>0. N=1 uses half of cores, N>1 uses N as thread count.
+         */
+        pigz?: number;
+        /**
+         * Backup all known guest systems included in the specified pool.
+         */
+        pool?: string;
+        /**
+         * Use these retention options instead of those from the storage configuration.
+         */
+        'prune-backups'?: string;
+        /**
+         * Be quiet.
+         */
+        quiet?: boolean;
+        /**
+         * Prune older backups according to 'prune-backups'.
+         */
+        remove?: boolean;
+        /**
+         * Use specified hook script.
+         */
+        script?: string;
+        /**
+         * Exclude temporary files and logs.
+         */
+        stdexcludes?: boolean;
+        /**
+         * Stop running backup jobs on this host.
+         */
+        stop?: boolean;
+        /**
+         * Maximal time to wait until a guest system is stopped (minutes).
+         */
+        stopwait?: number;
+        /**
+         * Store resulting file to this storage.
+         */
+        storage?: string;
+        /**
+         * Store temporary files to specified directory.
+         */
+        tmpdir?: string;
+        /**
+         * The ID of the guest system you want to backup.
+         */
+        vmid?: string;
+        /**
+         * Zstd threads. N=0 uses half of the available cores, N>0 uses N as thread count.
+         */
+        zstd?: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /pools
      */
     export interface poolsIndex {
@@ -5646,6 +6681,32 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by POST /storage
+     */
+    export interface storageCreate {
+        /**
+         * Partial, possible server generated, configuration properties.
+         */
+        config?: {
+                /**
+                 * The, possible auto-generated, encryption-key.
+                 */
+                'encryption-key'?: string;
+            };
+        /**
+         * The ID of the created storage.
+         */
+        storage: string;
+        /**
+         * The type of the created storage.
+         */
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /storage
      */
     export interface storageIndex {
@@ -5656,11 +6717,50 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by PUT /storage/{storage}
+     */
+    export interface storageUpdate {
+        /**
+         * Partial, possible server generated, configuration properties.
+         */
+        config?: {
+                /**
+                 * The, possible auto-generated, encryption-key.
+                 */
+                'encryption-key'?: string;
+            };
+        /**
+         * The ID of the created storage.
+         */
+        storage: string;
+        /**
+         * The type of the created storage.
+         */
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /version
      */
     export interface versionVersion {
+        /**
+         * The default console viewer to use.
+         */
+        console?: string;
+        /**
+         * The current Proxmox VE point release in `x.y` format.
+         */
         release: string;
+        /**
+         * The short git revision from which this version was build.
+         */
         repoid: string;
+        /**
+         * The full pve-manager package version of this node.
+         */
         version: string;
         /**
          * additionalProperties
@@ -5714,6 +6814,54 @@ export namespace Proxmox {
                      */
                     $put(param?: { comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_40, disable?: boolean, rate?: Trate, remove_job?: Tremove_job, schedule?: pvecalendarevent, source?: pvenode }): Promise<null>;
                 };
+            },
+            metrics: {
+                /**
+                 * Metrics index.
+                 * GET /cluster/metrics
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
+                 */
+                $get(): Promise<clusterMetricsIndex[]>;
+                server: {
+                    /**
+                     * List configured metric servers.
+                     * GET /cluster/metrics/server
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
+                     */
+                    $get(): Promise<clusterMetricsServerServerIndex[]>;
+                    $(id: string): {
+                        /**
+                         * Remove Metric server.
+                         * DELETE /cluster/metrics/server/{id}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
+                         */
+                        $delete(): Promise<null>;
+                        /**
+                         * Read metric server configuration.
+                         * GET /cluster/metrics/server/{id}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Audit"]]}
+                         */
+                        $get(): Promise<any>;
+                        /**
+                         * Create a new external metric server config
+                         * POST /cluster/metrics/server/{id}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
+                         */
+                        $post(param: { 'api-path-prefix'?: string, bucket?: string, disable?: boolean, influxdbproto?: Tinfluxdbproto, 'max-body-size'?: integer_Min1, mtu?: integer512_65536, organization?: string, path?: graphitepath, port: integer1_65536, proto?: Tproto, server: address, timeout?: integer_Min0, token?: string, type: pveconfigid, 'verify-certificate'?: boolean }): Promise<null>;
+                        /**
+                         * Update metric server configuration.
+                         * PUT /cluster/metrics/server/{id}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
+                         */
+                        $put(param: { 'api-path-prefix'?: string, bucket?: string, delete?: pveconfigidlist, digest?: String0_40, disable?: boolean, influxdbproto?: Tinfluxdbproto, 'max-body-size'?: integer_Min1, mtu?: integer512_65536, organization?: string, path?: graphitepath, port: integer1_65536, proto?: Tproto, server: address, timeout?: integer_Min0, token?: string, 'verify-certificate'?: boolean }): Promise<null>;
+                    };
+                },
             },
             config: {
                 /**
@@ -5839,7 +6987,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
+                        $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, 'icmp-type'?: pvefwicmptypespec, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
                         $(pos: string): {
                             /**
                              * Delete rule.
@@ -5861,7 +7009,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
+                            $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, 'icmp-type'?: pvefwicmptypespec, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
                         };
                     };
                 },
@@ -5879,7 +7027,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
+                    $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, 'icmp-type'?: pvefwicmptypespec, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
                     $(pos: string): {
                         /**
                          * Delete rule.
@@ -5901,7 +7049,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
+                        $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, 'icmp-type'?: pvefwicmptypespec, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
                     };
                 },
                 ipset: {
@@ -6054,7 +7202,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["Sys.Modify"]],"description":"The 'tmpdir', 'dumpdir' and 'script' parameters are additionally restricted to the 'root@pam' user."}
                  */
-                $post(param: { all?: boolean, bwlimit?: integer_Min0, compress?: Tcompress, dow?: pvedayofweeklist, dumpdir?: string, enabled?: boolean, exclude?: pvevmidlist, 'exclude-path'?: stringalist, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: stringlist, maxfiles?: integer_Min1, mode?: Tmode, node?: pvenode, pigz?: integer, pool?: string, quiet?: boolean, remove?: boolean, script?: string, size?: integer_Min500, starttime: Tstarttime, stdexcludes?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<null>;
+                $post(param?: { all?: boolean, bwlimit?: integer_Min0, comment?: String0_512, compress?: Tcompress, dow?: pvedayofweeklist, dumpdir?: string, enabled?: boolean, exclude?: pvevmidlist, 'exclude-path'?: stringalist, id?: pveconfigid_1, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: emailorusernamelist, maxfiles?: integer_Min1, mode?: Tmode, node?: pvenode, pigz?: integer, pool?: string, 'prune-backups'?: prunebackups, quiet?: boolean, remove?: boolean, schedule?: pvecalendarevent, script?: string, starttime?: Tstarttime, stdexcludes?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<null>;
                 $(id: string): {
                     /**
                      * Delete vzdump backup job definition.
@@ -6076,7 +7224,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]],"description":"The 'tmpdir', 'dumpdir' and 'script' parameters are additionally restricted to the 'root@pam' user."}
                      */
-                    $put(param: { all?: boolean, bwlimit?: integer_Min0, compress?: Tcompress, delete?: pveconfigidlist_1, dow?: pvedayofweeklist, dumpdir?: string, enabled?: boolean, exclude?: pvevmidlist, 'exclude-path'?: stringalist, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: stringlist, maxfiles?: integer_Min1, mode?: Tmode, node?: pvenode, pigz?: integer, pool?: string, quiet?: boolean, remove?: boolean, script?: string, size?: integer_Min500, starttime: Tstarttime, stdexcludes?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<null>;
+                    $put(param?: { all?: boolean, bwlimit?: integer_Min0, comment?: String0_512, compress?: Tcompress, delete?: pveconfigidlist_1, dow?: pvedayofweeklist, dumpdir?: string, enabled?: boolean, exclude?: pvevmidlist, 'exclude-path'?: stringalist, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: emailorusernamelist, maxfiles?: integer_Min1, mode?: Tmode, node?: pvenode, pigz?: integer, pool?: string, 'prune-backups'?: prunebackups, quiet?: boolean, remove?: boolean, schedule?: pvecalendarevent, script?: string, starttime?: Tstarttime, stdexcludes?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<null>;
                     included_volumes: {
                         /**
                          * Returns included guests and the backup status of their disks. Optimized to be used in ExtJS tree views.
@@ -6088,21 +7236,21 @@ export namespace Proxmox {
                     },
                 };
             },
-            backupinfo: {
+            'backup-info': {
                 /**
-                 * Stub, waits for future use.
-                 * GET /cluster/backupinfo
+                 * Index for backup info related endpoints
+                 * GET /cluster/backup-info
                  * @allowtoken 1
                  */
-                $get(): Promise<string>;
-                not_backed_up: {
+                $get(): Promise<clusterBackupInfoIndex[]>;
+                'not-backed-up': {
                     /**
                      * Shows all guests which are not covered by any backup job.
-                     * GET /cluster/backupinfo/not_backed_up
+                     * GET /cluster/backup-info/not-backed-up
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(): Promise<clusterBackupinfoNotBackedUpGetGuestsNotInBackup[]>;
+                    $get(): Promise<clusterBackupInfoNotBackedUpGetGuestsNotInBackup[]>;
                 },
             },
             ha: {
@@ -6127,7 +7275,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Console"]]}
                      */
-                    $post(param: { comment?: String0_4096, group?: pveconfigid, max_relocate?: integer_Min0, max_restart?: integer_Min0, sid: pveharesourceorvmid, state?: Tstate, type?: Ttype_3 }): Promise<null>;
+                    $post(param: { comment?: String0_4096, group?: pveconfigid_1, max_relocate?: integer_Min0, max_restart?: integer_Min0, sid: pveharesourceorvmid, state?: Tstate, type?: Ttype_3 }): Promise<null>;
                     $(sid: string): {
                         /**
                          * Delete resource configuration.
@@ -6149,7 +7297,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Console"]]}
                          */
-                        $put(param?: { comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_40, group?: pveconfigid, max_relocate?: integer_Min0, max_restart?: integer_Min0, state?: Tstate }): Promise<null>;
+                        $put(param?: { comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_40, group?: pveconfigid_1, max_relocate?: integer_Min0, max_restart?: integer_Min0, state?: Tstate }): Promise<null>;
                         migrate: {
                             /**
                              * Request resource migration (online) to another node.
@@ -6184,7 +7332,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Console"]]}
                      */
-                    $post(param: { comment?: String0_4096, group: pveconfigid, nodes: pvehagroupnodelist, nofailback?: boolean, restricted?: boolean, type?: Ttype_4 }): Promise<null>;
+                    $post(param: { comment?: String0_4096, group: pveconfigid_1, nodes: pvehagroupnodelist, nofailback?: boolean, restricted?: boolean, type?: Ttype_4 }): Promise<null>;
                     $(group: string): {
                         /**
                          * Delete ha group configuration.
@@ -6259,7 +7407,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param: { api?: Tapi, data?: string, disable?: boolean, id: pveconfigid, nodes?: pvenodelist, type: Ttype_5, 'validation-delay'?: integer0_172800 }): Promise<null>;
+                    $post(param: { api?: Tapi, data?: string, disable?: boolean, id: pveconfigid_1, nodes?: pvenodelist, type: Ttype_5, 'validation-delay'?: integer0_172800 }): Promise<null>;
                     $(id: string): {
                         /**
                          * Delete ACME plugin configuration.
@@ -6297,7 +7445,7 @@ export namespace Proxmox {
                      * POST /cluster/acme/account
                      * @allowtoken 1
                      */
-                    $post(param: { contact: emaillist, directory?: Tdirectory, name?: pveconfigid, tos_url?: string }): Promise<string>;
+                    $post(param: { contact: emaillist, directory?: Tdirectory, name?: pveconfigid_1, tos_url?: string }): Promise<string>;
                     $(name: string): {
                         /**
                          * Deactivate existing ACME account at CA.
@@ -6406,6 +7554,24 @@ export namespace Proxmox {
                     };
                 },
             },
+            jobs: {
+                /**
+                 * Index for jobs related endpoints.
+                 * GET /cluster/jobs
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
+                 */
+                $get(): Promise<clusterJobsIndex[]>;
+                'schedule-analyze': {
+                    /**
+                     * Returns a list of future schedule runtimes.
+                     * GET /cluster/jobs/schedule-analyze
+                     * @allowtoken 1
+                     * @permissions {"user":"all"}
+                     */
+                    $get(param: { iterations?: integer1_100, schedule: pvecalendarevent, starttime?: integer }): Promise<clusterJobsScheduleAnalyzeScheduleAnalyze[]>;
+                },
+            },
             sdn: {
                 /**
                  * Directory index.
@@ -6428,14 +7594,14 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/vnets/<vnet>'","user":"all"}
                      */
-                    $get(): Promise<clusterSdnVnetsIndex[]>;
+                    $get(param?: { pending?: boolean, running?: boolean }): Promise<clusterSdnVnetsIndex[]>;
                     /**
                      * Create a new sdn vnet object.
                      * POST /cluster/sdn/vnets
                      * @allowtoken 1
                      * @permissions {"check":["perm","/sdn/vnets",["SDN.Allocate"]]}
                      */
-                    $post(param: { alias?: string, ipv4?: CIDRv4, ipv6?: CIDRv6, mac?: macaddr, tag?: integer, type?: Ttype_6, vlanaware?: boolean, vnet: pvesdnvnetid, zone: string }): Promise<null>;
+                    $post(param: { alias?: Talias, tag?: integer, type?: Ttype_6, vlanaware?: boolean, vnet: pvesdnvnetid, zone: string }): Promise<null>;
                     $(vnet: string): {
                         /**
                          * Delete sdn vnet object configuration.
@@ -6450,14 +7616,53 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/vnets/{vnet}",["SDN.Allocate"]]}
                          */
-                        $get(): Promise<any>;
+                        $get(param?: { pending?: boolean, running?: boolean }): Promise<any>;
                         /**
                          * Update sdn vnet object configuration.
                          * PUT /cluster/sdn/vnets/{vnet}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/vnets",["SDN.Allocate"]]}
                          */
-                        $put(param?: { alias?: string, delete?: pveconfigidlist, digest?: String0_40, ipv4?: CIDRv4, ipv6?: CIDRv6, mac?: macaddr, tag?: integer, vlanaware?: boolean, zone?: string }): Promise<null>;
+                        $put(param?: { alias?: Talias, delete?: pveconfigidlist, digest?: String0_40, tag?: integer, vlanaware?: boolean, zone?: string }): Promise<null>;
+                        subnets: {
+                            /**
+                             * SDN subnets index.
+                             * GET /cluster/sdn/vnets/{vnet}/subnets
+                             * @allowtoken 1
+                             * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/subnets/<subnet>'","user":"all"}
+                             */
+                            $get(param?: { pending?: boolean, running?: boolean }): Promise<clusterSdnVnetsSubnetsIndex[]>;
+                            /**
+                             * Create a new sdn subnet object.
+                             * POST /cluster/sdn/vnets/{vnet}/subnets
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/sdn/vnets/{vnet}/subnets",["SDN.Allocate"]]}
+                             */
+                            $post(param: { dnszoneprefix?: dnsname, gateway?: ip, snat?: boolean, subnet: pvesdnsubnetid, type: Ttype_7 }): Promise<null>;
+                            $(subnet: string): {
+                                /**
+                                 * Delete sdn subnet object configuration.
+                                 * DELETE /cluster/sdn/vnets/{vnet}/subnets/{subnet}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/sdn/vnets/{vnet}/subnets",["SDN.Allocate"]]}
+                                 */
+                                $delete(): Promise<null>;
+                                /**
+                                 * Read sdn subnet configuration.
+                                 * GET /cluster/sdn/vnets/{vnet}/subnets/{subnet}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/sdn/vnets/{vnet}/subnets/{subnet}",["SDN.Allocate"]]}
+                                 */
+                                $get(param?: { pending?: boolean, running?: boolean }): Promise<any>;
+                                /**
+                                 * Update sdn subnet object configuration.
+                                 * PUT /cluster/sdn/vnets/{vnet}/subnets/{subnet}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/sdn/vnets/{vnet}/subnets",["SDN.Allocate"]]}
+                                 */
+                                $put(param?: { delete?: pveconfigidlist, digest?: String0_40, dnszoneprefix?: dnsname, gateway?: ip, snat?: boolean }): Promise<null>;
+                            };
+                        },
                     };
                 },
                 zones: {
@@ -6467,14 +7672,14 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/zones/<zone>'","user":"all"}
                      */
-                    $get(param?: { type?: Ttype_7 }): Promise<clusterSdnZonesIndex[]>;
+                    $get(param?: { pending?: boolean, running?: boolean, type?: Ttype_8 }): Promise<clusterSdnZonesIndex[]>;
                     /**
                      * Create a new sdn zone object.
                      * POST /cluster/sdn/zones
                      * @allowtoken 1
                      * @permissions {"check":["perm","/sdn/zones",["SDN.Allocate"]]}
                      */
-                    $post(param: { bridge?: string, controller?: string, 'dp-id'?: integer, mtu?: integer, nodes?: pvenodelist, peers?: iplist, tag?: integer_Min0, type: pveconfigid_1, 'vlan-protocol'?: Tvlanprotocol, 'vrf-vxlan'?: integer, zone: pvesdnzoneid }): Promise<null>;
+                    $post(param: { 'advertise-subnets'?: boolean, bridge?: string, controller?: string, 'disable-arp-nd-suppression'?: boolean, dns?: string, dnszone?: dnsname, 'dp-id'?: integer, exitnodes?: pvenodelist, 'exitnodes-local-routing'?: boolean, ipam?: string, mac?: macaddr, mtu?: integer, nodes?: pvenodelist, peers?: iplist, reversedns?: string, tag?: integer_Min0, type: pveconfigid_2, 'vlan-protocol'?: Tvlanprotocol, 'vrf-vxlan'?: integer, zone: pvesdnzoneid }): Promise<null>;
                     $(zone: string): {
                         /**
                          * Delete sdn zone object configuration.
@@ -6489,14 +7694,14 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Allocate"]]}
                          */
-                        $get(): Promise<any>;
+                        $get(param?: { pending?: boolean, running?: boolean }): Promise<any>;
                         /**
                          * Update sdn zone object configuration.
                          * PUT /cluster/sdn/zones/{zone}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/zones",["SDN.Allocate"]]}
                          */
-                        $put(param?: { bridge?: string, controller?: string, delete?: pveconfigidlist, digest?: String0_40, 'dp-id'?: integer, mtu?: integer, nodes?: pvenodelist, peers?: iplist, tag?: integer_Min0, 'vlan-protocol'?: Tvlanprotocol, 'vrf-vxlan'?: integer }): Promise<null>;
+                        $put(param?: { 'advertise-subnets'?: boolean, bridge?: string, controller?: string, delete?: pveconfigidlist, digest?: String0_40, 'disable-arp-nd-suppression'?: boolean, dns?: string, dnszone?: dnsname, 'dp-id'?: integer, exitnodes?: pvenodelist, 'exitnodes-local-routing'?: boolean, ipam?: string, mac?: macaddr, mtu?: integer, nodes?: pvenodelist, peers?: iplist, reversedns?: string, tag?: integer_Min0, 'vlan-protocol'?: Tvlanprotocol, 'vrf-vxlan'?: integer }): Promise<null>;
                     };
                 },
                 controllers: {
@@ -6506,14 +7711,14 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/controllers/<controller>'","user":"all"}
                      */
-                    $get(param?: { type?: Ttype_8 }): Promise<clusterSdnControllersIndex[]>;
+                    $get(param?: { pending?: boolean, running?: boolean, type?: Ttype_9 }): Promise<clusterSdnControllersIndex[]>;
                     /**
                      * Create a new sdn controller object.
                      * POST /cluster/sdn/controllers
                      * @allowtoken 1
                      * @permissions {"check":["perm","/sdn/controllers",["SDN.Allocate"]]}
                      */
-                    $post(param: { asn?: integer, controller: pvesdncontrollerid, 'gateway-external-peers'?: iplist, 'gateway-nodes'?: pvenodelist, peers?: iplist, type: pveconfigid_2 }): Promise<null>;
+                    $post(param: { asn?: integer, controller: pvesdncontrollerid, ebgp?: boolean, 'ebgp-multihop'?: integer, loopback?: string, node?: pvenode, peers?: iplist, type: pveconfigid_3 }): Promise<null>;
                     $(controller: string): {
                         /**
                          * Delete sdn controller object configuration.
@@ -6528,14 +7733,92 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/controllers/{controller}",["SDN.Allocate"]]}
                          */
-                        $get(): Promise<any>;
+                        $get(param?: { pending?: boolean, running?: boolean }): Promise<any>;
                         /**
                          * Update sdn controller object configuration.
                          * PUT /cluster/sdn/controllers/{controller}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/controllers",["SDN.Allocate"]]}
                          */
-                        $put(param?: { asn?: integer, delete?: pveconfigidlist, digest?: String0_40, 'gateway-external-peers'?: iplist, 'gateway-nodes'?: pvenodelist, peers?: iplist }): Promise<null>;
+                        $put(param?: { asn?: integer, delete?: pveconfigidlist, digest?: String0_40, ebgp?: boolean, 'ebgp-multihop'?: integer, loopback?: string, node?: pvenode, peers?: iplist }): Promise<null>;
+                    };
+                },
+                ipams: {
+                    /**
+                     * SDN ipams index.
+                     * GET /cluster/sdn/ipams
+                     * @allowtoken 1
+                     * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/ipams/<ipam>'","user":"all"}
+                     */
+                    $get(param?: { type?: Ttype_10 }): Promise<clusterSdnIpamsIndex[]>;
+                    /**
+                     * Create a new sdn ipam object.
+                     * POST /cluster/sdn/ipams
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn/ipams",["SDN.Allocate"]]}
+                     */
+                    $post(param: { ipam: pvesdnipamid, section?: integer, token?: string, type: pveconfigid_4, url?: string }): Promise<null>;
+                    $(ipam: string): {
+                        /**
+                         * Delete sdn ipam object configuration.
+                         * DELETE /cluster/sdn/ipams/{ipam}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/sdn/ipams",["SDN.Allocate"]]}
+                         */
+                        $delete(): Promise<null>;
+                        /**
+                         * Read sdn ipam configuration.
+                         * GET /cluster/sdn/ipams/{ipam}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/sdn/ipams/{ipam}",["SDN.Allocate"]]}
+                         */
+                        $get(): Promise<any>;
+                        /**
+                         * Update sdn ipam object configuration.
+                         * PUT /cluster/sdn/ipams/{ipam}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/sdn/ipams",["SDN.Allocate"]]}
+                         */
+                        $put(param?: { delete?: pveconfigidlist, digest?: String0_40, section?: integer, token?: string, url?: string }): Promise<null>;
+                    };
+                },
+                dns: {
+                    /**
+                     * SDN dns index.
+                     * GET /cluster/sdn/dns
+                     * @allowtoken 1
+                     * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/dns/<dns>'","user":"all"}
+                     */
+                    $get(param?: { type?: Ttype_11 }): Promise<clusterSdnDnsIndex[]>;
+                    /**
+                     * Create a new sdn dns object.
+                     * POST /cluster/sdn/dns
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn/dns",["SDN.Allocate"]]}
+                     */
+                    $post(param: { dns: pvesdndnsid, key: string, reversemaskv6?: integer, reversev6mask?: integer, ttl?: integer, type: pveconfigid_5, url: string }): Promise<null>;
+                    $(dns: string): {
+                        /**
+                         * Delete sdn dns object configuration.
+                         * DELETE /cluster/sdn/dns/{dns}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/sdn/dns",["SDN.Allocate"]]}
+                         */
+                        $delete(): Promise<null>;
+                        /**
+                         * Read sdn dns configuration.
+                         * GET /cluster/sdn/dns/{dns}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/sdn/dns/{dns}",["SDN.Allocate"]]}
+                         */
+                        $get(): Promise<any>;
+                        /**
+                         * Update sdn dns object configuration.
+                         * PUT /cluster/sdn/dns/{dns}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/sdn/dns",["SDN.Allocate"]]}
+                         */
+                        $put(param?: { delete?: pveconfigidlist, digest?: String0_40, key?: string, reversemaskv6?: integer, ttl?: integer, url?: string }): Promise<null>;
                     };
                 },
             },
@@ -6555,7 +7838,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"user":"all"}
                  */
-                $get(param?: { type?: Ttype_9 }): Promise<clusterResourcesResources[]>;
+                $get(param?: { type?: Ttype_12 }): Promise<clusterResourcesResources[]>;
             },
             tasks: {
                 /**
@@ -6580,7 +7863,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["Sys.Modify"]]}
                  */
-                $put(param?: { bwlimit?: Tbwlimit, console?: Tconsole, delete?: pveconfigidlist_1, email_from?: emailopt, fencing?: Tfencing, ha?: Tha, http_proxy?: Thttp_proxy, keyboard?: Tkeyboard, language?: Tlanguage, mac_prefix?: macprefix, max_workers?: integer_Min1, migration?: Tmigration, migration_unsecure?: boolean, u2f?: Tu2f }): Promise<null>;
+                $put(param?: { bwlimit?: Tbwlimit, console?: Tconsole, delete?: pveconfigidlist_1, description?: String0_65536, email_from?: emailopt, fencing?: Tfencing, ha?: Tha, http_proxy?: Thttp_proxy, keyboard?: Tkeyboard, language?: Tlanguage, mac_prefix?: macprefix, max_workers?: integer_Min1, migration?: Tmigration, migration_unsecure?: boolean, u2f?: Tu2f, webauthn?: Twebauthn }): Promise<null>;
             },
             status: {
                 /**
@@ -6631,15 +7914,15 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"You need 'VM.Allocate' permissions on /vms/{vmid} or on the VM pool /pool/{pool}. For restore (option 'archive'), it is enough if the user has 'VM.Backup' permission and the VM already exists. If you create disks you need 'Datastore.AllocateSpace' on any used storage.","user":"all"}
                      */
-                    $post(param: { acpi?: boolean, agent?: Tagent, arch?: Tarch, archive?: String0_255, args?: string, audio0?: Taudio0, autostart?: boolean, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, bwlimit?: integer_Min0, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, description?: string, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, pool?: pvepoolid, protection?: boolean, reboot?: boolean, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, start?: boolean, startdate?: Tstartdate, startup?: pvestartuporder, storage?: pvestorageid, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, unique?: boolean, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmid: pvevmid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<string>;
+                    $post(param: { acpi?: boolean, agent?: Tagent, arch?: Tarch, archive?: String0_255, args?: string, audio0?: Taudio0, autostart?: boolean, balloon?: integer_Min0, bios?: Tbios, boot?: pveqmboot, bootdisk?: pveqmbootdisk, bwlimit?: integer_Min0, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, description?: String0_8192, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keephugepages?: boolean, keyboard?: Tkeyboard, kvm?: boolean, 'live-restore'?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, pool?: pvepoolid, protection?: boolean, reboot?: boolean, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, start?: boolean, startdate?: Tstartdate, startup?: pvestartuporder, storage?: pvestorageid, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, tpmstate0?: Ttpmstate0, unique?: boolean, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmid: pvevmid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<string>;
                     $(vmid: number): {
                         /**
-                         * Destroy the vm (also delete all used/owned volumes).
+                         * Destroy the VM and  all used/owned volumes. Removes any VM specific permissions and firewall rules
                          * DELETE /nodes/{node}/qemu/{vmid}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]]}
                          */
-                        $delete(param?: { purge?: boolean, skiplock?: boolean }): Promise<string>;
+                        $delete(param?: { 'destroy-unreferenced-disks'?: boolean, purge?: boolean, skiplock?: boolean }): Promise<string>;
                         /**
                          * Directory index
                          * GET /nodes/{node}/qemu/{vmid}
@@ -6669,7 +7952,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
+                                $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, 'icmp-type'?: pvefwicmptypespec, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
                                 $(pos: string): {
                                     /**
                                      * Delete rule.
@@ -6691,7 +7974,7 @@ export namespace Proxmox {
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
-                                    $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
+                                    $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, 'icmp-type'?: pvefwicmptypespec, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
                                 };
                             },
                             aliases: {
@@ -7096,21 +8379,21 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param?: { current?: boolean, snapshot?: pveconfigid_3 }): Promise<nodesQemuConfigVmConfig>;
+                            $get(param?: { current?: boolean, snapshot?: pveconfigid_6 }): Promise<nodesQemuConfigVmConfig>;
                             /**
                              * Set virtual machine options (asynchrounous API).
                              * POST /nodes/{node}/qemu/{vmid}/config
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CDROM","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.HWType","VM.Config.Options","VM.Config.Cloudinit"],"any",1]}
                              */
-                            $post(param?: { acpi?: boolean, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: boolean, background_delay?: integer1_30, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: boolean, reboot?: boolean, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: boolean, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<string>;
+                            $post(param?: { acpi?: boolean, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: boolean, background_delay?: integer1_30, balloon?: integer_Min0, bios?: Tbios, boot?: pveqmboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: String0_8192, digest?: String0_40, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keephugepages?: boolean, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: boolean, reboot?: boolean, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: boolean, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, tpmstate0?: Ttpmstate0, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<string>;
                             /**
                              * Set virtual machine options (synchrounous API) - You should consider using the POST method instead for any actions involving hotplug or storage allocation.
                              * PUT /nodes/{node}/qemu/{vmid}/config
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CDROM","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.HWType","VM.Config.Options","VM.Config.Cloudinit"],"any",1]}
                              */
-                            $put(param?: { acpi?: boolean, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: boolean, balloon?: integer_Min0, bios?: Tbios, boot?: Tboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: boolean, reboot?: boolean, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: boolean, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<null>;
+                            $put(param?: { acpi?: boolean, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: boolean, balloon?: integer_Min0, bios?: Tbios, boot?: pveqmboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: String0_8192, digest?: String0_40, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keephugepages?: boolean, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: boolean, reboot?: boolean, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: boolean, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, tpmstate0?: Ttpmstate0, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<null>;
                         },
                         pending: {
                             /**
@@ -7263,7 +8546,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { feature: Tfeature, snapname?: pveconfigid_3 }): Promise<nodesQemuFeatureVmFeature>;
+                            $get(param: { feature: Tfeature, snapname?: pveconfigid_6 }): Promise<nodesQemuFeatureVmFeature>;
                         },
                         clone: {
                             /**
@@ -7272,16 +8555,16 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Clone"]],["or",["perm","/vms/{newid}",["VM.Allocate"]],["perm","/pool/{pool}",["VM.Allocate"],"require_param","pool"]]],"description":"You need 'VM.Clone' permissions on /vms/{vmid}, and 'VM.Allocate' permissions on /vms/{newid} (or on the VM pool /pool/{pool}). You also need 'Datastore.AllocateSpace' on any used storage."}
                              */
-                            $post(param: { bwlimit?: integer_Min0, description?: string, format?: Tformat, full?: boolean, name?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode }): Promise<string>;
+                            $post(param: { bwlimit?: integer_Min0, description?: string, format?: Tformat, full?: boolean, name?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_6, storage?: pvestorageid, target?: pvenode }): Promise<string>;
                         },
                         move_disk: {
                             /**
-                             * Move volume to different storage.
+                             * Move volume to different storage or to a different VM.
                              * POST /nodes/{node}/qemu/{vmid}/move_disk
                              * @allowtoken 1
-                             * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Config.Disk"]],["perm","/storage/{storage}",["Datastore.AllocateSpace"]]],"description":"You need 'VM.Config.Disk' permissions on /vms/{vmid}, and 'Datastore.AllocateSpace' permissions on the storage."}
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"]],"description":"You need 'VM.Config.Disk' permissions on /vms/{vmid}, and 'Datastore.AllocateSpace' permissions on the storage. To move a disk to another VM, you need the permissions on the target VM as well."}
                              */
-                            $post(param: { bwlimit?: integer_Min0, delete?: boolean, digest?: String0_40, disk: Tdisk, format?: Tformat, storage: pvestorageid }): Promise<string>;
+                            $post(param: { bwlimit?: integer_Min0, delete?: boolean, digest?: String0_40, disk: Tdisk, format?: Tformat, storage?: pvestorageid, 'target-digest'?: String0_40, 'target-disk'?: Tdisk, 'target-vmid'?: pvevmid }): Promise<string>;
                         },
                         migrate: {
                             /**
@@ -7315,7 +8598,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"]]}
                              */
-                            $put(param: { digest?: String0_40, disk: Tdisk, size: Tsize, skiplock?: boolean }): Promise<null>;
+                            $put(param: { digest?: String0_40, disk: Tdisk_1, size: Tsize, skiplock?: boolean }): Promise<null>;
                         },
                         snapshot: {
                             /**
@@ -7331,7 +8614,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                              */
-                            $post(param: { description?: string, snapname: pveconfigid_3, vmstate?: boolean }): Promise<string>;
+                            $post(param: { description?: string, snapname: pveconfigid_6, vmstate?: boolean }): Promise<string>;
                             $(snapname: string): {
                                 /**
                                  * Delete a VM snapshot.
@@ -7380,7 +8663,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]],"description":"You need 'VM.Allocate' permissions on /vms/{vmid}"}
                              */
-                            $post(param?: { disk?: Tdisk }): Promise<null>;
+                            $post(param?: { disk?: Tdisk_1 }): Promise<string>;
                         },
                         cloudinit: {
                             dump: {
@@ -7390,19 +8673,10 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
-                                $get(param: { type: Ttype_10 }): Promise<string>;
+                                $get(param: { type: Ttype_13 }): Promise<string>;
                             },
                         },
                     };
-                },
-                cpu: {
-                    /**
-                     * List all custom and default CPU models.
-                     * GET /nodes/{node}/cpu
-                     * @allowtoken 1
-                     * @permissions {"description":"Only returns custom models when the current user has Sys.Audit on /nodes.","user":"all"}
-                     */
-                    $get(): Promise<nodesCpuIndex[]>;
                 },
                 lxc: {
                     /**
@@ -7418,7 +8692,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"You need 'VM.Allocate' permissions on /vms/{vmid} or on the VM pool /pool/{pool}. For restore, it is enough if the user has 'VM.Backup' permission and the VM already exists. You also need 'Datastore.AllocateSpace' permissions on the storage.","user":"all"}
                      */
-                    $post(param: { arch?: Tarch_1, bwlimit?: Tmigrate_downtime, cmode?: Tcmode, console?: boolean, cores?: integer1_128, cpulimit?: Tcpulimit, cpuunits?: integer0_500000, description?: string, features?: Tfeatures, force?: boolean, hookscript?: pvevolumeid, hostname?: dnsname_1, 'ignore-unpack-errors'?: boolean, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: addresslist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: boolean, ostemplate: String0_255, ostype?: Tostype_1, password?: Tpassword, pool?: pvepoolid, protection?: boolean, restore?: boolean, rootfs?: Trootfs, searchdomain?: dnsnamelist, 'ssh-public-keys'?: string, start?: boolean, startup?: pvestartuporder, storage?: pvestorageid, swap?: integer_Min0, tags?: pvetaglist, template?: boolean, timezone?: pvecttimezone, tty?: integer0_6, unique?: boolean, unprivileged?: boolean, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1, vmid: pvevmid }): Promise<string>;
+                    $post(param: { arch?: Tarch_1, bwlimit?: Tmigrate_downtime, cmode?: Tcmode, console?: boolean, cores?: integer1_8192, cpulimit?: Tcpulimit_1, cpuunits?: integer0_500000, debug?: boolean, description?: String0_8192, features?: Tfeatures, force?: boolean, hookscript?: pvevolumeid, hostname?: dnsname_1, 'ignore-unpack-errors'?: boolean, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: lxcipwithllifacelist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: boolean, ostemplate: String0_255, ostype?: Tostype_1, password?: Tpassword, pool?: pvepoolid, protection?: boolean, restore?: boolean, rootfs?: Trootfs, searchdomain?: dnsnamelist, 'ssh-public-keys'?: string, start?: boolean, startup?: pvestartuporder, storage?: pvestorageid, swap?: integer_Min0, tags?: pvetaglist, template?: boolean, timezone?: pvecttimezone, tty?: integer0_6, unique?: boolean, unprivileged?: boolean, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1, vmid: pvevmid }): Promise<string>;
                     $(vmid: number): {
                         /**
                          * Destroy the container (also delete all uses files).
@@ -7426,7 +8700,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]]}
                          */
-                        $delete(param?: { force?: boolean, purge?: boolean }): Promise<string>;
+                        $delete(param?: { 'destroy-unreferenced-disks'?: boolean, force?: boolean, purge?: boolean }): Promise<string>;
                         /**
                          * Directory index
                          * GET /nodes/{node}/lxc/{vmid}
@@ -7441,14 +8715,14 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param?: { current?: boolean, snapshot?: pveconfigid_3 }): Promise<nodesLxcConfigVmConfig>;
+                            $get(param?: { current?: boolean, snapshot?: pveconfigid_6 }): Promise<nodesLxcConfigVmConfig>;
                             /**
                              * Set container options.
                              * PUT /nodes/{node}/lxc/{vmid}/config
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.Options"],"any",1],"description":"non-volume mount points in rootfs and mp[n] are restricted to root@pam"}
                              */
-                            $put(param?: { arch?: Tarch_1, cmode?: Tcmode, console?: boolean, cores?: integer1_128, cpulimit?: Tcpulimit, cpuunits?: integer0_500000, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, features?: Tfeatures, hookscript?: pvevolumeid, hostname?: dnsname_1, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: addresslist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: boolean, ostype?: Tostype_1, protection?: boolean, revert?: pveconfigidlist_1, rootfs?: Trootfs, searchdomain?: dnsnamelist, startup?: pvestartuporder, swap?: integer_Min0, tags?: pvetaglist, template?: boolean, timezone?: pvecttimezone, tty?: integer0_6, unprivileged?: boolean, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1 }): Promise<null>;
+                            $put(param?: { arch?: Tarch_1, cmode?: Tcmode, console?: boolean, cores?: integer1_8192, cpulimit?: Tcpulimit_1, cpuunits?: integer0_500000, debug?: boolean, delete?: pveconfigidlist_1, description?: String0_8192, digest?: String0_40, features?: Tfeatures, hookscript?: pvevolumeid, hostname?: dnsname_1, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: lxcipwithllifacelist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: boolean, ostype?: Tostype_1, protection?: boolean, revert?: pveconfigidlist_1, rootfs?: Trootfs, searchdomain?: dnsnamelist, startup?: pvestartuporder, swap?: integer_Min0, tags?: pvetaglist, template?: boolean, timezone?: pvecttimezone, tty?: integer0_6, unprivileged?: boolean, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1 }): Promise<null>;
                         },
                         status: {
                             /**
@@ -7474,7 +8748,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { skiplock?: boolean }): Promise<string>;
+                                $post(param?: { debug?: boolean, skiplock?: boolean }): Promise<string>;
                             },
                             stop: {
                                 /**
@@ -7496,7 +8770,7 @@ export namespace Proxmox {
                             },
                             suspend: {
                                 /**
-                                 * Suspend the container.
+                                 * Suspend the container. This is experimental.
                                  * POST /nodes/{node}/lxc/{vmid}/status/suspend
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
@@ -7536,7 +8810,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                              */
-                            $post(param: { description?: string, snapname: pveconfigid_3 }): Promise<string>;
+                            $post(param: { description?: string, snapname: pveconfigid_6 }): Promise<string>;
                             $(snapname: string): {
                                 /**
                                  * Delete a LXC snapshot.
@@ -7600,7 +8874,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
-                                $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
+                                $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, 'icmp-type'?: pvefwicmptypespec, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
                                 $(pos: string): {
                                     /**
                                      * Delete rule.
@@ -7622,7 +8896,7 @@ export namespace Proxmox {
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
-                                    $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
+                                    $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, 'icmp-type'?: pvefwicmptypespec, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
                                 };
                             },
                             aliases: {
@@ -7822,7 +9096,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
                              */
-                            $post(param: { bwlimit?: Tmigrate_downtime, force?: boolean, online?: boolean, restart?: boolean, target: pvenode, timeout?: integer }): Promise<string>;
+                            $post(param: { bwlimit?: Tmigrate_downtime, online?: boolean, restart?: boolean, target: pvenode, timeout?: integer }): Promise<string>;
                         },
                         feature: {
                             /**
@@ -7831,7 +9105,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { feature: Tfeature, snapname?: pveconfigid_3 }): Promise<nodesLxcFeatureVmFeature>;
+                            $get(param: { feature: Tfeature, snapname?: pveconfigid_6 }): Promise<nodesLxcFeatureVmFeature>;
                         },
                         template: {
                             /**
@@ -7849,7 +9123,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Clone"]],["or",["perm","/vms/{newid}",["VM.Allocate"]],["perm","/pool/{pool}",["VM.Allocate"],"require_param","pool"]]],"description":"You need 'VM.Clone' permissions on /vms/{vmid}, and 'VM.Allocate' permissions on /vms/{newid} (or on the VM pool /pool/{pool}). You also need 'Datastore.AllocateSpace' on any used storage."}
                              */
-                            $post(param: { bwlimit?: Tmigrate_downtime, description?: string, full?: boolean, hostname?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_3, storage?: pvestorageid, target?: pvenode }): Promise<string>;
+                            $post(param: { bwlimit?: Tmigrate_downtime, description?: string, full?: boolean, hostname?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_6, storage?: pvestorageid, target?: pvenode }): Promise<string>;
                         },
                         resize: {
                             /**
@@ -7858,16 +9132,16 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"],"any",1]}
                              */
-                            $put(param: { digest?: String0_40, disk: Tdisk_1, size: Tsize }): Promise<string>;
+                            $put(param: { digest?: String0_40, disk: Tdisk_2, size: Tsize }): Promise<string>;
                         },
                         move_volume: {
                             /**
-                             * Move a rootfs-/mp-volume to a different storage
+                             * Move a rootfs-/mp-volume to a different storage or to a different container.
                              * POST /nodes/{node}/lxc/{vmid}/move_volume
                              * @allowtoken 1
-                             * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Config.Disk"]],["perm","/storage/{storage}",["Datastore.AllocateSpace"]]],"description":"You need 'VM.Config.Disk' permissions on /vms/{vmid}, and 'Datastore.AllocateSpace' permissions on the storage."}
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"]],"description":"You need 'VM.Config.Disk' permissions on /vms/{vmid}, and 'Datastore.AllocateSpace' permissions on the storage. To move a volume to another container, you need the permissions on the target container as well."}
                              */
-                            $post(param: { bwlimit?: Tmigrate_downtime, delete?: boolean, digest?: String0_40, storage: pvestorageid, volume: Tdisk_1 }): Promise<string>;
+                            $post(param: { bwlimit?: Tmigrate_downtime, delete?: boolean, digest?: String0_40, storage?: pvestorageid, 'target-digest'?: String0_40, 'target-vmid'?: pvevmid, 'target-volume'?: Ttargetvolume, volume: Ttargetvolume }): Promise<string>;
                         },
                         pending: {
                             /**
@@ -7901,7 +9175,7 @@ export namespace Proxmox {
                          * POST /nodes/{node}/ceph/osd
                          * @allowtoken 1
                          */
-                        $post(param: { db_dev?: string, db_size?: Trate, dev: string, encrypted?: boolean, wal_dev?: string, wal_size?: Twal_size }): Promise<string>;
+                        $post(param: { 'crush-device-class'?: string, db_dev?: string, db_dev_size?: Trate, dev: string, encrypted?: boolean, wal_dev?: string, wal_dev_size?: Twal_dev_size }): Promise<string>;
                         $(osdid: string): {
                             /**
                              * Destroy OSD
@@ -8010,7 +9284,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
-                            $post(param?: { 'mon-address'?: ip }): Promise<string>;
+                            $post(param?: { 'mon-address'?: iplist }): Promise<string>;
                         };
                     },
                     fs: {
@@ -8031,14 +9305,44 @@ export namespace Proxmox {
                             $post(param?: { 'add-storage'?: boolean, pg_num?: integer8_32768 }): Promise<string>;
                         };
                     },
-                    disks: {
+                    pools: {
                         /**
-                         * List local disks.
-                         * GET /nodes/{node}/ceph/disks
+                         * List all pools.
+                         * GET /nodes/{node}/ceph/pools
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
-                        $get(param?: { type?: Ttype_11 }): Promise<nodesCephDisksDisks[]>;
+                        $get(): Promise<nodesCephPoolsLspools[]>;
+                        /**
+                         * Create POOL
+                         * POST /nodes/{node}/ceph/pools
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
+                         */
+                        $post(param: { add_storages?: boolean, application?: Tapplication, crush_rule?: Tcrush_rule, min_size?: integer1_7, name: Tname_1, pg_autoscale_mode?: Tpg_autoscale_mode, pg_num?: integer1_32768, pg_num_min?: integerMax32768, size?: integer1_7_1, target_size?: Ttarget_size, target_size_ratio?: Ttarget_size_ratio }): Promise<string>;
+                        $(name: string): {
+                            /**
+                             * Destroy pool
+                             * DELETE /nodes/{node}/ceph/pools/{name}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/",["Sys.Modify"]]}
+                             */
+                            $delete(param?: { force?: boolean, remove_storages?: boolean }): Promise<string>;
+                            /**
+                             * List pool settings.
+                             * GET /nodes/{node}/ceph/pools/{name}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
+                             */
+                            $get(param?: { verbose?: boolean }): Promise<nodesCephPoolsGetpool>;
+                            /**
+                             * Change POOL settings
+                             * PUT /nodes/{node}/ceph/pools/{name}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/",["Sys.Modify"]]}
+                             */
+                            $put(param?: { application?: Tapplication, crush_rule?: Tcrush_rule, min_size?: integer1_7, pg_autoscale_mode?: Tpg_autoscale_mode, pg_num?: integer1_32768, pg_num_min?: integerMax32768, size?: integer1_7_1, target_size?: Ttarget_size, target_size_ratio?: Ttarget_size_ratio }): Promise<string>;
+                        };
                     },
                     config: {
                         /**
@@ -8065,7 +9369,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param?: { 'cluster-network'?: CIDR_1, disable_cephx?: boolean, min_size?: integer1_7, network?: CIDR_1, pg_bits?: integer6_14, size?: integer1_7 }): Promise<null>;
+                        $post(param?: { 'cluster-network'?: CIDR_1, disable_cephx?: boolean, min_size?: integer1_7_2, network?: CIDR_1, pg_bits?: integer6_14, size?: integer1_7_2 }): Promise<null>;
                     },
                     stop: {
                         /**
@@ -8103,56 +9407,6 @@ export namespace Proxmox {
                          */
                         $get(): Promise<any>;
                     },
-                    pools: {
-                        /**
-                         * List all pools.
-                         * GET /nodes/{node}/ceph/pools
-                         * @allowtoken 1
-                         * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
-                         */
-                        $get(): Promise<nodesCephPoolsLspools[]>;
-                        /**
-                         * Create POOL
-                         * POST /nodes/{node}/ceph/pools
-                         * @allowtoken 1
-                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
-                         */
-                        $post(param: { add_storages?: boolean, application?: Tapplication, crush_rule?: string, min_size?: integer1_7, name: string, pg_num?: integer8_32768, size?: integer1_7 }): Promise<string>;
-                        $(name: string): {
-                            /**
-                             * Destroy pool
-                             * DELETE /nodes/{node}/ceph/pools/{name}
-                             * @allowtoken 1
-                             * @permissions {"check":["perm","/",["Sys.Modify"]]}
-                             */
-                            $delete(param?: { force?: boolean, remove_storages?: boolean }): Promise<string>;
-                        };
-                    },
-                    flags: {
-                        /**
-                         * get all set ceph flags
-                         * GET /nodes/{node}/ceph/flags
-                         * @allowtoken 1
-                         * @permissions {"check":["perm","/",["Sys.Audit"]]}
-                         */
-                        $get(): Promise<string>;
-                        $(flag: string): {
-                            /**
-                             * Unset a ceph flag
-                             * DELETE /nodes/{node}/ceph/flags/{flag}
-                             * @allowtoken 1
-                             * @permissions {"check":["perm","/",["Sys.Modify"]]}
-                             */
-                            $delete(): Promise<null>;
-                            /**
-                             * Set a specific ceph flag
-                             * POST /nodes/{node}/ceph/flags/{flag}
-                             * @allowtoken 1
-                             * @permissions {"check":["perm","/",["Sys.Modify"]]}
-                             */
-                            $post(): Promise<null>;
-                        };
-                    },
                     crush: {
                         /**
                          * Get OSD crush map
@@ -8186,9 +9440,18 @@ export namespace Proxmox {
                      * Create backup.
                      * POST /nodes/{node}/vzdump
                      * @allowtoken 1
-                     * @permissions {"description":"The user needs 'VM.Backup' permissions on any VM, and 'Datastore.AllocateSpace' on the backup storage. The 'maxfiles', 'tmpdir', 'dumpdir', 'script', 'bwlimit' and 'ionice' parameters are restricted to the 'root@pam' user.","user":"all"}
+                     * @permissions {"description":"The user needs 'VM.Backup' permissions on any VM, and 'Datastore.AllocateSpace' on the backup storage. The 'maxfiles', 'prune-backups', 'tmpdir', 'dumpdir', 'script', 'bwlimit' and 'ionice' parameters are restricted to the 'root@pam' user.","user":"all"}
                      */
-                    $post(param?: { all?: boolean, bwlimit?: integer_Min0, compress?: Tcompress, dumpdir?: string, exclude?: pvevmidlist, 'exclude-path'?: stringalist, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: stringlist, maxfiles?: integer_Min1, mode?: Tmode, pigz?: integer, pool?: string, quiet?: boolean, remove?: boolean, script?: string, size?: integer_Min500, stdexcludes?: boolean, stdout?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<string>;
+                    $post(param?: { all?: boolean, bwlimit?: integer_Min0, compress?: Tcompress, dumpdir?: string, exclude?: pvevmidlist, 'exclude-path'?: stringalist, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: emailorusernamelist, maxfiles?: integer_Min1, mode?: Tmode, pigz?: integer, pool?: string, 'prune-backups'?: prunebackups, quiet?: boolean, remove?: boolean, script?: string, stdexcludes?: boolean, stdout?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<string>;
+                    defaults: {
+                        /**
+                         * Get the currently configured vzdump defaults.
+                         * GET /nodes/{node}/vzdump/defaults
+                         * @allowtoken 1
+                         * @permissions {"description":"The user needs 'Datastore.Audit' or 'Datastore.AllocateSpace' permissions for the specified storage (or default storage if none specified). Some properties are only returned when the user has 'Sys.Audit' permissions for the node.","user":"all"}
+                         */
+                        $get(param?: { storage?: pvestorageid }): Promise<nodesVzdumpDefaultsDefaults>;
+                    },
                     extractconfig: {
                         /**
                          * Extract configuration from vzdump backup archive.
@@ -8244,7 +9507,7 @@ export namespace Proxmox {
                         },
                         restart: {
                             /**
-                             * Restart service.
+                             * Hard restart service. Use reload if you want to reduce interruptions.
                              * POST /nodes/{node}/services/{service}/restart
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
@@ -8253,7 +9516,7 @@ export namespace Proxmox {
                         },
                         reload: {
                             /**
-                             * Reload service.
+                             * Reload service. Falls back to restart if service cannot be reloaded.
                              * POST /nodes/{node}/services/{service}/reload
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
@@ -8306,14 +9569,14 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
-                    $get(param?: { type?: Ttype_12 }): Promise<nodesNetworkIndex[]>;
+                    $get(param?: { type?: Ttype_14 }): Promise<nodesNetworkIndex[]>;
                     /**
                      * Create network device configuration
                      * POST /nodes/{node}/network
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $post(param: { address?: ipv4, address6?: ipv6, autostart?: boolean, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vlan_aware?: boolean, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, gateway?: ipv4, gateway6?: ipv6, iface: pveiface, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_13, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1 }): Promise<null>;
+                    $post(param: { address?: ipv4, address6?: ipv6, autostart?: boolean, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vlan_aware?: boolean, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, gateway?: ipv4, gateway6?: ipv6, iface: pveiface, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_15, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1 }): Promise<null>;
                     /**
                      * Reload network configuration
                      * PUT /nodes/{node}/network
@@ -8342,7 +9605,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $put(param: { address?: ipv4, address6?: ipv6, autostart?: boolean, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vlan_aware?: boolean, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, delete?: pveconfigidlist_1, gateway?: ipv4, gateway6?: ipv6, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_13, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1 }): Promise<null>;
+                        $put(param: { address?: ipv4, address6?: ipv6, autostart?: boolean, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vlan_aware?: boolean, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, delete?: pveconfigidlist_1, gateway?: ipv4, gateway6?: ipv6, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_15, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1 }): Promise<null>;
                     };
                 },
                 tasks: {
@@ -8352,13 +9615,13 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"List task associated with the current user, or all task the user has 'Sys.Audit' permissions on /nodes/<node> (the <node> the task runs on).","user":"all"}
                      */
-                    $get(param?: { errors?: boolean, limit?: integer_Min0, source?: Tsource, start?: integer_Min0, typefilter?: string, userfilter?: string, vmid?: pvevmid }): Promise<nodesTasksNodeTasks[]>;
+                    $get(param?: { errors?: boolean, limit?: integer_Min0, since?: integer, source?: Tsource, start?: integer_Min0, statusfilter?: pvetaskstatustypelist, typefilter?: string, until?: integer, userfilter?: string, vmid?: pvevmid }): Promise<nodesTasksNodeTasks[]>;
                     $(upid: string): {
                         /**
                          * Stop a task.
                          * DELETE /nodes/{node}/tasks/{upid}
                          * @allowtoken 1
-                         * @permissions {"description":"The user needs 'Sys.Modify' permissions on '/nodes/<node>' if the task does not belong to him.","user":"all"}
+                         * @permissions {"description":"The user needs 'Sys.Modify' permissions on '/nodes/<node>' if they aren't the owner of the task.","user":"all"}
                          */
                         $delete(): Promise<null>;
                         /**
@@ -8372,7 +9635,7 @@ export namespace Proxmox {
                              * Read task log.
                              * GET /nodes/{node}/tasks/{upid}/log
                              * @allowtoken 1
-                             * @permissions {"description":"The user needs 'Sys.Audit' permissions on '/nodes/<node>' if the task does not belong to him.","user":"all"}
+                             * @permissions {"description":"The user needs 'Sys.Audit' permissions on '/nodes/<node>' if they aren't the owner of the task.","user":"all"}
                              */
                             $get(param?: { limit?: integer_Min0, start?: integer_Min0 }): Promise<nodesTasksLogReadTaskLog[]>;
                         },
@@ -8381,7 +9644,7 @@ export namespace Proxmox {
                              * Read task status.
                              * GET /nodes/{node}/tasks/{upid}/status
                              * @allowtoken 1
-                             * @permissions {"description":"The user needs 'Sys.Audit' permissions on '/nodes/<node>' if the task does not belong to him.","user":"all"}
+                             * @permissions {"description":"The user needs 'Sys.Audit' permissions on '/nodes/<node>' if they are not the owner of the task.","user":"all"}
                              */
                             $get(): Promise<nodesTasksStatusReadTaskStatus>;
                         },
@@ -8395,15 +9658,6 @@ export namespace Proxmox {
                      * @permissions {"user":"all"}
                      */
                     $get(): Promise<nodesScanIndex[]>;
-                    zfs: {
-                        /**
-                         * Scan zfs pool list on local node.
-                         * GET /nodes/{node}/scan/zfs
-                         * @allowtoken 1
-                         * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
-                         */
-                        $get(): Promise<nodesScanZfsZfsscan[]>;
-                    },
                     nfs: {
                         /**
                          * Scan remote NFS server.
@@ -8421,6 +9675,15 @@ export namespace Proxmox {
                          * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                          */
                         $get(param: { domain?: string, password?: string, server: pvestorageserver, username?: string }): Promise<nodesScanCifsCifsscan[]>;
+                    },
+                    pbs: {
+                        /**
+                         * Scan remote Proxmox Backup Server.
+                         * GET /nodes/{node}/scan/pbs
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
+                         */
+                        $get(param: { fingerprint?: Tfingerprint, password: string, port?: integer1_65535, server: pvestorageserver, username: string }): Promise<nodesScanPbsPbsscan[]>;
                     },
                     glusterfs: {
                         /**
@@ -8458,14 +9721,14 @@ export namespace Proxmox {
                          */
                         $get(param: { vg: Tvg }): Promise<nodesScanLvmthinLvmthinscan[]>;
                     },
-                    usb: {
+                    zfs: {
                         /**
-                         * List local USB devices.
-                         * GET /nodes/{node}/scan/usb
+                         * Scan zfs pool list on local node.
+                         * GET /nodes/{node}/scan/zfs
                          * @allowtoken 1
-                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
+                         * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                          */
-                        $get(): Promise<nodesScanUsbUsbscan[]>;
+                        $get(): Promise<nodesScanZfsZfsscan[]>;
                     },
                 },
                 hardware: {
@@ -8503,6 +9766,51 @@ export namespace Proxmox {
                             },
                         };
                     },
+                    usb: {
+                        /**
+                         * List local USB devices.
+                         * GET /nodes/{node}/hardware/usb
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Modify"]]}
+                         */
+                        $get(): Promise<nodesHardwareUsbUsbscan[]>;
+                    },
+                },
+                capabilities: {
+                    /**
+                     * Node capabilities index.
+                     * GET /nodes/{node}/capabilities
+                     * @allowtoken 1
+                     * @permissions {"user":"all"}
+                     */
+                    $get(): Promise<nodesCapabilitiesIndex[]>;
+                    qemu: {
+                        /**
+                         * QEMU capabilities index.
+                         * GET /nodes/{node}/capabilities/qemu
+                         * @allowtoken 1
+                         * @permissions {"user":"all"}
+                         */
+                        $get(): Promise<nodesCapabilitiesQemuQemuCapsIndex[]>;
+                        cpu: {
+                            /**
+                             * List all custom and default CPU models.
+                             * GET /nodes/{node}/capabilities/qemu/cpu
+                             * @allowtoken 1
+                             * @permissions {"description":"Only returns custom models when the current user has Sys.Audit on /nodes.","user":"all"}
+                             */
+                            $get(): Promise<nodesCapabilitiesQemuCpuIndex[]>;
+                        },
+                        machines: {
+                            /**
+                             * Get available QEMU/KVM machine types.
+                             * GET /nodes/{node}/capabilities/qemu/machines
+                             * @allowtoken 1
+                             * @permissions {"user":"all"}
+                             */
+                            $get(): Promise<nodesCapabilitiesQemuMachinesTypes[]>;
+                        },
+                    },
                 },
                 storage: {
                     /**
@@ -8519,6 +9827,22 @@ export namespace Proxmox {
                          * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                          */
                         $get(): Promise<nodesStorageDiridx[]>;
+                        prunebackups: {
+                            /**
+                             * Prune backups. Only those using the standard naming scheme are considered.
+                             * DELETE /nodes/{node}/storage/{storage}/prunebackups
+                             * @allowtoken 1
+                             * @permissions {"description":"You need the 'Datastore.Allocate' privilege on the storage (or if a VM ID is specified, 'Datastore.AllocateSpace' and 'VM.Backup' for the VM).","user":"all"}
+                             */
+                            $delete(param?: { 'prune-backups'?: prunebackups, type?: Ttype_16, vmid?: pvevmid }): Promise<string>;
+                            /**
+                             * Get prune information for backups. NOTE: this is only a preview and might not be what a subsequent prune call does if backups are removed/added in the meantime.
+                             * GET /nodes/{node}/storage/{storage}/prunebackups
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
+                             */
+                            $get(param?: { 'prune-backups'?: prunebackups, type?: Ttype_16, vmid?: pvevmid }): Promise<nodesStoragePrunebackupsDryrun[]>;
+                        },
                         content: {
                             /**
                              * List storage content.
@@ -8548,14 +9872,41 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"description":"You need read access for the volume.","user":"all"}
                                  */
-                                $get(): Promise<any>;
+                                $get(): Promise<nodesStorageContentInfo>;
                                 /**
                                  * Copy a volume. This is experimental code - do not use.
                                  * POST /nodes/{node}/storage/{storage}/content/{volume}
                                  * @allowtoken 1
                                  */
                                 $post(param: { target: string, target_node?: pvenode }): Promise<string>;
+                                /**
+                                 * Update volume attributes
+                                 * PUT /nodes/{node}/storage/{storage}/content/{volume}
+                                 * @allowtoken 1
+                                 * @permissions {"description":"You need read access for the volume.","user":"all"}
+                                 */
+                                $put(param?: { notes?: string, protected?: boolean }): Promise<null>;
                             };
+                        },
+                        'file-restore': {
+                            list: {
+                                /**
+                                 * List files and directories for single file restore under the given path.
+                                 * GET /nodes/{node}/storage/{storage}/file-restore/list
+                                 * @allowtoken 1
+                                 * @permissions {"description":"You need read access for the volume.","user":"all"}
+                                 */
+                                $get(param: { filepath: string, volume: string }): Promise<nodesStorageFileRestoreListList[]>;
+                            },
+                            download: {
+                                /**
+                                 * Extract a file or directory (as zip archive) from a PBS backup.
+                                 * GET /nodes/{node}/storage/{storage}/file-restore/download
+                                 * @allowtoken 1
+                                 * @permissions {"description":"You need read access for the volume.","user":"all"}
+                                 */
+                                $get(param: { filepath: string, volume: string }): Promise<any>;
+                            },
                         },
                         status: {
                             /**
@@ -8591,7 +9942,16 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateTemplate"]]}
                              */
-                            $post(param: { content: pvestoragecontent, filename: string, tmpfilename?: string }): Promise<string>;
+                            $post(param: { checksum?: string, 'checksum-algorithm'?: Tchecksumalgorithm, content: pvestoragecontent_1, filename: String0_255, tmpfilename?: string }): Promise<string>;
+                        },
+                        'download-url': {
+                            /**
+                             * Download templates and ISO images by using an URL.
+                             * POST /nodes/{node}/storage/{storage}/download-url
+                             * @allowtoken 1
+                             * @permissions {"check":["and",["perm","/storage/{storage}",["Datastore.AllocateTemplate"]],["perm","/",["Sys.Audit","Sys.Modify"]]]}
+                             */
+                            $post(param: { checksum?: string, 'checksum-algorithm'?: Tchecksumalgorithm, content: pvestoragecontent_1, filename: String0_255, url: Turl, 'verify-certificates'?: boolean }): Promise<string>;
                         },
                     };
                 },
@@ -8618,6 +9978,15 @@ export namespace Proxmox {
                          * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                          */
                         $post(param: { add_storage?: boolean, device: string, name: pvestorageid }): Promise<string>;
+                        $(name: string): {
+                            /**
+                             * Remove an LVM Volume Group.
+                             * DELETE /nodes/{node}/disks/lvm/{name}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
+                             */
+                            $delete(param?: { 'cleanup-config'?: boolean, 'cleanup-disks'?: boolean }): Promise<string>;
+                        };
                     },
                     lvmthin: {
                         /**
@@ -8634,6 +10003,15 @@ export namespace Proxmox {
                          * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                          */
                         $post(param: { add_storage?: boolean, device: string, name: pvestorageid }): Promise<string>;
+                        $(name: string): {
+                            /**
+                             * Remove an LVM thin pool.
+                             * DELETE /nodes/{node}/disks/lvmthin/{name}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
+                             */
+                            $delete(param: { 'cleanup-config'?: boolean, 'cleanup-disks'?: boolean, 'volume-group': pvestorageid }): Promise<string>;
+                        };
                     },
                     directory: {
                         /**
@@ -8650,6 +10028,15 @@ export namespace Proxmox {
                          * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                          */
                         $post(param: { add_storage?: boolean, device: string, filesystem?: Tfilesystem, name: pvestorageid }): Promise<string>;
+                        $(name: string): {
+                            /**
+                             * Unmounts the storage and removes the mount unit.
+                             * DELETE /nodes/{node}/disks/directory/{name}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
+                             */
+                            $delete(param?: { 'cleanup-config'?: boolean, 'cleanup-disks'?: boolean }): Promise<string>;
+                        };
                     },
                     zfs: {
                         /**
@@ -8668,6 +10055,13 @@ export namespace Proxmox {
                         $post(param: { add_storage?: boolean, ashift?: integer9_16, compression?: Tcompression, devices: stringlist, name: pvestorageid, raidlevel: Traidlevel }): Promise<string>;
                         $(name: string): {
                             /**
+                             * Destroy a ZFS pool.
+                             * DELETE /nodes/{node}/disks/zfs/{name}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
+                             */
+                            $delete(param?: { 'cleanup-config'?: boolean, 'cleanup-disks'?: boolean }): Promise<string>;
+                            /**
                              * Get details about a zpool.
                              * GET /nodes/{node}/disks/zfs/{name}
                              * @allowtoken 1
@@ -8681,9 +10075,9 @@ export namespace Proxmox {
                          * List local disks.
                          * GET /nodes/{node}/disks/list
                          * @allowtoken 1
-                         * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
+                         * @permissions {"check":["or",["perm","/",["Sys.Audit","Datastore.Audit"],"any",1],["perm","/nodes/{node}",["Sys.Audit","Datastore.Audit"],"any",1]]}
                          */
-                        $get(param?: { skipsmart?: boolean, type?: Ttype_11 }): Promise<nodesDisksListList[]>;
+                        $get(param?: { 'include-partitions'?: boolean, skipsmart?: boolean, type?: Ttype_17 }): Promise<nodesDisksListList[]>;
                     },
                     smart: {
                         /**
@@ -8692,7 +10086,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
-                        $get(param: { disk: Tdisk_2, healthonly?: boolean }): Promise<nodesDisksSmartSmart>;
+                        $get(param: { disk: Tdisk_3, healthonly?: boolean }): Promise<nodesDisksSmartSmart>;
                     },
                     initgpt: {
                         /**
@@ -8701,7 +10095,15 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param: { disk: Tdisk_2, uuid?: Tuuid }): Promise<string>;
+                        $post(param: { disk: Tdisk_3, uuid?: Tuuid }): Promise<string>;
+                    },
+                    wipedisk: {
+                        /**
+                         * Wipe a disk or partition.
+                         * PUT /nodes/{node}/disks/wipedisk
+                         * @allowtoken 1
+                         */
+                        $put(param: { disk: Tdisk_3 }): Promise<string>;
                     },
                 },
                 apt: {
@@ -8737,6 +10139,29 @@ export namespace Proxmox {
                          */
                         $get(param: { name: string, version?: string }): Promise<string>;
                     },
+                    repositories: {
+                        /**
+                         * Get APT repository information.
+                         * GET /nodes/{node}/apt/repositories
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
+                         */
+                        $get(): Promise<nodesAptRepositoriesRepositories>;
+                        /**
+                         * Change the properties of a repository. Currently only allows enabling/disabling.
+                         * POST /nodes/{node}/apt/repositories
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
+                         */
+                        $post(param: { digest?: String0_80, enabled?: boolean, index: integer, path: string }): Promise<null>;
+                        /**
+                         * Add a standard repository to the configuration
+                         * PUT /nodes/{node}/apt/repositories
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
+                         */
+                        $put(param: { digest?: String0_80, handle: string }): Promise<null>;
+                    },
                     versions: {
                         /**
                          * Get package information for important Proxmox packages.
@@ -8769,7 +10194,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
+                        $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, 'icmp-type'?: pvefwicmptypespec, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
                         $(pos: string): {
                             /**
                              * Delete rule.
@@ -8791,7 +10216,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
-                            $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
+                            $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_40, dport?: pvefwdportspec, enable?: integer_Min0, 'icmp-type'?: pvefwicmptypespec, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
                         };
                     },
                     options: {
@@ -8945,7 +10370,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $put(param?: { acme?: Tacme, acmedomain0?: Tacmedomain, acmedomain1?: Tacmedomain, acmedomain2?: Tacmedomain, acmedomain3?: Tacmedomain, delete?: pveconfigidlist_1, description?: string, digest?: String0_40, 'startall-onboot-delay'?: integer0_300, wakeonlan?: macaddr }): Promise<null>;
+                    $put(param?: { acme?: Tacme, acmedomain0?: Tacmedomain, acmedomain1?: Tacmedomain, acmedomain2?: Tacmedomain, acmedomain3?: Tacmedomain, delete?: pveconfigidlist_1, description?: String0_65536, digest?: String0_40, 'startall-onboot-delay'?: integer0_300, wakeonlan?: macaddr }): Promise<null>;
                 },
                 sdn: {
                     /**
@@ -9077,7 +10502,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                      */
-                    $post(param?: { cmd?: Tcmd, height?: integer16_2160, upgrade?: boolean, websocket?: boolean, width?: integer16_4096 }): Promise<nodesVncshellVncshell>;
+                    $post(param?: { cmd?: Tcmd, 'cmd-opts'?: string, height?: integer16_2160, websocket?: boolean, width?: integer16_4096 }): Promise<nodesVncshellVncshell>;
                 },
                 termproxy: {
                     /**
@@ -9086,11 +10511,11 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                      */
-                    $post(param?: { cmd?: Tcmd, upgrade?: boolean }): Promise<nodesTermproxyTermproxy>;
+                    $post(param?: { cmd?: Tcmd, 'cmd-opts'?: string }): Promise<nodesTermproxyTermproxy>;
                 },
                 vncwebsocket: {
                     /**
-                     * Opens a weksocket for VNC traffic.
+                     * Opens a websocket for VNC traffic.
                      * GET /nodes/{node}/vncwebsocket
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'. You also need to pass a valid ticket (vncticket)."}
@@ -9104,7 +10529,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                      */
-                    $post(param?: { cmd?: Tcmd, proxy?: address, upgrade?: boolean }): Promise<nodesSpiceshellSpiceshell>;
+                    $post(param?: { cmd?: Tcmd, 'cmd-opts'?: string, proxy?: address }): Promise<nodesSpiceshellSpiceshell>;
                 },
                 dns: {
                     /**
@@ -9153,6 +10578,15 @@ export namespace Proxmox {
                      * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateTemplate"]]}
                      */
                     $post(param: { storage: pvestorageid, template: String0_255 }): Promise<string>;
+                },
+                'query-url-metadata': {
+                    /**
+                     * Query metadata of an URL: file size, file name and mime type.
+                     * GET /nodes/{node}/query-url-metadata
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit","Sys.Modify"]]}
+                     */
+                    $get(param: { url: Turl, 'verify-certificates'?: boolean }): Promise<nodesQueryUrlMetadataQueryUrlMetadata>;
                 },
                 report: {
                     /**
@@ -9215,14 +10649,14 @@ export namespace Proxmox {
              * @allowtoken 1
              * @permissions {"description":"Only list entries where you have 'Datastore.Audit' or 'Datastore.AllocateSpace' permissions on '/storage/<storage>'","user":"all"}
              */
-            $get(param?: { type?: Ttype_14 }): Promise<storageIndex[]>;
+            $get(param?: { type?: Ttype_18 }): Promise<storageIndex[]>;
             /**
              * Create a new storage.
              * POST /storage
              * @allowtoken 1
              * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
              */
-            $post(param: { authsupported?: string, base?: pvevolumeid, blocksize?: string, bwlimit?: Tbwlimit, comstar_hg?: string, comstar_tg?: string, content?: pvestoragecontentlist, datastore?: string, disable?: boolean, domain?: String0_256, 'encryption-key'?: string, export?: pvestoragepath, fingerprint?: Tfingerprint, format?: pvestorageformat, fuse?: boolean, is_mountpoint?: string, iscsiprovider?: string, krbd?: boolean, lio_tpg?: string, maxfiles?: integer_Min0, mkdir?: boolean, monhost?: pvestorageportaldnslist, mountpoint?: pvestoragepath, nodes?: pvenodelist, nowritecache?: boolean, options?: pvestorageoptions, password?: String0_256, path?: pvestoragepath, pool?: string, portal?: pvestorageportaldns, redundancy?: integer1_16, saferemove?: boolean, saferemove_throughput?: string, server?: pvestorageserver, server2?: pvestorageserver, share?: string, shared?: boolean, smbversion?: Tsmbversion, sparse?: boolean, storage: pvestorageid, subdir?: pvestoragepath, tagged_only?: boolean, target?: string, thinpool?: pvestoragevgname, transport?: Ttransport, type: Ttype_14, username?: string, vgname?: pvestoragevgname, volume?: string }): Promise<null>;
+            $post(param: { authsupported?: string, base?: pvevolumeid, blocksize?: string, bwlimit?: Tbwlimit, comstar_hg?: string, comstar_tg?: string, content?: pvestoragecontentlist, datastore?: string, disable?: boolean, domain?: String0_256, 'encryption-key'?: string, export?: pvestoragepath, fingerprint?: Tfingerprint, format?: pvestorageformat, 'fs-name'?: pveconfigid_1, fuse?: boolean, is_mountpoint?: string, iscsiprovider?: string, keyring?: string, krbd?: boolean, lio_tpg?: string, 'master-pubkey'?: string, maxfiles?: integer_Min0, mkdir?: boolean, monhost?: pvestorageportaldnslist, mountpoint?: pvestoragepath, namespace?: string, nocow?: boolean, nodes?: pvenodelist, nowritecache?: boolean, options?: pvestorageoptions, password?: String0_256, path?: pvestoragepath, pool?: string, port?: integer1_65535, portal?: pvestorageportaldns, preallocation?: Tpreallocation, 'prune-backups'?: prunebackups, saferemove?: boolean, saferemove_throughput?: string, server?: pvestorageserver, server2?: pvestorageserver, share?: string, shared?: boolean, smbversion?: Tsmbversion, sparse?: boolean, storage: pvestorageid, subdir?: pvestoragepath, tagged_only?: boolean, target?: string, thinpool?: pvestoragevgname, transport?: Ttransport, type: Ttype_18, username?: string, vgname?: pvestoragevgname, volume?: string }): Promise<storageCreate>;
             $(storage: string): {
                 /**
                  * Delete storage configuration.
@@ -9244,7 +10678,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                  */
-                $put(param?: { blocksize?: string, bwlimit?: Tbwlimit, comstar_hg?: string, comstar_tg?: string, content?: pvestoragecontentlist, delete?: pveconfigidlist, digest?: String0_40, disable?: boolean, domain?: String0_256, 'encryption-key'?: string, fingerprint?: Tfingerprint, format?: pvestorageformat, fuse?: boolean, is_mountpoint?: string, krbd?: boolean, lio_tpg?: string, maxfiles?: integer_Min0, mkdir?: boolean, monhost?: pvestorageportaldnslist, mountpoint?: pvestoragepath, nodes?: pvenodelist, nowritecache?: boolean, options?: pvestorageoptions, password?: String0_256, pool?: string, redundancy?: integer1_16, saferemove?: boolean, saferemove_throughput?: string, server?: pvestorageserver, server2?: pvestorageserver, shared?: boolean, smbversion?: Tsmbversion, sparse?: boolean, subdir?: pvestoragepath, tagged_only?: boolean, transport?: Ttransport, username?: string }): Promise<null>;
+                $put(param?: { blocksize?: string, bwlimit?: Tbwlimit, comstar_hg?: string, comstar_tg?: string, content?: pvestoragecontentlist, delete?: pveconfigidlist, digest?: String0_40, disable?: boolean, domain?: String0_256, 'encryption-key'?: string, fingerprint?: Tfingerprint, format?: pvestorageformat, 'fs-name'?: pveconfigid_1, fuse?: boolean, is_mountpoint?: string, keyring?: string, krbd?: boolean, lio_tpg?: string, 'master-pubkey'?: string, maxfiles?: integer_Min0, mkdir?: boolean, monhost?: pvestorageportaldnslist, mountpoint?: pvestoragepath, namespace?: string, nocow?: boolean, nodes?: pvenodelist, nowritecache?: boolean, options?: pvestorageoptions, password?: String0_256, pool?: string, port?: integer1_65535, preallocation?: Tpreallocation, 'prune-backups'?: prunebackups, saferemove?: boolean, saferemove_throughput?: string, server?: pvestorageserver, server2?: pvestorageserver, shared?: boolean, smbversion?: Tsmbversion, sparse?: boolean, subdir?: pvestoragepath, tagged_only?: boolean, transport?: Ttransport, username?: string }): Promise<storageUpdate>;
             };
         },
         access: {
@@ -9299,7 +10733,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify","Sys.Audit"]]]}
                          */
-                        $get(): Promise<accessUsersTfaReadUserTfaType>;
+                        $get(param?: { multiple?: boolean }): Promise<accessUsersTfaReadUserTfaType>;
                     },
                     token: {
                         /**
@@ -9450,7 +10884,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/access/realm",["Realm.Allocate"]]}
                  */
-                $post(param: { base_dn?: Tbase_dn, bind_dn?: Tbase_dn, capath?: string, cert?: string, certkey?: string, comment?: String0_4096, default?: boolean, domain?: Tdomain, filter?: String0_2048, group_classes?: ldapsimpleattrlist, group_dn?: Tbase_dn, group_filter?: String0_2048, group_name_attr?: ldapsimpleattr, mode?: Tmode_1, password?: string, port?: integer1_65535, realm: pverealm, secure?: boolean, server1?: address_1, server2?: address_1, sslversion?: Tsslversion, 'sync-defaults-options'?: realmsyncoptions, sync_attributes?: Tsync_attributes, tfa?: pvetfaconfig, type: Ttype_15, user_attr?: Tuser_attr, user_classes?: ldapsimpleattrlist, verify?: boolean }): Promise<null>;
+                $post(param: { autocreate?: boolean, base_dn?: Tbase_dn, bind_dn?: Tbase_dn, capath?: string, 'case-sensitive'?: boolean, cert?: string, certkey?: string, 'client-id'?: String0_256, 'client-key'?: String0_256, comment?: String0_4096, default?: boolean, domain?: Tdomain, filter?: String0_2048, group_classes?: ldapsimpleattrlist, group_dn?: Tbase_dn, group_filter?: String0_2048, group_name_attr?: ldapsimpleattr, 'issuer-url'?: String0_256, mode?: Tmode_1, password?: string, port?: integer1_65535, realm: pverealm, secure?: boolean, server1?: address_1, server2?: address_1, sslversion?: Tsslversion, 'sync-defaults-options'?: realmsyncoptions, sync_attributes?: Tsync_attributes, tfa?: pvetfaconfig, type: Ttype_19, user_attr?: Tuser_attr, user_classes?: ldapsimpleattrlist, 'username-claim'?: Tusernameclaim, verify?: boolean }): Promise<null>;
                 $(realm: string): {
                     /**
                      * Delete an authentication server.
@@ -9472,7 +10906,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/access/realm",["Realm.Allocate"]]}
                      */
-                    $put(param?: { base_dn?: Tbase_dn, bind_dn?: Tbase_dn, capath?: string, cert?: string, certkey?: string, comment?: String0_4096, default?: boolean, delete?: pveconfigidlist, digest?: String0_40, domain?: Tdomain, filter?: String0_2048, group_classes?: ldapsimpleattrlist, group_dn?: Tbase_dn, group_filter?: String0_2048, group_name_attr?: ldapsimpleattr, mode?: Tmode_1, password?: string, port?: integer1_65535, secure?: boolean, server1?: address_1, server2?: address_1, sslversion?: Tsslversion, 'sync-defaults-options'?: realmsyncoptions, sync_attributes?: Tsync_attributes, tfa?: pvetfaconfig, user_attr?: Tuser_attr, user_classes?: ldapsimpleattrlist, verify?: boolean }): Promise<null>;
+                    $put(param?: { autocreate?: boolean, base_dn?: Tbase_dn, bind_dn?: Tbase_dn, capath?: string, 'case-sensitive'?: boolean, cert?: string, certkey?: string, 'client-id'?: String0_256, 'client-key'?: String0_256, comment?: String0_4096, default?: boolean, delete?: pveconfigidlist, digest?: String0_40, domain?: Tdomain, filter?: String0_2048, group_classes?: ldapsimpleattrlist, group_dn?: Tbase_dn, group_filter?: String0_2048, group_name_attr?: ldapsimpleattr, 'issuer-url'?: String0_256, mode?: Tmode_1, password?: string, port?: integer1_65535, secure?: boolean, server1?: address_1, server2?: address_1, sslversion?: Tsslversion, 'sync-defaults-options'?: realmsyncoptions, sync_attributes?: Tsync_attributes, tfa?: pvetfaconfig, user_attr?: Tuser_attr, user_classes?: ldapsimpleattrlist, verify?: boolean }): Promise<null>;
                     sync: {
                         /**
                          * Syncs users and/or groups from the configured LDAP to user.cfg. NOTE: Synced groups will have the name 'name-$realm', so make sure those groups do not exist to prevent overwriting.
@@ -9482,6 +10916,88 @@ export namespace Proxmox {
                          */
                         $post(param?: { 'dry-run'?: boolean, 'enable-new'?: boolean, full?: boolean, purge?: boolean, scope?: Tscope_1 }): Promise<string>;
                     },
+                };
+            },
+            openid: {
+                /**
+                 * Directory index.
+                 * GET /access/openid
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
+                 */
+                $get(): Promise<accessOpenidIndex[]>;
+                'auth-url': {
+                    /**
+                     * Get the OpenId Authorization Url for the specified realm.
+                     * POST /access/openid/auth-url
+                     * @allowtoken 1
+                     * @permissions {"user":"world"}
+                     */
+                    $post(param: { realm: pverealm, 'redirect-url': String0_255 }): Promise<string>;
+                },
+                login: {
+                    /**
+                     *  Verify OpenID authorization code and create a ticket.
+                     * POST /access/openid/login
+                     * @allowtoken 1
+                     * @permissions {"user":"world"}
+                     */
+                    $post(param: { code: String0_1024, 'redirect-url': String0_255, state: String0_1024 }): Promise<accessOpenidLoginLogin>;
+                },
+            },
+            tfa: {
+                /**
+                 * List TFA configurations of users.
+                 * GET /access/tfa
+                 * @allowtoken 0
+                 * @permissions {"description":"Returns all or just the logged-in user, depending on privileges.","user":"all"}
+                 */
+                $get(): Promise<accessTfaListTfa[]>;
+                /**
+                 * Finish a u2f challenge.
+                 * POST /access/tfa
+                 * @allowtoken 0
+                 * @permissions {"user":"all"}
+                 */
+                $post(param: { response: string }): Promise<accessTfaVerifyTfa>;
+                $(userid: string): {
+                    /**
+                     * List TFA configurations of users.
+                     * GET /access/tfa/{userid}
+                     * @allowtoken 0
+                     * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify","Sys.Audit"]]]}
+                     */
+                    $get(): Promise<accessTfaListUserTfa[]>;
+                    /**
+                     * Add a TFA entry for a user.
+                     * POST /access/tfa/{userid}
+                     * @allowtoken 0
+                     * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify"]]]}
+                     */
+                    $post(param: { challenge?: string, description?: String0_255, password?: String5_64, totp?: string, type: Ttype_20, value?: string }): Promise<accessTfaAddTfaEntry>;
+                    $(id: string): {
+                        /**
+                         * Delete a TFA entry by ID.
+                         * DELETE /access/tfa/{userid}/{id}
+                         * @allowtoken 0
+                         * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify"]]]}
+                         */
+                        $delete(param?: { password?: String5_64 }): Promise<null>;
+                        /**
+                         * Fetch a requested TFA entry if present.
+                         * GET /access/tfa/{userid}/{id}
+                         * @allowtoken 0
+                         * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify","Sys.Audit"]]]}
+                         */
+                        $get(): Promise<accessTfaGetTfaEntry>;
+                        /**
+                         * Add a TFA entry for a user.
+                         * PUT /access/tfa/{userid}/{id}
+                         * @allowtoken 0
+                         * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify"]]]}
+                         */
+                        $put(param?: { description?: String0_255, enable?: boolean, password?: String5_64 }): Promise<null>;
+                    };
                 };
             },
             ticket: {
@@ -9498,7 +11014,7 @@ export namespace Proxmox {
                  * @allowtoken 0
                  * @permissions {"description":"You need to pass valid credientials.","user":"world"}
                  */
-                $post(param: { otp?: string, password: string, path?: String0_64, privs?: pveprivlist_1, realm?: pverealm, username: String0_64 }): Promise<accessTicketCreateTicket>;
+                $post(param: { 'new-format'?: boolean, otp?: string, password: string, path?: String0_64, privs?: pveprivlist_1, realm?: pverealm, 'tfa-challenge'?: string, username: String0_64 }): Promise<accessTicketCreateTicket>;
             },
             password: {
                 /**
@@ -9508,22 +11024,6 @@ export namespace Proxmox {
                  * @permissions {"check":["or",["userid-param","self"],["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"]]]],"description":"Each user is allowed to change his own password. A user can change the password of another user if he has 'Realm.AllocateUser' (on the realm of user <userid>) and 'User.Modify' permission on /access/groups/<group> on a group where user <userid> is member of."}
                  */
                 $put(param: { password: String5_64, userid: pveuserid }): Promise<null>;
-            },
-            tfa: {
-                /**
-                 * Finish a u2f challenge.
-                 * POST /access/tfa
-                 * @allowtoken 0
-                 * @permissions {"user":"all"}
-                 */
-                $post(param: { response: string }): Promise<accessTfaVerifyTfa>;
-                /**
-                 * Change user u2f authentication.
-                 * PUT /access/tfa
-                 * @allowtoken 0
-                 * @permissions {"check":["or",["userid-param","self"],["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"]]]],"description":"A user can change their own u2f or totp token."}
-                 */
-                $put(param: { action: Taction_1, config?: pvetfaconfig, key?: pvetfasecret, password?: String5_64, response?: string, userid: pveuserid }): Promise<any>;
             },
             permissions: {
                 /**
@@ -9540,7 +11040,7 @@ export namespace Proxmox {
              * Pool index.
              * GET /pools
              * @allowtoken 1
-             * @permissions {"description":"List all pools where you have Pool.Allocate or VM.Allocate permissions on /pool/<pool>.","user":"all"}
+             * @permissions {"description":"List all pools where you have Pool.Audit permissions on /pool/<pool>.","user":"all"}
              */
             $get(): Promise<poolsIndex[]>;
             /**
@@ -9562,7 +11062,7 @@ export namespace Proxmox {
                  * Get pool configuration.
                  * GET /pools/{poolid}
                  * @allowtoken 1
-                 * @permissions {"check":["perm","/pool/{poolid}",["Pool.Allocate"]]}
+                 * @permissions {"check":["perm","/pool/{poolid}",["Pool.Audit"]]}
                  */
                 $get(): Promise<poolsReadPool>;
                 /**
@@ -9576,7 +11076,7 @@ export namespace Proxmox {
         },
         version: {
             /**
-             * API version details. The result also includes the global datacenter confguration.
+             * API version details, including some parts of the global datacenter config.
              * GET /version
              * @allowtoken 1
              * @permissions {"user":"all"}

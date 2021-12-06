@@ -1,5 +1,5 @@
-import pveapi from './pveapi6';
-// import pveapi from './pveapi7';
+// import pveapi from './pveapi6';
+import pveapi from './pveapi7';
 import { pveApiNode, PveCallParameters, PveCallDesc, PveParametersArray, PveParametersObject, PveHttpMtd, PveParametersUndef } from './pveapiModel';
 import fs from 'fs';
 import path from 'path';
