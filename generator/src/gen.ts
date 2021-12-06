@@ -193,7 +193,7 @@ export class Generator {
         }
 
         if (pveType.type === 'string' && pveType.enum) {
-            declaration.push(`${TAB}export type ${newType} = '${pveType.enum.join("' | '")}';`);
+            declaration.push(`${TAB}export type ${newType} = '${pveType.enum.sort().join("' | '")}';`);
             // const fullType = `${TAB}export type ${newType} = '${pveType.enum.join("' | '")}';`;
             //this.usedNamed[newType] = fullType;
         } else {
