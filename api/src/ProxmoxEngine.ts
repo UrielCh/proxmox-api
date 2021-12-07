@@ -3,7 +3,7 @@ import { ApiRequestable } from "./proxy";
 import querystring from 'querystring';
 import reqApi, { TinyRequestBody, TinyResponse } from "@u4/tinyrequest";
 // import AbortController from 'abort-controller';
-import https from 'https';
+import { URL } from "url";
 
 export interface ProxmoxEngineOptionsCommon {
     host: string;
@@ -75,9 +75,8 @@ export class ProxmoxEngine implements ApiRequestable {
     }
 
     public async doRequest(httpMethod: string, path: string, pathTemplate: string, params?: { [key: string]: any }, retries?: number): Promise<any> {
-        if (!this.ticket) {
-            await this.getTicket();
-        }
+        const {CSRFPreventionToken, ticket} = await this.getTicket();
+
         /**
          * Remove null values
          */
@@ -89,15 +88,15 @@ export class ProxmoxEngine implements ApiRequestable {
             }
 
         let headers: {[key: string]: string} = {
-            'Content-Type': 'application/x-www-form-urlencoded',
+        //    'Content-Type': 'application/x-www-form-urlencoded',
         };
         // use token
         if (!this.username) {
             // PVEAPIToken=USER@REALM!TOKENID=UUID  // ticket
-            headers.Authorization = this.ticket as string;
+            headers.Authorization = ticket;
         } else {
-            headers.cookie = `PVEAuthCookie=${this.ticket}`;
-            headers.CSRFPreventionToken = this.CSRFPreventionToken as string;
+            headers.cookie = `PVEAuthCookie=${ticket}`;
+            headers.CSRFPreventionToken = CSRFPreventionToken;
         }
         /**
          * Append parameters
@@ -105,8 +104,9 @@ export class ProxmoxEngine implements ApiRequestable {
 
         let body: TinyRequestBody | undefined = undefined;
 
-        const httpOptions: https.RequestOptions = {host: this.host, port: this.port, path: path, method: httpMethod, headers};
-        let formBody: any = null;
+        let requestUrl = `${this.schema}://${this.host}:${this.port}`;
+        // const httpOptions: https.RequestOptions = {host: this.host, port: this.port, path: path, method: httpMethod, headers};
+        // let formBody: any = null;
         if (typeof (params) === 'object' && Object.keys(params).length > 0) {
             for (const k of Object.keys(params)) {
                 const v = params[k];
@@ -122,24 +122,32 @@ export class ProxmoxEngine implements ApiRequestable {
                 //    .replace(/[\u0080-\uFFFF]/g, (m) => '\\u' + ('0000' + m.charCodeAt(0).toString(16)).slice(-4)); 
                 body = {form: params};
             } else {
-                httpOptions.path = `${httpOptions.path}?${querystring.stringify(params)}`
+                path += `?${querystring.stringify(params)}`
             }
         }
-        // let requestUrl = `${this.schema}://${this.host}:${this.port}${path}`;
-        //let req: Response;
+
+        requestUrl += path;
 
         let res: TinyResponse | null = null;
         try {
-            httpOptions.timeout = this.queryTimeout;
-            res = await reqApi(httpOptions, body);
+            const theUrl = new URL(requestUrl);
+            res = await reqApi({
+                method: httpMethod,
+                protocol: theUrl.protocol,
+                hostname: theUrl.hostname,
+                port: theUrl.port,
+                path: theUrl.pathname,
+                headers,
+                timeout: this.queryTimeout
+            }, body);
             // const controller = new AbortController();
             // const timeout = setTimeout(() => controller.abort(), this.queryTimeout);
             // requestInit.signal = controller.signal;
             // req = await fetch(requestUrl, requestInit);
             // clearTimeout(timeout);
         } catch (e) {
-            console.error(`FaILED to call ${httpMethod} ${httpOptions.path}`, e)
-            throw Error(`FaILED to call ${httpMethod} ${httpOptions.path}`);
+            console.error(`FaILED to call ${httpMethod} ${requestUrl}`, e)
+            throw Error(`FaILED to call ${httpMethod} ${requestUrl}`);
         }
         const contentType = res.headers['content-type'] as string;
         let data: { data: any, errors?: any } = { data: null };
@@ -148,15 +156,15 @@ export class ProxmoxEngine implements ApiRequestable {
         } else if (!contentType) {
             data.errors = res.text;// await req.text();
         } else { // should never append
-            throw Error(`${httpMethod} ${httpOptions.path} unexpected contentType "${contentType}" status Line:${res.statusCode} ${res.text}`);
+            throw Error(`${httpMethod} ${requestUrl} unexpected contentType "${contentType}" status Line:${res.statusCode} ${res.text}`);
             // data.data = req.text();
         }
 
         switch (res.statusCode) {
             case 400:
-                throw Error(`${httpMethod} ${httpOptions.path} return Error ${res.statusCode} ${res.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${requestUrl} return Error ${res.statusCode} ${res.statusText}: ${JSON.stringify(data)}`);
             case 500:
-                throw Error(`${httpMethod} ${httpOptions.path} return Error ${res.statusCode} ${res.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${requestUrl} return Error ${res.statusCode} ${res.statusText}: ${JSON.stringify(data)}`);
             case 401:
                 if (res.statusText === 'invalid PVE ticket' || res.statusText === 'permission denied - invalid PVE ticket') {
                     this.ticket = undefined;
@@ -168,39 +176,40 @@ export class ProxmoxEngine implements ApiRequestable {
                     if (retries < 2)
                         return this.doRequest(httpMethod, path, pathTemplate, params, retries);
                 }
-                throw Error(`${httpMethod} ${httpOptions.path} return Error ${res.statusCode} ${res.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${requestUrl} return Error ${res.statusCode} ${res.statusText}: ${JSON.stringify(data)}`);
             case 200:
                 return data.data;     
             default:
-                throw Error(`${httpMethod} ${httpOptions.path} connetion failed with ${res.statusCode} ${res.statusText} return: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${requestUrl} connetion failed with ${res.statusCode} ${res.statusText} return: ${JSON.stringify(data)}`);
         }
     }
 
-    public async getTicket(): Promise<string> {
-        if (this.ticket)
-            return this.ticket;
+    public async getTicket(): Promise<{ticket: string, CSRFPreventionToken: string}> {
+        if (this.ticket && this.CSRFPreventionToken)
+            return {ticket: this.ticket, CSRFPreventionToken: this.CSRFPreventionToken};
         const requestUrl = `${this.schema}://${this.host}:${this.port}/api2/json/access/ticket`;
         try {
             const password = this.password;
             const username = this.username;
             // const controller = new AbortController();
             // const timeout = setTimeout(() => controller.abort(), this.authTimeout);
-            //const postBody = querystring.encode({ username, password });
-            //const headers= {
-            //    'Content-Type': 'application/x-www-form-urlencoded',
-            //    'Content-Length': String(postBody.length),
-            //}
+            const postBody = querystring.encode({ username, password });
+            const headers = {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Length': String(postBody.length),
+            }
 
-            const req = await reqApi.post(requestUrl, {form: { username, password }});
+            const req = await reqApi({method: 'POST', host: this.host, protocol: `${this.schema}:`, port: this.port, path: '/api2/json/access/ticket', headers}, {form: { username, password }});
+            // const req = await reqApi.post(requestUrl, {form: { username, password }});
             // clearTimeout(timeout);
             if (req.statusCode !== 200) {
                 throw Error(`login failed with ${req.statusCode}: ${req.statusText}`);
             }
-            const body = await req.json();
+            const body = await req.json<{data:{cap:any, ticket: string, CSRFPreventionToken: string, username: string}}>();
             const { CSRFPreventionToken, ticket } = body.data;
             this.CSRFPreventionToken = CSRFPreventionToken;
             this.ticket = ticket;
-            return ticket;
+            return {ticket, CSRFPreventionToken};
         } catch (e) {
             console.log(e);
             throw Error(`Auth ${requestUrl} Failed! with Exception: ${e}`);
