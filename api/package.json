@@ -17,7 +17,9 @@
     "async",
     "promise"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "@u4/tinyrequest": "^0.1.0"
+  },
   "devDependencies": {
     "@types/node": "^16.11.11",
     "rimraf": "^3.0.2",

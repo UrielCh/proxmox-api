@@ -1,7 +1,7 @@
 import { ApiRequestable } from "./proxy";
 //import fetch, { RequestInit, HeadersInit, Response } from 'node-fetch';
 import querystring from 'querystring';
-import { doSimpleRequest, SimpleRequestBody, SimpleResponse } from "./SimpleRequest";
+import reqApi, { TinyRequestBody, TinyResponse } from "@u4/tinyrequest";
 // import AbortController from 'abort-controller';
 import https from 'https';
 
@@ -103,7 +103,7 @@ export class ProxmoxEngine implements ApiRequestable {
          * Append parameters
          */
 
-        let body: SimpleRequestBody | undefined = undefined;
+        let body: TinyRequestBody | undefined = undefined;
 
         const httpOptions: https.RequestOptions = {host: this.host, port: this.port, path: path, method: httpMethod, headers};
         let formBody: any = null;
@@ -128,10 +128,10 @@ export class ProxmoxEngine implements ApiRequestable {
         // let requestUrl = `${this.schema}://${this.host}:${this.port}${path}`;
         //let req: Response;
 
-        let res: SimpleResponse | null = null;
+        let res: TinyResponse | null = null;
         try {
             httpOptions.timeout = this.queryTimeout;
-            res = await doSimpleRequest(httpOptions, body);
+            res = await reqApi(httpOptions, body);
             // const controller = new AbortController();
             // const timeout = setTimeout(() => controller.abort(), this.queryTimeout);
             // requestInit.signal = controller.signal;
@@ -191,13 +191,7 @@ export class ProxmoxEngine implements ApiRequestable {
             //    'Content-Length': String(postBody.length),
             //}
 
-            const req = await doSimpleRequest({
-                host: this.host,
-                port: this.port,
-                path: '/api2/json/access/ticket',
-                //signal: controller.signal,
-                method: 'POST',
-            }, {form: { username, password }});
+            const req = await reqApi.post(requestUrl, {form: { username, password }});
             // clearTimeout(timeout);
             if (req.statusCode !== 200) {
                 throw Error(`login failed with ${req.statusCode}: ${req.statusText}`);
