@@ -1,6 +1,6 @@
 {
   "name": "proxmox-api",
-  "version": "0.3.0-beta2",
+  "version": "0.3.0-beta3",
   "description": "cutting edge javascript / Typescript Proxmox API",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -18,7 +18,7 @@
     "promise"
   ],
   "dependencies": {
-    "@u4/tinyrequest": "^0.1.2"
+    "@u4/tinyrequest": "^0.1.3"
   },
   "devDependencies": {
     "@types/node": "^16.11.12",
@@ -28,6 +28,7 @@
   },
   "scripts": {
     "clean": "rimraf dist",
+    "prepack": "npm run build",
     "build": "tsc -p .",
     "prepare": "npm run clean && npm run build"
   },
