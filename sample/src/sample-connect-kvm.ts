@@ -7,9 +7,9 @@ async function test() {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
     // load sample authentification info
     const auth = await import('../../../auth');
-    const { host, password } = auth.default;
+    const { host, password, tokenSecret } = auth.default;
     // connect to proxmox
-    const proxmox = proxmoxApi({ host, password });
+    const proxmox = proxmoxApi({ host, password, tokenSecret });
     // liste nodes
     const nodes = await proxmox.nodes.$get();
     // iterate cluster nodes

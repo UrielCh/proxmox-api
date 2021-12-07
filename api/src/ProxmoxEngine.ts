@@ -1,7 +1,9 @@
 import { ApiRequestable } from "./proxy";
-import fetch, { RequestInit, HeadersInit, Response } from 'node-fetch';
+//import fetch, { RequestInit, HeadersInit, Response } from 'node-fetch';
 import querystring from 'querystring';
-import AbortController from 'abort-controller';
+import { doSimpleRequest, SimpleRequestBody, SimpleResponse } from "./SimpleRequest";
+// import AbortController from 'abort-controller';
+import https from 'https';
 
 export interface ProxmoxEngineOptionsCommon {
     host: string;
@@ -38,22 +40,23 @@ export class ProxmoxEngine implements ApiRequestable {
     private queryTimeout: number;
 
     constructor(options: ProxmoxEngineOptions) {
-        if ((options as ProxmoxEngineOptionsToken).tokenID) {
-            const optToken = options as ProxmoxEngineOptionsToken;
+        //if ((options as ProxmoxEngineOptionsToken).tokenID) {
+        if ('tokenID' in options && options.tokenSecret) {
+            //const optToken = options as ProxmoxEngineOptionsToken;
             this.username = '';
             this.password = '';
-            if (!optToken.tokenID.match(/.*@.+\!.+/)) {
+            if (!options.tokenID.match(/.*@.+\!.+/)) {
                 const msg = 'invalid tokenID, format should look be like USER@REALM!TOKENID';
                 console.error(msg);
                 throw Error(msg)
             }
-            if (!optToken.tokenSecret.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)) {
+            if (!options.tokenSecret.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)) {
                 const msg = 'invalid tokenSecret, format should be an lowercased UUID like 12345678-1234-1234-1234-1234567890ab';
                 console.error(msg);
                 throw Error(msg)
             }
             // USER@REALM!TOKENID
-            this.ticket = `PVEAPIToken=${optToken.tokenID}=${optToken.tokenSecret}`;
+            this.ticket = `PVEAPIToken=${options.tokenID}=${options.tokenSecret}`;
         } else {
             const optPass = options as ProxmoxEngineOptionsPass;
             this.username = optPass.username || 'root@pam';
@@ -85,29 +88,26 @@ export class ProxmoxEngine implements ApiRequestable {
                 }
             }
 
-        let options: HeadersInit = {
+        let headers: {[key: string]: string} = {
             'Content-Type': 'application/x-www-form-urlencoded',
         };
         // use token
         if (!this.username) {
             // PVEAPIToken=USER@REALM!TOKENID=UUID  // ticket
-            options.Authorization = this.ticket as string;
+            headers.Authorization = this.ticket as string;
         } else {
-            options.cookie = `PVEAuthCookie=${this.ticket}`;
-            options.CSRFPreventionToken = this.CSRFPreventionToken as string;
+            headers.cookie = `PVEAuthCookie=${this.ticket}`;
+            headers.CSRFPreventionToken = this.CSRFPreventionToken as string;
         }
         /**
          * Append parameters
          */
-        let requestUrl = `${this.schema}://${this.host}:${this.port}${path}`;
 
-        const requestInit: RequestInit = {
-            method: httpMethod.toUpperCase(),
-            headers: options,
-        };
+        let body: SimpleRequestBody | undefined = undefined;
 
+        const httpOptions: https.RequestOptions = {host: this.host, port: this.port, path: path, method: httpMethod, headers};
+        let formBody: any = null;
         if (typeof (params) === 'object' && Object.keys(params).length > 0) {
-
             for (const k of Object.keys(params)) {
                 const v = params[k];
                 if (v === true)
@@ -115,48 +115,50 @@ export class ProxmoxEngine implements ApiRequestable {
                 else if (v === false)
                     params[k] = 0;
             }
-
             if (httpMethod === 'PUT' || httpMethod === 'POST') {
                 // Escape unicode
                 //reqBody = JSON
                 //    .stringify(params)
                 //    .replace(/[\u0080-\uFFFF]/g, (m) => '\\u' + ('0000' + m.charCodeAt(0).toString(16)).slice(-4)); 
-                // options['Content-Length'] = String(reqBody.length);
-                requestInit.body = querystring.stringify(params);
-                options['Content-Length'] = String(requestInit.body.length);
+                body = {form: params};
             } else {
-                requestUrl += `?${querystring.stringify(params)}`;
+                httpOptions.path = `${httpOptions.path}?${querystring.stringify(params)}`
             }
         }
-        let req: Response;
+        // let requestUrl = `${this.schema}://${this.host}:${this.port}${path}`;
+        //let req: Response;
+
+        let res: SimpleResponse | null = null;
         try {
-            const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), this.queryTimeout);
-            requestInit.signal = controller.signal;
-            req = await fetch(requestUrl, requestInit);
-            clearTimeout(timeout);
+            httpOptions.timeout = this.queryTimeout;
+            res = await doSimpleRequest(httpOptions, body);
+            // const controller = new AbortController();
+            // const timeout = setTimeout(() => controller.abort(), this.queryTimeout);
+            // requestInit.signal = controller.signal;
+            // req = await fetch(requestUrl, requestInit);
+            // clearTimeout(timeout);
         } catch (e) {
-            console.error(`FaILED to call ${httpMethod} ${requestUrl}`, e)
-            throw Error(`FaILED to call ${httpMethod} ${requestUrl}`);
+            console.error(`FaILED to call ${httpMethod} ${httpOptions.path}`, e)
+            throw Error(`FaILED to call ${httpMethod} ${httpOptions.path}`);
         }
-        const contentType = req.headers.get('content-type') as string;
+        const contentType = res.headers['content-type'] as string;
         let data: { data: any, errors?: any } = { data: null };
         if (contentType === 'application/json;charset=UTF-8') {
-            data = await req.json();
+            data = await res.json();
         } else if (!contentType) {
-            data.errors = await req.text();
+            data.errors = res.text;// await req.text();
         } else { // should never append
-            throw Error(`${httpMethod} ${requestUrl} unexpected contentType "${contentType}" status Line:${req.status} ${req.statusText}`);
+            throw Error(`${httpMethod} ${httpOptions.path} unexpected contentType "${contentType}" status Line:${res.statusCode} ${res.text}`);
             // data.data = req.text();
         }
 
-        switch (req.status) {
+        switch (res.statusCode) {
             case 400:
-                throw Error(`${httpMethod} ${requestUrl} return Error ${req.status} ${req.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${httpOptions.path} return Error ${res.statusCode} ${res.statusText}: ${JSON.stringify(data)}`);
             case 500:
-                throw Error(`${httpMethod} ${requestUrl} return Error ${req.status} ${req.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${httpOptions.path} return Error ${res.statusCode} ${res.statusText}: ${JSON.stringify(data)}`);
             case 401:
-                if (req.statusText === 'invalid PVE ticket' || req.statusText === 'permission denied - invalid PVE ticket') {
+                if (res.statusText === 'invalid PVE ticket' || res.statusText === 'permission denied - invalid PVE ticket') {
                     this.ticket = undefined;
                     if (!this.username)
                         retries = 10;
@@ -166,11 +168,11 @@ export class ProxmoxEngine implements ApiRequestable {
                     if (retries < 2)
                         return this.doRequest(httpMethod, path, pathTemplate, params, retries);
                 }
-                throw Error(`${httpMethod} ${requestUrl} return Error ${req.status} ${req.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${httpOptions.path} return Error ${res.statusCode} ${res.statusText}: ${JSON.stringify(data)}`);
             case 200:
                 return data.data;     
             default:
-                throw Error(`${httpMethod} ${requestUrl} connetion failed with ${req.status} ${req.statusText} return: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${httpOptions.path} connetion failed with ${res.statusCode} ${res.statusText} return: ${JSON.stringify(data)}`);
         }
     }
 
@@ -181,19 +183,24 @@ export class ProxmoxEngine implements ApiRequestable {
         try {
             const password = this.password;
             const username = this.username;
-            const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), this.authTimeout);
-            const req = await fetch(requestUrl, {
-                signal: controller.signal,
+            // const controller = new AbortController();
+            // const timeout = setTimeout(() => controller.abort(), this.authTimeout);
+            //const postBody = querystring.encode({ username, password });
+            //const headers= {
+            //    'Content-Type': 'application/x-www-form-urlencoded',
+            //    'Content-Length': String(postBody.length),
+            //}
+
+            const req = await doSimpleRequest({
+                host: this.host,
+                port: this.port,
+                path: '/api2/json/access/ticket',
+                //signal: controller.signal,
                 method: 'POST',
-                body: querystring.encode({ username, password }),
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            });
-            clearTimeout(timeout);
-            if (req.status !== 200) {
-                throw Error(`login failed with ${req.status}: ${req.statusText}`);
+            }, {form: { username, password }});
+            // clearTimeout(timeout);
+            if (req.statusCode !== 200) {
+                throw Error(`login failed with ${req.statusCode}: ${req.statusText}`);
             }
             const body = await req.json();
             const { CSRFPreventionToken, ticket } = body.data;
