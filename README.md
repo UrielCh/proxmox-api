@@ -41,7 +41,7 @@ npm install proxmox-api
 ```
 
 ```typescript
-import proxmoxApi from "proxmox-api";
+import {proxmoxApi} from "proxmox-api";
 
 // authorize self signed cert if you do not use a valid SSL certificat
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
