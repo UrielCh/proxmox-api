@@ -1,9 +1,8 @@
-export * from './constructor';
+export { proxmoxApi } from './constructor';
 export { proxmoxApi as default } from './constructor';
-export * from './model';
-export * from './QmMonitor'
-export * from './ProxmoxEngine';
+export { Proxmox } from './model';
+export { USBHostInfo, USBInfo, QmMonitor } from './QmMonitor'
+export { ProxmoxEngineOptions, ProxmoxEngineOptionsCommon, ProxmoxEngineOptionsPass, ProxmoxEngineOptionsToken, ProxmoxEngine } from './ProxmoxEngine';
 
 // for stress test
-export * from './proxy';
-export * from './ProxmoxEngine'
+export { ApiRequestable } from './proxy';
