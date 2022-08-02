@@ -4,7 +4,7 @@
 export type ApiParamType = { [key: string]: any; };
 
 /**
- * common interface used to call API engine
+ * Common interface used to call API engine
  */
 export interface ApiRequestable {
     /**

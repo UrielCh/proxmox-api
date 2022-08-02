@@ -5,28 +5,61 @@ import reqApi, { TinyRequestBody, TinyResponse } from "@u4/tinyrequest";
 // import AbortController from 'abort-controller';
 import { URL } from "url";
 
+/**
+ * Common Proxmox authentification properties
+ */
 export interface ProxmoxEngineOptionsCommon {
+    /**
+     * Proxmox address
+     */
     host: string;
+    /**
+     * Proxmox connexion port, default is 8006
+     */
     port?: number;
+    /**
+     * http protocol, can be http or https, default is https
+     */
     schema?: 'https' | 'http';
+    /**
+     * separated timeout for authentification call, default is 5 second
+     */
     authTimeout?: number;
+    /**
+     * timeout for proxmox request, default is 60 seconds
+     */
     queryTimeout?: number;
 }
 
+/**
+ * Proxmox authentification as user / password
+ */
 export interface ProxmoxEngineOptionsPass extends ProxmoxEngineOptionsCommon {
+    /**
+     * Your username, if not specified will use root@pam
+     */
     username?: string;
+    /**
+     * The password
+     */
     password: string;
 }
 
+/**
+ * Proxmox authentification as tokenID / tokenSecret
+ */
 export interface ProxmoxEngineOptionsToken extends ProxmoxEngineOptionsCommon {
     tokenID: string;
     tokenSecret: string;
 }
 
+/**
+ * Type Union for proxmox Authentification options
+ */
 export type ProxmoxEngineOptions = ProxmoxEngineOptionsToken | ProxmoxEngineOptionsPass;
 
 /**
- * keep the API engine there is non direct acess needed
+ * Default Proxmox doRequest provider, this Class will be used if you provide Proxmox authentification options to the Proxy generator
  */
 export class ProxmoxEngine implements ApiRequestable {
     public CSRFPreventionToken?: string;
@@ -74,8 +107,17 @@ export class ProxmoxEngine implements ApiRequestable {
         this.queryTimeout = options.queryTimeout || 60000;
     }
 
+    /**
+     * 
+     * @param httpMethod 
+     * @param path 
+     * @param pathTemplate 
+     * @param params 
+     * @param retries 
+     * @returns 
+     */
     public async doRequest(httpMethod: string, path: string, pathTemplate: string, params?: { [key: string]: any }, retries?: number): Promise<any> {
-        const {CSRFPreventionToken, ticket} = await this.getTicket();
+        const { CSRFPreventionToken, ticket } = await this.getTicket();
 
         /**
          * Remove null values
@@ -87,8 +129,8 @@ export class ProxmoxEngine implements ApiRequestable {
                 }
             }
 
-        let headers: {[key: string]: string} = {
-        //    'Content-Type': 'application/x-www-form-urlencoded',
+        let headers: { [key: string]: string } = {
+            //    'Content-Type': 'application/x-www-form-urlencoded',
         };
         // use token
         if (!this.username) {
@@ -120,7 +162,7 @@ export class ProxmoxEngine implements ApiRequestable {
                 //reqBody = JSON
                 //    .stringify(params)
                 //    .replace(/[\u0080-\uFFFF]/g, (m) => '\\u' + ('0000' + m.charCodeAt(0).toString(16)).slice(-4)); 
-                body = {form: params};
+                body = { form: params };
             } else {
                 path += `?${querystring.stringify(params)}`
             }
@@ -178,19 +220,22 @@ export class ProxmoxEngine implements ApiRequestable {
                 }
                 throw Error(`${httpMethod} ${requestUrl} return Error ${res.statusCode} ${res.statusText}: ${JSON.stringify(data)}`);
             case 200:
-                return data.data;     
+                return data.data;
             default:
                 throw Error(`${httpMethod} ${requestUrl} connetion failed with ${res.statusCode} ${res.statusText} return: ${JSON.stringify(data)}`);
         }
     }
 
-    public async getTicket(): Promise<{ticket: string, CSRFPreventionToken: string}> {
+    /**
+     * return the current ticket/token, or create new ones, is previous one had been discared, or missing.
+     * @returns Proxmox API ticket and CSRFPreventionToken
+     */
+    public async getTicket(): Promise<{ ticket: string, CSRFPreventionToken: string }> {
         if (this.ticket && this.CSRFPreventionToken)
-            return {ticket: this.ticket, CSRFPreventionToken: this.CSRFPreventionToken};
+            return { ticket: this.ticket, CSRFPreventionToken: this.CSRFPreventionToken };
         const requestUrl = `${this.schema}://${this.host}:${this.port}/api2/json/access/ticket`;
         try {
-            const password = this.password;
-            const username = this.username;
+            const { password, username } = this;
             // const controller = new AbortController();
             // const timeout = setTimeout(() => controller.abort(), this.authTimeout);
             const postBody = querystring.encode({ username, password });
@@ -199,17 +244,25 @@ export class ProxmoxEngine implements ApiRequestable {
                 'Content-Length': String(postBody.length),
             }
 
-            const req = await reqApi({method: 'POST', host: this.host, protocol: `${this.schema}:`, port: this.port, path: '/api2/json/access/ticket', headers}, {form: { username, password }});
+            const req = await reqApi({
+                method: 'POST',
+                host: this.host,
+                protocol: `${this.schema}:`,
+                port: this.port,
+                path: '/api2/json/access/ticket',
+                headers,
+                timeout: this.authTimeout,
+            }, { form: { username, password } });
             // const req = await reqApi.post(requestUrl, {form: { username, password }});
             // clearTimeout(timeout);
             if (req.statusCode !== 200) {
                 throw Error(`login failed with ${req.statusCode}: ${req.statusText}`);
             }
-            const body = await req.json<{data:{cap:any, ticket: string, CSRFPreventionToken: string, username: string}}>();
+            const body = await req.json<{ data: { cap: any, ticket: string, CSRFPreventionToken: string, username: string } }>();
             const { CSRFPreventionToken, ticket } = body.data;
             this.CSRFPreventionToken = CSRFPreventionToken;
             this.ticket = ticket;
-            return {ticket, CSRFPreventionToken};
+            return { ticket, CSRFPreventionToken };
         } catch (e) {
             console.log(e);
             throw Error(`Auth ${requestUrl} Failed! with Exception: ${e}`);
