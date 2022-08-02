@@ -54,7 +54,6 @@ export class Generator {
     type2TypeName: { [key: string]: string } = {};
     usedNamed: { [name: string]: string } = {};
 
-
     getFinalData(): string {
         const header = 'export namespace Proxmox {';
         const typings = this.getNewType().join(EOL)
@@ -64,6 +63,21 @@ export class Generator {
         const footer = `}${EOL}export default Proxmox;`;
 
         return header + EOL + typings + EOL + retTypes + EOL + code + EOL + footer + EOL;
+    }
+
+    appendComment(dest: string[], lineOffset: string, ...lines: string[]) {
+        dest.push(`${lineOffset}/**`);
+        this.appendCommentLines(dest, lineOffset, ...lines);
+        dest.push(`${lineOffset} */`);
+    }
+
+    appendCommentLines(dest: string[], lineOffset: string, ...lines: string[]) {
+        for (const doc of lines) {
+            let line = doc.trim();
+            if (!doc.startsWith('@'))
+                line = line.replace(/([{}])/g, '\\$1')
+            dest.push(`${lineOffset} * ${line}`);
+        }
     }
 
     getNewType(): string[] {
@@ -186,10 +200,7 @@ export class Generator {
         // append doc
         let declaration = [] as string[];
         if (docs.length) {
-            declaration.push(`${TAB}/**`);
-            for (const doc of docs)
-                declaration.push(`${TAB} * ${doc}`);
-            declaration.push(`${TAB} */`);
+            this.appendComment(declaration, TAB, ...docs)
         }
 
         if (pveType.type === 'string' && pveType.enum) {
@@ -242,10 +253,10 @@ export class Generator {
             for (const mtd of Object.keys(info)) {
                 const theInfo: PveCallDesc = info[mtd as PveHttpMtd] as PveCallDesc;
                 this.code.push(`${lineOffset}/**`);
-                this.code.push(`${lineOffset} * ${theInfo.description}`);
+                this.appendCommentLines(this.code, lineOffset, theInfo.description);
 
                 if (theInfo.description) {
-                    this.code.push(`${lineOffset} * ${mtd} ${path}`);
+                    this.appendCommentLines(this.code, lineOffset, `${mtd} ${path}`);
                 }
                 if (typeof (theInfo.allowtoken) !== 'undefined') {
                     this.code.push(`${lineOffset} * @allowtoken ${theInfo.allowtoken}`);
@@ -329,9 +340,7 @@ export class Generator {
                     }
                 }
                 if (comments.length) {
-                    line.push(`${lineOffset}/**`);
-                    comments.forEach(e => line.push(`${lineOffset} * ${e.trim()}`));
-                    line.push(`${lineOffset} */`);
+                    this.appendComment(line, lineOffset, ...comments);
                 }
                 let opt = prop.optional ? '?' : '';
                 // if (prop.additionalProperties) // TODO
@@ -361,9 +370,7 @@ export class Generator {
             lines.push(line.join(EOL));
         }
         if (additionalProperties) {
-            lines.push(`${lineOffset}/**`);
-            lines.push(`${lineOffset} * additionalProperties`);
-            lines.push(`${lineOffset} */`);
+            this.appendComment(lines, lineOffset, 'additionalProperties')
             lines.push(`${lineOffset}[additionalProperties: string]: any;`);
         }
         lines.push(`${lineOffset0}}`);
@@ -452,12 +459,9 @@ export class Generator {
             // this.retTypes.push(`export type ${TypeName} = ${fullType};`);
         }
         else {
-            const code = [
-                `${TAB}/**`,
-                `${TAB} * Returned by ${theInfo.method} ${node.path}`,
-                `${TAB} */`,
-                `${TAB}export interface ${typeName} ${fullType}`,
-            ];
+            const code: string[] = [];
+            this.appendComment(code, TAB, `Returned by ${theInfo.method} ${node.path}`);
+            code.push(`${TAB}export interface ${typeName} ${fullType}`);
             this.retTypes[typeName] = code.join(EOL);
 //            this.retTypes.push(
         }

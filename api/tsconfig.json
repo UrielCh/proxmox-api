@@ -40,5 +40,10 @@
 
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
-  }
+  },
+  "include": [ "src/index.ts" ],
+  "typedocOptions": {
+    "entryPoints": [ "src/index.ts" ],
+    "out": "docs"
+}
 }

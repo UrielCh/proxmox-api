@@ -618,7 +618,7 @@ export namespace Proxmox {
      * of the `error` state.
      * `ignored`;;
      * The resource gets removed from the manager status and so the CRM and the LRM do
-     * not touch the resource anymore. All {pve} API calls affecting this resource
+     * not touch the resource anymore. All \{pve\} API calls affecting this resource
      * will be executed, directly bypassing the HA stack. CRM commands will be thrown
      * away while there source is in this state. The resource will not get relocated
      * on node failures.
@@ -828,8 +828,8 @@ export namespace Proxmox {
     export type address_1 = string;
     /**
      * cloud-init: Sets DNS server IP address for a container. Create will'
-     * 	    .' automatically use the setting from the host if neither searchdomain nor nameserver'
-     * 	    .' are set.
+     * .' automatically use the setting from the host if neither searchdomain nor nameserver'
+     * .' are set.
      * @format address-list
      */
     export type addresslist = string;
@@ -1631,7 +1631,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /access/groups/{groupid}
+     * Returned by GET /access/groups/\{groupid\}
      */
     export interface accessGroupsReadGroup {
         comment?: string;
@@ -1688,7 +1688,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /access/roles/{roleid}
+     * Returned by GET /access/roles/\{roleid\}
      */
     export interface accessRolesReadRole {
         'Datastore.Allocate'?: boolean;
@@ -1733,7 +1733,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /access/tfa/{userid}
+     * Returned by POST /access/tfa/\{userid\}
      */
     export interface accessTfaAddTfaEntry {
         /**
@@ -1754,7 +1754,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /access/tfa/{userid}/{id}
+     * Returned by GET /access/tfa/\{userid\}/\{id\}
      */
     export interface accessTfaGetTfaEntry {
         /**
@@ -1818,7 +1818,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /access/tfa/{userid}
+     * Returned by GET /access/tfa/\{userid\}
      */
     export interface accessTfaListUserTfa {
         /**
@@ -1919,7 +1919,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /access/users/{userid}
+     * Returned by GET /access/users/\{userid\}
      */
     export interface accessUsersReadUser {
         comment?: string;
@@ -1946,7 +1946,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /access/users/{userid}/tfa
+     * Returned by GET /access/users/\{userid\}/tfa
      */
     export interface accessUsersTfaReadUserTfaType {
         /**
@@ -1967,7 +1967,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /access/users/{userid}/token/{tokenid}
+     * Returned by POST /access/users/\{userid\}/token/\{tokenid\}
      */
     export interface accessUsersTokenGenerateToken {
         /**
@@ -1995,7 +1995,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /access/users/{userid}/token/{tokenid}
+     * Returned by GET /access/users/\{userid\}/token/\{tokenid\}
      */
     export interface accessUsersTokenReadToken {
         comment?: string;
@@ -2013,7 +2013,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /access/users/{userid}/token
+     * Returned by GET /access/users/\{userid\}/token
      */
     export interface accessUsersTokenTokenIndex {
         comment?: string;
@@ -2035,7 +2035,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by PUT /access/users/{userid}/token/{tokenid}
+     * Returned by PUT /access/users/\{userid\}/token/\{tokenid\}
      */
     export interface accessUsersTokenUpdateTokenInfo {
         comment?: string;
@@ -2062,7 +2062,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/acme/account/{name}
+     * Returned by GET /cluster/acme/account/\{name\}
      */
     export interface clusterAcmeAccountGetAccount {
         account?: any;
@@ -2130,7 +2130,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/backup/{id}/included_volumes
+     * Returned by GET /cluster/backup/\{id\}/included_volumes
      */
     export interface clusterBackupIncludedVolumesGetVolumeBackupIncluded {
         children: {
@@ -2287,7 +2287,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /cluster/config/nodes/{node}
+     * Returned by POST /cluster/config/nodes/\{node\}
      */
     export interface clusterConfigNodesAddnode {
         corosync_authkey: string;
@@ -2325,7 +2325,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/firewall/groups/{group}/{pos}
+     * Returned by GET /cluster/firewall/groups/\{group\}/\{pos\}
      */
     export interface clusterFirewallGroupsGetRule {
         action: string;
@@ -2352,7 +2352,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/firewall/groups/{group}
+     * Returned by GET /cluster/firewall/groups/\{group\}
      */
     export interface clusterFirewallGroupsGetRules {
         pos: number;
@@ -2389,7 +2389,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/firewall/ipset/{name}
+     * Returned by GET /cluster/firewall/ipset/\{name\}
      */
     export interface clusterFirewallIpsetGetIpset {
         cidr: string;
@@ -2482,7 +2482,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/firewall/rules/{pos}
+     * Returned by GET /cluster/firewall/rules/\{pos\}
      */
     export interface clusterFirewallRulesGetRule {
         action: string;
@@ -2549,7 +2549,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/ha/resources/{sid}
+     * Returned by GET /cluster/ha/resources/\{sid\}
      */
     export interface clusterHaResourcesRead {
         /**
@@ -2826,7 +2826,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/sdn/vnets/{vnet}/subnets
+     * Returned by GET /cluster/sdn/vnets/\{vnet\}/subnets
      */
     export interface clusterSdnVnetsSubnetsIndex {
         /**
@@ -2911,7 +2911,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/aplinfo
+     * Returned by GET /nodes/\{node\}/aplinfo
      */
     export interface nodesAplinfoAplinfo {
         /**
@@ -2920,7 +2920,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/apt
+     * Returned by GET /nodes/\{node\}/apt
      */
     export interface nodesAptIndex {
         id: string;
@@ -2930,7 +2930,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/apt/repositories
+     * Returned by GET /nodes/\{node\}/apt/repositories
      */
     export interface nodesAptRepositoriesRepositories {
         /**
@@ -3055,7 +3055,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/apt/update
+     * Returned by GET /nodes/\{node\}/apt/update
      */
     export interface nodesAptUpdateListUpdates {
         /**
@@ -3064,7 +3064,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/apt/versions
+     * Returned by GET /nodes/\{node\}/apt/versions
      */
     export interface nodesAptVersionsVersions {
         /**
@@ -3073,7 +3073,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/capabilities
+     * Returned by GET /nodes/\{node\}/capabilities
      */
     export interface nodesCapabilitiesIndex {
         /**
@@ -3082,7 +3082,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/capabilities/qemu/cpu
+     * Returned by GET /nodes/\{node\}/capabilities/qemu/cpu
      */
     export interface nodesCapabilitiesQemuCpuIndex {
         /**
@@ -3103,7 +3103,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/capabilities/qemu/machines
+     * Returned by GET /nodes/\{node\}/capabilities/qemu/machines
      */
     export interface nodesCapabilitiesQemuMachinesTypes {
         /**
@@ -3124,7 +3124,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/capabilities/qemu
+     * Returned by GET /nodes/\{node\}/capabilities/qemu
      */
     export interface nodesCapabilitiesQemuQemuCapsIndex {
         /**
@@ -3133,7 +3133,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/ceph/configdb
+     * Returned by GET /nodes/\{node\}/ceph/configdb
      */
     export interface nodesCephConfigdbConfigdb {
         can_update_at_runtime: boolean;
@@ -3148,7 +3148,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/ceph/fs
+     * Returned by GET /nodes/\{node\}/ceph/fs
      */
     export interface nodesCephFsIndex {
         /**
@@ -3169,7 +3169,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/ceph
+     * Returned by GET /nodes/\{node\}/ceph
      */
     export interface nodesCephIndex {
         /**
@@ -3178,7 +3178,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/ceph/log
+     * Returned by GET /nodes/\{node\}/ceph/log
      */
     export interface nodesCephLogLog {
         /**
@@ -3195,7 +3195,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/ceph/mds
+     * Returned by GET /nodes/\{node\}/ceph/mds
      */
     export interface nodesCephMdsIndex {
         addr?: string;
@@ -3219,7 +3219,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/ceph/mgr
+     * Returned by GET /nodes/\{node\}/ceph/mgr
      */
     export interface nodesCephMgrIndex {
         addr?: string;
@@ -3238,7 +3238,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/ceph/mon
+     * Returned by GET /nodes/\{node\}/ceph/mon
      */
     export interface nodesCephMonListmon {
         addr?: string;
@@ -3250,7 +3250,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/ceph/pools/{name}
+     * Returned by GET /nodes/\{node\}/ceph/pools/\{name\}
      */
     export interface nodesCephPoolsGetpool {
         /**
@@ -3313,7 +3313,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/ceph/pools
+     * Returned by GET /nodes/\{node\}/ceph/pools
      */
     export interface nodesCephPoolsLspools {
         autoscale_status?: any;
@@ -3337,7 +3337,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/ceph/rules
+     * Returned by GET /nodes/\{node\}/ceph/rules
      */
     export interface nodesCephRulesRules {
         /**
@@ -3346,7 +3346,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/certificates/acme
+     * Returned by GET /nodes/\{node\}/certificates/acme
      */
     export interface nodesCertificatesAcmeIndex {
         /**
@@ -3355,7 +3355,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/certificates/custom
+     * Returned by POST /nodes/\{node\}/certificates/custom
      */
     export interface nodesCertificatesCustomUploadCustomCert {
         filename?: string;
@@ -3401,7 +3401,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/certificates
+     * Returned by GET /nodes/\{node\}/certificates
      */
     export interface nodesCertificatesIndex {
         /**
@@ -3410,7 +3410,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/certificates/info
+     * Returned by GET /nodes/\{node\}/certificates/info
      */
     export interface nodesCertificatesInfoInfo {
         filename?: string;
@@ -3456,7 +3456,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/disks/directory
+     * Returned by GET /nodes/\{node\}/disks/directory
      */
     export interface nodesDisksDirectoryIndex {
         /**
@@ -3485,7 +3485,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/disks
+     * Returned by GET /nodes/\{node\}/disks
      */
     export interface nodesDisksIndex {
         /**
@@ -3494,7 +3494,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/disks/list
+     * Returned by GET /nodes/\{node\}/disks/list
      */
     export interface nodesDisksListList {
         /**
@@ -3520,7 +3520,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/disks/lvm
+     * Returned by GET /nodes/\{node\}/disks/lvm
      */
     export interface nodesDisksLvmIndex {
         children: {
@@ -3563,7 +3563,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/disks/lvmthin
+     * Returned by GET /nodes/\{node\}/disks/lvmthin
      */
     export interface nodesDisksLvmthinIndex {
         /**
@@ -3596,7 +3596,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/disks/smart
+     * Returned by GET /nodes/\{node\}/disks/smart
      */
     export interface nodesDisksSmartSmart {
         attributes?: string[];
@@ -3609,7 +3609,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/disks/zfs/{name}
+     * Returned by GET /nodes/\{node\}/disks/zfs/\{name\}
      */
     export interface nodesDisksZfsDetail {
         /**
@@ -3662,7 +3662,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/disks/zfs
+     * Returned by GET /nodes/\{node\}/disks/zfs
      */
     export interface nodesDisksZfsIndex {
         alloc: number;
@@ -3678,7 +3678,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/dns
+     * Returned by GET /nodes/\{node\}/dns
      */
     export interface nodesDnsDns {
         /**
@@ -3703,7 +3703,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/firewall
+     * Returned by GET /nodes/\{node\}/firewall
      */
     export interface nodesFirewallIndex {
         /**
@@ -3712,7 +3712,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/firewall/log
+     * Returned by GET /nodes/\{node\}/firewall/log
      */
     export interface nodesFirewallLogLog {
         /**
@@ -3729,7 +3729,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/firewall/options
+     * Returned by GET /nodes/\{node\}/firewall/options
      */
     export interface nodesFirewallOptionsGetOptions {
         /**
@@ -3802,7 +3802,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/firewall/rules/{pos}
+     * Returned by GET /nodes/\{node\}/firewall/rules/\{pos\}
      */
     export interface nodesFirewallRulesGetRule {
         action: string;
@@ -3829,7 +3829,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/firewall/rules
+     * Returned by GET /nodes/\{node\}/firewall/rules
      */
     export interface nodesFirewallRulesGetRules {
         pos: number;
@@ -3839,7 +3839,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/hardware
+     * Returned by GET /nodes/\{node\}/hardware
      */
     export interface nodesHardwareIndex {
         type: string;
@@ -3849,7 +3849,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/hardware/pci/{pciid}/mdev
+     * Returned by GET /nodes/\{node\}/hardware/pci/\{pciid\}/mdev
      */
     export interface nodesHardwarePciMdevMdevscan {
         /**
@@ -3867,7 +3867,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/hardware/pci/{pciid}
+     * Returned by GET /nodes/\{node\}/hardware/pci/\{pciid\}
      */
     export interface nodesHardwarePciPciindex {
         method: string;
@@ -3877,7 +3877,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/hardware/pci
+     * Returned by GET /nodes/\{node\}/hardware/pci
      */
     export interface nodesHardwarePciPciscan {
         /**
@@ -3922,7 +3922,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/hardware/usb
+     * Returned by GET /nodes/\{node\}/hardware/usb
      */
     export interface nodesHardwareUsbUsbscan {
         busnum: number;
@@ -3943,7 +3943,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/hosts
+     * Returned by GET /nodes/\{node\}/hosts
      */
     export interface nodesHostsGetEtcHosts {
         /**
@@ -4005,7 +4005,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}
+     * Returned by GET /nodes/\{node\}
      */
     export interface nodesIndex2 {
         /**
@@ -4014,7 +4014,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/config
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/config
      */
     export interface nodesLxcConfigVmConfig {
         /**
@@ -4185,7 +4185,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/feature
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/feature
      */
     export interface nodesLxcFeatureVmFeature {
         hasFeature: boolean;
@@ -4195,7 +4195,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/aliases
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/firewall/aliases
      */
     export interface nodesLxcFirewallAliasesGetAliases {
         cidr: string;
@@ -4211,7 +4211,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/firewall
      */
     export interface nodesLxcFirewallIndex {
         /**
@@ -4220,7 +4220,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/firewall/ipset/\{name\}
      */
     export interface nodesLxcFirewallIpsetGetIpset {
         cidr: string;
@@ -4236,7 +4236,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/ipset
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/firewall/ipset
      */
     export interface nodesLxcFirewallIpsetIpsetIndex {
         comment?: string;
@@ -4254,7 +4254,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/log
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/firewall/log
      */
     export interface nodesLxcFirewallLogLog {
         /**
@@ -4271,7 +4271,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/options
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/firewall/options
      */
     export interface nodesLxcFirewallOptionsGetOptions {
         /**
@@ -4320,7 +4320,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/refs
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/firewall/refs
      */
     export interface nodesLxcFirewallRefsRefs {
         comment?: string;
@@ -4332,7 +4332,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/rules/{pos}
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/firewall/rules/\{pos\}
      */
     export interface nodesLxcFirewallRulesGetRule {
         action: string;
@@ -4359,7 +4359,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/firewall/rules
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/firewall/rules
      */
     export interface nodesLxcFirewallRulesGetRules {
         pos: number;
@@ -4369,7 +4369,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/pending
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/pending
      */
     export interface nodesLxcPendingVmPending {
         /**
@@ -4394,7 +4394,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/rrd
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/rrd
      */
     export interface nodesLxcRrdRrd {
         filename: string;
@@ -4404,7 +4404,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/rrddata
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/rrddata
      */
     export interface nodesLxcRrddataRrddata {
         /**
@@ -4413,7 +4413,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/snapshot
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/snapshot
      */
     export interface nodesLxcSnapshotList {
         /**
@@ -4438,7 +4438,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/snapshot/{snapname}
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/snapshot/\{snapname\}
      */
     export interface nodesLxcSnapshotSnapshotCmdIdx {
         /**
@@ -4447,7 +4447,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/lxc/{vmid}/spiceproxy
+     * Returned by POST /nodes/\{node\}/lxc/\{vmid\}/spiceproxy
      */
     export interface nodesLxcSpiceproxySpiceproxy {
         host: string;
@@ -4461,7 +4461,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/status/current
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/status/current
      */
     export interface nodesLxcStatusCurrentVmStatus {
         /**
@@ -4514,7 +4514,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/status
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/status
      */
     export interface nodesLxcStatusVmcmdidx {
         subdir: string;
@@ -4524,7 +4524,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/lxc/{vmid}/termproxy
+     * Returned by POST /nodes/\{node\}/lxc/\{vmid\}/termproxy
      */
     export interface nodesLxcTermproxyTermproxy {
         port: number;
@@ -4537,7 +4537,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc
+     * Returned by GET /nodes/\{node\}/lxc
      */
     export interface nodesLxcVm {
         /**
@@ -4586,7 +4586,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}
      */
     export interface nodesLxcVmdiridx {
         subdir: string;
@@ -4596,7 +4596,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/lxc/{vmid}/vncproxy
+     * Returned by POST /nodes/\{node\}/lxc/\{vmid\}/vncproxy
      */
     export interface nodesLxcVncproxyVncproxy {
         cert: string;
@@ -4610,7 +4610,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/lxc/{vmid}/vncwebsocket
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/vncwebsocket
      */
     export interface nodesLxcVncwebsocketVncwebsocket {
         port: string;
@@ -4620,7 +4620,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/netstat
+     * Returned by GET /nodes/\{node\}/netstat
      */
     export interface nodesNetstatNetstat {
         /**
@@ -4629,7 +4629,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/network
+     * Returned by GET /nodes/\{node\}/network
      */
     export interface nodesNetworkIndex {
         /**
@@ -4638,7 +4638,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/network/{iface}
+     * Returned by GET /nodes/\{node\}/network/\{iface\}
      */
     export interface nodesNetworkNetworkConfig {
         method: string;
@@ -4649,7 +4649,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/qemu/{vmid}/agent/exec
+     * Returned by POST /nodes/\{node\}/qemu/\{vmid\}/agent/exec
      */
     export interface nodesQemuAgentExecExec {
         /**
@@ -4662,7 +4662,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/agent/exec-status
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/agent/exec-status
      */
     export interface nodesQemuAgentExecStatusExecStatus {
         /**
@@ -4699,7 +4699,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/agent/file-read
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/agent/file-read
      */
     export interface nodesQemuAgentFileReadFileRead {
         /**
@@ -4716,7 +4716,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/agent
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/agent
      */
     export interface nodesQemuAgentIndex {
         /**
@@ -4725,7 +4725,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/config
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/config
      */
     export interface nodesQemuConfigVmConfig {
         /**
@@ -5358,7 +5358,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/feature
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/feature
      */
     export interface nodesQemuFeatureVmFeature {
         hasFeature: boolean;
@@ -5369,7 +5369,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/aliases
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/firewall/aliases
      */
     export interface nodesQemuFirewallAliasesGetAliases {
         cidr: string;
@@ -5385,7 +5385,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/firewall
      */
     export interface nodesQemuFirewallIndex {
         /**
@@ -5394,7 +5394,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/firewall/ipset/\{name\}
      */
     export interface nodesQemuFirewallIpsetGetIpset {
         cidr: string;
@@ -5410,7 +5410,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/ipset
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/firewall/ipset
      */
     export interface nodesQemuFirewallIpsetIpsetIndex {
         comment?: string;
@@ -5428,7 +5428,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/log
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/firewall/log
      */
     export interface nodesQemuFirewallLogLog {
         /**
@@ -5445,7 +5445,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/options
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/firewall/options
      */
     export interface nodesQemuFirewallOptionsGetOptions {
         /**
@@ -5494,7 +5494,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/refs
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/firewall/refs
      */
     export interface nodesQemuFirewallRefsRefs {
         comment?: string;
@@ -5506,7 +5506,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/rules/{pos}
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/firewall/rules/\{pos\}
      */
     export interface nodesQemuFirewallRulesGetRule {
         action: string;
@@ -5533,7 +5533,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/firewall/rules
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/firewall/rules
      */
     export interface nodesQemuFirewallRulesGetRules {
         pos: number;
@@ -5543,7 +5543,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/migrate
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/migrate
      */
     export interface nodesQemuMigrateMigrateVmPrecondition {
         /**
@@ -5569,7 +5569,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/pending
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/pending
      */
     export interface nodesQemuPendingVmPending {
         /**
@@ -5594,7 +5594,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/rrd
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/rrd
      */
     export interface nodesQemuRrdRrd {
         filename: string;
@@ -5604,7 +5604,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/rrddata
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/rrddata
      */
     export interface nodesQemuRrddataRrddata {
         /**
@@ -5613,7 +5613,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/snapshot/{snapname}
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/snapshot/\{snapname\}
      */
     export interface nodesQemuSnapshotSnapshotCmdIdx {
         /**
@@ -5622,7 +5622,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/snapshot
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/snapshot
      */
     export interface nodesQemuSnapshotSnapshotList {
         /**
@@ -5651,7 +5651,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/qemu/{vmid}/spiceproxy
+     * Returned by POST /nodes/\{node\}/qemu/\{vmid\}/spiceproxy
      */
     export interface nodesQemuSpiceproxySpiceproxy {
         host: string;
@@ -5665,7 +5665,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/status/current
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/status/current
      */
     export interface nodesQemuStatusCurrentVmStatus {
         /**
@@ -5738,7 +5738,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/status
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/status
      */
     export interface nodesQemuStatusVmcmdidx {
         subdir: string;
@@ -5748,7 +5748,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/qemu/{vmid}/termproxy
+     * Returned by POST /nodes/\{node\}/qemu/\{vmid\}/termproxy
      */
     export interface nodesQemuTermproxyTermproxy {
         port: number;
@@ -5761,7 +5761,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu
+     * Returned by GET /nodes/\{node\}/qemu
      */
     export interface nodesQemuVm {
         /**
@@ -5822,7 +5822,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}
      */
     export interface nodesQemuVmdiridx {
         subdir: string;
@@ -5832,7 +5832,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/qemu/{vmid}/vncproxy
+     * Returned by POST /nodes/\{node\}/qemu/\{vmid\}/vncproxy
      */
     export interface nodesQemuVncproxyVncproxy {
         cert: string;
@@ -5850,7 +5850,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/qemu/{vmid}/vncwebsocket
+     * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/vncwebsocket
      */
     export interface nodesQemuVncwebsocketVncwebsocket {
         port: string;
@@ -5860,7 +5860,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/query-url-metadata
+     * Returned by GET /nodes/\{node\}/query-url-metadata
      */
     export interface nodesQueryUrlMetadataQueryUrlMetadata {
         filename?: string;
@@ -5872,7 +5872,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/replication/{id}
+     * Returned by GET /nodes/\{node\}/replication/\{id\}
      */
     export interface nodesReplicationIndex {
         /**
@@ -5881,7 +5881,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/replication/{id}/log
+     * Returned by GET /nodes/\{node\}/replication/\{id\}/log
      */
     export interface nodesReplicationLogReadJobLog {
         /**
@@ -5898,7 +5898,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/replication
+     * Returned by GET /nodes/\{node\}/replication
      */
     export interface nodesReplicationStatus {
         id: string;
@@ -5908,7 +5908,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/rrd
+     * Returned by GET /nodes/\{node\}/rrd
      */
     export interface nodesRrdRrd {
         filename: string;
@@ -5918,7 +5918,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/rrddata
+     * Returned by GET /nodes/\{node\}/rrddata
      */
     export interface nodesRrddataRrddata {
         /**
@@ -5927,7 +5927,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/scan/cifs
+     * Returned by GET /nodes/\{node\}/scan/cifs
      */
     export interface nodesScanCifsCifsscan {
         /**
@@ -5944,7 +5944,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/scan/glusterfs
+     * Returned by GET /nodes/\{node\}/scan/glusterfs
      */
     export interface nodesScanGlusterfsGlusterfsscan {
         /**
@@ -5957,7 +5957,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/scan
+     * Returned by GET /nodes/\{node\}/scan
      */
     export interface nodesScanIndex {
         method: string;
@@ -5967,7 +5967,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/scan/iscsi
+     * Returned by GET /nodes/\{node\}/scan/iscsi
      */
     export interface nodesScanIscsiIscsiscan {
         /**
@@ -5984,7 +5984,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/scan/lvm
+     * Returned by GET /nodes/\{node\}/scan/lvm
      */
     export interface nodesScanLvmLvmscan {
         /**
@@ -5997,7 +5997,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/scan/lvmthin
+     * Returned by GET /nodes/\{node\}/scan/lvmthin
      */
     export interface nodesScanLvmthinLvmthinscan {
         /**
@@ -6010,7 +6010,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/scan/nfs
+     * Returned by GET /nodes/\{node\}/scan/nfs
      */
     export interface nodesScanNfsNfsscan {
         /**
@@ -6027,7 +6027,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/scan/pbs
+     * Returned by GET /nodes/\{node\}/scan/pbs
      */
     export interface nodesScanPbsPbsscan {
         /**
@@ -6044,7 +6044,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/scan/zfs
+     * Returned by GET /nodes/\{node\}/scan/zfs
      */
     export interface nodesScanZfsZfsscan {
         /**
@@ -6057,7 +6057,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/sdn
+     * Returned by GET /nodes/\{node\}/sdn
      */
     export interface nodesSdnSdnindex {
         /**
@@ -6066,7 +6066,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/sdn/zones/{zone}/content
+     * Returned by GET /nodes/\{node\}/sdn/zones/\{zone\}/content
      */
     export interface nodesSdnZonesContentIndex {
         /**
@@ -6087,7 +6087,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/sdn/zones/{zone}
+     * Returned by GET /nodes/\{node\}/sdn/zones/\{zone\}
      */
     export interface nodesSdnZonesDiridx {
         subdir: string;
@@ -6097,7 +6097,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/sdn/zones
+     * Returned by GET /nodes/\{node\}/sdn/zones
      */
     export interface nodesSdnZonesIndex {
         /**
@@ -6114,7 +6114,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/services
+     * Returned by GET /nodes/\{node\}/services
      */
     export interface nodesServicesIndex {
         /**
@@ -6123,7 +6123,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/services/{service}
+     * Returned by GET /nodes/\{node\}/services/\{service\}
      */
     export interface nodesServicesSrvcmdidx {
         subdir: string;
@@ -6133,7 +6133,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/spiceshell
+     * Returned by POST /nodes/\{node\}/spiceshell
      */
     export interface nodesSpiceshellSpiceshell {
         host: string;
@@ -6147,7 +6147,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/storage/{storage}/content
+     * Returned by GET /nodes/\{node\}/storage/\{storage\}/content
      */
     export interface nodesStorageContentIndex {
         /**
@@ -6209,7 +6209,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/storage/{storage}/content/{volume}
+     * Returned by GET /nodes/\{node\}/storage/\{storage\}/content/\{volume\}
      */
     export interface nodesStorageContentInfo {
         /**
@@ -6242,7 +6242,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/storage/{storage}
+     * Returned by GET /nodes/\{node\}/storage/\{storage\}
      */
     export interface nodesStorageDiridx {
         subdir: string;
@@ -6252,7 +6252,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/storage/{storage}/file-restore/list
+     * Returned by GET /nodes/\{node\}/storage/\{storage\}/file-restore/list
      */
     export interface nodesStorageFileRestoreListList {
         /**
@@ -6285,7 +6285,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/storage
+     * Returned by GET /nodes/\{node\}/storage
      */
     export interface nodesStorageIndex {
         /**
@@ -6334,7 +6334,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/storage/{storage}/prunebackups
+     * Returned by GET /nodes/\{node\}/storage/\{storage\}/prunebackups
      */
     export interface nodesStoragePrunebackupsDryrun {
         /**
@@ -6363,7 +6363,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/storage/{storage}/rrd
+     * Returned by GET /nodes/\{node\}/storage/\{storage\}/rrd
      */
     export interface nodesStorageRrdRrd {
         filename: string;
@@ -6373,7 +6373,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/storage/{storage}/rrddata
+     * Returned by GET /nodes/\{node\}/storage/\{storage\}/rrddata
      */
     export interface nodesStorageRrddataRrddata {
         /**
@@ -6382,7 +6382,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/syslog
+     * Returned by GET /nodes/\{node\}/syslog
      */
     export interface nodesSyslogSyslog {
         /**
@@ -6399,7 +6399,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/tasks/{upid}/log
+     * Returned by GET /nodes/\{node\}/tasks/\{upid\}/log
      */
     export interface nodesTasksLogReadTaskLog {
         /**
@@ -6416,7 +6416,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/tasks
+     * Returned by GET /nodes/\{node\}/tasks
      */
     export interface nodesTasksNodeTasks {
         endtime?: number;
@@ -6435,7 +6435,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/tasks/{upid}/status
+     * Returned by GET /nodes/\{node\}/tasks/\{upid\}/status
      */
     export interface nodesTasksStatusReadTaskStatus {
         exitstatus?: string;
@@ -6453,7 +6453,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/tasks/{upid}
+     * Returned by GET /nodes/\{node\}/tasks/\{upid\}
      */
     export interface nodesTasksUpidIndex {
         /**
@@ -6462,7 +6462,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/termproxy
+     * Returned by POST /nodes/\{node\}/termproxy
      */
     export interface nodesTermproxyTermproxy {
         port: number;
@@ -6475,7 +6475,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/time
+     * Returned by GET /nodes/\{node\}/time
      */
     export interface nodesTimeTime {
         /**
@@ -6496,7 +6496,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/version
+     * Returned by GET /nodes/\{node\}/version
      */
     export interface nodesVersionVersion {
         /**
@@ -6517,7 +6517,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by POST /nodes/{node}/vncshell
+     * Returned by POST /nodes/\{node\}/vncshell
      */
     export interface nodesVncshellVncshell {
         cert: string;
@@ -6531,7 +6531,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/vncwebsocket
+     * Returned by GET /nodes/\{node\}/vncwebsocket
      */
     export interface nodesVncwebsocketVncwebsocket {
         port: string;
@@ -6541,7 +6541,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/{node}/vzdump/defaults
+     * Returned by GET /nodes/\{node\}/vzdump/defaults
      */
     export interface nodesVzdumpDefaultsDefaults {
         /**
@@ -6664,7 +6664,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /pools/{poolid}
+     * Returned by GET /pools/\{poolid\}
      */
     export interface poolsReadPool {
         comment?: string;
@@ -6717,7 +6717,7 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by PUT /storage/{storage}
+     * Returned by PUT /storage/\{storage\}
      */
     export interface storageUpdate {
         /**
@@ -6794,21 +6794,21 @@ export namespace Proxmox {
                 $(id: string): {
                     /**
                      * Mark replication job for removal.
-                     * DELETE /cluster/replication/{id}
+                     * DELETE /cluster/replication/\{id\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                      */
                     $delete(param?: { force?: boolean, keep?: boolean }): Promise<null>;
                     /**
                      * Read replication job configuration.
-                     * GET /cluster/replication/{id}
+                     * GET /cluster/replication/\{id\}
                      * @allowtoken 1
                      * @permissions {"description":"Requires the VM.Audit permission on /vms/<vmid>.","user":"all"}
                      */
                     $get(): Promise<any>;
                     /**
                      * Update replication job configuration.
-                     * PUT /cluster/replication/{id}
+                     * PUT /cluster/replication/\{id\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                      */
@@ -6834,28 +6834,28 @@ export namespace Proxmox {
                     $(id: string): {
                         /**
                          * Remove Metric server.
-                         * DELETE /cluster/metrics/server/{id}
+                         * DELETE /cluster/metrics/server/\{id\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
                         $delete(): Promise<null>;
                         /**
                          * Read metric server configuration.
-                         * GET /cluster/metrics/server/{id}
+                         * GET /cluster/metrics/server/\{id\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
                         $get(): Promise<any>;
                         /**
                          * Create a new external metric server config
-                         * POST /cluster/metrics/server/{id}
+                         * POST /cluster/metrics/server/\{id\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
                         $post(param: { 'api-path-prefix'?: string, bucket?: string, disable?: boolean, influxdbproto?: Tinfluxdbproto, 'max-body-size'?: integer_Min1, mtu?: integer512_65536, organization?: string, path?: graphitepath, port: integer1_65536, proto?: Tproto, server: address, timeout?: integer_Min0, token?: string, type: pveconfigid, 'verify-certificate'?: boolean }): Promise<null>;
                         /**
                          * Update metric server configuration.
-                         * PUT /cluster/metrics/server/{id}
+                         * PUT /cluster/metrics/server/\{id\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -6897,13 +6897,13 @@ export namespace Proxmox {
                     $(node: string): {
                         /**
                          * Removes a node from the cluster configuration.
-                         * DELETE /cluster/config/nodes/{node}
+                         * DELETE /cluster/config/nodes/\{node\}
                          * @allowtoken 1
                          */
                         $delete(): Promise<null>;
                         /**
                          * Adds a node to the cluster configuration. This call is for internal use.
-                         * POST /cluster/config/nodes/{node}
+                         * POST /cluster/config/nodes/\{node\}
                          * @allowtoken 1
                          */
                         $post(param?: { apiversion?: integer, force?: boolean, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, new_node_ip?: ip, nodeid?: integer_Min1, votes?: integer_Min0 }): Promise<clusterConfigNodesAddnode>;
@@ -6969,21 +6969,21 @@ export namespace Proxmox {
                     $(group: string): {
                         /**
                          * Delete security group.
-                         * DELETE /cluster/firewall/groups/{group}
+                         * DELETE /cluster/firewall/groups/\{group\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
                         $delete(): Promise<null>;
                         /**
                          * List rules.
-                         * GET /cluster/firewall/groups/{group}
+                         * GET /cluster/firewall/groups/\{group\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
                         $get(): Promise<clusterFirewallGroupsGetRules[]>;
                         /**
                          * Create new rule.
-                         * POST /cluster/firewall/groups/{group}
+                         * POST /cluster/firewall/groups/\{group\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -6991,21 +6991,21 @@ export namespace Proxmox {
                         $(pos: string): {
                             /**
                              * Delete rule.
-                             * DELETE /cluster/firewall/groups/{group}/{pos}
+                             * DELETE /cluster/firewall/groups/\{group\}/\{pos\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
                             $delete(param?: { digest?: String0_40 }): Promise<null>;
                             /**
                              * Get single rule data.
-                             * GET /cluster/firewall/groups/{group}/{pos}
+                             * GET /cluster/firewall/groups/\{group\}/\{pos\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Audit"]]}
                              */
                             $get(): Promise<clusterFirewallGroupsGetRule>;
                             /**
                              * Modify rule data.
-                             * PUT /cluster/firewall/groups/{group}/{pos}
+                             * PUT /cluster/firewall/groups/\{group\}/\{pos\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
@@ -7031,21 +7031,21 @@ export namespace Proxmox {
                     $(pos: string): {
                         /**
                          * Delete rule.
-                         * DELETE /cluster/firewall/rules/{pos}
+                         * DELETE /cluster/firewall/rules/\{pos\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
                         $delete(param?: { digest?: String0_40 }): Promise<null>;
                         /**
                          * Get single rule data.
-                         * GET /cluster/firewall/rules/{pos}
+                         * GET /cluster/firewall/rules/\{pos\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
                         $get(): Promise<clusterFirewallRulesGetRule>;
                         /**
                          * Modify rule data.
-                         * PUT /cluster/firewall/rules/{pos}
+                         * PUT /cluster/firewall/rules/\{pos\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -7070,21 +7070,21 @@ export namespace Proxmox {
                     $(name: string): {
                         /**
                          * Delete IPSet
-                         * DELETE /cluster/firewall/ipset/{name}
+                         * DELETE /cluster/firewall/ipset/\{name\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
                         $delete(): Promise<null>;
                         /**
                          * List IPSet content
-                         * GET /cluster/firewall/ipset/{name}
+                         * GET /cluster/firewall/ipset/\{name\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
                         $get(): Promise<clusterFirewallIpsetGetIpset[]>;
                         /**
                          * Add IP or Network to IPSet.
-                         * POST /cluster/firewall/ipset/{name}
+                         * POST /cluster/firewall/ipset/\{name\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -7092,21 +7092,21 @@ export namespace Proxmox {
                         $(cidr: string): {
                             /**
                              * Remove IP or Network from IPSet.
-                             * DELETE /cluster/firewall/ipset/{name}/{cidr}
+                             * DELETE /cluster/firewall/ipset/\{name\}/\{cidr\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
                             $delete(param?: { digest?: String0_40 }): Promise<null>;
                             /**
                              * Read IP or Network settings from IPSet.
-                             * GET /cluster/firewall/ipset/{name}/{cidr}
+                             * GET /cluster/firewall/ipset/\{name\}/\{cidr\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Audit"]]}
                              */
                             $get(): Promise<any>;
                             /**
                              * Update IP or Network settings
-                             * PUT /cluster/firewall/ipset/{name}/{cidr}
+                             * PUT /cluster/firewall/ipset/\{name\}/\{cidr\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
@@ -7132,21 +7132,21 @@ export namespace Proxmox {
                     $(name: string): {
                         /**
                          * Remove IP or Network alias.
-                         * DELETE /cluster/firewall/aliases/{name}
+                         * DELETE /cluster/firewall/aliases/\{name\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
                         $delete(param?: { digest?: String0_40 }): Promise<null>;
                         /**
                          * Read alias.
-                         * GET /cluster/firewall/aliases/{name}
+                         * GET /cluster/firewall/aliases/\{name\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
                         $get(): Promise<any>;
                         /**
                          * Update IP or Network alias.
-                         * PUT /cluster/firewall/aliases/{name}
+                         * PUT /cluster/firewall/aliases/\{name\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -7206,21 +7206,21 @@ export namespace Proxmox {
                 $(id: string): {
                     /**
                      * Delete vzdump backup job definition.
-                     * DELETE /cluster/backup/{id}
+                     * DELETE /cluster/backup/\{id\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
                     $delete(): Promise<null>;
                     /**
                      * Read vzdump backup job definition.
-                     * GET /cluster/backup/{id}
+                     * GET /cluster/backup/\{id\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
                     $get(): Promise<any>;
                     /**
                      * Update vzdump backup job definition.
-                     * PUT /cluster/backup/{id}
+                     * PUT /cluster/backup/\{id\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]],"description":"The 'tmpdir', 'dumpdir' and 'script' parameters are additionally restricted to the 'root@pam' user."}
                      */
@@ -7228,7 +7228,7 @@ export namespace Proxmox {
                     included_volumes: {
                         /**
                          * Returns included guests and the backup status of their disks. Optimized to be used in ExtJS tree views.
-                         * GET /cluster/backup/{id}/included_volumes
+                         * GET /cluster/backup/\{id\}/included_volumes
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
@@ -7279,21 +7279,21 @@ export namespace Proxmox {
                     $(sid: string): {
                         /**
                          * Delete resource configuration.
-                         * DELETE /cluster/ha/resources/{sid}
+                         * DELETE /cluster/ha/resources/\{sid\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Console"]]}
                          */
                         $delete(): Promise<null>;
                         /**
                          * Read resource configuration.
-                         * GET /cluster/ha/resources/{sid}
+                         * GET /cluster/ha/resources/\{sid\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
                         $get(): Promise<clusterHaResourcesRead>;
                         /**
                          * Update resource configuration.
-                         * PUT /cluster/ha/resources/{sid}
+                         * PUT /cluster/ha/resources/\{sid\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Console"]]}
                          */
@@ -7301,7 +7301,7 @@ export namespace Proxmox {
                         migrate: {
                             /**
                              * Request resource migration (online) to another node.
-                             * POST /cluster/ha/resources/{sid}/migrate
+                             * POST /cluster/ha/resources/\{sid\}/migrate
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Console"]]}
                              */
@@ -7310,7 +7310,7 @@ export namespace Proxmox {
                         relocate: {
                             /**
                              * Request resource relocatzion to another node. This stops the service on the old node, and restarts it on the target node.
-                             * POST /cluster/ha/resources/{sid}/relocate
+                             * POST /cluster/ha/resources/\{sid\}/relocate
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Console"]]}
                              */
@@ -7336,21 +7336,21 @@ export namespace Proxmox {
                     $(group: string): {
                         /**
                          * Delete ha group configuration.
-                         * DELETE /cluster/ha/groups/{group}
+                         * DELETE /cluster/ha/groups/\{group\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Console"]]}
                          */
                         $delete(): Promise<null>;
                         /**
                          * Read ha group configuration.
-                         * GET /cluster/ha/groups/{group}
+                         * GET /cluster/ha/groups/\{group\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
                         $get(): Promise<any>;
                         /**
                          * Update ha group configuration.
-                         * PUT /cluster/ha/groups/{group}
+                         * PUT /cluster/ha/groups/\{group\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Console"]]}
                          */
@@ -7411,21 +7411,21 @@ export namespace Proxmox {
                     $(id: string): {
                         /**
                          * Delete ACME plugin configuration.
-                         * DELETE /cluster/acme/plugins/{id}
+                         * DELETE /cluster/acme/plugins/\{id\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
                         $delete(): Promise<null>;
                         /**
                          * Get ACME plugin configuration.
-                         * GET /cluster/acme/plugins/{id}
+                         * GET /cluster/acme/plugins/\{id\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
                         $get(): Promise<any>;
                         /**
                          * Update ACME plugin configuration.
-                         * PUT /cluster/acme/plugins/{id}
+                         * PUT /cluster/acme/plugins/\{id\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -7449,19 +7449,19 @@ export namespace Proxmox {
                     $(name: string): {
                         /**
                          * Deactivate existing ACME account at CA.
-                         * DELETE /cluster/acme/account/{name}
+                         * DELETE /cluster/acme/account/\{name\}
                          * @allowtoken 1
                          */
                         $delete(): Promise<string>;
                         /**
                          * Return existing ACME account information.
-                         * GET /cluster/acme/account/{name}
+                         * GET /cluster/acme/account/\{name\}
                          * @allowtoken 1
                          */
                         $get(): Promise<clusterAcmeAccountGetAccount>;
                         /**
                          * Update existing ACME account information with CA. Note: not specifying any new account information triggers a refresh.
-                         * PUT /cluster/acme/account/{name}
+                         * PUT /cluster/acme/account/\{name\}
                          * @allowtoken 1
                          */
                         $put(param?: { contact?: emaillist }): Promise<string>;
@@ -7539,14 +7539,14 @@ export namespace Proxmox {
                     $(flag: string): {
                         /**
                          * Get the status of a specific ceph flag.
-                         * GET /cluster/ceph/flags/{flag}
+                         * GET /cluster/ceph/flags/\{flag\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
                         $get(): Promise<boolean>;
                         /**
                          * Set or clear (unset) a specific ceph flag
-                         * PUT /cluster/ceph/flags/{flag}
+                         * PUT /cluster/ceph/flags/\{flag\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -7605,21 +7605,21 @@ export namespace Proxmox {
                     $(vnet: string): {
                         /**
                          * Delete sdn vnet object configuration.
-                         * DELETE /cluster/sdn/vnets/{vnet}
+                         * DELETE /cluster/sdn/vnets/\{vnet\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/vnets",["SDN.Allocate"]]}
                          */
                         $delete(): Promise<null>;
                         /**
                          * Read sdn vnet configuration.
-                         * GET /cluster/sdn/vnets/{vnet}
+                         * GET /cluster/sdn/vnets/\{vnet\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/vnets/{vnet}",["SDN.Allocate"]]}
                          */
                         $get(param?: { pending?: boolean, running?: boolean }): Promise<any>;
                         /**
                          * Update sdn vnet object configuration.
-                         * PUT /cluster/sdn/vnets/{vnet}
+                         * PUT /cluster/sdn/vnets/\{vnet\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/vnets",["SDN.Allocate"]]}
                          */
@@ -7627,14 +7627,14 @@ export namespace Proxmox {
                         subnets: {
                             /**
                              * SDN subnets index.
-                             * GET /cluster/sdn/vnets/{vnet}/subnets
+                             * GET /cluster/sdn/vnets/\{vnet\}/subnets
                              * @allowtoken 1
                              * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/subnets/<subnet>'","user":"all"}
                              */
                             $get(param?: { pending?: boolean, running?: boolean }): Promise<clusterSdnVnetsSubnetsIndex[]>;
                             /**
                              * Create a new sdn subnet object.
-                             * POST /cluster/sdn/vnets/{vnet}/subnets
+                             * POST /cluster/sdn/vnets/\{vnet\}/subnets
                              * @allowtoken 1
                              * @permissions {"check":["perm","/sdn/vnets/{vnet}/subnets",["SDN.Allocate"]]}
                              */
@@ -7642,21 +7642,21 @@ export namespace Proxmox {
                             $(subnet: string): {
                                 /**
                                  * Delete sdn subnet object configuration.
-                                 * DELETE /cluster/sdn/vnets/{vnet}/subnets/{subnet}
+                                 * DELETE /cluster/sdn/vnets/\{vnet\}/subnets/\{subnet\}
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/sdn/vnets/{vnet}/subnets",["SDN.Allocate"]]}
                                  */
                                 $delete(): Promise<null>;
                                 /**
                                  * Read sdn subnet configuration.
-                                 * GET /cluster/sdn/vnets/{vnet}/subnets/{subnet}
+                                 * GET /cluster/sdn/vnets/\{vnet\}/subnets/\{subnet\}
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/sdn/vnets/{vnet}/subnets/{subnet}",["SDN.Allocate"]]}
                                  */
                                 $get(param?: { pending?: boolean, running?: boolean }): Promise<any>;
                                 /**
                                  * Update sdn subnet object configuration.
-                                 * PUT /cluster/sdn/vnets/{vnet}/subnets/{subnet}
+                                 * PUT /cluster/sdn/vnets/\{vnet\}/subnets/\{subnet\}
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/sdn/vnets/{vnet}/subnets",["SDN.Allocate"]]}
                                  */
@@ -7683,21 +7683,21 @@ export namespace Proxmox {
                     $(zone: string): {
                         /**
                          * Delete sdn zone object configuration.
-                         * DELETE /cluster/sdn/zones/{zone}
+                         * DELETE /cluster/sdn/zones/\{zone\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/zones",["SDN.Allocate"]]}
                          */
                         $delete(): Promise<null>;
                         /**
                          * Read sdn zone configuration.
-                         * GET /cluster/sdn/zones/{zone}
+                         * GET /cluster/sdn/zones/\{zone\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Allocate"]]}
                          */
                         $get(param?: { pending?: boolean, running?: boolean }): Promise<any>;
                         /**
                          * Update sdn zone object configuration.
-                         * PUT /cluster/sdn/zones/{zone}
+                         * PUT /cluster/sdn/zones/\{zone\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/zones",["SDN.Allocate"]]}
                          */
@@ -7722,21 +7722,21 @@ export namespace Proxmox {
                     $(controller: string): {
                         /**
                          * Delete sdn controller object configuration.
-                         * DELETE /cluster/sdn/controllers/{controller}
+                         * DELETE /cluster/sdn/controllers/\{controller\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/controllers",["SDN.Allocate"]]}
                          */
                         $delete(): Promise<null>;
                         /**
                          * Read sdn controller configuration.
-                         * GET /cluster/sdn/controllers/{controller}
+                         * GET /cluster/sdn/controllers/\{controller\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/controllers/{controller}",["SDN.Allocate"]]}
                          */
                         $get(param?: { pending?: boolean, running?: boolean }): Promise<any>;
                         /**
                          * Update sdn controller object configuration.
-                         * PUT /cluster/sdn/controllers/{controller}
+                         * PUT /cluster/sdn/controllers/\{controller\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/controllers",["SDN.Allocate"]]}
                          */
@@ -7761,21 +7761,21 @@ export namespace Proxmox {
                     $(ipam: string): {
                         /**
                          * Delete sdn ipam object configuration.
-                         * DELETE /cluster/sdn/ipams/{ipam}
+                         * DELETE /cluster/sdn/ipams/\{ipam\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/ipams",["SDN.Allocate"]]}
                          */
                         $delete(): Promise<null>;
                         /**
                          * Read sdn ipam configuration.
-                         * GET /cluster/sdn/ipams/{ipam}
+                         * GET /cluster/sdn/ipams/\{ipam\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/ipams/{ipam}",["SDN.Allocate"]]}
                          */
                         $get(): Promise<any>;
                         /**
                          * Update sdn ipam object configuration.
-                         * PUT /cluster/sdn/ipams/{ipam}
+                         * PUT /cluster/sdn/ipams/\{ipam\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/ipams",["SDN.Allocate"]]}
                          */
@@ -7800,21 +7800,21 @@ export namespace Proxmox {
                     $(dns: string): {
                         /**
                          * Delete sdn dns object configuration.
-                         * DELETE /cluster/sdn/dns/{dns}
+                         * DELETE /cluster/sdn/dns/\{dns\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/dns",["SDN.Allocate"]]}
                          */
                         $delete(): Promise<null>;
                         /**
                          * Read sdn dns configuration.
-                         * GET /cluster/sdn/dns/{dns}
+                         * GET /cluster/sdn/dns/\{dns\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/dns/{dns}",["SDN.Allocate"]]}
                          */
                         $get(): Promise<any>;
                         /**
                          * Update sdn dns object configuration.
-                         * PUT /cluster/sdn/dns/{dns}
+                         * PUT /cluster/sdn/dns/\{dns\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/dns",["SDN.Allocate"]]}
                          */
@@ -7895,7 +7895,7 @@ export namespace Proxmox {
             $(node: string): {
                 /**
                  * Node index.
-                 * GET /nodes/{node}
+                 * GET /nodes/\{node\}
                  * @allowtoken 1
                  * @permissions {"user":"all"}
                  */
@@ -7903,14 +7903,14 @@ export namespace Proxmox {
                 qemu: {
                     /**
                      * Virtual machine index (per node).
-                     * GET /nodes/{node}/qemu
+                     * GET /nodes/\{node\}/qemu
                      * @allowtoken 1
                      * @permissions {"description":"Only list VMs where you have VM.Audit permissons on /vms/<vmid>.","user":"all"}
                      */
                     $get(param?: { full?: boolean }): Promise<nodesQemuVm[]>;
                     /**
                      * Create or restore a virtual machine.
-                     * POST /nodes/{node}/qemu
+                     * POST /nodes/\{node\}/qemu
                      * @allowtoken 1
                      * @permissions {"description":"You need 'VM.Allocate' permissions on /vms/{vmid} or on the VM pool /pool/{pool}. For restore (option 'archive'), it is enough if the user has 'VM.Backup' permission and the VM already exists. If you create disks you need 'Datastore.AllocateSpace' on any used storage.","user":"all"}
                      */
@@ -7918,14 +7918,14 @@ export namespace Proxmox {
                     $(vmid: number): {
                         /**
                          * Destroy the VM and  all used/owned volumes. Removes any VM specific permissions and firewall rules
-                         * DELETE /nodes/{node}/qemu/{vmid}
+                         * DELETE /nodes/\{node\}/qemu/\{vmid\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]]}
                          */
                         $delete(param?: { 'destroy-unreferenced-disks'?: boolean, purge?: boolean, skiplock?: boolean }): Promise<string>;
                         /**
                          * Directory index
-                         * GET /nodes/{node}/qemu/{vmid}
+                         * GET /nodes/\{node\}/qemu/\{vmid\}
                          * @allowtoken 1
                          * @permissions {"user":"all"}
                          */
@@ -7933,7 +7933,7 @@ export namespace Proxmox {
                         firewall: {
                             /**
                              * Directory index.
-                             * GET /nodes/{node}/qemu/{vmid}/firewall
+                             * GET /nodes/\{node\}/qemu/\{vmid\}/firewall
                              * @allowtoken 1
                              * @permissions {"user":"all"}
                              */
@@ -7941,14 +7941,14 @@ export namespace Proxmox {
                             rules: {
                                 /**
                                  * List rules.
-                                 * GET /nodes/{node}/qemu/{vmid}/firewall/rules
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/firewall/rules
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
                                 $get(): Promise<nodesQemuFirewallRulesGetRules[]>;
                                 /**
                                  * Create new rule.
-                                 * POST /nodes/{node}/qemu/{vmid}/firewall/rules
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/firewall/rules
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
@@ -7956,21 +7956,21 @@ export namespace Proxmox {
                                 $(pos: string): {
                                     /**
                                      * Delete rule.
-                                     * DELETE /nodes/{node}/qemu/{vmid}/firewall/rules/{pos}
+                                     * DELETE /nodes/\{node\}/qemu/\{vmid\}/firewall/rules/\{pos\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
                                     $delete(param?: { digest?: String0_40 }): Promise<null>;
                                     /**
                                      * Get single rule data.
-                                     * GET /nodes/{node}/qemu/{vmid}/firewall/rules/{pos}
+                                     * GET /nodes/\{node\}/qemu/\{vmid\}/firewall/rules/\{pos\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                      */
                                     $get(): Promise<nodesQemuFirewallRulesGetRule>;
                                     /**
                                      * Modify rule data.
-                                     * PUT /nodes/{node}/qemu/{vmid}/firewall/rules/{pos}
+                                     * PUT /nodes/\{node\}/qemu/\{vmid\}/firewall/rules/\{pos\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
@@ -7980,14 +7980,14 @@ export namespace Proxmox {
                             aliases: {
                                 /**
                                  * List aliases
-                                 * GET /nodes/{node}/qemu/{vmid}/firewall/aliases
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/firewall/aliases
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
                                 $get(): Promise<nodesQemuFirewallAliasesGetAliases[]>;
                                 /**
                                  * Create IP or Network Alias.
-                                 * POST /nodes/{node}/qemu/{vmid}/firewall/aliases
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/firewall/aliases
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
@@ -7995,21 +7995,21 @@ export namespace Proxmox {
                                 $(name: string): {
                                     /**
                                      * Remove IP or Network alias.
-                                     * DELETE /nodes/{node}/qemu/{vmid}/firewall/aliases/{name}
+                                     * DELETE /nodes/\{node\}/qemu/\{vmid\}/firewall/aliases/\{name\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
                                     $delete(param?: { digest?: String0_40 }): Promise<null>;
                                     /**
                                      * Read alias.
-                                     * GET /nodes/{node}/qemu/{vmid}/firewall/aliases/{name}
+                                     * GET /nodes/\{node\}/qemu/\{vmid\}/firewall/aliases/\{name\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                      */
                                     $get(): Promise<any>;
                                     /**
                                      * Update IP or Network alias.
-                                     * PUT /nodes/{node}/qemu/{vmid}/firewall/aliases/{name}
+                                     * PUT /nodes/\{node\}/qemu/\{vmid\}/firewall/aliases/\{name\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
@@ -8019,14 +8019,14 @@ export namespace Proxmox {
                             ipset: {
                                 /**
                                  * List IPSets
-                                 * GET /nodes/{node}/qemu/{vmid}/firewall/ipset
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/firewall/ipset
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
                                 $get(): Promise<nodesQemuFirewallIpsetIpsetIndex[]>;
                                 /**
                                  * Create new IPSet
-                                 * POST /nodes/{node}/qemu/{vmid}/firewall/ipset
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/firewall/ipset
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
@@ -8034,21 +8034,21 @@ export namespace Proxmox {
                                 $(name: string): {
                                     /**
                                      * Delete IPSet
-                                     * DELETE /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}
+                                     * DELETE /nodes/\{node\}/qemu/\{vmid\}/firewall/ipset/\{name\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
                                     $delete(): Promise<null>;
                                     /**
                                      * List IPSet content
-                                     * GET /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}
+                                     * GET /nodes/\{node\}/qemu/\{vmid\}/firewall/ipset/\{name\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                      */
                                     $get(): Promise<nodesQemuFirewallIpsetGetIpset[]>;
                                     /**
                                      * Add IP or Network to IPSet.
-                                     * POST /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}
+                                     * POST /nodes/\{node\}/qemu/\{vmid\}/firewall/ipset/\{name\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
@@ -8056,21 +8056,21 @@ export namespace Proxmox {
                                     $(cidr: string): {
                                         /**
                                          * Remove IP or Network from IPSet.
-                                         * DELETE /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}/{cidr}
+                                         * DELETE /nodes/\{node\}/qemu/\{vmid\}/firewall/ipset/\{name\}/\{cidr\}
                                          * @allowtoken 1
                                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                          */
                                         $delete(param?: { digest?: String0_40 }): Promise<null>;
                                         /**
                                          * Read IP or Network settings from IPSet.
-                                         * GET /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}/{cidr}
+                                         * GET /nodes/\{node\}/qemu/\{vmid\}/firewall/ipset/\{name\}/\{cidr\}
                                          * @allowtoken 1
                                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                          */
                                         $get(): Promise<any>;
                                         /**
                                          * Update IP or Network settings
-                                         * PUT /nodes/{node}/qemu/{vmid}/firewall/ipset/{name}/{cidr}
+                                         * PUT /nodes/\{node\}/qemu/\{vmid\}/firewall/ipset/\{name\}/\{cidr\}
                                          * @allowtoken 1
                                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                          */
@@ -8081,14 +8081,14 @@ export namespace Proxmox {
                             options: {
                                 /**
                                  * Get VM firewall options.
-                                 * GET /nodes/{node}/qemu/{vmid}/firewall/options
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/firewall/options
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
                                 $get(): Promise<nodesQemuFirewallOptionsGetOptions>;
                                 /**
                                  * Set Firewall options.
-                                 * PUT /nodes/{node}/qemu/{vmid}/firewall/options
+                                 * PUT /nodes/\{node\}/qemu/\{vmid\}/firewall/options
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
@@ -8097,7 +8097,7 @@ export namespace Proxmox {
                             log: {
                                 /**
                                  * Read firewall log
-                                 * GET /nodes/{node}/qemu/{vmid}/firewall/log
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/firewall/log
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                                  */
@@ -8106,7 +8106,7 @@ export namespace Proxmox {
                             refs: {
                                 /**
                                  * Lists possible IPSet/Alias reference which are allowed in source/dest properties.
-                                 * GET /nodes/{node}/qemu/{vmid}/firewall/refs
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/firewall/refs
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
@@ -8116,14 +8116,14 @@ export namespace Proxmox {
                         agent: {
                             /**
                              * Qemu Agent command index.
-                             * GET /nodes/{node}/qemu/{vmid}/agent
+                             * GET /nodes/\{node\}/qemu/\{vmid\}/agent
                              * @allowtoken 1
                              * @permissions {"user":"all"}
                              */
                             $get(): Promise<nodesQemuAgentIndex[]>;
                             /**
                              * Execute Qemu Guest Agent commands.
-                             * POST /nodes/{node}/qemu/{vmid}/agent
+                             * POST /nodes/\{node\}/qemu/\{vmid\}/agent
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                              */
@@ -8131,7 +8131,7 @@ export namespace Proxmox {
                             'fsfreeze-freeze': {
                                 /**
                                  * Execute fsfreeze-freeze.
-                                 * POST /nodes/{node}/qemu/{vmid}/agent/fsfreeze-freeze
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/agent/fsfreeze-freeze
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8140,7 +8140,7 @@ export namespace Proxmox {
                             'fsfreeze-status': {
                                 /**
                                  * Execute fsfreeze-status.
-                                 * POST /nodes/{node}/qemu/{vmid}/agent/fsfreeze-status
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/agent/fsfreeze-status
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8149,7 +8149,7 @@ export namespace Proxmox {
                             'fsfreeze-thaw': {
                                 /**
                                  * Execute fsfreeze-thaw.
-                                 * POST /nodes/{node}/qemu/{vmid}/agent/fsfreeze-thaw
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/agent/fsfreeze-thaw
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8158,7 +8158,7 @@ export namespace Proxmox {
                             fstrim: {
                                 /**
                                  * Execute fstrim.
-                                 * POST /nodes/{node}/qemu/{vmid}/agent/fstrim
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/agent/fstrim
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8167,7 +8167,7 @@ export namespace Proxmox {
                             'get-fsinfo': {
                                 /**
                                  * Execute get-fsinfo.
-                                 * GET /nodes/{node}/qemu/{vmid}/agent/get-fsinfo
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-fsinfo
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8176,7 +8176,7 @@ export namespace Proxmox {
                             'get-host-name': {
                                 /**
                                  * Execute get-host-name.
-                                 * GET /nodes/{node}/qemu/{vmid}/agent/get-host-name
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-host-name
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8185,7 +8185,7 @@ export namespace Proxmox {
                             'get-memory-block-info': {
                                 /**
                                  * Execute get-memory-block-info.
-                                 * GET /nodes/{node}/qemu/{vmid}/agent/get-memory-block-info
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-memory-block-info
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8194,7 +8194,7 @@ export namespace Proxmox {
                             'get-memory-blocks': {
                                 /**
                                  * Execute get-memory-blocks.
-                                 * GET /nodes/{node}/qemu/{vmid}/agent/get-memory-blocks
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-memory-blocks
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8203,7 +8203,7 @@ export namespace Proxmox {
                             'get-osinfo': {
                                 /**
                                  * Execute get-osinfo.
-                                 * GET /nodes/{node}/qemu/{vmid}/agent/get-osinfo
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-osinfo
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8212,7 +8212,7 @@ export namespace Proxmox {
                             'get-time': {
                                 /**
                                  * Execute get-time.
-                                 * GET /nodes/{node}/qemu/{vmid}/agent/get-time
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-time
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8221,7 +8221,7 @@ export namespace Proxmox {
                             'get-timezone': {
                                 /**
                                  * Execute get-timezone.
-                                 * GET /nodes/{node}/qemu/{vmid}/agent/get-timezone
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-timezone
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8230,7 +8230,7 @@ export namespace Proxmox {
                             'get-users': {
                                 /**
                                  * Execute get-users.
-                                 * GET /nodes/{node}/qemu/{vmid}/agent/get-users
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-users
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8239,7 +8239,7 @@ export namespace Proxmox {
                             'get-vcpus': {
                                 /**
                                  * Execute get-vcpus.
-                                 * GET /nodes/{node}/qemu/{vmid}/agent/get-vcpus
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-vcpus
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8248,7 +8248,7 @@ export namespace Proxmox {
                             info: {
                                 /**
                                  * Execute info.
-                                 * GET /nodes/{node}/qemu/{vmid}/agent/info
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/agent/info
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8257,7 +8257,7 @@ export namespace Proxmox {
                             'network-get-interfaces': {
                                 /**
                                  * Execute network-get-interfaces.
-                                 * GET /nodes/{node}/qemu/{vmid}/agent/network-get-interfaces
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/agent/network-get-interfaces
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8266,7 +8266,7 @@ export namespace Proxmox {
                             ping: {
                                 /**
                                  * Execute ping.
-                                 * POST /nodes/{node}/qemu/{vmid}/agent/ping
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/agent/ping
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8275,7 +8275,7 @@ export namespace Proxmox {
                             shutdown: {
                                 /**
                                  * Execute shutdown.
-                                 * POST /nodes/{node}/qemu/{vmid}/agent/shutdown
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/agent/shutdown
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8284,7 +8284,7 @@ export namespace Proxmox {
                             'suspend-disk': {
                                 /**
                                  * Execute suspend-disk.
-                                 * POST /nodes/{node}/qemu/{vmid}/agent/suspend-disk
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/agent/suspend-disk
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8293,7 +8293,7 @@ export namespace Proxmox {
                             'suspend-hybrid': {
                                 /**
                                  * Execute suspend-hybrid.
-                                 * POST /nodes/{node}/qemu/{vmid}/agent/suspend-hybrid
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/agent/suspend-hybrid
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8302,7 +8302,7 @@ export namespace Proxmox {
                             'suspend-ram': {
                                 /**
                                  * Execute suspend-ram.
-                                 * POST /nodes/{node}/qemu/{vmid}/agent/suspend-ram
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/agent/suspend-ram
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8311,7 +8311,7 @@ export namespace Proxmox {
                             'set-user-password': {
                                 /**
                                  * Sets the password for the given user to the given password
-                                 * POST /nodes/{node}/qemu/{vmid}/agent/set-user-password
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/agent/set-user-password
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8320,7 +8320,7 @@ export namespace Proxmox {
                             exec: {
                                 /**
                                  * Executes the given command in the vm via the guest-agent and returns an object with the pid.
-                                 * POST /nodes/{node}/qemu/{vmid}/agent/exec
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/agent/exec
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8329,7 +8329,7 @@ export namespace Proxmox {
                             'exec-status': {
                                 /**
                                  * Gets the status of the given pid started by the guest-agent
-                                 * GET /nodes/{node}/qemu/{vmid}/agent/exec-status
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/agent/exec-status
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8338,7 +8338,7 @@ export namespace Proxmox {
                             'file-read': {
                                 /**
                                  * Reads the given file via guest agent. Is limited to 16777216 bytes.
-                                 * GET /nodes/{node}/qemu/{vmid}/agent/file-read
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/agent/file-read
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8347,7 +8347,7 @@ export namespace Proxmox {
                             'file-write': {
                                 /**
                                  * Writes the given file via guest agent.
-                                 * POST /nodes/{node}/qemu/{vmid}/agent/file-write
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/agent/file-write
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
                                  */
@@ -8357,7 +8357,7 @@ export namespace Proxmox {
                         rrd: {
                             /**
                              * Read VM RRD statistics (returns PNG)
-                             * GET /nodes/{node}/qemu/{vmid}/rrd
+                             * GET /nodes/\{node\}/qemu/\{vmid\}/rrd
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
@@ -8366,7 +8366,7 @@ export namespace Proxmox {
                         rrddata: {
                             /**
                              * Read VM RRD statistics
-                             * GET /nodes/{node}/qemu/{vmid}/rrddata
+                             * GET /nodes/\{node\}/qemu/\{vmid\}/rrddata
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
@@ -8375,21 +8375,21 @@ export namespace Proxmox {
                         config: {
                             /**
                              * Get the virtual machine configuration with pending configuration changes applied. Set the 'current' parameter to get the current configuration instead.
-                             * GET /nodes/{node}/qemu/{vmid}/config
+                             * GET /nodes/\{node\}/qemu/\{vmid\}/config
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
                             $get(param?: { current?: boolean, snapshot?: pveconfigid_6 }): Promise<nodesQemuConfigVmConfig>;
                             /**
                              * Set virtual machine options (asynchrounous API).
-                             * POST /nodes/{node}/qemu/{vmid}/config
+                             * POST /nodes/\{node\}/qemu/\{vmid\}/config
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CDROM","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.HWType","VM.Config.Options","VM.Config.Cloudinit"],"any",1]}
                              */
                             $post(param?: { acpi?: boolean, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: boolean, background_delay?: integer1_30, balloon?: integer_Min0, bios?: Tbios, boot?: pveqmboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer2_262144, delete?: pveconfigidlist_1, description?: String0_8192, digest?: String0_40, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keephugepages?: boolean, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: integer_Min16, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: boolean, reboot?: boolean, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: boolean, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, tpmstate0?: Ttpmstate0, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<string>;
                             /**
                              * Set virtual machine options (synchrounous API) - You should consider using the POST method instead for any actions involving hotplug or storage allocation.
-                             * PUT /nodes/{node}/qemu/{vmid}/config
+                             * PUT /nodes/\{node\}/qemu/\{vmid\}/config
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CDROM","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.HWType","VM.Config.Options","VM.Config.Cloudinit"],"any",1]}
                              */
@@ -8398,7 +8398,7 @@ export namespace Proxmox {
                         pending: {
                             /**
                              * Get the virtual machine configuration with both current and pending values.
-                             * GET /nodes/{node}/qemu/{vmid}/pending
+                             * GET /nodes/\{node\}/qemu/\{vmid\}/pending
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
@@ -8407,7 +8407,7 @@ export namespace Proxmox {
                         unlink: {
                             /**
                              * Unlink/delete disk images.
-                             * PUT /nodes/{node}/qemu/{vmid}/unlink
+                             * PUT /nodes/\{node\}/qemu/\{vmid\}/unlink
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"]]}
                              */
@@ -8416,7 +8416,7 @@ export namespace Proxmox {
                         vncproxy: {
                             /**
                              * Creates a TCP VNC proxy connections.
-                             * POST /nodes/{node}/qemu/{vmid}/vncproxy
+                             * POST /nodes/\{node\}/qemu/\{vmid\}/vncproxy
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
@@ -8425,7 +8425,7 @@ export namespace Proxmox {
                         termproxy: {
                             /**
                              * Creates a TCP proxy connections.
-                             * POST /nodes/{node}/qemu/{vmid}/termproxy
+                             * POST /nodes/\{node\}/qemu/\{vmid\}/termproxy
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
@@ -8434,7 +8434,7 @@ export namespace Proxmox {
                         vncwebsocket: {
                             /**
                              * Opens a weksocket for VNC traffic.
-                             * GET /nodes/{node}/qemu/{vmid}/vncwebsocket
+                             * GET /nodes/\{node\}/qemu/\{vmid\}/vncwebsocket
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]],"description":"You also need to pass a valid ticket (vncticket)."}
                              */
@@ -8443,7 +8443,7 @@ export namespace Proxmox {
                         spiceproxy: {
                             /**
                              * Returns a SPICE configuration to connect to the VM.
-                             * POST /nodes/{node}/qemu/{vmid}/spiceproxy
+                             * POST /nodes/\{node\}/qemu/\{vmid\}/spiceproxy
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
@@ -8452,7 +8452,7 @@ export namespace Proxmox {
                         status: {
                             /**
                              * Directory index
-                             * GET /nodes/{node}/qemu/{vmid}/status
+                             * GET /nodes/\{node\}/qemu/\{vmid\}/status
                              * @allowtoken 1
                              * @permissions {"user":"all"}
                              */
@@ -8460,7 +8460,7 @@ export namespace Proxmox {
                             current: {
                                 /**
                                  * Get virtual machine status.
-                                 * GET /nodes/{node}/qemu/{vmid}/status/current
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/status/current
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
@@ -8469,7 +8469,7 @@ export namespace Proxmox {
                             start: {
                                 /**
                                  * Start virtual machine.
-                                 * POST /nodes/{node}/qemu/{vmid}/status/start
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/status/start
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
@@ -8478,7 +8478,7 @@ export namespace Proxmox {
                             stop: {
                                 /**
                                  * Stop virtual machine. The qemu process will exit immediately. Thisis akin to pulling the power plug of a running computer and may damage the VM data
-                                 * POST /nodes/{node}/qemu/{vmid}/status/stop
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/status/stop
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
@@ -8487,7 +8487,7 @@ export namespace Proxmox {
                             reset: {
                                 /**
                                  * Reset virtual machine.
-                                 * POST /nodes/{node}/qemu/{vmid}/status/reset
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/status/reset
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
@@ -8496,7 +8496,7 @@ export namespace Proxmox {
                             shutdown: {
                                 /**
                                  * Shutdown virtual machine. This is similar to pressing the power button on a physical machine.This will send an ACPI event for the guest OS, which should then proceed to a clean shutdown.
-                                 * POST /nodes/{node}/qemu/{vmid}/status/shutdown
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/status/shutdown
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
@@ -8505,7 +8505,7 @@ export namespace Proxmox {
                             reboot: {
                                 /**
                                  * Reboot the VM by shutting it down, and starting it again. Applies pending changes.
-                                 * POST /nodes/{node}/qemu/{vmid}/status/reboot
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/status/reboot
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
@@ -8514,7 +8514,7 @@ export namespace Proxmox {
                             suspend: {
                                 /**
                                  * Suspend virtual machine.
-                                 * POST /nodes/{node}/qemu/{vmid}/status/suspend
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/status/suspend
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]],"description":"You need 'VM.PowerMgmt' on /vms/{vmid}, and if you have set 'todisk', you need also 'VM.Config.Disk' on /vms/{vmid} and 'Datastore.AllocateSpace' on the storage for the vmstate."}
                                  */
@@ -8523,7 +8523,7 @@ export namespace Proxmox {
                             resume: {
                                 /**
                                  * Resume virtual machine.
-                                 * POST /nodes/{node}/qemu/{vmid}/status/resume
+                                 * POST /nodes/\{node\}/qemu/\{vmid\}/status/resume
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
@@ -8533,7 +8533,7 @@ export namespace Proxmox {
                         sendkey: {
                             /**
                              * Send key event to virtual machine.
-                             * PUT /nodes/{node}/qemu/{vmid}/sendkey
+                             * PUT /nodes/\{node\}/qemu/\{vmid\}/sendkey
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
@@ -8542,7 +8542,7 @@ export namespace Proxmox {
                         feature: {
                             /**
                              * Check if feature for virtual machine is available.
-                             * GET /nodes/{node}/qemu/{vmid}/feature
+                             * GET /nodes/\{node\}/qemu/\{vmid\}/feature
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
@@ -8551,7 +8551,7 @@ export namespace Proxmox {
                         clone: {
                             /**
                              * Create a copy of virtual machine/template.
-                             * POST /nodes/{node}/qemu/{vmid}/clone
+                             * POST /nodes/\{node\}/qemu/\{vmid\}/clone
                              * @allowtoken 1
                              * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Clone"]],["or",["perm","/vms/{newid}",["VM.Allocate"]],["perm","/pool/{pool}",["VM.Allocate"],"require_param","pool"]]],"description":"You need 'VM.Clone' permissions on /vms/{vmid}, and 'VM.Allocate' permissions on /vms/{newid} (or on the VM pool /pool/{pool}). You also need 'Datastore.AllocateSpace' on any used storage."}
                              */
@@ -8560,7 +8560,7 @@ export namespace Proxmox {
                         move_disk: {
                             /**
                              * Move volume to different storage or to a different VM.
-                             * POST /nodes/{node}/qemu/{vmid}/move_disk
+                             * POST /nodes/\{node\}/qemu/\{vmid\}/move_disk
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"]],"description":"You need 'VM.Config.Disk' permissions on /vms/{vmid}, and 'Datastore.AllocateSpace' permissions on the storage. To move a disk to another VM, you need the permissions on the target VM as well."}
                              */
@@ -8569,14 +8569,14 @@ export namespace Proxmox {
                         migrate: {
                             /**
                              * Get preconditions for migration.
-                             * GET /nodes/{node}/qemu/{vmid}/migrate
+                             * GET /nodes/\{node\}/qemu/\{vmid\}/migrate
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
                              */
                             $get(param?: { target?: pvenode }): Promise<nodesQemuMigrateMigrateVmPrecondition>;
                             /**
                              * Migrate virtual machine. Creates a new migration task.
-                             * POST /nodes/{node}/qemu/{vmid}/migrate
+                             * POST /nodes/\{node\}/qemu/\{vmid\}/migrate
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
                              */
@@ -8585,7 +8585,7 @@ export namespace Proxmox {
                         monitor: {
                             /**
                              * Execute Qemu monitor commands.
-                             * POST /nodes/{node}/qemu/{vmid}/monitor
+                             * POST /nodes/\{node\}/qemu/\{vmid\}/monitor
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]],"description":"Sys.Modify is required for (sub)commands which are not read-only ('info *' and 'help')"}
                              */
@@ -8594,7 +8594,7 @@ export namespace Proxmox {
                         resize: {
                             /**
                              * Extend volume size.
-                             * PUT /nodes/{node}/qemu/{vmid}/resize
+                             * PUT /nodes/\{node\}/qemu/\{vmid\}/resize
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"]]}
                              */
@@ -8603,14 +8603,14 @@ export namespace Proxmox {
                         snapshot: {
                             /**
                              * List all snapshots.
-                             * GET /nodes/{node}/qemu/{vmid}/snapshot
+                             * GET /nodes/\{node\}/qemu/\{vmid\}/snapshot
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
                             $get(): Promise<nodesQemuSnapshotSnapshotList[]>;
                             /**
                              * Snapshot a VM.
-                             * POST /nodes/{node}/qemu/{vmid}/snapshot
+                             * POST /nodes/\{node\}/qemu/\{vmid\}/snapshot
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                              */
@@ -8618,7 +8618,7 @@ export namespace Proxmox {
                             $(snapname: string): {
                                 /**
                                  * Delete a VM snapshot.
-                                 * DELETE /nodes/{node}/qemu/{vmid}/snapshot/{snapname}
+                                 * DELETE /nodes/\{node\}/qemu/\{vmid\}/snapshot/\{snapname\}
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                                  */
@@ -8632,14 +8632,14 @@ export namespace Proxmox {
                                 config: {
                                     /**
                                      * Get snapshot configuration
-                                     * GET /nodes/{node}/qemu/{vmid}/snapshot/{snapname}/config
+                                     * GET /nodes/\{node\}/qemu/\{vmid\}/snapshot/\{snapname\}/config
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback","VM.Audit"],"any",1]}
                                      */
                                     $get(): Promise<any>;
                                     /**
                                      * Update snapshot metadata.
-                                     * PUT /nodes/{node}/qemu/{vmid}/snapshot/{snapname}/config
+                                     * PUT /nodes/\{node\}/qemu/\{vmid\}/snapshot/\{snapname\}/config
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                                      */
@@ -8648,7 +8648,7 @@ export namespace Proxmox {
                                 rollback: {
                                     /**
                                      * Rollback VM state to specified snapshot.
-                                     * POST /nodes/{node}/qemu/{vmid}/snapshot/{snapname}/rollback
+                                     * POST /nodes/\{node\}/qemu/\{vmid\}/snapshot/\{snapname\}/rollback
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback"],"any",1]}
                                      */
@@ -8659,7 +8659,7 @@ export namespace Proxmox {
                         template: {
                             /**
                              * Create a Template.
-                             * POST /nodes/{node}/qemu/{vmid}/template
+                             * POST /nodes/\{node\}/qemu/\{vmid\}/template
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]],"description":"You need 'VM.Allocate' permissions on /vms/{vmid}"}
                              */
@@ -8669,7 +8669,7 @@ export namespace Proxmox {
                             dump: {
                                 /**
                                  * Get automatically generated cloudinit config.
-                                 * GET /nodes/{node}/qemu/{vmid}/cloudinit/dump
+                                 * GET /nodes/\{node\}/qemu/\{vmid\}/cloudinit/dump
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
@@ -8681,14 +8681,14 @@ export namespace Proxmox {
                 lxc: {
                     /**
                      * LXC container index (per node).
-                     * GET /nodes/{node}/lxc
+                     * GET /nodes/\{node\}/lxc
                      * @allowtoken 1
                      * @permissions {"description":"Only list CTs where you have VM.Audit permissons on /vms/<vmid>.","user":"all"}
                      */
                     $get(): Promise<nodesLxcVm[]>;
                     /**
                      * Create or restore a container.
-                     * POST /nodes/{node}/lxc
+                     * POST /nodes/\{node\}/lxc
                      * @allowtoken 1
                      * @permissions {"description":"You need 'VM.Allocate' permissions on /vms/{vmid} or on the VM pool /pool/{pool}. For restore, it is enough if the user has 'VM.Backup' permission and the VM already exists. You also need 'Datastore.AllocateSpace' permissions on the storage.","user":"all"}
                      */
@@ -8696,14 +8696,14 @@ export namespace Proxmox {
                     $(vmid: number): {
                         /**
                          * Destroy the container (also delete all uses files).
-                         * DELETE /nodes/{node}/lxc/{vmid}
+                         * DELETE /nodes/\{node\}/lxc/\{vmid\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]]}
                          */
                         $delete(param?: { 'destroy-unreferenced-disks'?: boolean, force?: boolean, purge?: boolean }): Promise<string>;
                         /**
                          * Directory index
-                         * GET /nodes/{node}/lxc/{vmid}
+                         * GET /nodes/\{node\}/lxc/\{vmid\}
                          * @allowtoken 1
                          * @permissions {"user":"all"}
                          */
@@ -8711,14 +8711,14 @@ export namespace Proxmox {
                         config: {
                             /**
                              * Get container configuration.
-                             * GET /nodes/{node}/lxc/{vmid}/config
+                             * GET /nodes/\{node\}/lxc/\{vmid\}/config
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
                             $get(param?: { current?: boolean, snapshot?: pveconfigid_6 }): Promise<nodesLxcConfigVmConfig>;
                             /**
                              * Set container options.
-                             * PUT /nodes/{node}/lxc/{vmid}/config
+                             * PUT /nodes/\{node\}/lxc/\{vmid\}/config
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.Options"],"any",1],"description":"non-volume mount points in rootfs and mp[n] are restricted to root@pam"}
                              */
@@ -8727,7 +8727,7 @@ export namespace Proxmox {
                         status: {
                             /**
                              * Directory index
-                             * GET /nodes/{node}/lxc/{vmid}/status
+                             * GET /nodes/\{node\}/lxc/\{vmid\}/status
                              * @allowtoken 1
                              * @permissions {"user":"all"}
                              */
@@ -8735,7 +8735,7 @@ export namespace Proxmox {
                             current: {
                                 /**
                                  * Get virtual machine status.
-                                 * GET /nodes/{node}/lxc/{vmid}/status/current
+                                 * GET /nodes/\{node\}/lxc/\{vmid\}/status/current
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
@@ -8744,7 +8744,7 @@ export namespace Proxmox {
                             start: {
                                 /**
                                  * Start the container.
-                                 * POST /nodes/{node}/lxc/{vmid}/status/start
+                                 * POST /nodes/\{node\}/lxc/\{vmid\}/status/start
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
@@ -8753,7 +8753,7 @@ export namespace Proxmox {
                             stop: {
                                 /**
                                  * Stop the container. This will abruptly stop all processes running in the container.
-                                 * POST /nodes/{node}/lxc/{vmid}/status/stop
+                                 * POST /nodes/\{node\}/lxc/\{vmid\}/status/stop
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
@@ -8762,7 +8762,7 @@ export namespace Proxmox {
                             shutdown: {
                                 /**
                                  * Shutdown the container. This will trigger a clean shutdown of the container, see lxc-stop(1) for details.
-                                 * POST /nodes/{node}/lxc/{vmid}/status/shutdown
+                                 * POST /nodes/\{node\}/lxc/\{vmid\}/status/shutdown
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
@@ -8771,7 +8771,7 @@ export namespace Proxmox {
                             suspend: {
                                 /**
                                  * Suspend the container. This is experimental.
-                                 * POST /nodes/{node}/lxc/{vmid}/status/suspend
+                                 * POST /nodes/\{node\}/lxc/\{vmid\}/status/suspend
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
@@ -8780,7 +8780,7 @@ export namespace Proxmox {
                             resume: {
                                 /**
                                  * Resume the container.
-                                 * POST /nodes/{node}/lxc/{vmid}/status/resume
+                                 * POST /nodes/\{node\}/lxc/\{vmid\}/status/resume
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
@@ -8789,7 +8789,7 @@ export namespace Proxmox {
                             reboot: {
                                 /**
                                  * Reboot the container by shutting it down, and starting it again. Applies pending changes.
-                                 * POST /nodes/{node}/lxc/{vmid}/status/reboot
+                                 * POST /nodes/\{node\}/lxc/\{vmid\}/status/reboot
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
@@ -8799,14 +8799,14 @@ export namespace Proxmox {
                         snapshot: {
                             /**
                              * List all snapshots.
-                             * GET /nodes/{node}/lxc/{vmid}/snapshot
+                             * GET /nodes/\{node\}/lxc/\{vmid\}/snapshot
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
                             $get(): Promise<nodesLxcSnapshotList[]>;
                             /**
                              * Snapshot a container.
-                             * POST /nodes/{node}/lxc/{vmid}/snapshot
+                             * POST /nodes/\{node\}/lxc/\{vmid\}/snapshot
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                              */
@@ -8814,7 +8814,7 @@ export namespace Proxmox {
                             $(snapname: string): {
                                 /**
                                  * Delete a LXC snapshot.
-                                 * DELETE /nodes/{node}/lxc/{vmid}/snapshot/{snapname}
+                                 * DELETE /nodes/\{node\}/lxc/\{vmid\}/snapshot/\{snapname\}
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                                  */
@@ -8828,7 +8828,7 @@ export namespace Proxmox {
                                 rollback: {
                                     /**
                                      * Rollback LXC state to specified snapshot.
-                                     * POST /nodes/{node}/lxc/{vmid}/snapshot/{snapname}/rollback
+                                     * POST /nodes/\{node\}/lxc/\{vmid\}/snapshot/\{snapname\}/rollback
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback"],"any",1]}
                                      */
@@ -8837,14 +8837,14 @@ export namespace Proxmox {
                                 config: {
                                     /**
                                      * Get snapshot configuration
-                                     * GET /nodes/{node}/lxc/{vmid}/snapshot/{snapname}/config
+                                     * GET /nodes/\{node\}/lxc/\{vmid\}/snapshot/\{snapname\}/config
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot","VM.Snapshot.Rollback","VM.Audit"],"any",1]}
                                      */
                                     $get(): Promise<any>;
                                     /**
                                      * Update snapshot metadata.
-                                     * PUT /nodes/{node}/lxc/{vmid}/snapshot/{snapname}/config
+                                     * PUT /nodes/\{node\}/lxc/\{vmid\}/snapshot/\{snapname\}/config
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                                      */
@@ -8855,7 +8855,7 @@ export namespace Proxmox {
                         firewall: {
                             /**
                              * Directory index.
-                             * GET /nodes/{node}/lxc/{vmid}/firewall
+                             * GET /nodes/\{node\}/lxc/\{vmid\}/firewall
                              * @allowtoken 1
                              * @permissions {"user":"all"}
                              */
@@ -8863,14 +8863,14 @@ export namespace Proxmox {
                             rules: {
                                 /**
                                  * List rules.
-                                 * GET /nodes/{node}/lxc/{vmid}/firewall/rules
+                                 * GET /nodes/\{node\}/lxc/\{vmid\}/firewall/rules
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
                                 $get(): Promise<nodesLxcFirewallRulesGetRules[]>;
                                 /**
                                  * Create new rule.
-                                 * POST /nodes/{node}/lxc/{vmid}/firewall/rules
+                                 * POST /nodes/\{node\}/lxc/\{vmid\}/firewall/rules
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
@@ -8878,21 +8878,21 @@ export namespace Proxmox {
                                 $(pos: string): {
                                     /**
                                      * Delete rule.
-                                     * DELETE /nodes/{node}/lxc/{vmid}/firewall/rules/{pos}
+                                     * DELETE /nodes/\{node\}/lxc/\{vmid\}/firewall/rules/\{pos\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
                                     $delete(param?: { digest?: String0_40 }): Promise<null>;
                                     /**
                                      * Get single rule data.
-                                     * GET /nodes/{node}/lxc/{vmid}/firewall/rules/{pos}
+                                     * GET /nodes/\{node\}/lxc/\{vmid\}/firewall/rules/\{pos\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                      */
                                     $get(): Promise<nodesLxcFirewallRulesGetRule>;
                                     /**
                                      * Modify rule data.
-                                     * PUT /nodes/{node}/lxc/{vmid}/firewall/rules/{pos}
+                                     * PUT /nodes/\{node\}/lxc/\{vmid\}/firewall/rules/\{pos\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
@@ -8902,14 +8902,14 @@ export namespace Proxmox {
                             aliases: {
                                 /**
                                  * List aliases
-                                 * GET /nodes/{node}/lxc/{vmid}/firewall/aliases
+                                 * GET /nodes/\{node\}/lxc/\{vmid\}/firewall/aliases
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
                                 $get(): Promise<nodesLxcFirewallAliasesGetAliases[]>;
                                 /**
                                  * Create IP or Network Alias.
-                                 * POST /nodes/{node}/lxc/{vmid}/firewall/aliases
+                                 * POST /nodes/\{node\}/lxc/\{vmid\}/firewall/aliases
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
@@ -8917,21 +8917,21 @@ export namespace Proxmox {
                                 $(name: string): {
                                     /**
                                      * Remove IP or Network alias.
-                                     * DELETE /nodes/{node}/lxc/{vmid}/firewall/aliases/{name}
+                                     * DELETE /nodes/\{node\}/lxc/\{vmid\}/firewall/aliases/\{name\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
                                     $delete(param?: { digest?: String0_40 }): Promise<null>;
                                     /**
                                      * Read alias.
-                                     * GET /nodes/{node}/lxc/{vmid}/firewall/aliases/{name}
+                                     * GET /nodes/\{node\}/lxc/\{vmid\}/firewall/aliases/\{name\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                      */
                                     $get(): Promise<any>;
                                     /**
                                      * Update IP or Network alias.
-                                     * PUT /nodes/{node}/lxc/{vmid}/firewall/aliases/{name}
+                                     * PUT /nodes/\{node\}/lxc/\{vmid\}/firewall/aliases/\{name\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
@@ -8941,14 +8941,14 @@ export namespace Proxmox {
                             ipset: {
                                 /**
                                  * List IPSets
-                                 * GET /nodes/{node}/lxc/{vmid}/firewall/ipset
+                                 * GET /nodes/\{node\}/lxc/\{vmid\}/firewall/ipset
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
                                 $get(): Promise<nodesLxcFirewallIpsetIpsetIndex[]>;
                                 /**
                                  * Create new IPSet
-                                 * POST /nodes/{node}/lxc/{vmid}/firewall/ipset
+                                 * POST /nodes/\{node\}/lxc/\{vmid\}/firewall/ipset
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
@@ -8956,21 +8956,21 @@ export namespace Proxmox {
                                 $(name: string): {
                                     /**
                                      * Delete IPSet
-                                     * DELETE /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}
+                                     * DELETE /nodes/\{node\}/lxc/\{vmid\}/firewall/ipset/\{name\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
                                     $delete(): Promise<null>;
                                     /**
                                      * List IPSet content
-                                     * GET /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}
+                                     * GET /nodes/\{node\}/lxc/\{vmid\}/firewall/ipset/\{name\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                      */
                                     $get(): Promise<nodesLxcFirewallIpsetGetIpset[]>;
                                     /**
                                      * Add IP or Network to IPSet.
-                                     * POST /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}
+                                     * POST /nodes/\{node\}/lxc/\{vmid\}/firewall/ipset/\{name\}
                                      * @allowtoken 1
                                      * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                      */
@@ -8978,21 +8978,21 @@ export namespace Proxmox {
                                     $(cidr: string): {
                                         /**
                                          * Remove IP or Network from IPSet.
-                                         * DELETE /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}/{cidr}
+                                         * DELETE /nodes/\{node\}/lxc/\{vmid\}/firewall/ipset/\{name\}/\{cidr\}
                                          * @allowtoken 1
                                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                          */
                                         $delete(param?: { digest?: String0_40 }): Promise<null>;
                                         /**
                                          * Read IP or Network settings from IPSet.
-                                         * GET /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}/{cidr}
+                                         * GET /nodes/\{node\}/lxc/\{vmid\}/firewall/ipset/\{name\}/\{cidr\}
                                          * @allowtoken 1
                                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                          */
                                         $get(): Promise<any>;
                                         /**
                                          * Update IP or Network settings
-                                         * PUT /nodes/{node}/lxc/{vmid}/firewall/ipset/{name}/{cidr}
+                                         * PUT /nodes/\{node\}/lxc/\{vmid\}/firewall/ipset/\{name\}/\{cidr\}
                                          * @allowtoken 1
                                          * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                          */
@@ -9003,14 +9003,14 @@ export namespace Proxmox {
                             options: {
                                 /**
                                  * Get VM firewall options.
-                                 * GET /nodes/{node}/lxc/{vmid}/firewall/options
+                                 * GET /nodes/\{node\}/lxc/\{vmid\}/firewall/options
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
                                 $get(): Promise<nodesLxcFirewallOptionsGetOptions>;
                                 /**
                                  * Set Firewall options.
-                                 * PUT /nodes/{node}/lxc/{vmid}/firewall/options
+                                 * PUT /nodes/\{node\}/lxc/\{vmid\}/firewall/options
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Network"]]}
                                  */
@@ -9019,7 +9019,7 @@ export namespace Proxmox {
                             log: {
                                 /**
                                  * Read firewall log
-                                 * GET /nodes/{node}/lxc/{vmid}/firewall/log
+                                 * GET /nodes/\{node\}/lxc/\{vmid\}/firewall/log
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                                  */
@@ -9028,7 +9028,7 @@ export namespace Proxmox {
                             refs: {
                                 /**
                                  * Lists possible IPSet/Alias reference which are allowed in source/dest properties.
-                                 * GET /nodes/{node}/lxc/{vmid}/firewall/refs
+                                 * GET /nodes/\{node\}/lxc/\{vmid\}/firewall/refs
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
@@ -9038,7 +9038,7 @@ export namespace Proxmox {
                         rrd: {
                             /**
                              * Read VM RRD statistics (returns PNG)
-                             * GET /nodes/{node}/lxc/{vmid}/rrd
+                             * GET /nodes/\{node\}/lxc/\{vmid\}/rrd
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
@@ -9047,7 +9047,7 @@ export namespace Proxmox {
                         rrddata: {
                             /**
                              * Read VM RRD statistics
-                             * GET /nodes/{node}/lxc/{vmid}/rrddata
+                             * GET /nodes/\{node\}/lxc/\{vmid\}/rrddata
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
@@ -9056,7 +9056,7 @@ export namespace Proxmox {
                         vncproxy: {
                             /**
                              * Creates a TCP VNC proxy connections.
-                             * POST /nodes/{node}/lxc/{vmid}/vncproxy
+                             * POST /nodes/\{node\}/lxc/\{vmid\}/vncproxy
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
@@ -9065,7 +9065,7 @@ export namespace Proxmox {
                         termproxy: {
                             /**
                              * Creates a TCP proxy connection.
-                             * POST /nodes/{node}/lxc/{vmid}/termproxy
+                             * POST /nodes/\{node\}/lxc/\{vmid\}/termproxy
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
@@ -9074,7 +9074,7 @@ export namespace Proxmox {
                         vncwebsocket: {
                             /**
                              * Opens a weksocket for VNC traffic.
-                             * GET /nodes/{node}/lxc/{vmid}/vncwebsocket
+                             * GET /nodes/\{node\}/lxc/\{vmid\}/vncwebsocket
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]],"description":"You also need to pass a valid ticket (vncticket)."}
                              */
@@ -9083,7 +9083,7 @@ export namespace Proxmox {
                         spiceproxy: {
                             /**
                              * Returns a SPICE configuration to connect to the CT.
-                             * POST /nodes/{node}/lxc/{vmid}/spiceproxy
+                             * POST /nodes/\{node\}/lxc/\{vmid\}/spiceproxy
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]]}
                              */
@@ -9092,7 +9092,7 @@ export namespace Proxmox {
                         migrate: {
                             /**
                              * Migrate the container to another node. Creates a new migration task.
-                             * POST /nodes/{node}/lxc/{vmid}/migrate
+                             * POST /nodes/\{node\}/lxc/\{vmid\}/migrate
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
                              */
@@ -9101,7 +9101,7 @@ export namespace Proxmox {
                         feature: {
                             /**
                              * Check if feature for virtual machine is available.
-                             * GET /nodes/{node}/lxc/{vmid}/feature
+                             * GET /nodes/\{node\}/lxc/\{vmid\}/feature
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
@@ -9110,7 +9110,7 @@ export namespace Proxmox {
                         template: {
                             /**
                              * Create a Template.
-                             * POST /nodes/{node}/lxc/{vmid}/template
+                             * POST /nodes/\{node\}/lxc/\{vmid\}/template
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Allocate"]],"description":"You need 'VM.Allocate' permissions on /vms/{vmid}"}
                              */
@@ -9119,7 +9119,7 @@ export namespace Proxmox {
                         clone: {
                             /**
                              * Create a container clone/copy
-                             * POST /nodes/{node}/lxc/{vmid}/clone
+                             * POST /nodes/\{node\}/lxc/\{vmid\}/clone
                              * @allowtoken 1
                              * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Clone"]],["or",["perm","/vms/{newid}",["VM.Allocate"]],["perm","/pool/{pool}",["VM.Allocate"],"require_param","pool"]]],"description":"You need 'VM.Clone' permissions on /vms/{vmid}, and 'VM.Allocate' permissions on /vms/{newid} (or on the VM pool /pool/{pool}). You also need 'Datastore.AllocateSpace' on any used storage."}
                              */
@@ -9128,7 +9128,7 @@ export namespace Proxmox {
                         resize: {
                             /**
                              * Resize a container mount point.
-                             * PUT /nodes/{node}/lxc/{vmid}/resize
+                             * PUT /nodes/\{node\}/lxc/\{vmid\}/resize
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"],"any",1]}
                              */
@@ -9137,7 +9137,7 @@ export namespace Proxmox {
                         move_volume: {
                             /**
                              * Move a rootfs-/mp-volume to a different storage or to a different container.
-                             * POST /nodes/{node}/lxc/{vmid}/move_volume
+                             * POST /nodes/\{node\}/lxc/\{vmid\}/move_volume
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk"]],"description":"You need 'VM.Config.Disk' permissions on /vms/{vmid}, and 'Datastore.AllocateSpace' permissions on the storage. To move a volume to another container, you need the permissions on the target container as well."}
                              */
@@ -9146,7 +9146,7 @@ export namespace Proxmox {
                         pending: {
                             /**
                              * Get container configuration, including pending changes.
-                             * GET /nodes/{node}/lxc/{vmid}/pending
+                             * GET /nodes/\{node\}/lxc/\{vmid\}/pending
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
@@ -9157,7 +9157,7 @@ export namespace Proxmox {
                 ceph: {
                     /**
                      * Directory index.
-                     * GET /nodes/{node}/ceph
+                     * GET /nodes/\{node\}/ceph
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                      */
@@ -9165,28 +9165,28 @@ export namespace Proxmox {
                     osd: {
                         /**
                          * Get Ceph osd list/tree.
-                         * GET /nodes/{node}/ceph/osd
+                         * GET /nodes/\{node\}/ceph/osd
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
                         $get(): Promise<any>;
                         /**
                          * Create OSD
-                         * POST /nodes/{node}/ceph/osd
+                         * POST /nodes/\{node\}/ceph/osd
                          * @allowtoken 1
                          */
                         $post(param: { 'crush-device-class'?: string, db_dev?: string, db_dev_size?: Trate, dev: string, encrypted?: boolean, wal_dev?: string, wal_dev_size?: Twal_dev_size }): Promise<string>;
                         $(osdid: string): {
                             /**
                              * Destroy OSD
-                             * DELETE /nodes/{node}/ceph/osd/{osdid}
+                             * DELETE /nodes/\{node\}/ceph/osd/\{osdid\}
                              * @allowtoken 1
                              */
                             $delete(param?: { cleanup?: boolean }): Promise<string>;
                             in: {
                                 /**
                                  * ceph osd in
-                                 * POST /nodes/{node}/ceph/osd/{osdid}/in
+                                 * POST /nodes/\{node\}/ceph/osd/\{osdid\}/in
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/",["Sys.Modify"]]}
                                  */
@@ -9195,7 +9195,7 @@ export namespace Proxmox {
                             out: {
                                 /**
                                  * ceph osd out
-                                 * POST /nodes/{node}/ceph/osd/{osdid}/out
+                                 * POST /nodes/\{node\}/ceph/osd/\{osdid\}/out
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/",["Sys.Modify"]]}
                                  */
@@ -9204,7 +9204,7 @@ export namespace Proxmox {
                             scrub: {
                                 /**
                                  * Instruct the OSD to scrub.
-                                 * POST /nodes/{node}/ceph/osd/{osdid}/scrub
+                                 * POST /nodes/\{node\}/ceph/osd/\{osdid\}/scrub
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/",["Sys.Modify"]]}
                                  */
@@ -9215,7 +9215,7 @@ export namespace Proxmox {
                     mds: {
                         /**
                          * MDS directory index.
-                         * GET /nodes/{node}/ceph/mds
+                         * GET /nodes/\{node\}/ceph/mds
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
@@ -9223,14 +9223,14 @@ export namespace Proxmox {
                         $(name: string): {
                             /**
                              * Destroy Ceph Metadata Server
-                             * DELETE /nodes/{node}/ceph/mds/{name}
+                             * DELETE /nodes/\{node\}/ceph/mds/\{name\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
                             $delete(): Promise<string>;
                             /**
                              * Create Ceph Metadata Server (MDS)
-                             * POST /nodes/{node}/ceph/mds/{name}
+                             * POST /nodes/\{node\}/ceph/mds/\{name\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
@@ -9240,7 +9240,7 @@ export namespace Proxmox {
                     mgr: {
                         /**
                          * MGR directory index.
-                         * GET /nodes/{node}/ceph/mgr
+                         * GET /nodes/\{node\}/ceph/mgr
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
@@ -9248,14 +9248,14 @@ export namespace Proxmox {
                         $(id: string): {
                             /**
                              * Destroy Ceph Manager.
-                             * DELETE /nodes/{node}/ceph/mgr/{id}
+                             * DELETE /nodes/\{node\}/ceph/mgr/\{id\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
                             $delete(): Promise<string>;
                             /**
                              * Create Ceph Manager
-                             * POST /nodes/{node}/ceph/mgr/{id}
+                             * POST /nodes/\{node\}/ceph/mgr/\{id\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
@@ -9265,7 +9265,7 @@ export namespace Proxmox {
                     mon: {
                         /**
                          * Get Ceph monitor list.
-                         * GET /nodes/{node}/ceph/mon
+                         * GET /nodes/\{node\}/ceph/mon
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
@@ -9273,14 +9273,14 @@ export namespace Proxmox {
                         $(monid: string): {
                             /**
                              * Destroy Ceph Monitor and Manager.
-                             * DELETE /nodes/{node}/ceph/mon/{monid}
+                             * DELETE /nodes/\{node\}/ceph/mon/\{monid\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
                             $delete(): Promise<string>;
                             /**
                              * Create Ceph Monitor and Manager
-                             * POST /nodes/{node}/ceph/mon/{monid}
+                             * POST /nodes/\{node\}/ceph/mon/\{monid\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
@@ -9290,7 +9290,7 @@ export namespace Proxmox {
                     fs: {
                         /**
                          * Directory index.
-                         * GET /nodes/{node}/ceph/fs
+                         * GET /nodes/\{node\}/ceph/fs
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
@@ -9298,7 +9298,7 @@ export namespace Proxmox {
                         $(name: string): {
                             /**
                              * Create a Ceph filesystem
-                             * POST /nodes/{node}/ceph/fs/{name}
+                             * POST /nodes/\{node\}/ceph/fs/\{name\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
@@ -9308,14 +9308,14 @@ export namespace Proxmox {
                     pools: {
                         /**
                          * List all pools.
-                         * GET /nodes/{node}/ceph/pools
+                         * GET /nodes/\{node\}/ceph/pools
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
                         $get(): Promise<nodesCephPoolsLspools[]>;
                         /**
                          * Create POOL
-                         * POST /nodes/{node}/ceph/pools
+                         * POST /nodes/\{node\}/ceph/pools
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -9323,21 +9323,21 @@ export namespace Proxmox {
                         $(name: string): {
                             /**
                              * Destroy pool
-                             * DELETE /nodes/{node}/ceph/pools/{name}
+                             * DELETE /nodes/\{node\}/ceph/pools/\{name\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
                             $delete(param?: { force?: boolean, remove_storages?: boolean }): Promise<string>;
                             /**
                              * List pool settings.
-                             * GET /nodes/{node}/ceph/pools/{name}
+                             * GET /nodes/\{node\}/ceph/pools/\{name\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                              */
                             $get(param?: { verbose?: boolean }): Promise<nodesCephPoolsGetpool>;
                             /**
                              * Change POOL settings
-                             * PUT /nodes/{node}/ceph/pools/{name}
+                             * PUT /nodes/\{node\}/ceph/pools/\{name\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
@@ -9347,7 +9347,7 @@ export namespace Proxmox {
                     config: {
                         /**
                          * Get Ceph configuration.
-                         * GET /nodes/{node}/ceph/config
+                         * GET /nodes/\{node\}/ceph/config
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
@@ -9356,7 +9356,7 @@ export namespace Proxmox {
                     configdb: {
                         /**
                          * Get Ceph configuration database.
-                         * GET /nodes/{node}/ceph/configdb
+                         * GET /nodes/\{node\}/ceph/configdb
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
@@ -9365,7 +9365,7 @@ export namespace Proxmox {
                     init: {
                         /**
                          * Create initial ceph default configuration and setup symlinks.
-                         * POST /nodes/{node}/ceph/init
+                         * POST /nodes/\{node\}/ceph/init
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -9374,7 +9374,7 @@ export namespace Proxmox {
                     stop: {
                         /**
                          * Stop ceph services.
-                         * POST /nodes/{node}/ceph/stop
+                         * POST /nodes/\{node\}/ceph/stop
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -9383,7 +9383,7 @@ export namespace Proxmox {
                     start: {
                         /**
                          * Start ceph services.
-                         * POST /nodes/{node}/ceph/start
+                         * POST /nodes/\{node\}/ceph/start
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -9392,7 +9392,7 @@ export namespace Proxmox {
                     restart: {
                         /**
                          * Restart ceph services.
-                         * POST /nodes/{node}/ceph/restart
+                         * POST /nodes/\{node\}/ceph/restart
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -9401,7 +9401,7 @@ export namespace Proxmox {
                     status: {
                         /**
                          * Get ceph status.
-                         * GET /nodes/{node}/ceph/status
+                         * GET /nodes/\{node\}/ceph/status
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
@@ -9410,7 +9410,7 @@ export namespace Proxmox {
                     crush: {
                         /**
                          * Get OSD crush map
-                         * GET /nodes/{node}/ceph/crush
+                         * GET /nodes/\{node\}/ceph/crush
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
@@ -9419,7 +9419,7 @@ export namespace Proxmox {
                     log: {
                         /**
                          * Read ceph log
-                         * GET /nodes/{node}/ceph/log
+                         * GET /nodes/\{node\}/ceph/log
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Syslog"]]}
                          */
@@ -9428,7 +9428,7 @@ export namespace Proxmox {
                     rules: {
                         /**
                          * List ceph rules.
-                         * GET /nodes/{node}/ceph/rules
+                         * GET /nodes/\{node\}/ceph/rules
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
@@ -9438,7 +9438,7 @@ export namespace Proxmox {
                 vzdump: {
                     /**
                      * Create backup.
-                     * POST /nodes/{node}/vzdump
+                     * POST /nodes/\{node\}/vzdump
                      * @allowtoken 1
                      * @permissions {"description":"The user needs 'VM.Backup' permissions on any VM, and 'Datastore.AllocateSpace' on the backup storage. The 'maxfiles', 'prune-backups', 'tmpdir', 'dumpdir', 'script', 'bwlimit' and 'ionice' parameters are restricted to the 'root@pam' user.","user":"all"}
                      */
@@ -9446,7 +9446,7 @@ export namespace Proxmox {
                     defaults: {
                         /**
                          * Get the currently configured vzdump defaults.
-                         * GET /nodes/{node}/vzdump/defaults
+                         * GET /nodes/\{node\}/vzdump/defaults
                          * @allowtoken 1
                          * @permissions {"description":"The user needs 'Datastore.Audit' or 'Datastore.AllocateSpace' permissions for the specified storage (or default storage if none specified). Some properties are only returned when the user has 'Sys.Audit' permissions for the node.","user":"all"}
                          */
@@ -9455,7 +9455,7 @@ export namespace Proxmox {
                     extractconfig: {
                         /**
                          * Extract configuration from vzdump backup archive.
-                         * GET /nodes/{node}/vzdump/extractconfig
+                         * GET /nodes/\{node\}/vzdump/extractconfig
                          * @allowtoken 1
                          * @permissions {"description":"The user needs 'VM.Backup' permissions on the backed up guest ID, and 'Datastore.AllocateSpace' on the backup storage.","user":"all"}
                          */
@@ -9465,7 +9465,7 @@ export namespace Proxmox {
                 services: {
                     /**
                      * Service list.
-                     * GET /nodes/{node}/services
+                     * GET /nodes/\{node\}/services
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
@@ -9473,7 +9473,7 @@ export namespace Proxmox {
                     $(service: string): {
                         /**
                          * Directory index
-                         * GET /nodes/{node}/services/{service}
+                         * GET /nodes/\{node\}/services/\{service\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                          */
@@ -9481,7 +9481,7 @@ export namespace Proxmox {
                         state: {
                             /**
                              * Read service properties
-                             * GET /nodes/{node}/services/{service}/state
+                             * GET /nodes/\{node\}/services/\{service\}/state
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                              */
@@ -9490,7 +9490,7 @@ export namespace Proxmox {
                         start: {
                             /**
                              * Start service.
-                             * POST /nodes/{node}/services/{service}/start
+                             * POST /nodes/\{node\}/services/\{service\}/start
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
@@ -9499,7 +9499,7 @@ export namespace Proxmox {
                         stop: {
                             /**
                              * Stop service.
-                             * POST /nodes/{node}/services/{service}/stop
+                             * POST /nodes/\{node\}/services/\{service\}/stop
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
@@ -9508,7 +9508,7 @@ export namespace Proxmox {
                         restart: {
                             /**
                              * Hard restart service. Use reload if you want to reduce interruptions.
-                             * POST /nodes/{node}/services/{service}/restart
+                             * POST /nodes/\{node\}/services/\{service\}/restart
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
@@ -9517,7 +9517,7 @@ export namespace Proxmox {
                         reload: {
                             /**
                              * Reload service. Falls back to restart if service cannot be reloaded.
-                             * POST /nodes/{node}/services/{service}/reload
+                             * POST /nodes/\{node\}/services/\{service\}/reload
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
@@ -9528,28 +9528,28 @@ export namespace Proxmox {
                 subscription: {
                     /**
                      * Delete subscription key of this node.
-                     * DELETE /nodes/{node}/subscription
+                     * DELETE /nodes/\{node\}/subscription
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
                     $delete(): Promise<null>;
                     /**
                      * Read subscription info.
-                     * GET /nodes/{node}/subscription
+                     * GET /nodes/\{node\}/subscription
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
                     $get(): Promise<any>;
                     /**
                      * Update subscription info.
-                     * POST /nodes/{node}/subscription
+                     * POST /nodes/\{node\}/subscription
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
                     $post(param?: { force?: boolean }): Promise<null>;
                     /**
                      * Set subscription key.
-                     * PUT /nodes/{node}/subscription
+                     * PUT /nodes/\{node\}/subscription
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
@@ -9558,28 +9558,28 @@ export namespace Proxmox {
                 network: {
                     /**
                      * Revert network configuration changes.
-                     * DELETE /nodes/{node}/network
+                     * DELETE /nodes/\{node\}/network
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
                     $delete(): Promise<null>;
                     /**
                      * List available networks
-                     * GET /nodes/{node}/network
+                     * GET /nodes/\{node\}/network
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
                     $get(param?: { type?: Ttype_14 }): Promise<nodesNetworkIndex[]>;
                     /**
                      * Create network device configuration
-                     * POST /nodes/{node}/network
+                     * POST /nodes/\{node\}/network
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
                     $post(param: { address?: ipv4, address6?: ipv6, autostart?: boolean, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vlan_aware?: boolean, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, gateway?: ipv4, gateway6?: ipv6, iface: pveiface, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_15, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1 }): Promise<null>;
                     /**
                      * Reload network configuration
-                     * PUT /nodes/{node}/network
+                     * PUT /nodes/\{node\}/network
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
@@ -9587,21 +9587,21 @@ export namespace Proxmox {
                     $(iface: string): {
                         /**
                          * Delete network device configuration
-                         * DELETE /nodes/{node}/network/{iface}
+                         * DELETE /nodes/\{node\}/network/\{iface\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
                         $delete(): Promise<null>;
                         /**
                          * Read network device configuration
-                         * GET /nodes/{node}/network/{iface}
+                         * GET /nodes/\{node\}/network/\{iface\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                          */
                         $get(): Promise<nodesNetworkNetworkConfig>;
                         /**
                          * Update network device configuration
-                         * PUT /nodes/{node}/network/{iface}
+                         * PUT /nodes/\{node\}/network/\{iface\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
@@ -9611,7 +9611,7 @@ export namespace Proxmox {
                 tasks: {
                     /**
                      * Read task list for one node (finished tasks).
-                     * GET /nodes/{node}/tasks
+                     * GET /nodes/\{node\}/tasks
                      * @allowtoken 1
                      * @permissions {"description":"List task associated with the current user, or all task the user has 'Sys.Audit' permissions on /nodes/<node> (the <node> the task runs on).","user":"all"}
                      */
@@ -9619,7 +9619,7 @@ export namespace Proxmox {
                     $(upid: string): {
                         /**
                          * Stop a task.
-                         * DELETE /nodes/{node}/tasks/{upid}
+                         * DELETE /nodes/\{node\}/tasks/\{upid\}
                          * @allowtoken 1
                          * @permissions {"description":"The user needs 'Sys.Modify' permissions on '/nodes/<node>' if they aren't the owner of the task.","user":"all"}
                          */
@@ -9633,7 +9633,7 @@ export namespace Proxmox {
                         log: {
                             /**
                              * Read task log.
-                             * GET /nodes/{node}/tasks/{upid}/log
+                             * GET /nodes/\{node\}/tasks/\{upid\}/log
                              * @allowtoken 1
                              * @permissions {"description":"The user needs 'Sys.Audit' permissions on '/nodes/<node>' if they aren't the owner of the task.","user":"all"}
                              */
@@ -9642,7 +9642,7 @@ export namespace Proxmox {
                         status: {
                             /**
                              * Read task status.
-                             * GET /nodes/{node}/tasks/{upid}/status
+                             * GET /nodes/\{node\}/tasks/\{upid\}/status
                              * @allowtoken 1
                              * @permissions {"description":"The user needs 'Sys.Audit' permissions on '/nodes/<node>' if they are not the owner of the task.","user":"all"}
                              */
@@ -9653,7 +9653,7 @@ export namespace Proxmox {
                 scan: {
                     /**
                      * Index of available scan methods
-                     * GET /nodes/{node}/scan
+                     * GET /nodes/\{node\}/scan
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
@@ -9661,7 +9661,7 @@ export namespace Proxmox {
                     nfs: {
                         /**
                          * Scan remote NFS server.
-                         * GET /nodes/{node}/scan/nfs
+                         * GET /nodes/\{node\}/scan/nfs
                          * @allowtoken 1
                          * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                          */
@@ -9670,7 +9670,7 @@ export namespace Proxmox {
                     cifs: {
                         /**
                          * Scan remote CIFS server.
-                         * GET /nodes/{node}/scan/cifs
+                         * GET /nodes/\{node\}/scan/cifs
                          * @allowtoken 1
                          * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                          */
@@ -9679,7 +9679,7 @@ export namespace Proxmox {
                     pbs: {
                         /**
                          * Scan remote Proxmox Backup Server.
-                         * GET /nodes/{node}/scan/pbs
+                         * GET /nodes/\{node\}/scan/pbs
                          * @allowtoken 1
                          * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                          */
@@ -9688,7 +9688,7 @@ export namespace Proxmox {
                     glusterfs: {
                         /**
                          * Scan remote GlusterFS server.
-                         * GET /nodes/{node}/scan/glusterfs
+                         * GET /nodes/\{node\}/scan/glusterfs
                          * @allowtoken 1
                          * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                          */
@@ -9697,7 +9697,7 @@ export namespace Proxmox {
                     iscsi: {
                         /**
                          * Scan remote iSCSI server.
-                         * GET /nodes/{node}/scan/iscsi
+                         * GET /nodes/\{node\}/scan/iscsi
                          * @allowtoken 1
                          * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                          */
@@ -9706,7 +9706,7 @@ export namespace Proxmox {
                     lvm: {
                         /**
                          * List local LVM volume groups.
-                         * GET /nodes/{node}/scan/lvm
+                         * GET /nodes/\{node\}/scan/lvm
                          * @allowtoken 1
                          * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                          */
@@ -9715,7 +9715,7 @@ export namespace Proxmox {
                     lvmthin: {
                         /**
                          * List local LVM Thin Pools.
-                         * GET /nodes/{node}/scan/lvmthin
+                         * GET /nodes/\{node\}/scan/lvmthin
                          * @allowtoken 1
                          * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                          */
@@ -9724,7 +9724,7 @@ export namespace Proxmox {
                     zfs: {
                         /**
                          * Scan zfs pool list on local node.
-                         * GET /nodes/{node}/scan/zfs
+                         * GET /nodes/\{node\}/scan/zfs
                          * @allowtoken 1
                          * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                          */
@@ -9734,7 +9734,7 @@ export namespace Proxmox {
                 hardware: {
                     /**
                      * Index of hardware types
-                     * GET /nodes/{node}/hardware
+                     * GET /nodes/\{node\}/hardware
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
@@ -9742,7 +9742,7 @@ export namespace Proxmox {
                     pci: {
                         /**
                          * List local PCI devices.
-                         * GET /nodes/{node}/hardware/pci
+                         * GET /nodes/\{node\}/hardware/pci
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -9750,7 +9750,7 @@ export namespace Proxmox {
                         $(pciid: string): {
                             /**
                              * Index of available pci methods
-                             * GET /nodes/{node}/hardware/pci/{pciid}
+                             * GET /nodes/\{node\}/hardware/pci/\{pciid\}
                              * @allowtoken 1
                              * @permissions {"user":"all"}
                              */
@@ -9758,7 +9758,7 @@ export namespace Proxmox {
                             mdev: {
                                 /**
                                  * List mediated device types for given PCI device.
-                                 * GET /nodes/{node}/hardware/pci/{pciid}/mdev
+                                 * GET /nodes/\{node\}/hardware/pci/\{pciid\}/mdev
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/",["Sys.Modify"]]}
                                  */
@@ -9769,7 +9769,7 @@ export namespace Proxmox {
                     usb: {
                         /**
                          * List local USB devices.
-                         * GET /nodes/{node}/hardware/usb
+                         * GET /nodes/\{node\}/hardware/usb
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -9779,7 +9779,7 @@ export namespace Proxmox {
                 capabilities: {
                     /**
                      * Node capabilities index.
-                     * GET /nodes/{node}/capabilities
+                     * GET /nodes/\{node\}/capabilities
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
@@ -9787,7 +9787,7 @@ export namespace Proxmox {
                     qemu: {
                         /**
                          * QEMU capabilities index.
-                         * GET /nodes/{node}/capabilities/qemu
+                         * GET /nodes/\{node\}/capabilities/qemu
                          * @allowtoken 1
                          * @permissions {"user":"all"}
                          */
@@ -9795,7 +9795,7 @@ export namespace Proxmox {
                         cpu: {
                             /**
                              * List all custom and default CPU models.
-                             * GET /nodes/{node}/capabilities/qemu/cpu
+                             * GET /nodes/\{node\}/capabilities/qemu/cpu
                              * @allowtoken 1
                              * @permissions {"description":"Only returns custom models when the current user has Sys.Audit on /nodes.","user":"all"}
                              */
@@ -9804,7 +9804,7 @@ export namespace Proxmox {
                         machines: {
                             /**
                              * Get available QEMU/KVM machine types.
-                             * GET /nodes/{node}/capabilities/qemu/machines
+                             * GET /nodes/\{node\}/capabilities/qemu/machines
                              * @allowtoken 1
                              * @permissions {"user":"all"}
                              */
@@ -9815,7 +9815,7 @@ export namespace Proxmox {
                 storage: {
                     /**
                      * Get status for all datastores.
-                     * GET /nodes/{node}/storage
+                     * GET /nodes/\{node\}/storage
                      * @allowtoken 1
                      * @permissions {"description":"Only list entries where you have 'Datastore.Audit' or 'Datastore.AllocateSpace' permissions on '/storage/<storage>'","user":"all"}
                      */
@@ -9830,14 +9830,14 @@ export namespace Proxmox {
                         prunebackups: {
                             /**
                              * Prune backups. Only those using the standard naming scheme are considered.
-                             * DELETE /nodes/{node}/storage/{storage}/prunebackups
+                             * DELETE /nodes/\{node\}/storage/\{storage\}/prunebackups
                              * @allowtoken 1
                              * @permissions {"description":"You need the 'Datastore.Allocate' privilege on the storage (or if a VM ID is specified, 'Datastore.AllocateSpace' and 'VM.Backup' for the VM).","user":"all"}
                              */
                             $delete(param?: { 'prune-backups'?: prunebackups, type?: Ttype_16, vmid?: pvevmid }): Promise<string>;
                             /**
                              * Get prune information for backups. NOTE: this is only a preview and might not be what a subsequent prune call does if backups are removed/added in the meantime.
-                             * GET /nodes/{node}/storage/{storage}/prunebackups
+                             * GET /nodes/\{node\}/storage/\{storage\}/prunebackups
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                              */
@@ -9846,14 +9846,14 @@ export namespace Proxmox {
                         content: {
                             /**
                              * List storage content.
-                             * GET /nodes/{node}/storage/{storage}/content
+                             * GET /nodes/\{node\}/storage/\{storage\}/content
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                              */
                             $get(param?: { content?: pvestoragecontent, vmid?: pvevmid }): Promise<nodesStorageContentIndex[]>;
                             /**
                              * Allocate disk images.
-                             * POST /nodes/{node}/storage/{storage}/content
+                             * POST /nodes/\{node\}/storage/\{storage\}/content
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateSpace"]]}
                              */
@@ -9861,27 +9861,27 @@ export namespace Proxmox {
                             $(volume: string): {
                                 /**
                                  * Delete volume
-                                 * DELETE /nodes/{node}/storage/{storage}/content/{volume}
+                                 * DELETE /nodes/\{node\}/storage/\{storage\}/content/\{volume\}
                                  * @allowtoken 1
                                  * @permissions {"description":"You need 'Datastore.Allocate' privilege on the storage (or 'Datastore.AllocateSpace' for backup volumes if you have VM.Backup privilege on the VM).","user":"all"}
                                  */
                                 $delete(param?: { delay?: integer1_30 }): Promise<string>;
                                 /**
                                  * Get volume attributes
-                                 * GET /nodes/{node}/storage/{storage}/content/{volume}
+                                 * GET /nodes/\{node\}/storage/\{storage\}/content/\{volume\}
                                  * @allowtoken 1
                                  * @permissions {"description":"You need read access for the volume.","user":"all"}
                                  */
                                 $get(): Promise<nodesStorageContentInfo>;
                                 /**
                                  * Copy a volume. This is experimental code - do not use.
-                                 * POST /nodes/{node}/storage/{storage}/content/{volume}
+                                 * POST /nodes/\{node\}/storage/\{storage\}/content/\{volume\}
                                  * @allowtoken 1
                                  */
                                 $post(param: { target: string, target_node?: pvenode }): Promise<string>;
                                 /**
                                  * Update volume attributes
-                                 * PUT /nodes/{node}/storage/{storage}/content/{volume}
+                                 * PUT /nodes/\{node\}/storage/\{storage\}/content/\{volume\}
                                  * @allowtoken 1
                                  * @permissions {"description":"You need read access for the volume.","user":"all"}
                                  */
@@ -9892,7 +9892,7 @@ export namespace Proxmox {
                             list: {
                                 /**
                                  * List files and directories for single file restore under the given path.
-                                 * GET /nodes/{node}/storage/{storage}/file-restore/list
+                                 * GET /nodes/\{node\}/storage/\{storage\}/file-restore/list
                                  * @allowtoken 1
                                  * @permissions {"description":"You need read access for the volume.","user":"all"}
                                  */
@@ -9901,7 +9901,7 @@ export namespace Proxmox {
                             download: {
                                 /**
                                  * Extract a file or directory (as zip archive) from a PBS backup.
-                                 * GET /nodes/{node}/storage/{storage}/file-restore/download
+                                 * GET /nodes/\{node\}/storage/\{storage\}/file-restore/download
                                  * @allowtoken 1
                                  * @permissions {"description":"You need read access for the volume.","user":"all"}
                                  */
@@ -9911,7 +9911,7 @@ export namespace Proxmox {
                         status: {
                             /**
                              * Read storage status.
-                             * GET /nodes/{node}/storage/{storage}/status
+                             * GET /nodes/\{node\}/storage/\{storage\}/status
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                              */
@@ -9920,7 +9920,7 @@ export namespace Proxmox {
                         rrd: {
                             /**
                              * Read storage RRD statistics (returns PNG).
-                             * GET /nodes/{node}/storage/{storage}/rrd
+                             * GET /nodes/\{node\}/storage/\{storage\}/rrd
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                              */
@@ -9929,7 +9929,7 @@ export namespace Proxmox {
                         rrddata: {
                             /**
                              * Read storage RRD statistics.
-                             * GET /nodes/{node}/storage/{storage}/rrddata
+                             * GET /nodes/\{node\}/storage/\{storage\}/rrddata
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                              */
@@ -9938,7 +9938,7 @@ export namespace Proxmox {
                         upload: {
                             /**
                              * Upload templates and ISO images.
-                             * POST /nodes/{node}/storage/{storage}/upload
+                             * POST /nodes/\{node\}/storage/\{storage\}/upload
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateTemplate"]]}
                              */
@@ -9947,7 +9947,7 @@ export namespace Proxmox {
                         'download-url': {
                             /**
                              * Download templates and ISO images by using an URL.
-                             * POST /nodes/{node}/storage/{storage}/download-url
+                             * POST /nodes/\{node\}/storage/\{storage\}/download-url
                              * @allowtoken 1
                              * @permissions {"check":["and",["perm","/storage/{storage}",["Datastore.AllocateTemplate"]],["perm","/",["Sys.Audit","Sys.Modify"]]]}
                              */
@@ -9958,7 +9958,7 @@ export namespace Proxmox {
                 disks: {
                     /**
                      * Node index.
-                     * GET /nodes/{node}/disks
+                     * GET /nodes/\{node\}/disks
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
@@ -9966,14 +9966,14 @@ export namespace Proxmox {
                     lvm: {
                         /**
                          * List LVM Volume Groups
-                         * GET /nodes/{node}/disks/lvm
+                         * GET /nodes/\{node\}/disks/lvm
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
                         $get(): Promise<nodesDisksLvmIndex>;
                         /**
                          * Create an LVM Volume Group
-                         * POST /nodes/{node}/disks/lvm
+                         * POST /nodes/\{node\}/disks/lvm
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                          */
@@ -9981,7 +9981,7 @@ export namespace Proxmox {
                         $(name: string): {
                             /**
                              * Remove an LVM Volume Group.
-                             * DELETE /nodes/{node}/disks/lvm/{name}
+                             * DELETE /nodes/\{node\}/disks/lvm/\{name\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                              */
@@ -9991,14 +9991,14 @@ export namespace Proxmox {
                     lvmthin: {
                         /**
                          * List LVM thinpools
-                         * GET /nodes/{node}/disks/lvmthin
+                         * GET /nodes/\{node\}/disks/lvmthin
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
                         $get(): Promise<nodesDisksLvmthinIndex[]>;
                         /**
                          * Create an LVM thinpool
-                         * POST /nodes/{node}/disks/lvmthin
+                         * POST /nodes/\{node\}/disks/lvmthin
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                          */
@@ -10006,7 +10006,7 @@ export namespace Proxmox {
                         $(name: string): {
                             /**
                              * Remove an LVM thin pool.
-                             * DELETE /nodes/{node}/disks/lvmthin/{name}
+                             * DELETE /nodes/\{node\}/disks/lvmthin/\{name\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                              */
@@ -10016,14 +10016,14 @@ export namespace Proxmox {
                     directory: {
                         /**
                          * PVE Managed Directory storages.
-                         * GET /nodes/{node}/disks/directory
+                         * GET /nodes/\{node\}/disks/directory
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
                         $get(): Promise<nodesDisksDirectoryIndex[]>;
                         /**
                          * Create a Filesystem on an unused disk. Will be mounted under '/mnt/pve/NAME'.
-                         * POST /nodes/{node}/disks/directory
+                         * POST /nodes/\{node\}/disks/directory
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                          */
@@ -10031,7 +10031,7 @@ export namespace Proxmox {
                         $(name: string): {
                             /**
                              * Unmounts the storage and removes the mount unit.
-                             * DELETE /nodes/{node}/disks/directory/{name}
+                             * DELETE /nodes/\{node\}/disks/directory/\{name\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                              */
@@ -10041,14 +10041,14 @@ export namespace Proxmox {
                     zfs: {
                         /**
                          * List Zpools.
-                         * GET /nodes/{node}/disks/zfs
+                         * GET /nodes/\{node\}/disks/zfs
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
                         $get(): Promise<nodesDisksZfsIndex[]>;
                         /**
                          * Create a ZFS pool.
-                         * POST /nodes/{node}/disks/zfs
+                         * POST /nodes/\{node\}/disks/zfs
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                          */
@@ -10056,14 +10056,14 @@ export namespace Proxmox {
                         $(name: string): {
                             /**
                              * Destroy a ZFS pool.
-                             * DELETE /nodes/{node}/disks/zfs/{name}
+                             * DELETE /nodes/\{node\}/disks/zfs/\{name\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify","Datastore.Allocate"]]}
                              */
                             $delete(param?: { 'cleanup-config'?: boolean, 'cleanup-disks'?: boolean }): Promise<string>;
                             /**
                              * Get details about a zpool.
-                             * GET /nodes/{node}/disks/zfs/{name}
+                             * GET /nodes/\{node\}/disks/zfs/\{name\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                              */
@@ -10073,7 +10073,7 @@ export namespace Proxmox {
                     list: {
                         /**
                          * List local disks.
-                         * GET /nodes/{node}/disks/list
+                         * GET /nodes/\{node\}/disks/list
                          * @allowtoken 1
                          * @permissions {"check":["or",["perm","/",["Sys.Audit","Datastore.Audit"],"any",1],["perm","/nodes/{node}",["Sys.Audit","Datastore.Audit"],"any",1]]}
                          */
@@ -10082,7 +10082,7 @@ export namespace Proxmox {
                     smart: {
                         /**
                          * Get SMART Health of a disk.
-                         * GET /nodes/{node}/disks/smart
+                         * GET /nodes/\{node\}/disks/smart
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
@@ -10091,7 +10091,7 @@ export namespace Proxmox {
                     initgpt: {
                         /**
                          * Initialize Disk with GPT
-                         * POST /nodes/{node}/disks/initgpt
+                         * POST /nodes/\{node\}/disks/initgpt
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
@@ -10100,7 +10100,7 @@ export namespace Proxmox {
                     wipedisk: {
                         /**
                          * Wipe a disk or partition.
-                         * PUT /nodes/{node}/disks/wipedisk
+                         * PUT /nodes/\{node\}/disks/wipedisk
                          * @allowtoken 1
                          */
                         $put(param: { disk: Tdisk_3 }): Promise<string>;
@@ -10109,7 +10109,7 @@ export namespace Proxmox {
                 apt: {
                     /**
                      * Directory index for apt (Advanced Package Tool).
-                     * GET /nodes/{node}/apt
+                     * GET /nodes/\{node\}/apt
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
@@ -10117,14 +10117,14 @@ export namespace Proxmox {
                     update: {
                         /**
                          * List available updates.
-                         * GET /nodes/{node}/apt/update
+                         * GET /nodes/\{node\}/apt/update
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
                         $get(): Promise<nodesAptUpdateListUpdates[]>;
                         /**
                          * This is used to resynchronize the package index files from their sources (apt-get update).
-                         * POST /nodes/{node}/apt/update
+                         * POST /nodes/\{node\}/apt/update
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
@@ -10133,7 +10133,7 @@ export namespace Proxmox {
                     changelog: {
                         /**
                          * Get package changelogs.
-                         * GET /nodes/{node}/apt/changelog
+                         * GET /nodes/\{node\}/apt/changelog
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
@@ -10142,21 +10142,21 @@ export namespace Proxmox {
                     repositories: {
                         /**
                          * Get APT repository information.
-                         * GET /nodes/{node}/apt/repositories
+                         * GET /nodes/\{node\}/apt/repositories
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                          */
                         $get(): Promise<nodesAptRepositoriesRepositories>;
                         /**
                          * Change the properties of a repository. Currently only allows enabling/disabling.
-                         * POST /nodes/{node}/apt/repositories
+                         * POST /nodes/\{node\}/apt/repositories
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
                         $post(param: { digest?: String0_80, enabled?: boolean, index: integer, path: string }): Promise<null>;
                         /**
                          * Add a standard repository to the configuration
-                         * PUT /nodes/{node}/apt/repositories
+                         * PUT /nodes/\{node\}/apt/repositories
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
@@ -10165,7 +10165,7 @@ export namespace Proxmox {
                     versions: {
                         /**
                          * Get package information for important Proxmox packages.
-                         * GET /nodes/{node}/apt/versions
+                         * GET /nodes/\{node\}/apt/versions
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                          */
@@ -10175,7 +10175,7 @@ export namespace Proxmox {
                 firewall: {
                     /**
                      * Directory index.
-                     * GET /nodes/{node}/firewall
+                     * GET /nodes/\{node\}/firewall
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
@@ -10183,14 +10183,14 @@ export namespace Proxmox {
                     rules: {
                         /**
                          * List rules.
-                         * GET /nodes/{node}/firewall/rules
+                         * GET /nodes/\{node\}/firewall/rules
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                          */
                         $get(): Promise<nodesFirewallRulesGetRules[]>;
                         /**
                          * Create new rule.
-                         * POST /nodes/{node}/firewall/rules
+                         * POST /nodes/\{node\}/firewall/rules
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
@@ -10198,21 +10198,21 @@ export namespace Proxmox {
                         $(pos: string): {
                             /**
                              * Delete rule.
-                             * DELETE /nodes/{node}/firewall/rules/{pos}
+                             * DELETE /nodes/\{node\}/firewall/rules/\{pos\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
                             $delete(param?: { digest?: String0_40 }): Promise<null>;
                             /**
                              * Get single rule data.
-                             * GET /nodes/{node}/firewall/rules/{pos}
+                             * GET /nodes/\{node\}/firewall/rules/\{pos\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                              */
                             $get(): Promise<nodesFirewallRulesGetRule>;
                             /**
                              * Modify rule data.
-                             * PUT /nodes/{node}/firewall/rules/{pos}
+                             * PUT /nodes/\{node\}/firewall/rules/\{pos\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
@@ -10222,14 +10222,14 @@ export namespace Proxmox {
                     options: {
                         /**
                          * Get host firewall options.
-                         * GET /nodes/{node}/firewall/options
+                         * GET /nodes/\{node\}/firewall/options
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                          */
                         $get(): Promise<nodesFirewallOptionsGetOptions>;
                         /**
                          * Set Firewall options.
-                         * PUT /nodes/{node}/firewall/options
+                         * PUT /nodes/\{node\}/firewall/options
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
@@ -10238,7 +10238,7 @@ export namespace Proxmox {
                     log: {
                         /**
                          * Read firewall log
-                         * GET /nodes/{node}/firewall/log
+                         * GET /nodes/\{node\}/firewall/log
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Syslog"]]}
                          */
@@ -10248,7 +10248,7 @@ export namespace Proxmox {
                 replication: {
                     /**
                      * List status of all replication jobs on this node.
-                     * GET /nodes/{node}/replication
+                     * GET /nodes/\{node\}/replication
                      * @allowtoken 1
                      * @permissions {"description":"Requires the VM.Audit permission on /vms/<vmid>.","user":"all"}
                      */
@@ -10256,7 +10256,7 @@ export namespace Proxmox {
                     $(id: string): {
                         /**
                          * Directory index.
-                         * GET /nodes/{node}/replication/{id}
+                         * GET /nodes/\{node\}/replication/\{id\}
                          * @allowtoken 1
                          * @permissions {"user":"all"}
                          */
@@ -10264,7 +10264,7 @@ export namespace Proxmox {
                         status: {
                             /**
                              * Get replication job status.
-                             * GET /nodes/{node}/replication/{id}/status
+                             * GET /nodes/\{node\}/replication/\{id\}/status
                              * @allowtoken 1
                              * @permissions {"description":"Requires the VM.Audit permission on /vms/<vmid>.","user":"all"}
                              */
@@ -10273,7 +10273,7 @@ export namespace Proxmox {
                         log: {
                             /**
                              * Read replication job log.
-                             * GET /nodes/{node}/replication/{id}/log
+                             * GET /nodes/\{node\}/replication/\{id\}/log
                              * @allowtoken 1
                              * @permissions {"description":"Requires the VM.Audit permission on /vms/<vmid>, or 'Sys.Audit' on '/nodes/<node>'","user":"all"}
                              */
@@ -10282,7 +10282,7 @@ export namespace Proxmox {
                         schedule_now: {
                             /**
                              * Schedule replication job to start as soon as possible.
-                             * POST /nodes/{node}/replication/{id}/schedule_now
+                             * POST /nodes/\{node\}/replication/\{id\}/schedule_now
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                              */
@@ -10293,7 +10293,7 @@ export namespace Proxmox {
                 certificates: {
                     /**
                      * Node index.
-                     * GET /nodes/{node}/certificates
+                     * GET /nodes/\{node\}/certificates
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
@@ -10301,7 +10301,7 @@ export namespace Proxmox {
                     acme: {
                         /**
                          * ACME index.
-                         * GET /nodes/{node}/certificates/acme
+                         * GET /nodes/\{node\}/certificates/acme
                          * @allowtoken 1
                          * @permissions {"user":"all"}
                          */
@@ -10309,21 +10309,21 @@ export namespace Proxmox {
                         certificate: {
                             /**
                              * Revoke existing certificate from CA.
-                             * DELETE /nodes/{node}/certificates/acme/certificate
+                             * DELETE /nodes/\{node\}/certificates/acme/certificate
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
                             $delete(): Promise<string>;
                             /**
                              * Order a new certificate from ACME-compatible CA.
-                             * POST /nodes/{node}/certificates/acme/certificate
+                             * POST /nodes/\{node\}/certificates/acme/certificate
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
                             $post(param?: { force?: boolean }): Promise<string>;
                             /**
                              * Renew existing certificate from CA.
-                             * PUT /nodes/{node}/certificates/acme/certificate
+                             * PUT /nodes/\{node\}/certificates/acme/certificate
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                              */
@@ -10333,7 +10333,7 @@ export namespace Proxmox {
                     info: {
                         /**
                          * Get information about node's certificates.
-                         * GET /nodes/{node}/certificates/info
+                         * GET /nodes/\{node\}/certificates/info
                          * @allowtoken 1
                          * @permissions {"user":"all"}
                          */
@@ -10342,14 +10342,14 @@ export namespace Proxmox {
                     custom: {
                         /**
                          * DELETE custom certificate chain and key.
-                         * DELETE /nodes/{node}/certificates/custom
+                         * DELETE /nodes/\{node\}/certificates/custom
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
                         $delete(param?: { restart?: boolean }): Promise<null>;
                         /**
                          * Upload or update custom certificate chain and key.
-                         * POST /nodes/{node}/certificates/custom
+                         * POST /nodes/\{node\}/certificates/custom
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
@@ -10359,14 +10359,14 @@ export namespace Proxmox {
                 config: {
                     /**
                      * Get node configuration options.
-                     * GET /nodes/{node}/config
+                     * GET /nodes/\{node\}/config
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
                     $get(param?: { property?: Tproperty }): Promise<any>;
                     /**
                      * Set node configuration options.
-                     * PUT /nodes/{node}/config
+                     * PUT /nodes/\{node\}/config
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
@@ -10375,7 +10375,7 @@ export namespace Proxmox {
                 sdn: {
                     /**
                      * SDN index.
-                     * GET /nodes/{node}/sdn
+                     * GET /nodes/\{node\}/sdn
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
@@ -10383,7 +10383,7 @@ export namespace Proxmox {
                     zones: {
                         /**
                          * Get status for all zones.
-                         * GET /nodes/{node}/sdn/zones
+                         * GET /nodes/\{node\}/sdn/zones
                          * @allowtoken 1
                          * @permissions {"description":"Only list entries where you have 'SDN.Audit'","user":"all"}
                          */
@@ -10398,7 +10398,7 @@ export namespace Proxmox {
                             content: {
                                 /**
                                  * List zone content.
-                                 * GET /nodes/{node}/sdn/zones/{zone}/content
+                                 * GET /nodes/\{node\}/sdn/zones/\{zone\}/content
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Audit"],"any",1]}
                                  */
@@ -10410,7 +10410,7 @@ export namespace Proxmox {
                 version: {
                     /**
                      * API version details
-                     * GET /nodes/{node}/version
+                     * GET /nodes/\{node\}/version
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
@@ -10419,14 +10419,14 @@ export namespace Proxmox {
                 status: {
                     /**
                      * Read node status
-                     * GET /nodes/{node}/status
+                     * GET /nodes/\{node\}/status
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
                     $get(): Promise<any>;
                     /**
                      * Reboot or shutdown a node.
-                     * POST /nodes/{node}/status
+                     * POST /nodes/\{node\}/status
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.PowerMgmt"]]}
                      */
@@ -10435,7 +10435,7 @@ export namespace Proxmox {
                 netstat: {
                     /**
                      * Read tap/vm network device interface counters
-                     * GET /nodes/{node}/netstat
+                     * GET /nodes/\{node\}/netstat
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
@@ -10444,7 +10444,7 @@ export namespace Proxmox {
                 execute: {
                     /**
                      * Execute multiple commands in order.
-                     * POST /nodes/{node}/execute
+                     * POST /nodes/\{node\}/execute
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
@@ -10453,7 +10453,7 @@ export namespace Proxmox {
                 wakeonlan: {
                     /**
                      * Try to wake a node via 'wake on LAN' network packet.
-                     * POST /nodes/{node}/wakeonlan
+                     * POST /nodes/\{node\}/wakeonlan
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.PowerMgmt"]]}
                      */
@@ -10462,7 +10462,7 @@ export namespace Proxmox {
                 rrd: {
                     /**
                      * Read node RRD statistics (returns PNG)
-                     * GET /nodes/{node}/rrd
+                     * GET /nodes/\{node\}/rrd
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
@@ -10471,7 +10471,7 @@ export namespace Proxmox {
                 rrddata: {
                     /**
                      * Read node RRD statistics
-                     * GET /nodes/{node}/rrddata
+                     * GET /nodes/\{node\}/rrddata
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
@@ -10480,7 +10480,7 @@ export namespace Proxmox {
                 syslog: {
                     /**
                      * Read system log
-                     * GET /nodes/{node}/syslog
+                     * GET /nodes/\{node\}/syslog
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Syslog"]]}
                      */
@@ -10489,7 +10489,7 @@ export namespace Proxmox {
                 journal: {
                     /**
                      * Read Journal
-                     * GET /nodes/{node}/journal
+                     * GET /nodes/\{node\}/journal
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Syslog"]]}
                      */
@@ -10498,7 +10498,7 @@ export namespace Proxmox {
                 vncshell: {
                     /**
                      * Creates a VNC Shell proxy.
-                     * POST /nodes/{node}/vncshell
+                     * POST /nodes/\{node\}/vncshell
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                      */
@@ -10507,7 +10507,7 @@ export namespace Proxmox {
                 termproxy: {
                     /**
                      * Creates a VNC Shell proxy.
-                     * POST /nodes/{node}/termproxy
+                     * POST /nodes/\{node\}/termproxy
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                      */
@@ -10516,7 +10516,7 @@ export namespace Proxmox {
                 vncwebsocket: {
                     /**
                      * Opens a websocket for VNC traffic.
-                     * GET /nodes/{node}/vncwebsocket
+                     * GET /nodes/\{node\}/vncwebsocket
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'. You also need to pass a valid ticket (vncticket)."}
                      */
@@ -10525,7 +10525,7 @@ export namespace Proxmox {
                 spiceshell: {
                     /**
                      * Creates a SPICE shell.
-                     * POST /nodes/{node}/spiceshell
+                     * POST /nodes/\{node\}/spiceshell
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Console"]],"description":"Restricted to users on realm 'pam'"}
                      */
@@ -10534,14 +10534,14 @@ export namespace Proxmox {
                 dns: {
                     /**
                      * Read DNS settings.
-                     * GET /nodes/{node}/dns
+                     * GET /nodes/\{node\}/dns
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
                     $get(): Promise<nodesDnsDns>;
                     /**
                      * Write DNS settings.
-                     * PUT /nodes/{node}/dns
+                     * PUT /nodes/\{node\}/dns
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
@@ -10550,14 +10550,14 @@ export namespace Proxmox {
                 time: {
                     /**
                      * Read server time and time zone settings.
-                     * GET /nodes/{node}/time
+                     * GET /nodes/\{node\}/time
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
                     $get(): Promise<nodesTimeTime>;
                     /**
                      * Set time zone.
-                     * PUT /nodes/{node}/time
+                     * PUT /nodes/\{node\}/time
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
@@ -10566,14 +10566,14 @@ export namespace Proxmox {
                 aplinfo: {
                     /**
                      * Get list of appliances.
-                     * GET /nodes/{node}/aplinfo
+                     * GET /nodes/\{node\}/aplinfo
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
                     $get(): Promise<nodesAplinfoAplinfo[]>;
                     /**
                      * Download appliance templates.
-                     * POST /nodes/{node}/aplinfo
+                     * POST /nodes/\{node\}/aplinfo
                      * @allowtoken 1
                      * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateTemplate"]]}
                      */
@@ -10582,7 +10582,7 @@ export namespace Proxmox {
                 'query-url-metadata': {
                     /**
                      * Query metadata of an URL: file size, file name and mime type.
-                     * GET /nodes/{node}/query-url-metadata
+                     * GET /nodes/\{node\}/query-url-metadata
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit","Sys.Modify"]]}
                      */
@@ -10591,7 +10591,7 @@ export namespace Proxmox {
                 report: {
                     /**
                      * Gather various systems information about a node
-                     * GET /nodes/{node}/report
+                     * GET /nodes/\{node\}/report
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
@@ -10600,7 +10600,7 @@ export namespace Proxmox {
                 startall: {
                     /**
                      * Start all VMs and containers located on this node (by default only those with onboot=1).
-                     * POST /nodes/{node}/startall
+                     * POST /nodes/\{node\}/startall
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["VM.PowerMgmt"]]}
                      */
@@ -10609,7 +10609,7 @@ export namespace Proxmox {
                 stopall: {
                     /**
                      * Stop all VMs and Containers.
-                     * POST /nodes/{node}/stopall
+                     * POST /nodes/\{node\}/stopall
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["VM.PowerMgmt"]]}
                      */
@@ -10618,7 +10618,7 @@ export namespace Proxmox {
                 migrateall: {
                     /**
                      * Migrate all VMs and Containers.
-                     * POST /nodes/{node}/migrateall
+                     * POST /nodes/\{node\}/migrateall
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["VM.Migrate"]]}
                      */
@@ -10627,14 +10627,14 @@ export namespace Proxmox {
                 hosts: {
                     /**
                      * Get the content of /etc/hosts.
-                     * GET /nodes/{node}/hosts
+                     * GET /nodes/\{node\}/hosts
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
                     $get(): Promise<nodesHostsGetEtcHosts>;
                     /**
                      * Write /etc/hosts.
-                     * POST /nodes/{node}/hosts
+                     * POST /nodes/\{node\}/hosts
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
@@ -10660,21 +10660,21 @@ export namespace Proxmox {
             $(storage: string): {
                 /**
                  * Delete storage configuration.
-                 * DELETE /storage/{storage}
+                 * DELETE /storage/\{storage\}
                  * @allowtoken 1
                  * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                  */
                 $delete(): Promise<null>;
                 /**
                  * Read storage configuration.
-                 * GET /storage/{storage}
+                 * GET /storage/\{storage\}
                  * @allowtoken 1
                  * @permissions {"check":["perm","/storage/{storage}",["Datastore.Allocate"]]}
                  */
                 $get(): Promise<any>;
                 /**
                  * Update storage configuration.
-                 * PUT /storage/{storage}
+                 * PUT /storage/\{storage\}
                  * @allowtoken 1
                  * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                  */
@@ -10707,21 +10707,21 @@ export namespace Proxmox {
                 $(userid: string): {
                     /**
                      * Delete user.
-                     * DELETE /access/users/{userid}
+                     * DELETE /access/users/\{userid\}
                      * @allowtoken 1
                      * @permissions {"check":["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"]]]}
                      */
                     $delete(): Promise<null>;
                     /**
                      * Get user configuration.
-                     * GET /access/users/{userid}
+                     * GET /access/users/\{userid\}
                      * @allowtoken 1
                      * @permissions {"check":["userid-group",["User.Modify","Sys.Audit"]]}
                      */
                     $get(): Promise<accessUsersReadUser>;
                     /**
                      * Update user configuration.
-                     * PUT /access/users/{userid}
+                     * PUT /access/users/\{userid\}
                      * @allowtoken 1
                      * @permissions {"check":["userid-group",["User.Modify"],"groups_param",1]}
                      */
@@ -10729,7 +10729,7 @@ export namespace Proxmox {
                     tfa: {
                         /**
                          * Get user TFA types (Personal and Realm).
-                         * GET /access/users/{userid}/tfa
+                         * GET /access/users/\{userid\}/tfa
                          * @allowtoken 1
                          * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify","Sys.Audit"]]]}
                          */
@@ -10738,7 +10738,7 @@ export namespace Proxmox {
                     token: {
                         /**
                          * Get user API tokens.
-                         * GET /access/users/{userid}/token
+                         * GET /access/users/\{userid\}/token
                          * @allowtoken 1
                          * @permissions {"check":["or",["userid-param","self"],["perm","/access/users/{userid}",["User.Modify"]]]}
                          */
@@ -10746,28 +10746,28 @@ export namespace Proxmox {
                         $(tokenid: string): {
                             /**
                              * Remove API token for a specific user.
-                             * DELETE /access/users/{userid}/token/{tokenid}
+                             * DELETE /access/users/\{userid\}/token/\{tokenid\}
                              * @allowtoken 1
                              * @permissions {"check":["or",["userid-param","self"],["perm","/access/users/{userid}",["User.Modify"]]]}
                              */
                             $delete(): Promise<null>;
                             /**
                              * Get specific API token information.
-                             * GET /access/users/{userid}/token/{tokenid}
+                             * GET /access/users/\{userid\}/token/\{tokenid\}
                              * @allowtoken 1
                              * @permissions {"check":["or",["userid-param","self"],["perm","/access/users/{userid}",["User.Modify"]]]}
                              */
                             $get(): Promise<accessUsersTokenReadToken>;
                             /**
                              * Generate a new API token for a specific user. NOTE: returns API token value, which needs to be stored as it cannot be retrieved afterwards!
-                             * POST /access/users/{userid}/token/{tokenid}
+                             * POST /access/users/\{userid\}/token/\{tokenid\}
                              * @allowtoken 1
                              * @permissions {"check":["or",["userid-param","self"],["perm","/access/users/{userid}",["User.Modify"]]]}
                              */
                             $post(param?: { comment?: string, expire?: integer_Min0, privsep?: boolean }): Promise<accessUsersTokenGenerateToken>;
                             /**
                              * Update API token for a specific user.
-                             * PUT /access/users/{userid}/token/{tokenid}
+                             * PUT /access/users/\{userid\}/token/\{tokenid\}
                              * @allowtoken 1
                              * @permissions {"check":["or",["userid-param","self"],["perm","/access/users/{userid}",["User.Modify"]]]}
                              */
@@ -10794,21 +10794,21 @@ export namespace Proxmox {
                 $(groupid: string): {
                     /**
                      * Delete group.
-                     * DELETE /access/groups/{groupid}
+                     * DELETE /access/groups/\{groupid\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/access/groups",["Group.Allocate"]]}
                      */
                     $delete(): Promise<null>;
                     /**
                      * Get group configuration.
-                     * GET /access/groups/{groupid}
+                     * GET /access/groups/\{groupid\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/access/groups",["Sys.Audit","Group.Allocate"],"any",1]}
                      */
                     $get(): Promise<accessGroupsReadGroup>;
                     /**
                      * Update group data.
-                     * PUT /access/groups/{groupid}
+                     * PUT /access/groups/\{groupid\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/access/groups",["Group.Allocate"]]}
                      */
@@ -10833,21 +10833,21 @@ export namespace Proxmox {
                 $(roleid: string): {
                     /**
                      * Delete role.
-                     * DELETE /access/roles/{roleid}
+                     * DELETE /access/roles/\{roleid\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/access",["Sys.Modify"]]}
                      */
                     $delete(): Promise<null>;
                     /**
                      * Get role configuration.
-                     * GET /access/roles/{roleid}
+                     * GET /access/roles/\{roleid\}
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
                     $get(): Promise<accessRolesReadRole>;
                     /**
                      * Update an existing role.
-                     * PUT /access/roles/{roleid}
+                     * PUT /access/roles/\{roleid\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/access",["Sys.Modify"]]}
                      */
@@ -10888,21 +10888,21 @@ export namespace Proxmox {
                 $(realm: string): {
                     /**
                      * Delete an authentication server.
-                     * DELETE /access/domains/{realm}
+                     * DELETE /access/domains/\{realm\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/access/realm",["Realm.Allocate"]]}
                      */
                     $delete(): Promise<null>;
                     /**
                      * Get auth server configuration.
-                     * GET /access/domains/{realm}
+                     * GET /access/domains/\{realm\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/access/realm",["Realm.Allocate","Sys.Audit"],"any",1]}
                      */
                     $get(): Promise<any>;
                     /**
                      * Update authentication server settings.
-                     * PUT /access/domains/{realm}
+                     * PUT /access/domains/\{realm\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/access/realm",["Realm.Allocate"]]}
                      */
@@ -10910,7 +10910,7 @@ export namespace Proxmox {
                     sync: {
                         /**
                          * Syncs users and/or groups from the configured LDAP to user.cfg. NOTE: Synced groups will have the name 'name-$realm', so make sure those groups do not exist to prevent overwriting.
-                         * POST /access/domains/{realm}/sync
+                         * POST /access/domains/\{realm\}/sync
                          * @allowtoken 1
                          * @permissions {"check":["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"]]],"description":"'Realm.AllocateUser' on '/access/realm/<realm>' and  'User.Modify' permissions to '/access/groups/'."}
                          */
@@ -10937,7 +10937,7 @@ export namespace Proxmox {
                 },
                 login: {
                     /**
-                     *  Verify OpenID authorization code and create a ticket.
+                     * Verify OpenID authorization code and create a ticket.
                      * POST /access/openid/login
                      * @allowtoken 1
                      * @permissions {"user":"world"}
@@ -10963,14 +10963,14 @@ export namespace Proxmox {
                 $(userid: string): {
                     /**
                      * List TFA configurations of users.
-                     * GET /access/tfa/{userid}
+                     * GET /access/tfa/\{userid\}
                      * @allowtoken 0
                      * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify","Sys.Audit"]]]}
                      */
                     $get(): Promise<accessTfaListUserTfa[]>;
                     /**
                      * Add a TFA entry for a user.
-                     * POST /access/tfa/{userid}
+                     * POST /access/tfa/\{userid\}
                      * @allowtoken 0
                      * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify"]]]}
                      */
@@ -10978,21 +10978,21 @@ export namespace Proxmox {
                     $(id: string): {
                         /**
                          * Delete a TFA entry by ID.
-                         * DELETE /access/tfa/{userid}/{id}
+                         * DELETE /access/tfa/\{userid\}/\{id\}
                          * @allowtoken 0
                          * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify"]]]}
                          */
                         $delete(param?: { password?: String5_64 }): Promise<null>;
                         /**
                          * Fetch a requested TFA entry if present.
-                         * GET /access/tfa/{userid}/{id}
+                         * GET /access/tfa/\{userid\}/\{id\}
                          * @allowtoken 0
                          * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify","Sys.Audit"]]]}
                          */
                         $get(): Promise<accessTfaGetTfaEntry>;
                         /**
                          * Add a TFA entry for a user.
-                         * PUT /access/tfa/{userid}/{id}
+                         * PUT /access/tfa/\{userid\}/\{id\}
                          * @allowtoken 0
                          * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify"]]]}
                          */
@@ -11053,21 +11053,21 @@ export namespace Proxmox {
             $(poolid: string): {
                 /**
                  * Delete pool.
-                 * DELETE /pools/{poolid}
+                 * DELETE /pools/\{poolid\}
                  * @allowtoken 1
                  * @permissions {"check":["perm","/pool/{poolid}",["Pool.Allocate"]],"description":"You can only delete empty pools (no members)."}
                  */
                 $delete(): Promise<null>;
                 /**
                  * Get pool configuration.
-                 * GET /pools/{poolid}
+                 * GET /pools/\{poolid\}
                  * @allowtoken 1
                  * @permissions {"check":["perm","/pool/{poolid}",["Pool.Audit"]]}
                  */
                 $get(): Promise<poolsReadPool>;
                 /**
                  * Update pool data.
-                 * PUT /pools/{poolid}
+                 * PUT /pools/\{poolid\}
                  * @allowtoken 1
                  * @permissions {"check":["perm","/pool/{poolid}",["Pool.Allocate"]],"description":"You also need the right to modify permissions on any object you add/delete."}
                  */
