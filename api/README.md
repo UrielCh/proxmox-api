@@ -109,9 +109,3 @@ async function test() {
 ```typescript
 await theNode.qemu.$(vmid).agent['get-fsinfo'].$get()
 ```
-
-## Changelog
-
-### V0.1.3
- - add authTimeout option, to limit authentification time.
- - add queryTimeout option to limit non auth request timeout.
