@@ -78,11 +78,11 @@ export type ProxmoxEngineOptions = ProxmoxEngineOptionsToken | ProxmoxEngineOpti
 export class ProxmoxEngine implements ApiRequestable {
     public CSRFPreventionToken?: string;
     public ticket?: string;
-    private username: string;
-    private password: string;
+    private readonly username: string;
+    private readonly password: string;
     private host: string;
     private port: number;
-    private schema: 'http' | 'https';
+    private readonly schema: 'http' | 'https';
     private authTimeout: number;
     private queryTimeout: number;
 
@@ -246,8 +246,12 @@ export class ProxmoxEngine implements ApiRequestable {
      * @returns Proxmox API ticket and CSRFPreventionToken
      */
     public async getTicket(): Promise<{ ticket: string, CSRFPreventionToken: string }> {
-        if (this.ticket && this.CSRFPreventionToken)
-            return { ticket: this.ticket, CSRFPreventionToken: this.CSRFPreventionToken };
+        if (this.ticket) {
+            if (!this.username)
+                return { ticket: this.ticket, CSRFPreventionToken: '' };
+            if (this.CSRFPreventionToken)
+                return { ticket: this.ticket, CSRFPreventionToken: this.CSRFPreventionToken };
+        }
         const requestUrl = `${this.schema}://${this.host}:${this.port}/api2/json/access/ticket`;
         try {
             const { password, username } = this;
