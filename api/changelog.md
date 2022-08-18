@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.3.2
+* add missing uppercase on method. (issue 10)
+
 ## v0.3.1
  * fix regrestion in API Keys usage. (issue 9)
 
