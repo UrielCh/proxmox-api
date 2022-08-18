@@ -132,7 +132,8 @@ export class ProxmoxEngine implements ApiRequestable {
      */
     public async doRequest(httpMethod: string, path: string, pathTemplate: string, params?: { [key: string]: any }, retries?: number): Promise<any> {
         const { CSRFPreventionToken, ticket } = await this.getTicket();
-
+        // ensure that method is uppercased
+        httpMethod = httpMethod.toUpperCase();
         /**
          * Remove null values
          */
