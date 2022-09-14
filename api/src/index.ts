@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 export { proxmoxApi as default } from './constructor';
+export { proxmoxApi } from './constructor';
 export { Proxmox } from './model';
 export { USBHostInfo, USBInfo, QmMonitor } from './QmMonitor'
 export { ApiRequestable } from './proxy';

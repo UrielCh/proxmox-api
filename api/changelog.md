@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.0
+* use undici fetch (will fix issue 14 in the next release)
+* add proxmoxApi export (same as default)
+* fix missing GET params. (issue 11 and 12)
+
 ## v0.3.2
 * add missing uppercase on method. (issue 10)
 
