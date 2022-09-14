@@ -311,8 +311,9 @@ export class ProxmoxEngine implements ApiRequestable {
             this.ticket = ticket;
             return { ticket, CSRFPreventionToken };
         } catch (e) {
-            console.log(e);
-            throw Error(`Auth ${requestUrl} Failed! with Exception: ${e}`);
+            const error = Error(`Auth ${requestUrl} Failed!`);
+            (error as any).cause = e;
+            throw error;
         }
     }
 }
