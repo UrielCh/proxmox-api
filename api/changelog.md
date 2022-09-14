@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.4.1
+* rewrite undici fetch integration.
+* add debug parameter.
+
 ## v0.4.0
 * use undici fetch (will fix issue 14 in the next release)
 * add proxmoxApi export (same as default)

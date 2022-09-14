@@ -1,6 +1,6 @@
 {
   "name": "proxmox-api",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "cutting edge javascript / Typescript Proxmox API",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
