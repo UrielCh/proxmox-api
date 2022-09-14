@@ -15,7 +15,6 @@ async function test() {
     // iterate cluster nodes
     for (const node of nodes) {
         const theNode = promox.nodes.$(node.node);
-
         const storages = await theNode.storage.$get();
         console.log(storages);
         for (const storage of storages) {
@@ -23,11 +22,26 @@ async function test() {
             // await theNode.storage.$(storage.storage)["file-restore"].download.$get()
             // console.log(nodesStorageDiridx);
         }
+
         // list Qemu VMS
         const qemus = await theNode.qemu.$get({ full: true });
         // iterate Qemu VMS
         for (const qemu of qemus) {
             // do some suff.
+            // const agents = await theNode.qemu.$(qemu.vmid).agent.$get();
+            //const info = await theNode.qemu.$(qemu.vmid).agent.info.$get()
+            //console.log(info);
+            //await theNode.qemu.$(qemu.vmid).agent["exec-status"].$get()
+            const users = await theNode.qemu.$(qemu.vmid).agent["get-users"].$get()
+            console.log('users:', users);
+            // const osinfo = await theNode.qemu.$(qemu.vmid).agent["get-host-name"].$get()
+            // console.log(osinfo);
+            const inets = await theNode.qemu.$(qemu.vmid).agent["network-get-interfaces"].$get()
+            console.log('inets:', inets);
+
+            // const execStatus = theNode.qemu.$(qemu.vmid).agent["exec-status"];
+            // const info = await execStatus.$get({ pid: 1 })
+
             const config = await theNode.qemu.$(qemu.vmid).config.$get();
             const name = `(${(config.name || '')})`;
             console.log(`vm: ${String(qemu.vmid).padStart(5, ' ')} ${name.padEnd(18, ' ')}, memory: ${config.memory}`);

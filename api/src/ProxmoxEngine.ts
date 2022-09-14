@@ -15,7 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import { ApiRequestable } from "./proxy";
-import querystring from 'querystring'; // TODO use URLSearchParams
 import { fetch, Response } from 'undici';
 import { URL } from "url";
 
@@ -135,11 +134,11 @@ export class ProxmoxEngine implements ApiRequestable {
         // ensure that method is uppercased
         httpMethod = httpMethod.toUpperCase();
         /**
-         * Remove null values
+         * Remove null values once
          */
-        if (retries && params)
+        if (!retries && params)
             for (let k in params) {
-                if (params.hasOwnProperty(k) && params[k] === null) {
+                if (params.hasOwnProperty(k) && (params[k] === null || params[k] === undefined)) {
                     delete params[k];
                 }
             }
@@ -159,7 +158,7 @@ export class ProxmoxEngine implements ApiRequestable {
          * Append parameters
          */
         let body: any | undefined = undefined;
-        const requestUrl = new URL(`${this.schema}://${this.host}:${this.port}/path`);
+        const requestUrl = new URL(`${this.schema}://${this.host}:${this.port}${path}`);
         // const httpOptions: https.RequestOptions = {host: this.host, port: this.port, path: path, method: httpMethod, headers};
         // let formBody: any = null;
         if (typeof (params) === 'object' && Object.keys(params).length > 0) {
@@ -169,6 +168,8 @@ export class ProxmoxEngine implements ApiRequestable {
                     params[k] = 1;
                 else if (v === false)
                     params[k] = 0;
+                else
+                    params[k] = `${v}`;
             }
             if (httpMethod === 'PUT' || httpMethod === 'POST') {
                 // Escape unicode
@@ -194,15 +195,33 @@ export class ProxmoxEngine implements ApiRequestable {
             clearTimeout(id);
         } catch (e) {
             // console.log(error.name === 'AbortError');
-            console.error(`FaILED to call ${httpMethod} ${requestUrl}`, e)
-            throw Error(`FaILED to call ${httpMethod} ${requestUrl}`);
+            if (e instanceof Error) {
+                const err = e as any;
+                if (err.cause && err.cause.message) {
+                    const error = Error(`FaILED to call ${httpMethod} ${requestUrl} cause:${err.cause.message}`);
+                    (error as any).cause = e;
+                    throw error;
+                }
+            }
+            const error = Error(`FaILED to call ${httpMethod} ${requestUrl}`);
+            (error as any).cause = e;
+            throw error;
         }
         const contentType = res.headers.get('content-type');
         let data: { data: any, errors?: any } = { data: null };
         if (contentType === 'application/json;charset=UTF-8') {
-            data = (await res.json()) as { data: any, errors?: any };
+            try {
+                data = (await res.json()) as { data: any, errors?: any };
+            } catch (e) {
+                data.errors = 'Failed to parse response json';
+            }
         } else if (!contentType) {
-            data.errors = await res.text();// await req.text();
+            data.errors = '';
+            try {
+                data.errors = await res.text();// await req.text();
+            } catch (e) {
+                // ignore reading error;
+            }
         } else { // should never append
             throw Error(`${httpMethod} ${requestUrl} unexpected contentType "${contentType}" status Line:${res.status} ${res.text}`);
             // data.data = req.text();
@@ -248,7 +267,7 @@ export class ProxmoxEngine implements ApiRequestable {
             const { password, username } = this;
             // const controller = new AbortController();
             // const timeout = setTimeout(() => controller.abort(), this.authTimeout);
-            const postBody = querystring.encode({ username, password });
+            const postBody = new URLSearchParams({ username, password }).toString()
             const headers = {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Content-Length': String(postBody.length),
@@ -257,21 +276,22 @@ export class ProxmoxEngine implements ApiRequestable {
             const controller = new AbortController();
             const id = setTimeout(() => controller.abort(), this.authTimeout);
 
-            const req = await fetch(requestUrl, {
+            const resp = await fetch(requestUrl, {
                 method: 'POST',
                 headers,
                 signal: controller.signal,
-                body: JSON.stringify({ form: { username, password } })
+                body: postBody, // JSON.stringify({ form: { username, password } })
             },);
             clearTimeout(id);
 
 
             // const req = await reqApi.post(requestUrl, {form: { username, password }});
             // clearTimeout(timeout);
-            if (req.status !== 200) {
-                throw Error(`login failed with ${req.status}: ${req.statusText}`);
+            const bodyTxt = await resp.text();
+            if (resp.status !== 200) {
+                throw Error(`login failed with ${resp.status}: ${resp.statusText} ${bodyTxt}`);
             }
-            const body = await req.json() as { data: { cap: any, ticket: string, CSRFPreventionToken: string, username: string } };
+            const body = JSON.parse(bodyTxt) as { data: { cap: any, ticket: string, CSRFPreventionToken: string, username: string } };
             const { CSRFPreventionToken, ticket } = body.data;
             this.CSRFPreventionToken = CSRFPreventionToken;
             this.ticket = ticket;
