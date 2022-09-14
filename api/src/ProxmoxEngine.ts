@@ -15,8 +15,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import { ApiRequestable } from "./proxy";
-import { fetch, Response } from 'undici';
+import { fetch, RequestInit, Response } from 'undici';
 import { URL } from "url";
+
+const USER_AGENT = 'proxmox-api (https://github.com/UrielCh/proxmox-api)'
 
 /**
  * Common Proxmox authentification properties
@@ -42,6 +44,10 @@ export interface ProxmoxEngineOptionsCommon {
      * timeout for proxmox request, default is 60 seconds
      */
     queryTimeout?: number;
+    /**
+     * print the request in curl or fetch format
+     */
+    debug?: 'curl' | 'fetch';
 }
 
 /**
@@ -71,6 +77,9 @@ export interface ProxmoxEngineOptionsToken extends ProxmoxEngineOptionsCommon {
  */
 export type ProxmoxEngineOptions = ProxmoxEngineOptionsToken | ProxmoxEngineOptionsPass;
 
+
+const baseHeader: { [key: string]: string } = { Accept: "*/*", 'User-Agent': USER_AGENT };
+
 /**
  * Default Proxmox doRequest provider, this Class will be used if you provide Proxmox authentification options to the Proxy generator
  */
@@ -84,6 +93,8 @@ export class ProxmoxEngine implements ApiRequestable {
     private readonly schema: 'http' | 'https';
     private authTimeout: number;
     private queryTimeout: number;
+    private debug?: 'curl' | 'fetch';
+
 
     constructor(options: ProxmoxEngineOptions) {
         //if ((options as ProxmoxEngineOptionsToken).tokenID) {
@@ -118,92 +129,108 @@ export class ProxmoxEngine implements ApiRequestable {
         this.schema = options.schema || 'https';
         this.authTimeout = options.authTimeout || 5000;
         this.queryTimeout = options.queryTimeout || 60000;
+        this.debug = options.debug;
     }
 
     /**
      * 
-     * @param httpMethod 
-     * @param path 
-     * @param pathTemplate 
-     * @param params 
-     * @param retries 
-     * @returns 
+     * @param method http method GET POST PUT of DELETE
+     * @param path http path
+     * @param pathTemplate http path without var replacements *
+     * @param params query params
+     * @param retries retries id
+     * @returns data from remote response
      */
-    public async doRequest(httpMethod: string, path: string, pathTemplate: string, params?: { [key: string]: any }, retries?: number): Promise<any> {
+    public async doRequest(method: string, path: string, pathTemplate: string, params?: { [key: string]: any }, retries = 0): Promise<any> {
         const { CSRFPreventionToken, ticket } = await this.getTicket();
         // ensure that method is uppercased
-        httpMethod = httpMethod.toUpperCase();
-        /**
-         * Remove null values once
-         */
+        method = method.toUpperCase();
+        // Remove null / undefined values once
         if (!retries && params)
             for (let k in params) {
                 if (params.hasOwnProperty(k) && (params[k] === null || params[k] === undefined)) {
                     delete params[k];
                 }
             }
-
-        let headers: { [key: string]: string } = {
-            //    'Content-Type': 'application/x-www-form-urlencoded',
-        };
-        // use token
+        const headers = { ...baseHeader };
+        // auth
         if (!this.username) {
-            // PVEAPIToken=USER@REALM!TOKENID=UUID  // ticket
-            headers.Authorization = ticket;
+            headers.Authorization = ticket; // PVEAPIToken=USER@REALM!TOKENID=UUID
         } else {
             headers.cookie = `PVEAuthCookie=${ticket}`;
             headers.CSRFPreventionToken = CSRFPreventionToken;
         }
-        /**
-         * Append parameters
-         */
+        // parameters
         let body: any | undefined = undefined;
         const requestUrl = new URL(`${this.schema}://${this.host}:${this.port}${path}`);
-        // const httpOptions: https.RequestOptions = {host: this.host, port: this.port, path: path, method: httpMethod, headers};
-        // let formBody: any = null;
         if (typeof (params) === 'object' && Object.keys(params).length > 0) {
+            let searchParams: URLSearchParams;
+            if (method === 'PUT' || method === 'POST') {
+                searchParams = new URLSearchParams()
+            } else {
+                searchParams = requestUrl.searchParams;
+            }
             for (const k of Object.keys(params)) {
                 const v = params[k];
                 if (v === true)
-                    params[k] = 1;
+                    searchParams.set(k, '1');
                 else if (v === false)
-                    params[k] = 0;
+                    searchParams.set(k, '0');
                 else
-                    params[k] = `${v}`;
+                    searchParams.set(k, `${v}`);
             }
-            if (httpMethod === 'PUT' || httpMethod === 'POST') {
-                // Escape unicode
-                //reqBody = JSON
-                //    .stringify(params)
-                //    .replace(/[\u0080-\uFFFF]/g, (m) => '\\u' + ('0000' + m.charCodeAt(0).toString(16)).slice(-4)); 
-                body = { form: params };
-            } else {
-                Object.entries(params).forEach(([k, v]) => requestUrl.searchParams.set(k, v))
+            if (method === 'PUT' || method === 'POST') {
+                body = searchParams.toString()
+                headers['Content-Type'] = 'application/x-www-form-urlencoded';
+                headers['Content-Length'] = body.length.toString();
             }
         }
-
         let res: Response | null = null;
+        const fetchInit: RequestInit = { method, body, headers };
+
         try {
             const controller = new AbortController();
             const id = setTimeout(() => controller.abort(), this.queryTimeout);
-            res = await fetch(requestUrl, {
-                method: httpMethod,
-                body: JSON.stringify(body),
-                signal: controller.signal,
-                headers
-            })
+            fetchInit.signal = controller.signal;
+            res = await fetch(requestUrl, fetchInit)
             clearTimeout(id);
         } catch (e) {
             // console.log(error.name === 'AbortError');
-            if (e instanceof Error) {
-                const err = e as any;
-                if (err.cause && err.cause.message) {
-                    const error = Error(`FaILED to call ${httpMethod} ${requestUrl} cause:${err.cause.message}`);
-                    (error as any).cause = e;
-                    throw error;
+            // debug as CURL
+            if (this.debug) {
+                if (this.debug === 'curl') {
+                    let auth = '';
+                    if (headers.cookie) {
+                        auth = `-H "CSRFPreventionToken: ${CSRFPreventionToken}" --cookie ${JSON.stringify(headers.cookie)}`;
+                    } else {
+                        auth = `-H "Authorization: ${ticket}" --cookie ${JSON.stringify(headers.cookie)}`;
+                    }
+                    let data = '';
+                    if (body)
+                        data = `--data ${JSON.stringify(body)}`;
+                    if (method === 'POST') {
+                        console.log(`curl -v --insecure  ${auth} ${data} ${requestUrl}`);
+                    } else if (method === 'GET') {
+                        console.log(`curl -v --insecure ${auth} ${requestUrl}`);
+                    } else {
+                        console.log(`curl -v -X ${method} ${auth} ${data} ${requestUrl}`);
+                    }
+                } else if (this.debug === 'fetch') {
+                    // debug as fetch
+                    console.log(`fetch("${requestUrl}", ${JSON.stringify(fetchInit)})`);
                 }
             }
-            const error = Error(`FaILED to call ${httpMethod} ${requestUrl}`);
+            retries++;
+            if (retries < 2) {
+                return this.doRequest(method, path, pathTemplate, params, retries);
+            }
+
+            // throw Error
+            let errMsg = `FaILED to call ${method} ${requestUrl}`;
+            const err = e as any;
+            if (err.cause && err.cause.message)
+                errMsg += ` cause by:${err.cause.message}`;
+            const error = Error(errMsg);
             (error as any).cause = e;
             throw error;
         }
@@ -223,31 +250,28 @@ export class ProxmoxEngine implements ApiRequestable {
                 // ignore reading error;
             }
         } else { // should never append
-            throw Error(`${httpMethod} ${requestUrl} unexpected contentType "${contentType}" status Line:${res.status} ${res.text}`);
+            throw Error(`${method} ${requestUrl} unexpected contentType "${contentType}" status Line:${res.status} ${res.text}`);
             // data.data = req.text();
         }
-
         switch (res.status) {
             case 400:
-                throw Error(`${httpMethod} ${requestUrl} return Error ${res.status} ${res.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${method} ${requestUrl} return Error ${res.status} ${res.statusText}: ${JSON.stringify(data)}`);
             case 500:
-                throw Error(`${httpMethod} ${requestUrl} return Error ${res.status} ${res.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${method} ${requestUrl} return Error ${res.status} ${res.statusText}: ${JSON.stringify(data)}`);
             case 401:
                 if (res.statusText === 'invalid PVE ticket' || res.statusText === 'permission denied - invalid PVE ticket') {
                     this.ticket = undefined;
                     if (!this.username)
                         retries = 10;
-                    if (!retries)
-                        retries = 0;
                     retries++;
                     if (retries < 2)
-                        return this.doRequest(httpMethod, path, pathTemplate, params, retries);
+                        return this.doRequest(method, path, pathTemplate, params, retries);
                 }
-                throw Error(`${httpMethod} ${requestUrl} return Error ${res.status} ${res.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${method} ${requestUrl} return Error ${res.status} ${res.statusText}: ${JSON.stringify(data)}`);
             case 200:
                 return data.data;
             default:
-                throw Error(`${httpMethod} ${requestUrl} connetion failed with ${res.status} ${res.statusText} return: ${JSON.stringify(data)}`);
+                throw Error(`${method} ${requestUrl} connetion failed with ${res.status} ${res.statusText} return: ${JSON.stringify(data)}`);
         }
     }
 
@@ -265,34 +289,24 @@ export class ProxmoxEngine implements ApiRequestable {
         const requestUrl = `${this.schema}://${this.host}:${this.port}/api2/json/access/ticket`;
         try {
             const { password, username } = this;
-            // const controller = new AbortController();
-            // const timeout = setTimeout(() => controller.abort(), this.authTimeout);
-            const postBody = new URLSearchParams({ username, password }).toString()
+            const body = new URLSearchParams({ username, password }).toString();
             const headers = {
+                ...baseHeader,
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Content-Length': String(postBody.length),
+                'Content-Length': body.length.toString(),
             }
-
             const controller = new AbortController();
             const id = setTimeout(() => controller.abort(), this.authTimeout);
-
-            const resp = await fetch(requestUrl, {
-                method: 'POST',
-                headers,
-                signal: controller.signal,
-                body: postBody, // JSON.stringify({ form: { username, password } })
-            },);
+            const method = 'POST';
+            const { signal } = controller;
+            const r = await fetch(requestUrl, { method, headers, signal, body });
             clearTimeout(id);
-
-
-            // const req = await reqApi.post(requestUrl, {form: { username, password }});
-            // clearTimeout(timeout);
-            const bodyTxt = await resp.text();
-            if (resp.status !== 200) {
-                throw Error(`login failed with ${resp.status}: ${resp.statusText} ${bodyTxt}`);
+            const text = await r.text();
+            if (r.status !== 200) {
+                throw Error(`login failed with ${r.status}: ${r.statusText} ${text}`);
             }
-            const body = JSON.parse(bodyTxt) as { data: { cap: any, ticket: string, CSRFPreventionToken: string, username: string } };
-            const { CSRFPreventionToken, ticket } = body.data;
+            const respObj = JSON.parse(text) as { data: { cap: any, ticket: string, CSRFPreventionToken: string, username: string } };
+            const { CSRFPreventionToken, ticket } = respObj.data;
             this.CSRFPreventionToken = CSRFPreventionToken;
             this.ticket = ticket;
             return { ticket, CSRFPreventionToken };
