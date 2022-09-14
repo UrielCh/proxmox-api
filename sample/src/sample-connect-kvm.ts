@@ -6,7 +6,7 @@ async function test() {
     // authorize self signed cert
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
     // load sample authentification info
-    const auth = await import('../../../auth');
+    const auth = await import('../../auth');
     const { host, password, tokenSecret } = auth.default;
     // connect to proxmox
     const proxmox = proxmoxApi({ host, password, tokenSecret });
@@ -20,10 +20,10 @@ async function test() {
     if (true) {
         // await qmMonitor.deviceDel('mouse');
         // await qmMonitor.deviceDel('keyboard');
-         await qmMonitor.deviceAddMissing('mouse', { name: /mouse/i });
-         await qmMonitor.deviceAddMissing('keyboard', { name: /KB/ });
-         await qmMonitor.deviceAddMissing('audio', { name: /USB Audio Device/ });
-         await qmMonitor.deviceAddMissing('AirMouse', { name: /2\.4G Air Mouse/ });
+        await qmMonitor.deviceAddMissing('mouse', { name: /mouse/i });
+        await qmMonitor.deviceAddMissing('keyboard', { name: /KB/ });
+        await qmMonitor.deviceAddMissing('audio', { name: /USB Audio Device/ });
+        await qmMonitor.deviceAddMissing('AirMouse', { name: /2\.4G Air Mouse/ });
     }
     // await Bluebird.delay(500);
     // console.log(await qmMonitor.info('memdev'));

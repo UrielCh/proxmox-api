@@ -15,8 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import { ApiRequestable } from "./proxy";
-import querystring from 'querystring';
-import reqApi, { TinyRequestBody, TinyResponse } from "@u4/tinyrequest";
+import querystring from 'querystring'; // TODO use URLSearchParams
+import { fetch, Response } from 'undici';
 import { URL } from "url";
 
 /**
@@ -158,10 +158,8 @@ export class ProxmoxEngine implements ApiRequestable {
         /**
          * Append parameters
          */
-
-        let body: TinyRequestBody | undefined = undefined;
-
-        let requestUrl = `${this.schema}://${this.host}:${this.port}`;
+        let body: any | undefined = undefined;
+        const requestUrl = new URL(`${this.schema}://${this.host}:${this.port}/path`);
         // const httpOptions: https.RequestOptions = {host: this.host, port: this.port, path: path, method: httpMethod, headers};
         // let formBody: any = null;
         if (typeof (params) === 'object' && Object.keys(params).length > 0) {
@@ -179,49 +177,42 @@ export class ProxmoxEngine implements ApiRequestable {
                 //    .replace(/[\u0080-\uFFFF]/g, (m) => '\\u' + ('0000' + m.charCodeAt(0).toString(16)).slice(-4)); 
                 body = { form: params };
             } else {
-                path += `?${querystring.stringify(params)}`
+                Object.entries(params).forEach(([k, v]) => requestUrl.searchParams.set(k, v))
             }
         }
 
-        requestUrl += path;
-
-        let res: TinyResponse | null = null;
+        let res: Response | null = null;
         try {
-            const theUrl = new URL(requestUrl);
-            res = await reqApi({
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), this.queryTimeout);
+            res = await fetch(requestUrl, {
                 method: httpMethod,
-                protocol: theUrl.protocol,
-                hostname: theUrl.hostname,
-                port: theUrl.port,
-                path: theUrl.pathname,
-                headers,
-                timeout: this.queryTimeout
-            }, body);
-            // const controller = new AbortController();
-            // const timeout = setTimeout(() => controller.abort(), this.queryTimeout);
-            // requestInit.signal = controller.signal;
-            // req = await fetch(requestUrl, requestInit);
-            // clearTimeout(timeout);
+                body: JSON.stringify(body),
+                signal: controller.signal,
+                headers
+            })
+            clearTimeout(id);
         } catch (e) {
+            // console.log(error.name === 'AbortError');
             console.error(`FaILED to call ${httpMethod} ${requestUrl}`, e)
             throw Error(`FaILED to call ${httpMethod} ${requestUrl}`);
         }
-        const contentType = res.headers['content-type'] as string;
+        const contentType = res.headers.get('content-type');
         let data: { data: any, errors?: any } = { data: null };
         if (contentType === 'application/json;charset=UTF-8') {
-            data = await res.json();
+            data = (await res.json()) as { data: any, errors?: any };
         } else if (!contentType) {
-            data.errors = res.text;// await req.text();
+            data.errors = await res.text();// await req.text();
         } else { // should never append
-            throw Error(`${httpMethod} ${requestUrl} unexpected contentType "${contentType}" status Line:${res.statusCode} ${res.text}`);
+            throw Error(`${httpMethod} ${requestUrl} unexpected contentType "${contentType}" status Line:${res.status} ${res.text}`);
             // data.data = req.text();
         }
 
-        switch (res.statusCode) {
+        switch (res.status) {
             case 400:
-                throw Error(`${httpMethod} ${requestUrl} return Error ${res.statusCode} ${res.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${requestUrl} return Error ${res.status} ${res.statusText}: ${JSON.stringify(data)}`);
             case 500:
-                throw Error(`${httpMethod} ${requestUrl} return Error ${res.statusCode} ${res.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${requestUrl} return Error ${res.status} ${res.statusText}: ${JSON.stringify(data)}`);
             case 401:
                 if (res.statusText === 'invalid PVE ticket' || res.statusText === 'permission denied - invalid PVE ticket') {
                     this.ticket = undefined;
@@ -233,11 +224,11 @@ export class ProxmoxEngine implements ApiRequestable {
                     if (retries < 2)
                         return this.doRequest(httpMethod, path, pathTemplate, params, retries);
                 }
-                throw Error(`${httpMethod} ${requestUrl} return Error ${res.statusCode} ${res.statusText}: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${requestUrl} return Error ${res.status} ${res.statusText}: ${JSON.stringify(data)}`);
             case 200:
                 return data.data;
             default:
-                throw Error(`${httpMethod} ${requestUrl} connetion failed with ${res.statusCode} ${res.statusText} return: ${JSON.stringify(data)}`);
+                throw Error(`${httpMethod} ${requestUrl} connetion failed with ${res.status} ${res.statusText} return: ${JSON.stringify(data)}`);
         }
     }
 
@@ -263,21 +254,24 @@ export class ProxmoxEngine implements ApiRequestable {
                 'Content-Length': String(postBody.length),
             }
 
-            const req = await reqApi({
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), this.authTimeout);
+
+            const req = await fetch(requestUrl, {
                 method: 'POST',
-                host: this.host,
-                protocol: `${this.schema}:`,
-                port: this.port,
-                path: '/api2/json/access/ticket',
                 headers,
-                timeout: this.authTimeout,
-            }, { form: { username, password } });
+                signal: controller.signal,
+                body: JSON.stringify({ form: { username, password } })
+            },);
+            clearTimeout(id);
+
+
             // const req = await reqApi.post(requestUrl, {form: { username, password }});
             // clearTimeout(timeout);
-            if (req.statusCode !== 200) {
-                throw Error(`login failed with ${req.statusCode}: ${req.statusText}`);
+            if (req.status !== 200) {
+                throw Error(`login failed with ${req.status}: ${req.statusText}`);
             }
-            const body = await req.json<{ data: { cap: any, ticket: string, CSRFPreventionToken: string, username: string } }>();
+            const body = await req.json() as { data: { cap: any, ticket: string, CSRFPreventionToken: string, username: string } };
             const { CSRFPreventionToken, ticket } = body.data;
             this.CSRFPreventionToken = CSRFPreventionToken;
             this.ticket = ticket;

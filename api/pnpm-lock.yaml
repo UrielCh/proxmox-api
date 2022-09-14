@@ -8,9 +8,11 @@ specifiers:
   typedoc: ^0.23.10
   typedoc-plugin-rename-defaults: ^0.6.4
   typescript: ^4.7.4
+  undici: ^5.10.0
 
 dependencies:
   '@u4/tinyrequest': 0.1.3
+  undici: 5.10.0
 
 devDependencies:
   '@types/node': 18.7.5
@@ -255,6 +257,11 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
+
+  /undici/5.10.0:
+    resolution: {integrity: sha512-c8HsD3IbwmjjbLvoZuRI26TZic+TSEe8FPMLLOkN1AfYRhdjnKBU6yL+IwcSCbdZiX4e5t0lfMDLDCqj4Sq70g==}
+    engines: {node: '>=12.18'}
+    dev: false
 
   /v8-compile-cache-lib/3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
