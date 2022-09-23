@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.4.2
+* add application/octet-stream support
+
 ## v0.4.1
 * rewrite undici fetch integration.
 * add debug parameter.
