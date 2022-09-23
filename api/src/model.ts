@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import { ReadableStream } from "stream/web";
+
 export namespace Proxmox {
     /**
      * CIDR of the (sub) network that is used for migration.
@@ -9921,7 +9923,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"description":"You need read access for the volume.","user":"all"}
                                  */
-                                $get(param: { filepath: string, volume: string }): Promise<any>;
+                                $get(param: { filepath: string, volume: string }): Promise<ReadableStream>;
                             },
                         },
                         status: {

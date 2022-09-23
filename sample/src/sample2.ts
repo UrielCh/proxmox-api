@@ -32,7 +32,6 @@ async function test() {
         // GET /nodes/{node}/qemu/{vmid}/status/current
         const vmExtra = await theNode.qemu.$(base.vmid).status.current.$get();
         if (!vmExtra.template) {
-            ``
             // convert to template
             await theNode.qemu.$(base.vmid).template.$post();
         }

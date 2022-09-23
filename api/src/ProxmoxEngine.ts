@@ -242,6 +242,8 @@ export class ProxmoxEngine implements ApiRequestable {
             } catch (e) {
                 data.errors = 'Failed to parse response json';
             }
+        } else if (contentType === "application/octet-stream") {
+            data.data = res.body;
         } else if (!contentType) {
             data.errors = '';
             try {

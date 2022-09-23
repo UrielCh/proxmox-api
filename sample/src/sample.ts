@@ -17,14 +17,6 @@ async function test() {
     // iterate cluster nodes
     for (const node of nodes) {
         const theNode = promox.nodes.$(node.node);
-        const storages = await theNode.storage.$get();
-        // console.log(storages);
-        for (const storage of storages) {
-            console.log('storage:', storage);
-            // await theNode.storage.$(storage.storage)["file-restore"].download.$get()
-            // console.log(nodesStorageDiridx);
-        }
-
         // list Qemu VMS
         const qemus = await theNode.qemu.$get({ full: true });
         // iterate Qemu VMS
