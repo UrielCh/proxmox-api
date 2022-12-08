@@ -44,7 +44,7 @@
     "build": "tsc --pretty --project . && tsc --pretty --project tsconfig-cjs.json",
     "prepare": "npm run clean && npm run build"
   },
-  "author": "Uriel Chemouni <uchemouni@gmail.com> (https://urielch.github.io/)",
+  "author": "Uriel Chemouni <uchemouni@gmail.com> (https://uriel.deno.dev/)",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/UrielCh/proxmox-api/issues"
