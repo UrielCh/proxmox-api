@@ -1,13 +1,13 @@
 import { proxmoxApi, Proxmox } from "proxmox-api";
+import { getAuth } from "./common";
 
 async function test() {
     // authorize self signed cert
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
     // load sample authentification info
-    const auth = await import('../../auth');
-    const { host, password } = auth.default;
+    const auth = await getAuth();
     // connect to proxmox
-    const promox = proxmoxApi({ host, password });
+    const promox = proxmoxApi(auth);
     // liste nodes
     const nodes = await promox.nodes.$get();
     // iterate cluster nodes

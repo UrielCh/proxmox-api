@@ -13,18 +13,18 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-export { proxmoxApi as default } from './constructor';
-export { proxmoxApi } from './constructor';
-export { Proxmox } from './model';
-export { USBHostInfo, USBInfo, QmMonitor } from './QmMonitor'
-export { ApiRequestable } from './proxy';
+export { proxmoxApi as default } from './constructor.js';
+export { proxmoxApi } from './constructor.js';
+export { type Proxmox } from './model.js';
+export { type USBHostInfo, type USBInfo, QmMonitor } from './QmMonitor.js'
+export { type ApiRequestable } from './proxy.js';
 export {
     ProxmoxEngine,
-    ProxmoxEngineOptions,
-    ProxmoxEngineOptionsCommon,
-    ProxmoxEngineOptionsPass,
-    ProxmoxEngineOptionsToken
-} from './ProxmoxEngine';
+    type ProxmoxEngineOptions,
+    type ProxmoxEngineOptionsCommon,
+    type ProxmoxEngineOptionsPass,
+    type ProxmoxEngineOptionsToken
+} from './ProxmoxEngine.js';
 
 // for stress test
 // export { buildApiProxy } from './proxy';

@@ -1,4 +1,5 @@
 import proxmoxApi from "proxmox-api";
+import { getAuth } from "./common.js";
 
 // authorize self signed cert
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -7,9 +8,7 @@ const delay = (t: number) => new Promise(r => setTimeout(r, t));
 
 async function test() {
     // load sample authentification info
-    const auth = (await import('../../auth'));
-    // const { host, password }
-    const opt = auth.default;
+    const opt = await getAuth();
     // connect to proxmox
     const promox = proxmoxApi(opt);
     // liste nodes

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import { Proxmox } from './model';
+import { Proxmox } from './model.js';
 
 // 'mem', // ERROR: VM XXX qmp command 'human-monitor-command' failed - got timeout
 // 'tlb', // ERROR: VM XXX qmp command 'human-monitor-command' failed - got timeout
@@ -76,7 +76,7 @@ export class QmMonitor {
     public get node(): string {
         return this._node;
     }
-    
+
     info(type: QemuInfoSimple): Promise<string>;
     info(type: QemuInfoOption, ...args: string[]): Promise<string>;
     info(type: QemuInfoParam, arg1: string, ...args: string[]): Promise<string>;
@@ -172,7 +172,7 @@ export class QmMonitor {
     async deviceAddMissing(id: string, filters: { vendorId?: RegExp, productId?: RegExp, name?: RegExp }): Promise<any> {
         let connected = await this.infoUsb();
         if (connected.findIndex(v => v.id === id) >= 0) {
-          throw Error(`USB device ${id} already present`);
+            throw Error(`USB device ${id} already present`);
         }
         {
             let usbs = await this.infoUsbhost(filters);

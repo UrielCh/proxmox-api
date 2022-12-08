@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import { ApiRequestable } from "./proxy";
+import { type ApiRequestable } from "./proxy.js";
 import { fetch, RequestInit, Response } from 'undici';
 import { URL } from "url";
 

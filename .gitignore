@@ -2,3 +2,4 @@
 **/*.js
 api/dist/
 auth.ts
+api/pnpm-lock.yaml

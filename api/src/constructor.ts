@@ -13,10 +13,10 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import { Proxmox } from "./model";
-import ProxmoxEngine from "./ProxmoxEngine";
-import { ApiRequestable, buildApiProxy } from "./proxy";
-import { ProxmoxEngineOptions } from './ProxmoxEngine';
+import { type Proxmox } from "./model.js";
+import ProxmoxEngine from "./ProxmoxEngine.js";
+import { ApiRequestable, buildApiProxy } from "./proxy.js";
+import { ProxmoxEngineOptions } from './ProxmoxEngine.js';
 
 function isProxmoxEngine(val: ProxmoxEngineOptions | ApiRequestable): val is ApiRequestable {
     return 'doRequest' in val;
