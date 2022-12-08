@@ -1,7 +1,7 @@
 {
   "name": "proxmox-api",
   "version": "1.0.0",
-  "description": "cutting edge javascript / Typescript Proxmox API",
+  "description": "Cutting edge javascript / Typescript / ESM / CJS Proxmox API",
   "type": "module",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -49,5 +49,6 @@
   "bugs": {
     "url": "https://github.com/UrielCh/proxmox-api/issues"
   },
-  "homepage": "https://urielch.github.io/proxmox-api/"
+  "homepage": "https://urielch.github.io/proxmox-api/",
+  "files": ["dist", "src"]
 }
