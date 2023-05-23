@@ -89,7 +89,7 @@ export class ProxmoxEngine implements ApiRequestable {
     private readonly username: string;
     private readonly password: string;
     private host: string;
-    private port: number;
+    private port?: number;
     private readonly schema: 'http' | 'https';
     private authTimeout: number;
     private queryTimeout: number;
