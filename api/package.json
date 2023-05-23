@@ -1,6 +1,6 @@
 {
   "name": "proxmox-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cutting edge javascript / Typescript / ESM / CJS Proxmox API",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
