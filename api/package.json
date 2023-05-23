@@ -1,11 +1,19 @@
 {
   "name": "proxmox-api",
-  "version": "0.4.2",
-  "description": "cutting edge javascript / Typescript Proxmox API",
-  "main": "dist/index.js",
-  "license": "GPL-3.0",
+  "version": "1.0.0",
+  "description": "Cutting edge javascript / Typescript / ESM / CJS Proxmox API",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "typings": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
+      "types": "./dist/esm/index.d.ts"
+    }
+  },
   "funding": "https://github.com/sponsors/urielch",
-  "typings": "dist/index.d.ts",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UrielCh/proxmox-api.git"
@@ -20,26 +28,27 @@
     "promise"
   ],
   "dependencies": {
-    "undici": "^5.10.0"
+    "undici": "^5.13.0"
   },
   "devDependencies": {
-    "@types/node": "^18.7.18",
+    "@types/node": "^18.11.11",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
-    "typedoc": "^0.23.15",
+    "typedoc": "^0.23.21",
     "typedoc-plugin-rename-defaults": "^0.6.4",
-    "typescript": "^4.8.3"
+    "typescript": "^4.9.4"
   },
   "scripts": {
     "clean": "rimraf dist",
     "prepack": "npm run build",
     "docs": "typedoc --entryPointStrategy expand",
-    "build": "tsc -p .",
+    "build": "tsc --pretty --project . && tsc --pretty --project tsconfig-cjs.json",
     "prepare": "npm run clean && npm run build"
   },
-  "author": "Uriel Chemouni <uchemouni@gmail.com> (https://urielch.github.io/)",
+  "author": "Uriel Chemouni <uchemouni@gmail.com> (https://uriel.deno.dev/)",
   "bugs": {
     "url": "https://github.com/UrielCh/proxmox-api/issues"
   },
-  "homepage": "https://urielch.github.io/proxmox-api/"
+  "homepage": "https://urielch.github.io/proxmox-api/",
+  "files": ["dist", "src"]
 }

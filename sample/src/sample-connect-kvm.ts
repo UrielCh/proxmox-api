@@ -1,4 +1,5 @@
 import { proxmoxApi, QmMonitor } from "proxmox-api";
+import { getAuth } from "./common.js";
 
 let vmid = 2000;
 
@@ -6,10 +7,9 @@ async function test() {
     // authorize self signed cert
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
     // load sample authentification info
-    const auth = await import('../../auth');
-    const { host, password, tokenSecret } = auth.default;
+    const auth = await getAuth();
     // connect to proxmox
-    const proxmox = proxmoxApi({ host, password, tokenSecret });
+    const proxmox = proxmoxApi(auth);
     // liste nodes
     const nodes = await proxmox.nodes.$get();
     // iterate cluster nodes

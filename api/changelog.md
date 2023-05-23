@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.0
+* Dual stack package, ESM + CJS
+* Should work with deno
+
 ## v0.4.2
 * add application/octet-stream support
 
