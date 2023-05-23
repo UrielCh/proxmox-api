@@ -2,7 +2,6 @@
   "name": "proxmox-api",
   "version": "1.0.0",
   "description": "Cutting edge javascript / Typescript / ESM / CJS Proxmox API",
-  "type": "module",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "typings": "./dist/esm/index.d.ts",
@@ -13,6 +12,8 @@
       "types": "./dist/esm/index.d.ts"
     }
   },
+  "funding": "https://github.com/sponsors/urielch",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UrielCh/proxmox-api.git"
@@ -45,7 +46,6 @@
     "prepare": "npm run clean && npm run build"
   },
   "author": "Uriel Chemouni <uchemouni@gmail.com> (https://uriel.deno.dev/)",
-  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/UrielCh/proxmox-api/issues"
   },
