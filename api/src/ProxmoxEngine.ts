@@ -162,7 +162,17 @@ export class ProxmoxEngine implements ApiRequestable {
         }
         // parameters
         let body: any | undefined = undefined;
-        const requestUrl = new URL(`${this.schema}://${this.host}:${this.port}${path}`);
+
+        // proxmox base url
+        let requestUrl: URL;
+
+        if(this.port) {
+         requestUrl = new URL(`${this.schema}://${this.host}:${this.port}${path}`);
+        } else {
+         requestUrl = new URL(`${this.schema}://${this.host}${path}`);
+        }
+
+
         if (typeof (params) === 'object' && Object.keys(params).length > 0) {
             let searchParams: URLSearchParams;
             if (method === 'PUT' || method === 'POST') {
