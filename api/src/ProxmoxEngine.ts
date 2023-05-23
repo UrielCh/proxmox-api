@@ -125,7 +125,7 @@ export class ProxmoxEngine implements ApiRequestable {
             }
         }
         this.host = options.host;
-        this.port = options.port || 8006;
+        this.port = options.port;
         this.schema = options.schema || 'https';
         this.authTimeout = options.authTimeout || 5000;
         this.queryTimeout = options.queryTimeout || 60000;
