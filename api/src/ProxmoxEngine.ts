@@ -298,7 +298,16 @@ export class ProxmoxEngine implements ApiRequestable {
             if (this.CSRFPreventionToken)
                 return { ticket: this.ticket, CSRFPreventionToken: this.CSRFPreventionToken };
         }
-        const requestUrl = `${this.schema}://${this.host}:${this.port}/api2/json/access/ticket`;
+
+        // update ticket endpoint
+        let requestUrl: string;
+
+        if(this.port) {
+            requestUrl = `${this.schema}://${this.host}:${this.port}/api2/json/access/ticket`;
+        } else {
+            requestUrl = `${this.schema}://${this.host}/api2/json/access/ticket`;
+        }
+
         try {
             const { password, username } = this;
             const body = new URLSearchParams({ username, password }).toString();
