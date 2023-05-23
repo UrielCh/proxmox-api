@@ -3,6 +3,8 @@
   "version": "0.4.2",
   "description": "cutting edge javascript / Typescript Proxmox API",
   "main": "dist/index.js",
+  "license": "GPL-3.0",
+  "funding": "https://github.com/sponsors/urielch",
   "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
@@ -36,7 +38,6 @@
     "prepare": "npm run clean && npm run build"
   },
   "author": "Uriel Chemouni <uchemouni@gmail.com> (https://urielch.github.io/)",
-  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/UrielCh/proxmox-api/issues"
   },
