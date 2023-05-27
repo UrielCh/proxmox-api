@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.2
+* Merge PR 20
+
+## v1.0.1
+* improve codebase adding CODE_OF_CONDUCT.md, CONTRIBUTING.md
+* add funding
+* fix common-js usage for the project
+
 ## v1.0.0
 * Dual stack package, ESM + CJS
 * Should work with deno
