@@ -89,7 +89,7 @@ export class ProxmoxEngine implements ApiRequestable {
     private readonly username: string;
     private readonly password: string;
     private host: string;
-    private port: number;
+    private port?: number;
     private readonly schema: 'http' | 'https';
     private authTimeout: number;
     private queryTimeout: number;
@@ -125,7 +125,7 @@ export class ProxmoxEngine implements ApiRequestable {
             }
         }
         this.host = options.host;
-        this.port = options.port || 8006;
+        this.port = options.port;
         this.schema = options.schema || 'https';
         this.authTimeout = options.authTimeout || 5000;
         this.queryTimeout = options.queryTimeout || 60000;
@@ -162,7 +162,17 @@ export class ProxmoxEngine implements ApiRequestable {
         }
         // parameters
         let body: any | undefined = undefined;
-        const requestUrl = new URL(`${this.schema}://${this.host}:${this.port}${path}`);
+
+        // proxmox base url
+        let requestUrl: URL;
+
+        if(this.port) {
+         requestUrl = new URL(`${this.schema}://${this.host}:${this.port}${path}`);
+        } else {
+         requestUrl = new URL(`${this.schema}://${this.host}${path}`);
+        }
+
+
         if (typeof (params) === 'object' && Object.keys(params).length > 0) {
             let searchParams: URLSearchParams;
             if (method === 'PUT' || method === 'POST') {
@@ -288,7 +298,16 @@ export class ProxmoxEngine implements ApiRequestable {
             if (this.CSRFPreventionToken)
                 return { ticket: this.ticket, CSRFPreventionToken: this.CSRFPreventionToken };
         }
-        const requestUrl = `${this.schema}://${this.host}:${this.port}/api2/json/access/ticket`;
+
+        // update ticket endpoint
+        let requestUrl: string;
+
+        if(this.port) {
+            requestUrl = `${this.schema}://${this.host}:${this.port}/api2/json/access/ticket`;
+        } else {
+            requestUrl = `${this.schema}://${this.host}/api2/json/access/ticket`;
+        }
+
         try {
             const { password, username } = this;
             const body = new URLSearchParams({ username, password }).toString();
