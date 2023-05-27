@@ -26,6 +26,7 @@ const USER_AGENT = 'proxmox-api (https://github.com/UrielCh/proxmox-api)'
 export interface ProxmoxEngineOptionsCommon {
     /**
      * Proxmox address
+     * currently used as hostname, so it can not contains a port number.
      */
     host: string;
     /**
@@ -88,13 +89,12 @@ export class ProxmoxEngine implements ApiRequestable {
     public ticket?: string;
     private readonly username: string;
     private readonly password: string;
-    private host: string;
+    private hostname: string; // was named host
     private port?: number;
     private readonly schema: 'http' | 'https';
     private authTimeout: number;
     private queryTimeout: number;
     private debug?: 'curl' | 'fetch';
-
 
     constructor(options: ProxmoxEngineOptions) {
         //if ((options as ProxmoxEngineOptionsToken).tokenID) {
@@ -124,12 +124,18 @@ export class ProxmoxEngine implements ApiRequestable {
                 throw Error(msg)
             }
         }
-        this.host = options.host;
+        this.hostname = options.host;
         this.port = options.port;
         this.schema = options.schema || 'https';
         this.authTimeout = options.authTimeout || 5000;
         this.queryTimeout = options.queryTimeout || 60000;
         this.debug = options.debug;
+    }
+
+    get host(): string {
+        if (!this.port)
+            return this.hostname;
+        return `${this.hostname}:${this.port}`;
     }
 
     /**
@@ -163,15 +169,8 @@ export class ProxmoxEngine implements ApiRequestable {
         // parameters
         let body: any | undefined = undefined;
 
-        // proxmox base url
-        let requestUrl: URL;
-
-        if(this.port) {
-         requestUrl = new URL(`${this.schema}://${this.host}:${this.port}${path}`);
-        } else {
-         requestUrl = new URL(`${this.schema}://${this.host}${path}`);
-        }
-
+        // proxmox base url        
+        const requestUrl = new URL(`${this.schema}://${this.host}${path}`);
 
         if (typeof (params) === 'object' && Object.keys(params).length > 0) {
             let searchParams: URLSearchParams;
@@ -300,13 +299,7 @@ export class ProxmoxEngine implements ApiRequestable {
         }
 
         // update ticket endpoint
-        let requestUrl: string;
-
-        if(this.port) {
-            requestUrl = `${this.schema}://${this.host}:${this.port}/api2/json/access/ticket`;
-        } else {
-            requestUrl = `${this.schema}://${this.host}/api2/json/access/ticket`;
-        }
+        const requestUrl = `${this.schema}://${this.host}/api2/json/access/ticket`;
 
         try {
             const { password, username } = this;
