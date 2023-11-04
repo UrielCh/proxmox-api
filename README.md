@@ -72,7 +72,7 @@ async function test() {
 test().catch(console.error);
 ```
 
-### Initialisation alternavives:
+### Initialisation alternatives:
 
 - keeping access to ProxmoxEngine object (that can be use to share a ticket, or to access it)
 
