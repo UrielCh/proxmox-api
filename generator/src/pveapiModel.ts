@@ -17,7 +17,7 @@ export interface PveFormatNumber extends PveCommon {
 export interface PveFormatBoolean extends PveCommon {
     type: 'boolean';
     default_key?: 1;
-    default?: 0;
+    default?: '0' | 0 | '1' | 1;
 }
 
 export interface PveFormatString extends PveCommon {
@@ -114,6 +114,7 @@ export interface PveParametersObject extends PveParametersCommon {
     type: "object";
     // @since PVE 7
     title?: string;
+    renderer?: "yaml",
     properties?: { [name: string]: PveParametersString | PveParametersArray | PveParametersBoolean | PveParametersObject | PveParametersInteger | PveParametersNumber};
 }
 
