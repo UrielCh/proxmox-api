@@ -1,5 +1,6 @@
 // import pveapi from './pveapi6';
-import pveapi from './pveapi7';
+// import pveapi from './pveapi7';
+import pveapi from './pveapi8';
 import { pveApiNode, PveCallParameters, PveCallDesc, PveParametersArray, PveParametersObject, PveHttpMtd, PveParametersUndef } from './pveapiModel';
 import fs from 'fs';
 import path from 'path';
@@ -192,7 +193,8 @@ export class Generator {
                 }
             } else {
                 if (typeof (pveType.maximum) === 'undefined') {
-                    newTypePrefix = `integer_Min${pveType.minimum}`;
+                    // replace minus signe by a __
+                    newTypePrefix = `integer_Min${pveType.minimum}`.replace('-', '__');
                 } else {
                     newTypePrefix = `integer${pveType.minimum}_${pveType.maximum}`;
                 }
