@@ -3,14 +3,17 @@ export type PveHttpMtd = "DELETE" | 'GET' | 'PUT' | 'POST';
 export interface PveCommon {
     description?: string;
     verbose_description?: string;
-    optional?: 0 | 1;
+    optional?: 0 | 1 | '1'; // add '1' since Proxmox 8
 }
 
 export interface PveFormatNumber extends PveCommon {
     type: 'integer' | 'number';
-    default?: 1024 | 1000 | 5 | 1 | 0,
+    default?: 0 | 1 | 5 | 100 | 512 | 1024 | 1000 | 1000000,
+    default_key?: 1,
     maximum?: number,
-    minimum?: number,
+    minimum?: number | '0',
+    max?: number, // duplicate with minimum since Proxmox 8
+    min?: number, // duplicate with minimum since Proxmox 8
     format_description?: string;
 }
 
@@ -29,6 +32,7 @@ export interface PveFormatString extends PveCommon {
     format?: string;
     enum?: string[];
     pattern?: string;
+    typetext?: string; // Since Proxmox 8
 }
 
 export interface PveFormatAlias extends PveCommon {
@@ -45,7 +49,7 @@ export interface PveParametersCommon extends PveCommon {
 export interface PveParametersNumber extends PveParametersCommon {
     type: "number";
     // format?: string;
-    minimum?: number,
+    minimum?: number | '0',// add '0' since Proxmox 8
     maximum?: number,
     default?: string | number;
     typetext?: string;
@@ -58,7 +62,7 @@ export interface PveParametersNumber extends PveParametersCommon {
 export interface PveParametersInteger extends PveParametersCommon {
     type: "integer";
     format?: string;
-    minimum?: number,
+    minimum?: number | '0' | '1', // add '0' | '1' since Proxmox 8
     maximum?: number,
     default?: string | number; // value or text like same as
     typetext?: string;
@@ -69,6 +73,13 @@ export interface PveParametersInteger extends PveParametersCommon {
     requires?: string; // "delete" | "todisk" | "archive" | "db_dev" | "wal_dev";
 }
 
+/**
+ * @since Proxmox 8
+ */
+export interface PveParametersEnum extends PveParametersCommon {
+    type: 'enum';
+    enum: string[];
+}
 
 export interface PveParametersString extends PveParametersCommon {
     type: 'string';
@@ -88,7 +99,7 @@ export interface PveParametersString extends PveParametersCommon {
 
 export interface PveParametersBoolean extends PveParametersCommon {
     type: 'boolean';
-    default?: number | '1' | '0' | "yes" | 'off';
+    default?: number | '1' | '0' | "yes" | 'off' | "0; for erasure coded pools: 1";
     // @since PVE 7
     title?: string;
     // reference to an other key of the current object
@@ -105,9 +116,10 @@ export interface PveParametersArray extends PveParametersCommon {
     // @since PVE 7
     title?: string;
     // if not set use a PveParametersString
-    items?: PveParametersObject | PveParametersString | PveParametersArray | PveParametersNumber | PveParametersInteger, // subset of PveCallParameters,
+    items?: PveParametersBaseSet, // subset of PveCallParameters,
     links?: { href: string, rel: "child" }[];
     renderer?: 'yaml';
+    typetext?: "<array>";// @since Proxmox 8
 }
 
 export interface PveParametersObject extends PveParametersCommon {
@@ -115,12 +127,13 @@ export interface PveParametersObject extends PveParametersCommon {
     // @since PVE 7
     title?: string;
     renderer?: "yaml",
-    properties?: { [name: string]: PveParametersString | PveParametersArray | PveParametersBoolean | PveParametersObject | PveParametersInteger | PveParametersNumber};
+    properties?: { [name: string]: PveParametersBaseSet | PveParametersBoolean | PveParametersEnum};
+    items?: PveParametersObject; // only used in Proxmox 8, looks to be an error
 }
 
 export interface PveParametersUndef extends PveParametersCommon {
     type?: never;
-    properties?: { [name: string]: PveParametersString | PveParametersArray | PveParametersBoolean | PveParametersObject | PveParametersInteger | PveParametersNumber};
+    properties?: { [name: string]: PveParametersBaseSet | PveParametersBoolean};
 }
 
 // @since PVE 7
@@ -128,9 +141,10 @@ export interface PveParametersAny extends PveParametersCommon {
     type: "any";
 }
 
-export type PveCallParameters = PveParametersNumber | PveParametersInteger | PveParametersString | 
-    PveParametersBoolean | PveCallParametersNull | PveParametersArray | 
-    PveParametersObject | PveParametersUndef | PveParametersAny;
+export type PveParametersBaseSet = PveParametersString | PveParametersArray | PveParametersObject | PveParametersInteger | PveParametersNumber;
+
+export type PveCallParameters = PveParametersBaseSet | PveParametersBoolean | 
+  PveCallParametersNull | PveParametersUndef | PveParametersAny;
 
 export type PceCheck = 1 | string | PceCheck[];
 

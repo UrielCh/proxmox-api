@@ -56,7 +56,7 @@ export class Generator {
 
     getFinalData(): string {
         const licence = `// Proxmox-API Interactive proxmox API for developpers how do not like reading docs
-// Copyright (C) 2020-2022  Chemouni Uriel <uchemouni@gmail.com>
+// Copyright (C) 2020-2024  Chemouni Uriel <uchemouni@gmail.com>
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
