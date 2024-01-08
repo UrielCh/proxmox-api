@@ -3,3 +3,4 @@
 api/dist/
 auth.ts
 api/pnpm-lock.yaml
+api/esm/*.d.ts

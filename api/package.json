@@ -1,23 +1,7 @@
 {
   "name": "proxmox-api",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Cutting edge javascript / Typescript / ESM / CJS Proxmox API",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "typings": "./dist/esm/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.js",
-      "types": "./dist/esm/index.d.ts"
-    }
-  },
-  "funding": "https://github.com/sponsors/urielch",
-  "license": "GPL-3.0",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/UrielCh/proxmox-api.git"
-  },
   "keywords": [
     "proxmox",
     "client",
@@ -27,28 +11,48 @@
     "async",
     "promise"
   ],
-  "dependencies": {
-    "undici": "^5.22.1"
+  "author": "Uriel Chemouni <uchemouni@gmail.com> (https://uriel.ovh/)",
+  "homepage": "https://urielch.github.io/proxmox-api/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UrielCh/proxmox-api.git"
   },
-  "devDependencies": {
-    "@types/node": "^20.2.5",
-    "rimraf": "^3.0.2",
-    "ts-node": "^10.9.1",
-    "typedoc": "^0.24.7",
-    "typedoc-plugin-rename-defaults": "^0.6.5",
-    "typescript": "^5.0.4"
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/UrielCh/proxmox-api/issues"
+  },
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "typings": "./esm/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./cjs/index.js",
+      "import": "./esm/index.js",
+      "types": "./esm/index.d.ts"
+    }
   },
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rimraf esm/*.js esm/*.ts cjs/*.js",
     "prepack": "npm run build",
     "docs": "typedoc --entryPointStrategy expand",
     "build": "tsc --pretty --project . && tsc --pretty --project tsconfig-cjs.json",
     "prepare": "npm run clean && npm run build"
   },
-  "author": "Uriel Chemouni <uchemouni@gmail.com> (https://uriel.deno.dev/)",
-  "bugs": {
-    "url": "https://github.com/UrielCh/proxmox-api/issues"
+  "funding": "https://github.com/sponsors/urielch",
+  "contributors": [],
+  "engine-strict": {
+    "node": ">=18"
   },
-  "homepage": "https://urielch.github.io/proxmox-api/",
-  "files": ["dist", "src"]
+  "dependencies": {
+    "undici": "^5.28.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.7",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.9.2",
+    "typedoc": "^0.24.7",
+    "typedoc-plugin-rename-defaults": "^0.6.5",
+    "typescript": "^5.3.3"
+  },
+  "files": ["esm", "cjs", "src"]
 }
