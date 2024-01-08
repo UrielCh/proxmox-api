@@ -2541,7 +2541,7 @@ export namespace Proxmox {
                 /**
                  * Useful properties are listed, but not the full list.
                  */
-                $(id: string): { // TODO
+                $(id: string): {
                         /**
                          * Bind addresses and ports.
                          */
@@ -2583,7 +2583,7 @@ export namespace Proxmox {
                 /**
                  * Useful properties are listed, but not the full list.
                  */
-                $(id: string): { // {id} TODO
+                $(id: string): {
                         /**
                          * Bind address
                          */
@@ -2625,7 +2625,7 @@ export namespace Proxmox {
                 /**
                  * Useful properties are listed, but not the full list.
                  */
-                $(id: string): { // {id}: {
+                $(id: string): {
                         /**
                          * Bind addresses and ports.
                          */
@@ -2664,7 +2664,7 @@ export namespace Proxmox {
          * Ceph version installed on the nodes.
          */
         node: {
-                _(node: string): { // {node}
+                $(node: string): {
                         /**
                          * GIT commit used for the build.
                          */
@@ -11889,7 +11889,7 @@ export namespace Proxmox {
                          * @permissions {"check":["perm","/",["Sys.Modify"]],"description":"Requires additionally 'Datastore.Allocate' on /storage when setting 'add_storage'"}
                          */
                         $post(param: { add_storage?: boolean, device: string, name: pvestorageid }): Promise<string>;
-                        $(name: string): { 
+                        $(name: string): {
                             /**
                              * Remove an LVM Volume Group.
                              * DELETE /nodes/\{node\}/disks/lvm/\{name\}

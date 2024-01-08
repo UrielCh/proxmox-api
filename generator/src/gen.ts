@@ -289,7 +289,6 @@ export class Generator {
                 let allOptional = '?';
                 if (properties) {
                     for (const propName of Object.keys(properties)) {
-
                         if (pathVariables.has(propName))
                             continue;
 
@@ -344,6 +343,7 @@ export class Generator {
             const prop = info.properties[pname];
             let line = [] as string[];
             for (const propName of unNify(pname)) {
+                // propName can be {id}
                 const comments = [];
                 if (prop.verbose_description) {
                     for (let entry of prop.verbose_description.split(/[\r\n]+/g)) {
@@ -383,7 +383,10 @@ export class Generator {
                     default:
                         fullType = 'any';
                 }
-                line.push(`${lineOffset}${propName}${opt}: ${fullType};`);
+                let propName2 = propName;
+                if (propName.startsWith('{'))
+                    propName2 = `$(${propName2.replace(/[{}]+/g, '')}: string)`;
+                line.push(`${lineOffset}${propName2}${opt}: ${fullType};`);
             }
             lines.push(line.join(EOL));
         }
