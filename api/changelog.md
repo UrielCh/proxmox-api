@@ -3,6 +3,7 @@
 ## v1.1.0
 * update ESM compatibility
 * add support for Proxmox 8
+* update deps
 
 ## v1.0.2
 * Merge PR 20

@@ -47,11 +47,11 @@
     "undici": "^5.28.2"
   },
   "devDependencies": {
-    "@types/node": "^20.10.7",
+    "@types/node": "^20.11.2",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.2",
-    "typedoc": "^0.24.7",
-    "typedoc-plugin-rename-defaults": "^0.6.5",
+    "typedoc": "^0.25.7",
+    "typedoc-plugin-rename-defaults": "^0.7.0",
     "typescript": "^5.3.3"
   },
   "files": ["esm", "cjs", "src"]
