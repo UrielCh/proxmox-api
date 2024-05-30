@@ -30,7 +30,7 @@ export interface ProxmoxEngineOptionsCommon {
      */
     host: string;
     /**
-     * Proxmox connexion port, default is 8006
+     * Proxmox connection port, default is 8006
      */
     port?: number;
     /**
@@ -282,7 +282,7 @@ export class ProxmoxEngine implements ApiRequestable {
             case 200:
                 return data.data;
             default:
-                throw Error(`${method} ${requestUrl} connetion failed with ${res.status} ${res.statusText} return: ${JSON.stringify(data)}`);
+                throw Error(`${method} ${requestUrl} connection failed with ${res.status} ${res.statusText} return: ${JSON.stringify(data)}`);
         }
     }
 
