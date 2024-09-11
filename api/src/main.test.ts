@@ -54,10 +54,13 @@ test("test", async (t) => {
     // console.log(myfetch.options.body);
 
     const qemu = theNode.qemu.$(100);
-    await qemu.agent.exec.$post({ command: ["touch", "/test"] });
+    const post = qemu.agent.exec.$post;
+    await post({ command: ["touch", "/test"] });
     assert.strictEqual(
         myfetch.url,
         "https://127.0.0.1/api2/json/nodes/node1/qemu/100/agent/exec",
     );
-    assert.strictEqual(myfetch.options.body, "command=touch%2C%2Ftest");
+    // old: "command=touch%2C%2Ftest"
+    // new: "command=touch&command=%2Ftest"
+    assert.strictEqual(myfetch.options.body, "command=touch&command=%2Ftest", "array parammeter should be passed as mutiple values");
 });

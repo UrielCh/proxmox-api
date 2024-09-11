@@ -189,6 +189,9 @@ export class ProxmoxEngine implements ApiRequestable {
                     searchParams.set(k, '1');
                 else if (v === false)
                     searchParams.set(k, '0');
+                else if (Array.isArray(v))
+                    for (const e of v)
+                        searchParams.append(k, `${e}`);
                 else
                     searchParams.set(k, `${v}`);
             }
