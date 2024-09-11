@@ -23,11 +23,11 @@ that it.
 
 ### Example
 
-To call `GET /cluster/acme/account/{name}` you will call `promox.cluster.acme.account.$(name).$get()`
+To call `GET /cluster/acme/account/{name}` you will call `proxmox.cluster.acme.account.$(name).$get()`
 
-To call `GET /api2/json/cluster/backup/{id}/included_volumes` you will call `promox.cluster.backup.{id}.included_volumes.$get()`
+To call `GET /api2/json/cluster/backup/{id}/included_volumes` you will call `proxmox.cluster.backup.{id}.included_volumes.$get()`
 
-To call `GET /api2/json/nodes` you will call `promox.nodes.$get()`
+To call `GET /api2/json/nodes` you will call `proxmox.nodes.$get()`
 
 The provided typing will assist you within intelisense, so you do not need to read any external doc.
 
@@ -48,12 +48,12 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 async function test() {
     // connect to proxmox
-    const promox = proxmoxApi({host: '127.0.0.1', password: 'password', username: 'user1@pam'});
+    const proxmox = proxmoxApi({host: '127.0.0.1', password: 'password', username: 'user1@pam'});
     // list nodes
-    const nodes = await promox.nodes.$get();
+    const nodes = await proxmox.nodes.$get();
     // iterate cluster nodes
     for (const node of nodes) {
-        const theNode = promox.nodes.$(node.node);
+        const theNode = proxmox.nodes.$(node.node);
         // list Qemu VMS
         const qemus = await theNode.qemu.$get({full:true});
         // iterate Qemu VMS
@@ -84,7 +84,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 async function test() {
     // connect to proxmox
     const engine = new ProxmoxEngine({host: '127.0.0.1', password: 'password', username: 'user1@pam'});
-    const promox = proxmoxApi(engine);
+    const proxmox = proxmoxApi(engine);
 }
 ```
 
@@ -98,7 +98,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 async function test() {
     // connect to proxmox
-    const promox = proxmoxApi({host: '127.0.0.1', tokenID: 'USER@REALM!TOKENID', tokenSecret: '12345678-1234-1234-1234-1234567890ab'});
+    const proxmox = proxmoxApi({host: '127.0.0.1', tokenID: 'USER@REALM!TOKENID', tokenSecret: '12345678-1234-1234-1234-1234567890ab'});
 }
 ```
 
