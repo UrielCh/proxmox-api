@@ -73,11 +73,13 @@ export interface ProxmoxEngineOptionsToken extends ProxmoxEngineOptionsCommon {
     tokenSecret: string;
 }
 
+// type FetchInterface = typeof fetch;
+export type FetchInterface = (url: string | URL, options?: RequestInit) => Promise<Response>;
+
 /**
  * Type Union for proxmox Authentification options
  */
-export type ProxmoxEngineOptions = ProxmoxEngineOptionsToken | ProxmoxEngineOptionsPass;
-
+export type ProxmoxEngineOptions = (ProxmoxEngineOptionsToken | ProxmoxEngineOptionsPass) & { fetch?: FetchInterface };
 
 const baseHeader: { [key: string]: string } = { Accept: "*/*", 'User-Agent': USER_AGENT };
 
@@ -95,9 +97,11 @@ export class ProxmoxEngine implements ApiRequestable {
     private authTimeout: number;
     private queryTimeout: number;
     private debug?: 'curl' | 'fetch';
+    private fetch: FetchInterface;
 
     constructor(options: ProxmoxEngineOptions) {
         //if ((options as ProxmoxEngineOptionsToken).tokenID) {
+        this.fetch = options.fetch || fetch;
         if ('tokenID' in options && options.tokenSecret) {
             //const optToken = options as ProxmoxEngineOptionsToken;
             this.username = '';
@@ -185,6 +189,9 @@ export class ProxmoxEngine implements ApiRequestable {
                     searchParams.set(k, '1');
                 else if (v === false)
                     searchParams.set(k, '0');
+                else if (Array.isArray(v))
+                    for (const e of v)
+                        searchParams.append(k, `${e}`);
                 else
                     searchParams.set(k, `${v}`);
             }
@@ -201,7 +208,7 @@ export class ProxmoxEngine implements ApiRequestable {
             const controller = new AbortController();
             const id = setTimeout(() => controller.abort(), this.queryTimeout);
             fetchInit.signal = controller.signal;
-            res = await fetch(requestUrl, fetchInit)
+            res = await this.fetch(requestUrl, fetchInit)
             clearTimeout(id);
         } catch (e) {
             // console.log(error.name === 'AbortError');
@@ -243,6 +250,9 @@ export class ProxmoxEngine implements ApiRequestable {
             (error as any).cause = e;
             throw error;
         }
+        if (res === null) {
+            throw Error(`Failed to fetch ${method} ${requestUrl} return null`);
+        }
         const contentType = res.headers.get('content-type');
         let data: { data: any, errors?: any } = { data: null };
         if (contentType === 'application/json;charset=UTF-8') {
@@ -282,7 +292,7 @@ export class ProxmoxEngine implements ApiRequestable {
             case 200:
                 return data.data;
             default:
-                throw Error(`${method} ${requestUrl} connetion failed with ${res.status} ${res.statusText} return: ${JSON.stringify(data)}`);
+                throw Error(`${method} ${requestUrl} connection failed with ${res.status} ${res.statusText} return: ${JSON.stringify(data)}`);
         }
     }
 
@@ -313,7 +323,7 @@ export class ProxmoxEngine implements ApiRequestable {
             const id = setTimeout(() => controller.abort(), this.authTimeout);
             const method = 'POST';
             const { signal } = controller;
-            const r = await fetch(requestUrl, { method, headers, signal, body });
+            const r = await this.fetch(requestUrl, { method, headers, signal, body });
             clearTimeout(id);
             const text = await r.text();
             if (r.status !== 200) {
