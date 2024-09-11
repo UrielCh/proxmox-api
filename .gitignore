@@ -4,3 +4,6 @@ api/dist/
 auth.ts
 api/pnpm-lock.yaml
 api/esm/*.d.ts
+api/.vscode/launch.json
+api/cjs/package-lock.json
+api/esm/package-lock.json
