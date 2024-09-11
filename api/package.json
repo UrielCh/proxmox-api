@@ -1,6 +1,6 @@
 {
   "name": "proxmox-api",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Cutting edge javascript / Typescript / ESM / CJS Proxmox API",
   "keywords": [
     "proxmox",
