@@ -37,13 +37,25 @@ export interface PveFormatString extends PveCommon {
 
 export interface PveFormatAlias extends PveCommon {
     alias?: string;
-    keyAlias? : "model";
+    keyAlias?: "model";
 }
 
 export type PveFormat = PveFormatNumber | PveFormatBoolean | PveFormatString | PveFormatAlias;
 
 export interface PveParametersCommon extends PveCommon {
     additionalProperties?: 0 | 1;
+    /**
+     * @since PVE 9
+     */
+    default_key?: 1;
+    /**
+     * @since PVE 9
+     */
+    "instance-types"?: Array<"resource-affinity" | "node-affinity">;
+    /**
+     * @since PVE 9
+     */
+    "type-property"?: "type";
 }
 
 export interface PveParametersNumber extends PveParametersCommon {
@@ -71,6 +83,7 @@ export interface PveParametersInteger extends PveParametersCommon {
     title?: string; // only inside items
     // reference to an other key of the current object
     requires?: string; // "delete" | "todisk" | "archive" | "db_dev" | "wal_dev";
+    format_description?: "N";
 }
 
 /**
@@ -84,7 +97,7 @@ export interface PveParametersEnum extends PveParametersCommon {
 export interface PveParametersString extends PveParametersCommon {
     type: 'string';
     title?: string; // only inside items
-    format?: string | {[name: string]: PveFormat}; // "mac-addr",
+    format?: string | { [name: string]: PveFormat }; // "mac-addr",
     minLength?: number;
     maxLength?: number;
     enum?: string[];
@@ -127,13 +140,21 @@ export interface PveParametersObject extends PveParametersCommon {
     // @since PVE 7
     title?: string;
     renderer?: "yaml",
-    properties?: { [name: string]: PveParametersBaseSet | PveParametersBoolean | PveParametersEnum};
+    properties?: { [name: string]: PveParametersBaseSet | PveParametersBoolean | PveParametersEnum }; //  | PveParametersObject
     items?: PveParametersObject; // only used in Proxmox 8, looks to be an error
+    /**
+     * @since PVE 9
+     */
+    links?: Array<{ "href": "{rule}", "rel": "child" }>;
+    /**
+     * @since PVE 9
+     */
+    additionalProperties?: any; // TODO
 }
 
 export interface PveParametersUndef extends PveParametersCommon {
     type?: never;
-    properties?: { [name: string]: PveParametersBaseSet | PveParametersBoolean};
+    properties?: { [name: string]: PveParametersBaseSet | PveParametersBoolean };
 }
 
 // @since PVE 7
@@ -143,14 +164,18 @@ export interface PveParametersAny extends PveParametersCommon {
 
 export type PveParametersBaseSet = PveParametersString | PveParametersArray | PveParametersObject | PveParametersInteger | PveParametersNumber;
 
-export type PveCallParameters = PveParametersBaseSet | PveParametersBoolean | 
-  PveCallParametersNull | PveParametersUndef | PveParametersAny;
+export type PveCallParameters = PveParametersBaseSet | PveParametersBoolean |
+    PveCallParametersNull | PveParametersUndef | PveParametersAny;
 
 export type PceCheck = 1 | string | PceCheck[];
 
 export interface PveCallDesc {
     allowtoken: 0 | 1;
     description: string;
+    /**
+     * @since PVE 9
+     */
+    expose_credentials?: 1;
     method: PveHttpMtd,
     name: string,
     parameters: {
@@ -163,7 +188,7 @@ export interface PveCallDesc {
         description?: string;
         check?: PceCheck[];
     };
-    protected?: 1;
+    protected?: 0 | 1;
     proxyto?: "node" | null;
     returns: PveCallParameters;
 }
