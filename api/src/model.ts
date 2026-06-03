@@ -14,16 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// import { ReadableStream } from "stream/web";
-
 export namespace Proxmox {
     /**
-     * CIDR of the (sub) network that is used for migration.
+     * The IP prefix for Node IPs
      * @format CIDR
      */
     export type CIDR = string;
     /**
-     * Declare a separate cluster network, OSDs will routeheartbeat, object replication and recovery traffic over it
+     * Declare a separate cluster network, OSDs will route heartbeat, object replication and recovery traffic over it
      * @format CIDR
      * @maxLength 128
      */
@@ -39,6 +37,10 @@ export namespace Proxmox {
      */
     export type CIDRv6 = string;
     /**
+     * @format FullRangeCIDR
+     */
+    export type FullRangeCIDR = string;
+    /**
      * Network/IP specification in CIDR format.
      * @format IPorCIDR
      */
@@ -49,7 +51,7 @@ export namespace Proxmox {
      */
     export type IPorCIDRorAlias = string;
     /**
-     * Template string for generating notes for the backup(s). It can contain variables which will be replaced by their values. Currently supported are \{\{cluster\}\}, \{\{guestname\}\}, \{\{node\}\}, and \{\{vmid\}\}, but more might be added in the future. Needs to be a single line, newline and backslash need to be escaped as '\n' and '\\' respectively.
+     * Custom HTTP headers (JSON format, base64 encoded)
      * @maxLength 1024
      */
     export type String0_1024 = string;
@@ -59,7 +61,6 @@ export namespace Proxmox {
      */
     export type String0_128 = string;
     /**
-     * LDAP filter for user sync.
      * @maxLength 2048
      */
     export type String0_2048 = string;
@@ -99,7 +100,7 @@ export namespace Proxmox {
      */
     export type String0_64 = string;
     /**
-     * Datacenter description. Shown in the web-interface datacenter notes panel. This is saved as comment inside the configuration file.
+     * Consent text that is displayed before logging in.
      * @maxLength 65536
      */
     export type String0_65536 = string;
@@ -114,17 +115,33 @@ export namespace Proxmox {
      */
     export type String0_8192 = string;
     /**
+     * Custom destination file name of the OCI image. Caution: This will be normalized!
+     * @minLength 1
+     * @maxLength 255
+     */
+    export type String1_255 = string;
+    /**
      * The new password.
      * @minLength 5
      * @maxLength 1024
      */
     export type String5_1024 = string;
     /**
-     * Initial password.
+     * The current password of the user performing the change.
      * @minLength 5
      * @maxLength 64
      */
     export type String5_64 = string;
+    /**
+     * Initial password.
+     * @minLength 8
+     * @maxLength 64
+     */
+    export type String8_64 = string;
+    /**
+     * Acceleration type to check node compatibility for.
+     */
+    export type Taccel = 'kvm' | 'tcg';
     /**
      * Node specific ACME settings.
      * @format {"account":{"default":"default","description":"ACME account config file name.","format":"pve-configid","format_description":"name","optional":1,"type":"string"},"domains":{"description":"List of domains for this node's ACME certificate","format":"pve-acme-domain-list","format_description":"domain[;domain;...]","optional":1,"type":"string"}}
@@ -136,37 +153,56 @@ export namespace Proxmox {
      */
     export type Tacmedomain = string;
     /**
+     * Specifies the Authentication Context Class Reference values that theAuthorization Server is being requested to use for the Auth Request.
+     * @pattern ^[^\x00-\x1F\x7F <>#"]*$
+     */
+    export type Tacrvalues = string;
+    /**
      * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name.
      * @pattern [A-Za-z][A-Za-z0-9\-\_]+
      * @minLength 2
      * @maxLength 20
      */
     export type Taction = string;
+    export type Taction_1 = 'deny' | 'permit';
+    /**
+     * Action to perform on the DBus VMState helper.
+     */
+    export type Taction_2 = 'start' | 'stop';
     /**
      * Action to check
      */
-    export type Taction_1 = 'destroy' | 'stop';
+    export type Taction_3 = 'destroy' | 'stop';
+    /**
+     * Describes whether the HA resources are supposed to be kept on the same node ('positive'), or are supposed to be kept on separate nodes ('negative').
+     */
+    export type Taffinity = 'negative' | 'positive';
     /**
      * Enable/disable communication with the QEMU Guest Agent and its properties.
-     * @format {"enabled":{"default":0,"default_key":1,"description":"Enable/disable communication with a QEMU Guest Agent (QGA) running in the VM.","type":"boolean"},"freeze-fs-on-backup":{"default":1,"description":"Freeze/thaw guest filesystems on backup for consistency.","optional":1,"type":"boolean"},"fstrim_cloned_disks":{"default":0,"description":"Run fstrim after moving a disk or migrating the VM.","optional":1,"type":"boolean"},"type":{"default":"virtio","description":"Select the agent type","enum":["virtio","isa"],"optional":1,"type":"string"}}
+     * @format {"enabled":{"default":0,"default_key":1,"description":"Enable/disable communication with a QEMU Guest Agent (QGA) running in the VM.","type":"boolean"},"freeze-fs":{"default":1,"description":"Freeze guest filesystems through QGA for consistent disk state on operations such as snapshots, backups, replications and clones.","optional":1,"type":"boolean","verbose_description":"Whether to issue the guest-fsfreeze-freeze and guest-fsfreeze-thaw QEMU guest agent commands. Backups in snapshot mode, clones, snapshots without RAM, importing disks from a running guest, and replications normally issue a guest-fsfreeze-freeze and a respective thaw command when the QEMU Guest agent option is enabled in the guest's configuration and the agent is running inside of the guest.\n\nThe deprecated 'freeze-fs-on-backup' setting is treated as an alias for this setting."},"freeze-fs-on-backup":{"alias":"freeze-fs"},"fstrim_cloned_disks":{"default":0,"description":"Run fstrim after moving a disk or migrating the VM.","optional":1,"type":"boolean"},"guest-fsfreeze":{"alias":"freeze-fs"},"type":{"default":"virtio","description":"Select the agent type","enum":["virtio","isa"],"optional":1,"type":"string"}}
      */
     export type Tagent = string;
     /**
-     * alias name of the vnet
+     * Alias name of the VNet.
      * @pattern (?^i:[\(\)-_.\w\d\s]{0,256})
      * @maxLength 256
      */
     export type Talias = string;
     /**
+     * A list of IPs that are routable via this node in the WireGuard fabric.
+     * @type array
+     */
+    export type Tallowed_ips = any[];
+    /**
      * API plugin name
      */
-    export type Tapi = '1984hosting' | 'acmedns' | 'acmeproxy' | 'active24' | 'ad' | 'ali' | 'anx' | 'artfiles' | 'arvan' | 'aurora' | 'autodns' | 'aws' | 'azion' | 'azure' | 'bookmyname' | 'bunny' | 'cf' | 'clouddns' | 'cloudns' | 'cn' | 'conoha' | 'constellix' | 'cpanel' | 'curanet' | 'cyon' | 'da' | 'ddnss' | 'desec' | 'df' | 'dgon' | 'dnsexit' | 'dnshome' | 'dnsimple' | 'dnsservices' | 'do' | 'doapi' | 'domeneshop' | 'dp' | 'dpi' | 'dreamhost' | 'duckdns' | 'durabledns' | 'dyn' | 'dynu' | 'dynv6' | 'easydns' | 'edgedns' | 'euserv' | 'exoscale' | 'fornex' | 'freedns' | 'gandi_livedns' | 'gcloud' | 'gcore' | 'gd' | 'geoscaling' | 'googledomains' | 'he' | 'hetzner' | 'hexonet' | 'hostingde' | 'huaweicloud' | 'infoblox' | 'infomaniak' | 'internetbs' | 'inwx' | 'ionos' | 'ipv64' | 'ispconfig' | 'jd' | 'joker' | 'kappernet' | 'kas' | 'kinghost' | 'knot' | 'la' | 'leaseweb' | 'lexicon' | 'linode' | 'linode_v4' | 'loopia' | 'lua' | 'maradns' | 'me' | 'miab' | 'misaka' | 'myapi' | 'mydevil' | 'mydnsjp' | 'mythic_beasts' | 'namecheap' | 'namecom' | 'namesilo' | 'nanelo' | 'nederhost' | 'neodigit' | 'netcup' | 'netlify' | 'nic' | 'njalla' | 'nm' | 'nsd' | 'nsone' | 'nsupdate' | 'nw' | 'oci' | 'one' | 'online' | 'openprovider' | 'openstack' | 'opnsense' | 'ovh' | 'pdns' | 'pleskxml' | 'pointhq' | 'porkbun' | 'rackcorp' | 'rackspace' | 'rage4' | 'rcode0' | 'regru' | 'scaleway' | 'schlundtech' | 'selectel' | 'selfhost' | 'servercow' | 'simply' | 'tele3' | 'tencent' | 'transip' | 'udr' | 'ultra' | 'unoeuro' | 'variomedia' | 'veesp' | 'vercel' | 'vscale' | 'vultr' | 'websupport' | 'world4you' | 'yandex' | 'yc' | 'zilore' | 'zone' | 'zonomi';
+    export type Tapi = '1984hosting' | 'acmedns' | 'acmeproxy' | 'active24' | 'ad' | 'ali' | 'alviy' | 'anx' | 'artfiles' | 'arvan' | 'aurora' | 'autodns' | 'aws' | 'azion' | 'azure' | 'beget' | 'bookmyname' | 'bunny' | 'cf' | 'clouddns' | 'cloudns' | 'cn' | 'conoha' | 'constellix' | 'cpanel' | 'curanet' | 'cyon' | 'da' | 'ddnss' | 'desec' | 'df' | 'dgon' | 'dnsexit' | 'dnshome' | 'dnsimple' | 'dnsservices' | 'doapi' | 'domeneshop' | 'dp' | 'dpi' | 'dreamhost' | 'duckdns' | 'durabledns' | 'dyn' | 'dynu' | 'dynv6' | 'easydns' | 'edgecenter' | 'edgedns' | 'euserv' | 'exoscale' | 'fornex' | 'freedns' | 'freemyip' | 'gandi_livedns' | 'gcloud' | 'gcore' | 'gd' | 'geoscaling' | 'googledomains' | 'he' | 'he_ddns' | 'hetzner' | 'hetznercloud' | 'hexonet' | 'hostingde' | 'huaweicloud' | 'infoblox' | 'infomaniak' | 'internetbs' | 'inwx' | 'ionos' | 'ionos_cloud' | 'ipv64' | 'ispconfig' | 'jd' | 'joker' | 'kappernet' | 'kas' | 'kinghost' | 'knot' | 'la' | 'leaseweb' | 'lexicon' | 'limacity' | 'linode' | 'linode_v4' | 'loopia' | 'lua' | 'maradns' | 'me' | 'miab' | 'mijnhost' | 'misaka' | 'myapi' | 'mydevil' | 'mydnsjp' | 'mythic_beasts' | 'namecheap' | 'namecom' | 'namesilo' | 'nanelo' | 'nederhost' | 'neodigit' | 'netcup' | 'netlify' | 'nic' | 'njalla' | 'nm' | 'nsd' | 'nsone' | 'nsupdate' | 'nw' | 'oci' | 'omglol' | 'one' | 'online' | 'openprovider' | 'openprovider_rest' | 'openstack' | 'opnsense' | 'ovh' | 'pdns' | 'pleskxml' | 'pointhq' | 'porkbun' | 'rackcorp' | 'rackspace' | 'rage4' | 'rcode0' | 'regru' | 'scaleway' | 'schlundtech' | 'selectel' | 'selfhost' | 'servercow' | 'simply' | 'spaceship' | 'technitium' | 'tele3' | 'tencent' | 'timeweb' | 'transip' | 'udr' | 'ultra' | 'unoeuro' | 'variomedia' | 'veesp' | 'vercel' | 'vscale' | 'vultr' | 'websupport' | 'west_cn' | 'world4you' | 'yandex360' | 'yc' | 'zilore' | 'zone' | 'zoneedit' | 'zonomi';
     /**
      * The application of the pool.
      */
     export type Tapplication = 'cephfs' | 'rbd' | 'rgw';
     /**
-     * Virtual processor architecture. Defaults to the host.
+     * Virtual processor architecture. Defaults to the host architecture.
      */
     export type Tarch = 'aarch64' | 'x86_64';
     /**
@@ -174,10 +210,18 @@ export namespace Proxmox {
      */
     export type Tarch_1 = 'amd64' | 'arm64' | 'armhf' | 'i386' | 'riscv32' | 'riscv64';
     /**
+     * OSPF area. Either a IPv4 address or a 32-bit number. Gets validated in rust.
+     */
+    export type Tarea = string;
+    /**
      * Configure a audio device, useful in combination with QXL/Spice.
      * @format {"device":{"description":"Configure an audio device.","enum":["ich9-intel-hda","intel-hda","AC97"],"type":"string"},"driver":{"default":"spice","description":"Driver backend for the audio device.","enum":["spice","none"],"optional":1,"type":"string"}}
      */
     export type Taudio0 = string;
+    /**
+     * Whether to use eBGP or iBGP. Auto mode chooses depending on BGP controller or falls back to iBGP.
+     */
+    export type Tbgpmode = 'auto' | 'external' | 'internal';
     /**
      * Select BIOS implementation.
      */
@@ -243,14 +287,22 @@ export namespace Proxmox {
      */
     export type Tcompression = 'gzip' | 'lz4' | 'lzjb' | 'off' | 'on' | 'zle' | 'zstd';
     /**
-     * List of <section>:<config key> items.
-     * @pattern (?^:^(:?(?^i:[0-9a-z\-_\.]+:[0-9a-zA-Z\-_]+))(:?[;, ](?^i:[0-9a-z\-_\.]+:[0-9a-zA-Z\-_]+))*$)
+     * List of <section>:<config key> items separated by semicolon, comma or space.
+     * @pattern (?^:^(?:(?^i:[0-9a-z\-_\.]+:[0-9a-zA-Z\-_]+))(?:[;, ](?^i:[0-9a-z\-_\.]+:[0-9a-zA-Z\-_]+))*$)
+     * @maxLength 4096
      */
     export type Tconfigkeys = string;
     /**
      * Select the default Console viewer. You can either use the builtin java applet (VNC; deprecated and maps to html5), an external virt-viewer comtatible application (SPICE), an HTML5 based vnc viewer (noVNC), or an HTML5 based console client (xtermjs). If the selected viewer is not available (e.g. SPICE not activated for the VM), the fallback is noVNC.
      */
     export type Tconsole = 'applet' | 'html5' | 'vv' | 'xtermjs';
+    /**
+     * The SDN controller object identifier.
+     * @pattern [a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9]
+     * @minLength 2
+     * @maxLength 64
+     */
+    export type Tcontroller = string;
     /**
      * Limit of CPU usage.
      * NOTE: If the computer has 2 CPUs, it has total of '2' CPU time. Value '0' indicates no CPU limit.
@@ -269,7 +321,7 @@ export namespace Proxmox {
     export type Tcpulimit_1 = number;
     /**
      * Cluster resource scheduling settings.
-     * @format {"ha":{"default":"basic","description":"Use this resource scheduler mode for HA.","enum":["basic","static"],"optional":1,"type":"string","verbose_description":"Configures how the HA manager should select nodes to start or recover services. With 'basic', only the number of services is used, with 'static', static CPU and memory configuration of services is considered."},"ha-rebalance-on-start":{"default":0,"description":"Set to use CRS for selecting a suited node when a HA services request-state changes from stop to start.","optional":1,"type":"boolean"}}
+     * @format {"ha":{"default":"basic","description":"Use this resource scheduler mode for HA.","enum":["basic","static","dynamic"],"optional":1,"type":"string","verbose_description":"Configures how the HA Manager should select nodes to start or recover services:\n\n- with 'basic', only the number of services is used,\n- with 'static', static CPU and memory configuration of services are considered,\n- with 'dynamic', static and dynamic CPU and memory usage of services are considered.\n"},"ha-auto-rebalance":{"default":0,"description":"Whether to use CRS for balancing HA resources automatically depending on the current node imbalance.","optional":1,"type":"boolean"},"ha-auto-rebalance-hold-duration":{"default":3,"description":"The number of HA rounds for which the cluster node imbalance threshold must be exceeded before triggering an automatic resource balancing migration.","minimum":0,"optional":1,"requires":"ha-auto-rebalance","type":"number"},"ha-auto-rebalance-margin":{"default":10,"description":"The minimum relative improvement in cluster node imbalance, in percent, to commit to a resource balancing migration.","maximum":100,"minimum":0,"optional":1,"requires":"ha-auto-rebalance","type":"number"},"ha-auto-rebalance-method":{"default":"bruteforce","description":"The method to use for the scoring of balancing migrations.","enum":["bruteforce","topsis"],"optional":1,"requires":"ha-auto-rebalance","type":"string"},"ha-auto-rebalance-threshold":{"default":30,"description":"The cluster node imbalance, in percent, which will trigger the automatic resource balancing system if exceeded.","maximum":100,"minimum":0,"optional":1,"requires":"ha-auto-rebalance","type":"number"},"ha-rebalance-on-start":{"default":0,"description":"Set to use CRS for selecting a suited node when a HA services request-state changes from stop to start.","optional":1,"type":"boolean"}}
      */
     export type Tcrs = string;
     /**
@@ -277,13 +329,40 @@ export namespace Proxmox {
      */
     export type Tcrush_rule = string;
     /**
+     * The csnp_interval property for Openfabric
+     * @minimum 1
+     * @maximum 600
+     * @type number
+     */
+    export type Tcsnp_interval = number;
+    /**
      * A list of settings you want to delete.
      * @type array
      */
     export type Tdelete = any[];
     /**
+     * @type array
+     */
+    export type Tdelete_1 = any[];
+    /**
+     * @type array
+     */
+    export type Tdelete_2 = any[];
+    /**
+     * @type array
+     */
+    export type Tdelete_3 = any[];
+    /**
+     * @type array
+     */
+    export type Tdelete_4 = any[];
+    /**
+     * @type array
+     */
+    export type Tdelete_5 = any[];
+    /**
      * Device to pass through to the container
-     * @format {"gid":{"description":"Group ID to be assigned to the device node","minimum":0,"optional":1,"type":"integer"},"mode":{"description":"Access mode to be set on the device node","format_description":"Octal access mode","optional":1,"pattern":"0[0-7]{3}","type":"string"},"path":{"default_key":1,"description":"Device to pass through to the container","format":"pve-lxc-dev-string","format_description":"Path","optional":1,"type":"string","verbose_description":"Path to the device to pass through to the container"},"uid":{"description":"User ID to be assigned to the device node","minimum":0,"optional":1,"type":"integer"}}
+     * @format {"deny-write":{"default":0,"description":"Deny the container to write to the device","optional":1,"type":"boolean"},"gid":{"description":"Group ID to be assigned to the device node","minimum":0,"optional":1,"type":"integer"},"mode":{"description":"Access mode to be set on the device node","format_description":"Octal access mode","optional":1,"pattern":"0[0-7]{3}","type":"string"},"path":{"default_key":1,"description":"Device to pass through to the container","format":"pve-lxc-dev-string","format_description":"Path","optional":1,"type":"string","verbose_description":"Path to the device to pass through to the container"},"uid":{"description":"User ID to be assigned to the device node","minimum":0,"optional":1,"type":"integer"}}
      */
     export type Tdev = string;
     /**
@@ -329,21 +408,47 @@ export namespace Proxmox {
     export type Tdraidconfig = string;
     /**
      * Configure a disk for storing EFI vars. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Note that SIZE_IN_GiB is ignored here and that the default EFI vars are copied to the volume instead. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume.
-     * @format {"efitype":{"default":"2m","description":"Size and type of the OVMF EFI vars. '4m' is newer and recommended, and required for Secure Boot. For backwards compatibility, '2m' is used if not otherwise specified. Ignored for VMs with arch=aarch64 (ARM).","enum":["2m","4m"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"import-from":{"description":"Create a new disk, importing from this source (volume ID or absolute path). When an absolute path is specified, it's up to you to ensure that the source is not actively used by another process during the import!","format":"pve-volume-id-or-absolute-path","format_description":"source volume","optional":1,"type":"string"},"pre-enrolled-keys":{"default":0,"description":"Use am EFI vars template with distribution-specific and Microsoft Standard keys enrolled, if used with 'efitype=4m'. Note that this will enable Secure Boot by default, though it can still be turned off from within the VM.","optional":1,"type":"boolean"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"alias":"file"}}
+     * @format {"efitype":{"default":"2m","description":"Size and type of the OVMF EFI vars. '4m' is newer and recommended, and required for Secure Boot. For backwards compatibility, '2m' is used if not otherwise specified. Ignored for VMs with arch=aarch64 (ARM).","enum":["2m","4m"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"import-from":{"description":"Create a new disk, importing from this source (volume ID or absolute path). When an absolute path is specified, it's up to you to ensure that the source is not actively used by another process during the import!","format":"pve-volume-id-or-absolute-path","format_description":"source volume","optional":1,"type":"string"},"ms-cert":{"default":"2011","description":"Informational marker indicating the version of the latest Microsoft UEFI certificates that have been enrolled by Proxmox VE. The value '2023k' means that the 'Microsoft UEFI CA 2023', the 'Windows UEFI CA 2023' and the 'Microsoft Corporation KEK 2K CA 2023' certificates are included. The values '2023' and '2023w' are deprecated and for compatibility only.","enum":["2011","2023","2023w","2023k"],"optional":1,"type":"string"},"pre-enrolled-keys":{"default":0,"description":"Use am EFI vars template with distribution-specific and Microsoft Standard keys enrolled, if used with 'efitype=4m'. Note that this will enable Secure Boot by default, though it can still be turned off from within the VM.","optional":1,"type":"boolean"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"alias":"file"}}
      */
     export type Tefidisk0 = string;
+    /**
+     * The endpoint used for connecting to this node.
+     */
+    export type Tendpoint = string;
+    /**
+     * @type array
+     */
+    export type Tentries = any[];
+    /**
+     * @type array
+     */
+    export type Tentries_1 = any[];
+    /**
+     * Command to run as init, optionally with arguments; may start with an absolute path, relative path, or a binary in $PATH.
+     * @pattern (?^:[^\x00-\x08\x0a-\x1F\x7F]+)
+     */
+    export type Tentrypoint = string;
+    /**
+     * The container runtime environment as NUL-separated list. Replaces any lxc.environment.runtime entries in the config.
+     * @pattern (?^:(?:\w+=[^\x00-\x08\x0a-\x1F\x7F]*)(?:\0\w+=[^\x00-\x08\x0a-\x1F\x7F]*)*)
+     */
+    export type Tenv = string;
     /**
      * Create an erasure coded pool for RBD with an accompaning replicated pool for metadata storage. With EC, the common ceph options 'size', 'min_size' and 'crush_rule' parameters will be applied to the metadata pool.
      * @format {"device-class":{"description":"CRUSH device class. Will create an erasure coded pool plus a replicated pool for metadata.","format_description":"class","optional":1,"type":"string"},"failure-domain":{"default":"host","description":"CRUSH failure domain. Default is 'host'. Will create an erasure coded pool plus a replicated pool for metadata.","format_description":"domain","optional":1,"type":"string"},"k":{"description":"Number of data chunks. Will create an erasure coded pool plus a replicated pool for metadata.","minimum":2,"type":"integer"},"m":{"description":"Number of coding chunks. Will create an erasure coded pool plus a replicated pool for metadata.","minimum":1,"type":"integer"},"profile":{"description":"Override the erasure code (EC) profile to use. Will create an erasure coded pool plus a replicated pool for metadata.","format_description":"profile","optional":1,"type":"string"}}
      */
     export type Terasurecoding = string;
     /**
+     * @format {"key":{"enum":["on-match-goto","on-match-next","continue"],"type":"string"},"value":{"description":"The index of this route map entry","maximum":65535,"minimum":0,"optional":1,"type":"integer"}}
+     */
+    export type Texitaction = string;
+    /**
      * Feature to check.
      */
     export type Tfeature = 'clone' | 'copy' | 'snapshot';
     /**
      * Allow containers access to advanced features.
-     * @format {"force_rw_sys":{"default":0,"description":"Mount /sys in unprivileged containers as `rw` instead of `mixed`. This can break networking under newer (>= v245) systemd-network use.","optional":1,"type":"boolean"},"fuse":{"default":0,"description":"Allow using 'fuse' file systems in a container. Note that interactions between fuse and the freezer cgroup can potentially cause I/O deadlocks.","optional":1,"type":"boolean"},"keyctl":{"default":0,"description":"For unprivileged containers only: Allow the use of the keyctl() system call. This is required to use docker inside a container. By default unprivileged containers will see this system call as non-existent. This is mostly a workaround for systemd-networkd, as it will treat it as a fatal error when some keyctl() operations are denied by the kernel due to lacking permissions. Essentially, you can choose between running systemd-networkd or docker.","optional":1,"type":"boolean"},"mknod":{"default":0,"description":"Allow unprivileged containers to use mknod() to add certain device nodes. This requires a kernel with seccomp trap to user space support (5.3 or newer). This is experimental.","optional":1,"type":"boolean"},"mount":{"description":"Allow mounting file systems of specific types. This should be a list of file system types as used with the mount command. Note that this can have negative effects on the container's security. With access to a loop device, mounting a file can circumvent the mknod permission of the devices cgroup, mounting an NFS file system can block the host's I/O completely and prevent it from rebooting, etc.","format_description":"fstype;fstype;...","optional":1,"pattern":"(?^:[a-zA-Z0-9_; ]+)","type":"string"},"nesting":{"default":0,"description":"Allow nesting. Best used with unprivileged containers with additional id mapping. Note that this will expose procfs and sysfs contents of the host to the guest.","optional":1,"type":"boolean"}}
+     * @format {"force_rw_sys":{"default":0,"description":"Mount /sys in unprivileged containers as `rw` instead of `mixed`. This can break networking under newer (>= v245) systemd-network use.","optional":1,"type":"boolean"},"fuse":{"default":0,"description":"Allow using 'fuse' file systems in a container. Note that interactions between fuse and the freezer cgroup can potentially cause I/O deadlocks.","optional":1,"type":"boolean"},"keyctl":{"default":0,"description":"For unprivileged containers only: Allow the use of the keyctl() system call. This is required to use docker inside a container. By default unprivileged containers will see this system call as non-existent. This is mostly a workaround for systemd-networkd, as it will treat it as a fatal error when some keyctl() operations are denied by the kernel due to lacking permissions. Essentially, you can choose between running systemd-networkd or docker.","optional":1,"type":"boolean"},"mknod":{"default":0,"description":"Allow unprivileged containers to use mknod() to add certain device nodes. This requires a kernel with seccomp trap to user space support (5.3 or newer). This is experimental.","optional":1,"type":"boolean"},"mount":{"description":"Allow mounting file systems of specific types. This should be a list of file system types as used with the mount command. Note that this can have negative effects on the container's security. With access to a loop device, mounting a file can circumvent the mknod permission of the devices cgroup, mounting an NFS file system can block the host's I/O completely and prevent it from rebooting, etc.","format_description":"fstype;fstype;...","optional":1,"pattern":"(?^:[a-zA-Z0-9_; ]+)","type":"string"},"nesting":{"default":0,"description":"Allow nesting. Best used with unprivileged containers with additional id mapping. Note that this will expose procfs and sysfs contents of the host to the guest. This is also required by systemd to isolate services.","optional":1,"type":"boolean"}}
      */
     export type Tfeatures = string;
     /**
@@ -361,10 +466,18 @@ export namespace Proxmox {
      */
     export type Tfingerprint = string;
     /**
+     * List of additional CPU flags separated by ';'. Use '+FLAG' to enable, '-FLAG' to disable a flag. There is a special 'nested-virt' shorthand which controls nested virtualization for the current CPU ('svm' for AMD and 'vmx' for Intel). Custom CPU models can specify any flag supported by QEMU/KVM, VM-specific flags must be from the following set for security reasons: aes, amd-no-ssb, amd-ssbd, hv-evmcs, hv-tlbflush, ibpb, md-clear, nested-virt, pcid, pdpe1gb, spec-ctrl, ssbd, virt-ssbd
+     * @pattern (?^u:(?^u:([+-])([a-zA-Z0-9\-_\.]+))(;(?^u:([+-])([a-zA-Z0-9\-_\.]+)))*)
+     */
+    export type Tflags = string;
+    /**
      * Target format for file storage. Only valid for full clone.
      */
     export type Tformat = 'qcow2' | 'raw' | 'vmdk';
-    export type Tformat_1 = 'qcow2' | 'raw' | 'subvol';
+    /**
+     * Format of the image.
+     */
+    export type Tformat_1 = 'qcow2' | 'raw' | 'subvol' | 'vmdk';
     /**
      * Security Group name.
      * @pattern [A-Za-z][A-Za-z0-9\-\_]+
@@ -373,30 +486,63 @@ export namespace Proxmox {
      */
     export type Tgroup = string;
     /**
+     * OpenID claim used to retrieve groups with.
+     * @pattern (?^:[A-Za-z0-9\.\-_]+)
+     * @maxLength 256
+     */
+    export type Tgroupsclaim = string;
+    /**
      * Cluster wide HA settings.
      * @format {"shutdown_policy":{"default":"conditional","description":"The policy for HA services on node shutdown. 'freeze' disables auto-recovery, 'failover' ensures recovery, 'conditional' recovers on poweroff and freezes on reboot. 'migrate' will migrate running services to other nodes, if possible. With 'freeze' or 'failover', HA Services will always get stopped first on shutdown.","enum":["freeze","failover","conditional","migrate"],"type":"string","verbose_description":"Describes the policy for handling HA services on poweroff or reboot of a node. Freeze will always freeze services which are still located on the node on shutdown, those services won't be recovered by the HA manager. Failover will not mark the services as frozen and thus the services will get recovered to other nodes, if the shutdown node does not come up again quickly (< 1min). 'conditional' chooses automatically depending on the type of shutdown, i.e., on a reboot the service will be frozen but on a poweroff the service will stay as is, and thus get recovered after about 2 minutes. Migrate will try to move all running services to another node when a reboot or shutdown was triggered. The poweroff process will only continue once no running services are located on the node anymore. If the node comes up again, the service will be moved back to the previously powered-off node, at least if no other migration, reloaction or recovery took place."}}
      */
     export type Tha = string;
+    /**
+     * HTTP headers to set. These have to be formatted as a property string in the format name=<name>,value=<base64 of value>
+     * @type array
+     */
+    export type Theader = any[];
     /**
      * Specify external http proxy which is used for downloads (example: 'http://username:password@host:port/')
      * @pattern http://.*
      */
     export type Thttp_proxy = string;
     /**
-     * Enable/disable hugepages memory.
+     * Enables hugepages memory.
+     * Sets the size of hugepages in MiB. If the value is set to 'any' then 1 GiB hugepages will be used if possible, otherwise the size will fall back to 2 MiB.
      */
     export type Thugepages = '1024' | '2' | 'any';
     /**
+     * The Hyper-V vendor ID. Some drivers or programs inside Windows guests need a specific ID.
+     * @pattern (?^u:[a-zA-Z0-9]{1,12})
+     */
+    export type Thvvendorid = string;
+    /**
      * Use volume as IDE hard disk or CD-ROM (n is 0 to 3). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume.
-     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads","io_uring"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"import-from":{"description":"Create a new disk, importing from this source (volume ID or absolute path). When an absolute path is specified, it's up to you to ensure that the source is not actively used by another process during the import!","format":"pve-volume-id-or-absolute-path","format_description":"source volume","optional":1,"type":"string"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"model":{"description":"The drive's reported model name, url-encoded, up to 40 bytes long.","format":"urlencoded","format_description":"model","maxLength":120,"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
+     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads","io_uring"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"import-from":{"description":"Create a new disk, importing from this source (volume ID or absolute path). When an absolute path is specified, it's up to you to ensure that the source is not actively used by another process during the import!","format":"pve-volume-id-or-absolute-path","format_description":"source volume","optional":1,"type":"string"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"model":{"description":"The drive's reported model name, url-encoded, up to 40 bytes long.","format":"urlencoded","format_description":"model","maxLength":120,"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
      */
     export type Tide = string;
     export type Tinfluxdbproto = 'http' | 'https' | 'udp';
+    /**
+     * @type array
+     */
+    export type Tinterfaces = any[];
+    /**
+     * The SDN ipam object identifier.
+     * @pattern [a-zA-Z][a-zA-Z0-9]*[a-zA-Z0-9]
+     * @minLength 2
+     */
+    export type Tipam = string;
     /**
      * Inter-VM shared memory. Useful for direct communication between VMs, or to the host.
      * @format {"name":{"description":"The name of the file. Will be prefixed with 'pve-shm-'. Default is the VMID. Will be deleted when the VM is stopped.","format_description":"string","optional":1,"pattern":"[a-zA-Z0-9\\-]+","type":"string"},"size":{"description":"The size of the file in MB.","minimum":1,"type":"integer"}}
      */
     export type Tivshmem = string;
+    /**
+     * The ID of the backup job. If set, the 'backup-job' metadata field of the backup notification will be set to this value. Only root@pam can set this parameter.
+     * @pattern \S+
+     * @maxLength 50
+     */
+    export type Tjobid = string;
     /**
      * Proxmox VE subscription key
      * @pattern \s*pve([1248])([cbsp])-[0-9a-f]{10}\s*
@@ -408,6 +554,11 @@ export namespace Proxmox {
      */
     export type Tkeyboard = 'da' | 'de' | 'de-ch' | 'en-gb' | 'en-us' | 'es' | 'fi' | 'fr' | 'fr-be' | 'fr-ca' | 'fr-ch' | 'hu' | 'is' | 'it' | 'ja' | 'lt' | 'mk' | 'nl' | 'no' | 'pl' | 'pt' | 'pt-br' | 'sl' | 'sv' | 'tr';
     /**
+     * Keys for two factor auth (yubico).
+     * @pattern [0-9a-zA-Z!=]{0,4096}
+     */
+    export type Tkeys = string;
+    /**
      * Default GUI language.
      */
     export type Tlanguage = 'ar' | 'ca' | 'da' | 'de' | 'en' | 'es' | 'eu' | 'fa' | 'fr' | 'he' | 'hr' | 'it' | 'ja' | 'ka' | 'kr' | 'nb' | 'nl' | 'nn' | 'pl' | 'pt_BR' | 'ru' | 'sl' | 'sv' | 'tr' | 'ukr' | 'zh_CN' | 'zh_TW';
@@ -416,6 +567,11 @@ export namespace Proxmox {
      * @format {"address":{"default_key":1,"description":"Hostname (or IP) of this corosync link address.","format":"address","format_description":"IP","type":"string"},"priority":{"default":0,"description":"The priority for the link when knet is used in 'passive' mode (default). Lower value means higher priority. Only valid for cluster create, ignored on node add.","maximum":255,"minimum":0,"optional":1,"type":"integer"}}
      */
     export type Tlink = string;
+    /**
+     * The location of the cluster.
+     * @format {"latitude":{"description":"The latitude of the nodes location in degrees.","maximum":90,"minimum":-90,"type":"number"},"longitude":{"description":"The longitude of the nodes location in degrees.","maximum":180,"minimum":-180,"type":"number"},"name":{"description":"The name of the location of this node","maxLength":128,"optional":1,"type":"string","typetext":"<name>"}}
+     */
+    export type Tlocation = string;
     /**
      * Lock/unlock the VM.
      */
@@ -434,13 +590,12 @@ export namespace Proxmox {
      */
     export type Tlog_ratelimit = string;
     /**
-     * Specifies the QEMU machine type.
-     * @pattern (pc|pc(-i440fx)?-\d+(\.\d+)+(\+pve\d+)?(\.pxe)?|q35|pc-q35-\d+(\.\d+)+(\+pve\d+)?(\.pxe)?|virt(?:-\d+(\.\d+)+)?(\+pve\d+)?)
-     * @maxLength 40
+     * Specify the QEMU machine.
+     * @format {"aw-bits":{"description":"Specifies the vIOMMU address space bit width.","maximum":64,"minimum":32,"optional":1,"type":"number","verbose_description":"Specifies the vIOMMU address space bit width.\n\nIntel vIOMMU supports a bit width of either 39 or 48 bits and VirtIO vIOMMU supports any bit width between 32 and 64 bits."},"enable-s3":{"description":"Enables S3 power state. Defaults to false beginning with machine types 9.2+pve1, true before.","optional":1,"type":"boolean"},"enable-s4":{"description":"Enables S4 power state. Defaults to false beginning with machine types 9.2+pve1, true before.","optional":1,"type":"boolean"},"type":{"default_key":1,"description":"Specifies the QEMU machine type.","format_description":"machine type","maxLength":40,"optional":1,"pattern":"(pc|pc(-i440fx)?-\\d+(\\.\\d+)+(\\+pve\\d+)?(\\.pxe)?|q35|pc-q35-\\d+(\\.\\d+)+(\\+pve\\d+)?(\\.pxe)?|virt(?:-\\d+(\\.\\d+)+)?(\\+pve\\d+)?)","type":"string"},"viommu":{"description":"Enable and set guest vIOMMU variant (Intel vIOMMU needs q35 to be set as machine type).","enum":["intel","virtio"],"optional":1,"type":"string"}}
      */
     export type Tmachine = string;
     /**
-     * Deprecated: use 'notification-policy' instead.
+     * Deprecated: use notification targets/matchers instead. Specify when to send a notification mail
      */
     export type Tmailnotification = 'always' | 'failure';
     /**
@@ -464,24 +619,32 @@ export namespace Proxmox {
      */
     export type Tmap_1 = any[];
     /**
-     * Match notification timestamp
+     * A list of maps for the cluster nodes.
      * @type array
      */
-    export type Tmatchcalendar = any[];
+    export type Tmap_2 = any[];
+    /**
+     * @type array
+     */
+    export type Tmatch = any[];
     /**
      * Memory properties.
      * @format {"current":{"default":512,"default_key":1,"description":"Current amount of online RAM for the VM in MiB. This is the maximum available memory when you use the balloon device.","minimum":16,"type":"integer"}}
      */
     export type Tmemory = string;
     /**
-     * Set maximum tolerated downtime (in seconds) for migrations.
+     * HTTP method
+     */
+    export type Tmethod = 'get' | 'post' | 'put';
+    /**
+     * Set maximum tolerated downtime (in seconds) for migrations. Should the migration not be able to converge in the very end, because too much newly dirtied RAM needs to be transferred, the limit will be increased automatically step-by-step until migration can converge. Will be capped to 2000 seconds (maximum in QEMU).
      * @minimum 0
      * @type number
      */
     export type Tmigrate_downtime = number;
     /**
      * For cluster wide migration settings.
-     * @format {"network":{"description":"CIDR of the (sub) network that is used for migration.","format":"CIDR","format_description":"CIDR","optional":1,"type":"string"},"type":{"default":"secure","default_key":1,"description":"Migration traffic is encrypted using an SSH tunnel by default. On secure, completely private networks this can be disabled to increase performance.","enum":["secure","insecure"],"type":"string"}}
+     * @format {"network":{"description":"CIDR of the (sub) network that is used for migration. Used as a fallback for replications jobs if the replication network setting is not set","format":"CIDR","format_description":"CIDR","optional":1,"type":"string"},"type":{"default":"secure","default_key":1,"description":"Migration traffic is encrypted using an SSH tunnel by default. On secure, completely private networks this can be disabled to increase performance.","enum":["secure","insecure"],"type":"string"}}
      */
     export type Tmigration = string;
     /**
@@ -506,7 +669,7 @@ export namespace Proxmox {
     export type Tmode_3 = 'ldap' | 'ldap+starttls' | 'ldaps';
     /**
      * Use volume as container mount point. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
-     * @format {"acl":{"description":"Explicitly enable or disable ACL support.","optional":1,"type":"boolean"},"backup":{"description":"Whether to include the mount point in backups.","optional":1,"type":"boolean","verbose_description":"Whether to include the mount point in backups (only used for volume mount points)."},"mountoptions":{"description":"Extra mount options for rootfs/mps.","format_description":"opt[;opt...]","optional":1,"pattern":"(?^:(?^:(noatime|lazytime|nodev|nosuid|noexec))(;(?^:(noatime|lazytime|nodev|nosuid|noexec)))*)","type":"string"},"mp":{"description":"Path to the mount point as seen from inside the container (must not contain symlinks).","format":"pve-lxc-mp-string","format_description":"Path","type":"string","verbose_description":"Path to the mount point as seen from inside the container.\n\nNOTE: Must not contain any symlinks for security reasons."},"quota":{"description":"Enable user quotas inside the container (not supported with zfs subvolumes)","optional":1,"type":"boolean"},"replicate":{"default":1,"description":"Will include this volume to a storage replica job.","optional":1,"type":"boolean"},"ro":{"description":"Read-only mount point","optional":1,"type":"boolean"},"shared":{"default":0,"description":"Mark this non-volume mount point as available on multiple nodes (see 'nodes')","optional":1,"type":"boolean","verbose_description":"Mark this non-volume mount point as available on all nodes.\n\nWARNING: This option does not share the mount point automatically, it assumes it is shared already!"},"size":{"description":"Volume size (read only value).","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"default_key":1,"description":"Volume, device or directory to mount into the container.","format":"pve-lxc-mp-string","format_description":"volume","type":"string"}}
+     * @format {"acl":{"description":"Explicitly enable or disable ACL support.","optional":1,"type":"boolean"},"backup":{"description":"Whether to include the mount point in backups.","optional":1,"type":"boolean","verbose_description":"Whether to include the mount point in backups (only used for volume mount points)."},"idmap":{"description":"Map specific container UIDs/GIDs to underlying disk UIDs/GIDs for this mount point","format_description":"type:container:disk:range-size[;type:container:disk:range-size;...]","optional":1,"pattern":"(?^:^(?:passthrough|[ug]:[0-9]+:[0-9]+:[1-9][0-9]*(?:;[ug]:[0-9]+:[0-9]+:[1-9][0-9]*)*)$)","type":"string","verbose_description":"Customize UID/GID mappings that override the container's `lxc.idmap` for this mount point. Accepts a semicolon-separated list of `type:container:disk:range-size` entries.\n\n`type` is `u` for UID or `g` for GID.\n\n`container` is the first ID as seen inside the container.\n\n`disk` is the first corresponding ID on the underlying filesystem.\n\n`range-size` is the number of consecutive IDs to map.\n\nUnmapped IDs fall back to the container's `lxc.idmap`.\n\nExample 1: `u:123:456:1` maps UID 123 in the container to UID 456 on the disk. Files owned by UID 456 on the disk will appear as UID 123 inside the container.\n\nExample 2: `g:100:50:5` maps 5 consecutive GIDs, such that GIDs 100-104 in the container are mapped to GIDs 50-54 on the disk.\n\nExample 3: `passthrough` identity-maps all UIDs and GIDs, meaning IDs inside the container will match the IDs on the disk."},"keepattrs":{"default":0,"description":"Inherit ownership and permissions from the mount point directory.","optional":1,"type":"boolean","verbose_description":"Inherit UID, GID and access mode from the mount point directory, if it exists already."},"mountoptions":{"description":"Extra mount options for rootfs/mps.","format_description":"opt[;opt...]","optional":1,"pattern":"(?^:(?^:(discard|lazytime|noatime|nodev|noexec|nosuid))(;(?^:(discard|lazytime|noatime|nodev|noexec|nosuid)))*)","type":"string"},"mp":{"description":"Path to the mount point as seen from inside the container (must not contain symlinks).","format":"pve-lxc-mp-string","format_description":"Path","type":"string","verbose_description":"Path to the mount point as seen from inside the container.\n\nNOTE: Must not contain any symlinks for security reasons."},"quota":{"description":"Enable user quotas inside the container (not supported with zfs subvolumes)","optional":1,"type":"boolean"},"replicate":{"default":1,"description":"Will include this volume to a storage replica job.","optional":1,"type":"boolean"},"ro":{"description":"Read-only mount point","optional":1,"type":"boolean"},"shared":{"default":0,"description":"Mark this non-volume mount point as available on multiple nodes (see 'nodes')","optional":1,"type":"boolean","verbose_description":"Mark this non-volume mount point as available on all nodes.\n\nWARNING: This option does not share the mount point automatically, it assumes it is shared already!"},"size":{"description":"Volume size (read only value).","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"default_key":1,"description":"Volume, device or directory to mount into the container.","format":"pve-lxc-mp-string","format_description":"volume","type":"string"}}
      */
     export type Tmp = string;
     /**
@@ -518,30 +681,41 @@ export namespace Proxmox {
     export type Tname = string;
     /**
      * The name of the pool. It must be unique.
+     * @pattern (?^:^[^:/\s]+$)
      */
     export type Tname_1 = string;
     /**
+     * Package name.
+     * @pattern (?^:[a-z0-9][-+.a-z0-9:]+)
+     */
+    export type Tname_2 = string;
+    /**
      * Specify network devices.
-     * @format {"bridge":{"description":"Bridge to attach the network device to. The Proxmox VE standard bridge\nis called 'vmbr0'.\n\nIf you do not specify a bridge, we create a kvm user (NATed) network\ndevice, which provides DHCP and DNS services. The following addresses\nare used:\n\n 10.0.2.2   Gateway\n 10.0.2.3   DNS Server\n 10.0.2.4   SMB Server\n\nThe DHCP server assign addresses to the guest starting from 10.0.2.15.\n","format":"pve-bridge-id","format_description":"bridge","optional":1,"type":"string"},"e1000":{"alias":"macaddr","keyAlias":"model"},"e1000-82540em":{"alias":"macaddr","keyAlias":"model"},"e1000-82544gc":{"alias":"macaddr","keyAlias":"model"},"e1000-82545em":{"alias":"macaddr","keyAlias":"model"},"e1000e":{"alias":"macaddr","keyAlias":"model"},"firewall":{"description":"Whether this interface should be protected by the firewall.","optional":1,"type":"boolean"},"i82551":{"alias":"macaddr","keyAlias":"model"},"i82557b":{"alias":"macaddr","keyAlias":"model"},"i82559er":{"alias":"macaddr","keyAlias":"model"},"link_down":{"description":"Whether this interface should be disconnected (like pulling the plug).","optional":1,"type":"boolean"},"macaddr":{"description":"MAC address. That address must be unique withing your network. This is automatically generated if not specified.","format":"mac-addr","format_description":"XX:XX:XX:XX:XX:XX","optional":1,"type":"string","verbose_description":"A common MAC address with the I/G (Individual/Group) bit not set."},"model":{"default_key":1,"description":"Network Card Model. The 'virtio' model provides the best performance with very low CPU overhead. If your guest does not support this driver, it is usually best to use 'e1000'.","enum":["e1000","e1000-82540em","e1000-82544gc","e1000-82545em","e1000e","i82551","i82557b","i82559er","ne2k_isa","ne2k_pci","pcnet","rtl8139","virtio","vmxnet3"],"type":"string"},"mtu":{"description":"Force MTU, for VirtIO only. Set to '1' to use the bridge MTU","maximum":65520,"minimum":1,"optional":1,"type":"integer"},"ne2k_isa":{"alias":"macaddr","keyAlias":"model"},"ne2k_pci":{"alias":"macaddr","keyAlias":"model"},"pcnet":{"alias":"macaddr","keyAlias":"model"},"queues":{"description":"Number of packet queues to be used on the device.","maximum":64,"minimum":0,"optional":1,"type":"integer"},"rate":{"description":"Rate limit in mbps (megabytes per second) as floating point number.","minimum":0,"optional":1,"type":"number"},"rtl8139":{"alias":"macaddr","keyAlias":"model"},"tag":{"description":"VLAN tag to apply to packets on this interface.","maximum":4094,"minimum":1,"optional":1,"type":"integer"},"trunks":{"description":"VLAN trunks to pass through this interface.","format_description":"vlanid[;vlanid...]","optional":1,"pattern":"(?^:\\d+(?:-\\d+)?(?:;\\d+(?:-\\d+)?)*)","type":"string"},"virtio":{"alias":"macaddr","keyAlias":"model"},"vmxnet3":{"alias":"macaddr","keyAlias":"model"}}
+     * @format {"bridge":{"description":"Bridge to attach the network device to. The Proxmox VE standard bridge\nis called 'vmbr0'.\n\nIf you do not specify a bridge, we create a kvm user (NATed) network\ndevice, which provides DHCP and DNS services. The following addresses\nare used:\n\n 10.0.2.2   Gateway\n 10.0.2.3   DNS Server\n 10.0.2.4   SMB Server\n\nThe DHCP server assign addresses to the guest starting from 10.0.2.15.\n","format":"pve-bridge-id","format_description":"bridge","optional":1,"type":"string"},"e1000":{"alias":"macaddr","keyAlias":"model"},"e1000-82540em":{"alias":"macaddr","keyAlias":"model"},"e1000-82544gc":{"alias":"macaddr","keyAlias":"model"},"e1000-82545em":{"alias":"macaddr","keyAlias":"model"},"e1000e":{"alias":"macaddr","keyAlias":"model"},"firewall":{"description":"Whether this interface should be protected by the firewall.","optional":1,"type":"boolean"},"i82551":{"alias":"macaddr","keyAlias":"model"},"i82557b":{"alias":"macaddr","keyAlias":"model"},"i82559er":{"alias":"macaddr","keyAlias":"model"},"link_down":{"description":"Whether this interface should be disconnected (like pulling the plug).","optional":1,"type":"boolean"},"macaddr":{"description":"MAC address. That address must be unique within your network. This is automatically generated if not specified.","format":"mac-addr","format_description":"XX:XX:XX:XX:XX:XX","optional":1,"type":"string","verbose_description":"A common MAC address with the I/G (Individual/Group) bit not set."},"model":{"default_key":1,"description":"Network Card Model. The 'virtio' model provides the best performance with very low CPU overhead. If your guest does not support this driver, it is usually best to use 'e1000'.","enum":["e1000","e1000-82540em","e1000-82544gc","e1000-82545em","e1000e","i82551","i82557b","i82559er","ne2k_isa","ne2k_pci","pcnet","rtl8139","virtio","vmxnet3"],"type":"string"},"mtu":{"description":"Force MTU of network device (VirtIO only). Setting to '1' or empty will use the bridge MTU","maximum":65520,"minimum":1,"optional":1,"type":"integer"},"ne2k_isa":{"alias":"macaddr","keyAlias":"model"},"ne2k_pci":{"alias":"macaddr","keyAlias":"model"},"pcnet":{"alias":"macaddr","keyAlias":"model"},"queues":{"description":"Number of packet queues to be used on the device.","maximum":64,"minimum":0,"optional":1,"type":"integer"},"rate":{"description":"Rate limit in mbps (megabytes per second) as floating point number.","minimum":0,"optional":1,"type":"number"},"rtl8139":{"alias":"macaddr","keyAlias":"model"},"tag":{"description":"VLAN tag to apply to packets on this interface.","maximum":4094,"minimum":1,"optional":1,"type":"integer"},"trunks":{"description":"VLAN trunks to pass through this interface.","format_description":"vlanid[;vlanid...]","optional":1,"pattern":"(?^:\\d+(?:-\\d+)?(?:;\\d+(?:-\\d+)?)*)","type":"string"},"virtio":{"alias":"macaddr","keyAlias":"model"},"vmxnet3":{"alias":"macaddr","keyAlias":"model"}}
      */
     export type Tnet = string;
     /**
      * Specifies network interfaces for the container.
-     * @format {"bridge":{"description":"Bridge to attach the network device to.","format_description":"bridge","optional":1,"pattern":"[-_.\\w\\d]+","type":"string"},"firewall":{"description":"Controls whether this interface's firewall rules should be used.","optional":1,"type":"boolean"},"gw":{"description":"Default gateway for IPv4 traffic.","format":"ipv4","format_description":"GatewayIPv4","optional":1,"type":"string"},"gw6":{"description":"Default gateway for IPv6 traffic.","format":"ipv6","format_description":"GatewayIPv6","optional":1,"type":"string"},"hwaddr":{"description":"The interface MAC address. This is dynamically allocated by default, but you can set that statically if needed, for example to always have the same link-local IPv6 address. (lxc.network.hwaddr)","format":"mac-addr","format_description":"XX:XX:XX:XX:XX:XX","optional":1,"type":"string","verbose_description":"A common MAC address with the I/G (Individual/Group) bit not set."},"ip":{"description":"IPv4 address in CIDR format.","format":"pve-ipv4-config","format_description":"(IPv4/CIDR|dhcp|manual)","optional":1,"type":"string"},"ip6":{"description":"IPv6 address in CIDR format.","format":"pve-ipv6-config","format_description":"(IPv6/CIDR|auto|dhcp|manual)","optional":1,"type":"string"},"link_down":{"description":"Whether this interface should be disconnected (like pulling the plug).","optional":1,"type":"boolean"},"mtu":{"description":"Maximum transfer unit of the interface. (lxc.network.mtu)","maximum":65535,"minimum":64,"optional":1,"type":"integer"},"name":{"description":"Name of the network device as seen from inside the container. (lxc.network.name)","format_description":"string","pattern":"[-_.\\w\\d]+","type":"string"},"rate":{"description":"Apply rate limiting to the interface","format_description":"mbps","optional":1,"type":"number"},"tag":{"description":"VLAN tag for this interface.","maximum":4094,"minimum":1,"optional":1,"type":"integer"},"trunks":{"description":"VLAN ids to pass through the interface","format_description":"vlanid[;vlanid...]","optional":1,"pattern":"(?^:\\d+(?:;\\d+)*)","type":"string"},"type":{"description":"Network interface type.","enum":["veth"],"optional":1,"type":"string"}}
+     * @format {"bridge":{"description":"Bridge to attach the network device to.","format_description":"bridge","optional":1,"pattern":"[-_.\\w\\d]+","type":"string"},"firewall":{"description":"Controls whether this interface's firewall rules should be used.","optional":1,"type":"boolean"},"gw":{"description":"Default gateway for IPv4 traffic.","format":"ipv4","format_description":"GatewayIPv4","optional":1,"type":"string"},"gw6":{"description":"Default gateway for IPv6 traffic.","format":"ipv6","format_description":"GatewayIPv6","optional":1,"type":"string"},"host-managed":{"description":"Whether this interface's IP configuration should be managed by the host. When enabled, the host (rather than the container) is responsible for the interface's IP configuration. The container should not run its own DHCP client or network manager on this interface. This is useful for containers that lack an internal network management stack, like many application containers.","optional":1,"type":"boolean"},"hwaddr":{"description":"The interface MAC address. This is dynamically allocated by default, but you can set that statically if needed, for example to always have the same link-local IPv6 address. (lxc.network.hwaddr)","format":"mac-addr","format_description":"XX:XX:XX:XX:XX:XX","optional":1,"type":"string","verbose_description":"A common MAC address with the I/G (Individual/Group) bit not set."},"ip":{"description":"IPv4 address in CIDR format.","format":"pve-ipv4-config","format_description":"(IPv4/CIDR|dhcp|manual)","optional":1,"type":"string"},"ip6":{"description":"IPv6 address in CIDR format.","format":"pve-ipv6-config","format_description":"(IPv6/CIDR|auto|dhcp|manual)","optional":1,"type":"string"},"link_down":{"description":"Whether this interface should be disconnected (like pulling the plug).","optional":1,"type":"boolean"},"mtu":{"description":"Maximum transfer unit of the interface. (lxc.network.mtu)","maximum":65535,"minimum":64,"optional":1,"type":"integer"},"name":{"description":"Name of the network device as seen from inside the container. (lxc.network.name)","format_description":"string","pattern":"[-_.\\w\\d]+","type":"string"},"rate":{"description":"Apply rate limiting to the interface","format_description":"mbps","optional":1,"type":"number"},"tag":{"description":"VLAN tag for this interface.","maximum":4094,"minimum":1,"optional":1,"type":"integer"},"trunks":{"description":"VLAN ids to pass through the interface","format_description":"vlanid[;vlanid...]","optional":1,"pattern":"(?^:\\d+(?:;\\d+)*)","type":"string"},"type":{"description":"Network interface type.","enum":["veth"],"optional":1,"type":"string"}}
      */
     export type Tnet_1 = string;
+    /**
+     * Used for migration compat. List of VirtIO network devices and their effective host_mtu setting according to the QEMU object model on the source side of the migration. A value of 0 means that the host_mtu parameter is to be avoided for the corresponding device.
+     * @pattern net\d+=\d+(,net\d+=\d+)*
+     */
+    export type Tnetshostmtu = string;
     /**
      * Control the range for the free VMID auto-selection pool.
      * @format {"lower":{"default":100,"description":"Lower, inclusive boundary for free next-id API range.","max":999999999,"min":100,"optional":1,"type":"integer"},"upper":{"default":1000000,"description":"Upper, exclusive boundary for free next-id API range.","max":1000000000,"min":100,"optional":1,"type":"integer"}}
      */
     export type Tnextid = string;
     /**
-     * Specify when to send a notification
+     * Determine which notification system to use. If set to 'legacy-sendmail', vzdump will consider the mailto/mailnotification parameters and send emails to the specified address(es) via the 'sendmail' command. If set to 'notification-system', a notification will be sent via PVE's notification system, and the mailto and mailnotification will be ignored. If set to 'auto' (default setting), an email will be sent if mailto is set, and the notification system will be used if not.
      */
-    export type Tnotificationpolicy = 'always' | 'failure' | 'never';
+    export type Tnotificationmode = 'auto' | 'legacy-sendmail' | 'notification-system';
     /**
      * Cluster-wide notification settings.
-     * @format {"fencing":{"default":"always","description":"Control if notifications about node fencing should be sent.","enum":["always","never"],"optional":1,"type":"string","verbose_description":"Control if notifications about node fencing should be sent.\n* 'always' always send out notifications\n* 'never' never send out notifications.\nFor production systems, turning off node fencing notifications is notrecommended!\n"},"package-updates":{"default":"auto","description":"Control when the daily update job should send out notifications.","enum":["auto","always","never"],"optional":1,"type":"string","verbose_description":"Control how often the daily update job should send out notifications:\n* 'auto' daily for systems with a valid subscription, as those are assumed to be  production-ready and thus should know about pending updates.\n* 'always' every update, if there are new pending updates.\n* 'never' never send a notification for new pending updates.\n"},"replication":{"default":"always","description":"Control if notifications for replication failures should be sent.","enum":["always","never"],"optional":1,"type":"string","verbose_description":"Control if notifications for replication failures should be sent.\n* 'always' always send out notifications\n* 'never' never send out notifications.\nFor production systems, turning off replication notifications is notrecommended!\n"},"target-fencing":{"description":"Control where notifications about fenced cluster nodes should be sent to.","format_description":"TARGET","optional":1,"type":"string","verbose_description":"Control where notifications about fenced cluster nodes should be sent to. Has to be the name of a notification target (endpoint or notification group). If the 'target-fencing' parameter is not set, the system will send mails to root via a 'sendmail' notification endpoint."},"target-package-updates":{"description":"Control where notifications about available updates should be sent to.","format_description":"TARGET","optional":1,"type":"string","verbose_description":"Control where notifications about available updates should be sent to. Has to be the name of a notification target (endpoint or notification group). If the 'target-package-updates' parameter is not set, the system will send mails to root via a 'sendmail' notification endpoint."},"target-replication":{"description":"Control where notifications for failed storage replication jobs should be sent to.","format_description":"TARGET","optional":1,"type":"string","verbose_description":"Control where notifications for failed storage replication jobs should be sent to. Has to be the name of a notification target (endpoint or notification group). If the 'target-replication' parameter is not set, the system will send mails to root via a 'sendmail' notification endpoint."}}
+     * @format {"fencing":{"description":"UNUSED - Use datacenter notification settings instead.","enum":["always","never"],"optional":1,"type":"string"},"package-updates":{"default":"auto","description":"DEPRECATED: Use datacenter notification settings instead. Control when the daily update job should send out notifications.","enum":["auto","always","never"],"optional":1,"type":"string","verbose_description":"DEPRECATED: Use datacenter notification settings instead.\nControl how often the daily update job should send out notifications:\n* 'auto' daily for systems with a valid subscription, as those are assumed to be  production-ready and thus should know about pending updates.\n* 'always' every update, if there are new pending updates.\n* 'never' never send a notification for new pending updates.\n"},"replication":{"description":"UNUSED - Use datacenter notification settings instead.","enum":["always","never"],"optional":1,"type":"string"},"target-fencing":{"description":"UNUSED - Use datacenter notification settings instead.","format_description":"TARGET","optional":1,"type":"string"},"target-package-updates":{"description":"UNUSED - Use datacenter notification settings instead.","format_description":"TARGET","optional":1,"type":"string"},"target-replication":{"description":"UNUSED - Use datacenter notification settings instead.","format_description":"TARGET","optional":1,"type":"string"}}
      */
     export type Tnotify = string;
     /**
@@ -562,9 +736,9 @@ export namespace Proxmox {
      * win7;; Microsoft Windows 7
      * win8;; Microsoft Windows 8/2012/2012r2
      * win10;; Microsoft Windows 10/2016/2019
-     * win11;; Microsoft Windows 11/2022
+     * win11;; Microsoft Windows 11/2022/2025
      * l24;; Linux 2.4 Kernel
-     * l26;; Linux 2.6 - 6.X Kernel
+     * l26;; Linux 2.6 - 7.X Kernel
      * solaris;; Solaris/OpenSolaris/OpenIndiania kernel
      * 
      */
@@ -573,6 +747,14 @@ export namespace Proxmox {
      * OS type. This is used to setup configuration inside the container, and corresponds to lxc setup scripts in /usr/share/lxc/config/<ostype>.common.conf. Value 'unmanaged' can be used to skip and OS specific setup.
      */
     export type Tostype_1 = 'alpine' | 'archlinux' | 'centos' | 'debian' | 'devuan' | 'fedora' | 'gentoo' | 'nixos' | 'opensuse' | 'ubuntu' | 'unmanaged';
+    /**
+     * Compression algorithm for requests
+     */
+    export type Totelcompression = 'gzip' | 'none';
+    /**
+     * HTTP protocol
+     */
+    export type Totelprotocol = 'http' | 'https';
     /**
      * Map host parallel devices (n is 0 to 2).
      * NOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such
@@ -588,9 +770,28 @@ export namespace Proxmox {
      */
     export type Tpassword = string;
     /**
+     * PBS mode used to detect file changes and switch encoding format for container backups.
+     */
+    export type Tpbschangedetectionmode = 'data' | 'legacy' | 'metadata';
+    /**
+     * @type array
+     */
+    export type Tpeers = any[];
+    /**
+     * A seconds interval, between 1 and 65535 inclusive, of how often to send an authenticated empty packet to the peer for the purpose of keeping a stateful firewall or NAT mapping valid persistently. For example, if the interface very rarely sends traffic, but it might at anytime receive traffic from another node, and it is behind NAT, the interface might benefit from having a persistent keepalive interval of 25 seconds. If unset or set to 0, it is turned off
+     * @minimum 0
+     * @maximum 65535
+     * @type number
+     */
+    export type Tpersistent_keepalive = number;
+    /**
      * The automatic PG scaling mode of the pool.
      */
     export type Tpg_autoscale_mode = 'off' | 'on' | 'warn';
+    /**
+     * Forward policy.
+     */
+    export type Tpolicy_forward = 'ACCEPT' | 'DROP';
     /**
      * Input policy.
      */
@@ -607,11 +808,15 @@ export namespace Proxmox {
     /**
      * Return only a specific property from the node configuration.
      */
-    export type Tproperty = 'acme' | 'acmedomain0' | 'acmedomain1' | 'acmedomain2' | 'acmedomain3' | 'acmedomain4' | 'acmedomain5' | 'description' | 'startall-onboot-delay' | 'wakeonlan';
+    export type Tproperty = 'acme' | 'acmedomain0' | 'acmedomain1' | 'acmedomain2' | 'acmedomain3' | 'acmedomain4' | 'acmedomain5' | 'ballooning-target' | 'description' | 'location' | 'startall-onboot-delay' | 'wakeonlan';
     /**
      * Protocol to send graphite data. TCP or UDP (default)
      */
     export type Tproto = 'tcp' | 'udp';
+    /**
+     * Type of configuration entry in an SDN Fabric section config
+     */
+    export type Tprotocol = 'bgp' | 'openfabric' | 'ospf' | 'wireguard';
     /**
      * The RAID level to use.
      */
@@ -623,6 +828,20 @@ export namespace Proxmox {
      */
     export type Trate = number;
     /**
+     * @type array
+     */
+    export type Tredistribute = any[];
+    /**
+     * The reference to the OCI image to download.
+     * @pattern ^(?:(?:[a-zA-Z\d]|[a-zA-Z\d][a-zA-Z\d-]*[a-zA-Z\d])(?:\.(?:[a-zA-Z\d]|[a-zA-Z\d][a-zA-Z\d-]*[a-zA-Z\d]))*(?::\d+)?/)?[a-z\d]+(?:(?:[._]|__|[-]*)[a-z\d]+)*(?:/[a-z\d]+(?:(?:[._]|__|[-]*)[a-z\d]+)*)*:\w[\w.-]{0,127}$
+     */
+    export type Treference = string;
+    /**
+     * The reference to the repository to query tags from.
+     * @pattern ^(?:(?:[a-zA-Z\d]|[a-zA-Z\d][a-zA-Z\d-]*[a-zA-Z\d])(?:\.(?:[a-zA-Z\d]|[a-zA-Z\d][a-zA-Z\d-]*[a-zA-Z\d]))*(?::\d+)?/)?[a-z\d]+(?:(?:[._]|__|[-]*)[a-z\d]+)*(?:/[a-z\d]+(?:(?:[._]|__|[-]*)[a-z\d]+)*)*$
+     */
+    export type Treference_1 = string;
+    /**
      * A list of tags that require a `Sys.Modify` on '/' to set and delete. Tags set here that are also in 'user-tag-access' also require `Sys.Modify`.
      * @pattern (?:(?^i:[a-z0-9_][a-z0-9_\-\+\.]*);)*(?^i:[a-z0-9_][a-z0-9_\-\+\.]*)
      */
@@ -632,25 +851,40 @@ export namespace Proxmox {
      */
     export type Tremove_job = 'full' | 'local';
     /**
-     * A semicolon-seperated list of things to remove when they or the user vanishes during a sync. The following values are possible: 'entry' removes the user/group when not returned from the sync. 'properties' removes the set properties on existing user/group that do not appear in the source (even custom ones). 'acl' removes acls when the user/group is not returned from the sync. Instead of a list it also can be 'none' (the default).
+     * A semicolon-separated list of things to remove when they or the user vanishes during a sync. The following values are possible: 'entry' removes the user/group when not returned from the sync. 'properties' removes the set properties on existing user/group that do not appear in the source (even custom ones). 'acl' removes acls when the user/group is not returned from the sync. Instead of a list it also can be 'none' (the default).
      * @pattern (?:(?:(?:acl|properties|entry);)*(?:acl|properties|entry))|none
      */
     export type Tremovevanished = string;
     /**
-     * Configure a VirtIO-based Random Number Generator.
-     * @format {"max_bytes":{"default":1024,"description":"Maximum bytes of entropy allowed to get injected into the guest every 'period' milliseconds. Prefer a lower value when using '/dev/random' as source. Use `0` to disable limiting (potentially dangerous!).","optional":1,"type":"integer"},"period":{"default":1000,"description":"Every 'period' milliseconds the entropy-injection quota is reset, allowing the guest to retrieve another 'max_bytes' of entropy.","optional":1,"type":"integer"},"source":{"default_key":1,"description":"The file on the host to gather entropy from. In most cases '/dev/urandom' should be preferred over '/dev/random' to avoid entropy-starvation issues on the host. Using urandom does *not* decrease security in any meaningful way, as it's still seeded from real entropy, and the bytes provided will most likely be mixed with real entropy on the guest as well. '/dev/hwrng' can be used to pass through a hardware RNG from the host.","enum":["/dev/urandom","/dev/random","/dev/hwrng"],"type":"string"}}
+     * For cluster wide replication settings.
+     * @format {"network":{"description":"CIDR of the (sub) network that is used for replication jobs.","format":"CIDR","format_description":"CIDR","optional":1,"type":"string"},"type":{"default":"secure","default_key":1,"description":"Replication traffic is encrypted using an SSH tunnel by default. On secure, completely private networks this can be disabled to increase performance.","enum":["secure","insecure"],"type":"string"}}
      */
-    export type Trng0 = string;
+    export type Treplication = string;
+    /**
+     * CPU model and vendor to report to the guest. Must be a QEMU/KVM supported model. Only valid for custom CPU model definitions, default models will always report themselves to the guest OS.
+     */
+    export type Treportedmodel = '486' | 'Broadwell' | 'Broadwell-IBRS' | 'Broadwell-noTSX' | 'Broadwell-noTSX-IBRS' | 'Cascadelake-Server' | 'Cascadelake-Server-noTSX' | 'Cascadelake-Server-v2' | 'Cascadelake-Server-v4' | 'Cascadelake-Server-v5' | 'ClearwaterForest' | 'ClearwaterForest-v2' | 'ClearwaterForest-v3' | 'Conroe' | 'Cooperlake' | 'Cooperlake-v2' | 'DiamondRapids' | 'EPYC' | 'EPYC-Genoa' | 'EPYC-Genoa-v2' | 'EPYC-IBPB' | 'EPYC-Milan' | 'EPYC-Milan-v2' | 'EPYC-Milan-v3' | 'EPYC-Rome' | 'EPYC-Rome-v2' | 'EPYC-Rome-v3' | 'EPYC-Rome-v4' | 'EPYC-Rome-v5' | 'EPYC-Turin' | 'EPYC-v3' | 'EPYC-v4' | 'EPYC-v5' | 'GraniteRapids' | 'GraniteRapids-v2' | 'GraniteRapids-v3' | 'GraniteRapids-v4' | 'GraniteRapids-v5' | 'Haswell' | 'Haswell-IBRS' | 'Haswell-noTSX' | 'Haswell-noTSX-IBRS' | 'Icelake-Client' | 'Icelake-Client-noTSX' | 'Icelake-Server' | 'Icelake-Server-noTSX' | 'Icelake-Server-v3' | 'Icelake-Server-v4' | 'Icelake-Server-v5' | 'Icelake-Server-v6' | 'Icelake-Server-v7' | 'IvyBridge' | 'IvyBridge-IBRS' | 'KnightsMill' | 'Nehalem' | 'Nehalem-IBRS' | 'Opteron_G1' | 'Opteron_G2' | 'Opteron_G3' | 'Opteron_G4' | 'Opteron_G5' | 'Penryn' | 'SandyBridge' | 'SandyBridge-IBRS' | 'SapphireRapids' | 'SapphireRapids-v2' | 'SapphireRapids-v3' | 'SapphireRapids-v4' | 'SapphireRapids-v5' | 'SapphireRapids-v6' | 'SierraForest' | 'SierraForest-v2' | 'SierraForest-v3' | 'SierraForest-v4' | 'SierraForest-v5' | 'Skylake-Client' | 'Skylake-Client-IBRS' | 'Skylake-Client-noTSX-IBRS' | 'Skylake-Client-v4' | 'Skylake-Server' | 'Skylake-Server-IBRS' | 'Skylake-Server-noTSX-IBRS' | 'Skylake-Server-v4' | 'Skylake-Server-v5' | 'Westmere' | 'Westmere-IBRS' | 'a64fx' | 'athlon' | 'core2duo' | 'coreduo' | 'cortex-a35' | 'cortex-a53' | 'cortex-a55' | 'cortex-a57' | 'cortex-a710' | 'cortex-a72' | 'cortex-a76' | 'cortex-a78ae' | 'host' | 'kvm32' | 'kvm64' | 'max' | 'neoverse-n1' | 'neoverse-n2' | 'neoverse-v1' | 'pentium' | 'pentium2' | 'pentium3' | 'phenom' | 'qemu32' | 'qemu64';
+    /**
+     * Controls how HA managed resources are handled while disarmed. The current state of resources is not affected. 'freeze': new commands and state changes are not applied. 'ignore': resources are removed from HA tracking and can be managed as if they were not HA managed.
+     */
+    export type Tresourcemode = 'freeze' | 'ignore';
+    /**
+     * The role of this node in the WireGuard fabric.
+     */
+    export type Trole = 'external' | 'internal';
     /**
      * Use volume as container root.
-     * @format {"acl":{"description":"Explicitly enable or disable ACL support.","optional":1,"type":"boolean"},"mountoptions":{"description":"Extra mount options for rootfs/mps.","format_description":"opt[;opt...]","optional":1,"pattern":"(?^:(?^:(noatime|lazytime|nodev|nosuid|noexec))(;(?^:(noatime|lazytime|nodev|nosuid|noexec)))*)","type":"string"},"quota":{"description":"Enable user quotas inside the container (not supported with zfs subvolumes)","optional":1,"type":"boolean"},"replicate":{"default":1,"description":"Will include this volume to a storage replica job.","optional":1,"type":"boolean"},"ro":{"description":"Read-only mount point","optional":1,"type":"boolean"},"shared":{"default":0,"description":"Mark this non-volume mount point as available on multiple nodes (see 'nodes')","optional":1,"type":"boolean","verbose_description":"Mark this non-volume mount point as available on all nodes.\n\nWARNING: This option does not share the mount point automatically, it assumes it is shared already!"},"size":{"description":"Volume size (read only value).","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"default_key":1,"description":"Volume, device or directory to mount into the container.","format":"pve-lxc-mp-string","format_description":"volume","type":"string"}}
+     * @format {"acl":{"description":"Explicitly enable or disable ACL support.","optional":1,"type":"boolean"},"idmap":{"description":"Map specific container UIDs/GIDs to underlying disk UIDs/GIDs for this mount point","format_description":"type:container:disk:range-size[;type:container:disk:range-size;...]","optional":1,"pattern":"(?^:^(?:passthrough|[ug]:[0-9]+:[0-9]+:[1-9][0-9]*(?:;[ug]:[0-9]+:[0-9]+:[1-9][0-9]*)*)$)","type":"string","verbose_description":"Customize UID/GID mappings that override the container's `lxc.idmap` for this mount point. Accepts a semicolon-separated list of `type:container:disk:range-size` entries.\n\n`type` is `u` for UID or `g` for GID.\n\n`container` is the first ID as seen inside the container.\n\n`disk` is the first corresponding ID on the underlying filesystem.\n\n`range-size` is the number of consecutive IDs to map.\n\nUnmapped IDs fall back to the container's `lxc.idmap`.\n\nExample 1: `u:123:456:1` maps UID 123 in the container to UID 456 on the disk. Files owned by UID 456 on the disk will appear as UID 123 inside the container.\n\nExample 2: `g:100:50:5` maps 5 consecutive GIDs, such that GIDs 100-104 in the container are mapped to GIDs 50-54 on the disk.\n\nExample 3: `passthrough` identity-maps all UIDs and GIDs, meaning IDs inside the container will match the IDs on the disk."},"mountoptions":{"description":"Extra mount options for rootfs/mps.","format_description":"opt[;opt...]","optional":1,"pattern":"(?^:(?^:(discard|lazytime|noatime|nodev|noexec|nosuid))(;(?^:(discard|lazytime|noatime|nodev|noexec|nosuid)))*)","type":"string"},"quota":{"description":"Enable user quotas inside the container (not supported with zfs subvolumes)","optional":1,"type":"boolean"},"replicate":{"default":1,"description":"Will include this volume to a storage replica job.","optional":1,"type":"boolean"},"ro":{"description":"Read-only mount point","optional":1,"type":"boolean"},"shared":{"default":0,"description":"Mark this non-volume mount point as available on multiple nodes (see 'nodes')","optional":1,"type":"boolean","verbose_description":"Mark this non-volume mount point as available on all nodes.\n\nWARNING: This option does not share the mount point automatically, it assumes it is shared already!"},"size":{"description":"Volume size (read only value).","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"volume":{"default_key":1,"description":"Volume, device or directory to mount into the container.","format":"pve-lxc-mp-string","format_description":"volume","type":"string"}}
      */
     export type Trootfs = string;
     /**
      * Use volume as SATA hard disk or CD-ROM (n is 0 to 5). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume.
-     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads","io_uring"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"import-from":{"description":"Create a new disk, importing from this source (volume ID or absolute path). When an absolute path is specified, it's up to you to ensure that the source is not actively used by another process during the import!","format":"pve-volume-id-or-absolute-path","format_description":"source volume","optional":1,"type":"string"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
+     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads","io_uring"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"import-from":{"description":"Create a new disk, importing from this source (volume ID or absolute path). When an absolute path is specified, it's up to you to ensure that the source is not actively used by another process during the import!","format":"pve-volume-id-or-absolute-path","format_description":"source volume","optional":1,"type":"string"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
      */
     export type Tsata = string;
+    /**
+     * Which metadata facet to return: 'all' enriches the per-daemon metadata with the PVE-side service state (presence of unit, data directory), 'versions' collects only per-node Ceph binary version data.
+     */
     export type Tscope = 'all' | 'versions';
     /**
      * Select what to sync.
@@ -658,13 +892,18 @@ export namespace Proxmox {
     export type Tscope_1 = 'both' | 'groups' | 'users';
     /**
      * Use volume as SCSI hard disk or CD-ROM (n is 0 to 30). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume.
-     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads","io_uring"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"import-from":{"description":"Create a new disk, importing from this source (volume ID or absolute path). When an absolute path is specified, it's up to you to ensure that the source is not actively used by another process during the import!","format":"pve-volume-id-or-absolute-path","format_description":"source volume","optional":1,"type":"string"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iothread":{"description":"Whether to use iothreads for this drive","optional":1,"type":"boolean"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"queues":{"description":"Number of queues.","minimum":2,"optional":1,"type":"integer"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"ro":{"description":"Whether the drive is read-only.","optional":1,"type":"boolean"},"scsiblock":{"default":0,"description":"whether to use scsi-block for full passthrough of host block device\n\nWARNING: can lead to I/O errors in combination with low memory or high memory fragmentation on host","optional":1,"type":"boolean"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
+     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads","io_uring"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"import-from":{"description":"Create a new disk, importing from this source (volume ID or absolute path). When an absolute path is specified, it's up to you to ensure that the source is not actively used by another process during the import!","format":"pve-volume-id-or-absolute-path","format_description":"source volume","optional":1,"type":"string"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iothread":{"description":"Whether to use iothreads for this drive","optional":1,"type":"boolean"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"product":{"description":"The drive's product name, up to 16 bytes long.","format_description":"product","optional":1,"pattern":"[A-Za-z0-9\\-_\\s]{,16}","type":"string"},"queues":{"description":"Number of queues.","minimum":2,"optional":1,"type":"integer"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"ro":{"description":"Whether the drive is read-only.","optional":1,"type":"boolean"},"scsiblock":{"default":0,"description":"whether to use scsi-block for full passthrough of host block device\n\nWARNING: can lead to I/O errors in combination with low memory or high memory fragmentation on host","optional":1,"type":"boolean"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"ssd":{"description":"Whether to expose this drive as an SSD, rather than a rotational hard disk.","optional":1,"type":"boolean"},"vendor":{"description":"The drive's vendor name, up to 8 bytes long.","format_description":"vendor","optional":1,"pattern":"[A-Za-z0-9\\-_\\s]{,8}","type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"},"wwn":{"description":"The drive's worldwide name, encoded as 16 bytes hex string, prefixed by '0x'.","format_description":"wwn","optional":1,"pattern":"(?^:^(0x)[0-9a-fA-F]{16})","type":"string"}}
      */
     export type Tscsi = string;
     /**
      * SCSI controller model
      */
     export type Tscsihw = 'lsi' | 'lsi53c810' | 'megasas' | 'pvscsi' | 'virtio-scsi-pci' | 'virtio-scsi-single';
+    /**
+     * Additional controllers.
+     * @type array
+     */
+    export type Tsecondarycontrollers = any[];
     /**
      * Create a serial device inside the VM (n is 0 to 3), and pass through a
      * host serial device (i.e. /dev/ttyS0), or create a unix socket on the
@@ -673,7 +912,7 @@ export namespace Proxmox {
      * use with special care.
      * CAUTION: Experimental! User reported problems with this option.
      * 
-     * @pattern (/dev/.+|socket)
+     * @pattern (/dev/[^,]+|socket)
      */
     export type Tserial = string;
     /**
@@ -686,14 +925,13 @@ export namespace Proxmox {
      */
     export type Tservice = string;
     /**
-     * Ceph service name.
-     * @pattern (mon|mds|osd|mgr)(\.[a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?)?
-     */
-    export type Tservice_1 = string;
-    /**
      * Service type
      */
-    export type Tservice_2 = 'mds' | 'mon' | 'osd';
+    export type Tservice_1 = 'mds' | 'mon' | 'osd';
+    /**
+     * @type array
+     */
+    export type Tset = any[];
     /**
      * Display all log since this date-time string.
      * @pattern ^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}(:\d{2})?)?$
@@ -732,7 +970,7 @@ export namespace Proxmox {
      */
     export type Tstartdate = string;
     /**
-     * Job Start time.
+     * Deprecated: Use 'schedule' instead. Job Start time. 'starttime' and 'dow' will be converted into 'schedule' if used.
      * @pattern \d{1,2}:\d{1,2}
      */
     export type Tstarttime = string;
@@ -756,11 +994,21 @@ export namespace Proxmox {
      * The resource gets removed from the manager status and so the CRM and the LRM do
      * not touch the resource anymore. All \{pve\} API calls affecting this resource
      * will be executed, directly bypassing the HA stack. CRM commands will be thrown
-     * away while there source is in this state. The resource will not get relocated
+     * away while the resource is in this state. The resource will not get relocated
      * on node failures.
      * 
      */
     export type Tstate = 'disabled' | 'enabled' | 'ignored' | 'started' | 'stopped';
+    /**
+     * Describes whether the node affinity rule is strict or non-strict.
+     * A non-strict node affinity rule makes resources prefer to be on the defined nodes.
+     * If none of the defined nodes are available, the resource may run on any other node.
+     * A strict node affinity rule makes resources be restricted to the defined nodes. If
+     * none of the defined nodes are available, the resource will be stopped.
+     * 
+     * @type boolean
+     */
+    export type Tstrict = boolean;
     /**
      * Comma separated list of key=value pairs for specifying which LDAP attributes map to which PVE user field. For example, to map the LDAP attribute 'mail' to PVEs 'email', write  'email=mail'. By default, each PVE user field is represented  by an LDAP attribute of the same name.
      * @pattern \w+=[^,]+(,\s*\w+=[^,]+)*
@@ -790,19 +1038,19 @@ export namespace Proxmox {
      */
     export type Ttimeframe = 'day' | 'hour' | 'month' | 'week' | 'year';
     /**
+     * Specify the time frame you are interested in.
+     */
+    export type Ttimeframe_1 = 'day' | 'decade' | 'hour' | 'month' | 'week' | 'year';
+    /**
      * The source file name. This parameter is usually set by the REST handler. You can only overwrite it when connecting to the trusted port on localhost.
      * @pattern /var/tmp/pveupload-[0-9a-f]+
      */
     export type Ttmpfilename = string;
     /**
      * Configure a Disk for storing TPM state. The format is fixed to 'raw'. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Note that SIZE_IN_GiB is ignored here and 4 MiB will be used instead. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume.
-     * @format {"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"import-from":{"description":"Create a new disk, importing from this source (volume ID or absolute path). When an absolute path is specified, it's up to you to ensure that the source is not actively used by another process during the import!","format":"pve-volume-id-or-absolute-path","format_description":"source volume","optional":1,"type":"string"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"version":{"default":"v2.0","description":"The TPM interface version. v2.0 is newer and should be preferred. Note that this cannot be changed later on.","enum":["v1.2","v2.0"],"optional":1,"type":"string"},"volume":{"alias":"file"}}
+     * @format {"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"Format of the image.","enum":["raw","qcow2","vmdk"],"optional":1,"type":"string"},"import-from":{"description":"Create a new disk, importing from this source (volume ID or absolute path). When an absolute path is specified, it's up to you to ensure that the source is not actively used by another process during the import!","format":"pve-volume-id-or-absolute-path","format_description":"source volume","optional":1,"type":"string"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"version":{"default":"v1.2","description":"The TPM interface version. v2.0 is newer and should be preferred. Note that this cannot be changed later on.","enum":["v1.2","v2.0"],"optional":1,"type":"string"},"volume":{"alias":"file"}}
      */
     export type Ttpmstate0 = string;
-    /**
-     * Gluster transport: tcp or rdma
-     */
-    export type Ttransport = 'rdma' | 'tcp' | 'unix';
     /**
      * Section type.
      */
@@ -810,57 +1058,64 @@ export namespace Proxmox {
     /**
      * Rule type.
      */
-    export type Ttype_1 = 'group' | 'in' | 'out';
+    export type Ttype_1 = 'forward' | 'group' | 'in' | 'out';
+    /**
+     * Only list sdn controllers of specific type
+     */
+    export type Ttype_10 = 'bgp' | 'evpn' | 'faucet' | 'isis';
     /**
      * Only list sdn ipams of specific type
      */
-    export type Ttype_10 = 'netbox' | 'phpipam' | 'pve';
+    export type Ttype_11 = 'netbox' | 'phpipam' | 'pve';
     /**
      * Only list sdn dns of specific type
      */
-    export type Ttype_11 = 'powerdns';
-    export type Ttype_12 = 'node' | 'sdn' | 'storage' | 'vm';
+    export type Ttype_12 = 'powerdns';
+    /**
+     * Resource type.
+     */
+    export type Ttype_13 = 'node' | 'sdn' | 'storage' | 'vm';
     /**
      * Config type.
      */
-    export type Ttype_13 = 'meta' | 'network' | 'user';
+    export type Ttype_14 = 'meta' | 'network' | 'user';
     /**
      * OSD device type
      */
-    export type Ttype_14 = 'block' | 'db' | 'wal';
+    export type Ttype_15 = 'block' | 'db' | 'wal';
     /**
      * Only list specific interface types.
      */
-    export type Ttype_15 = 'OVSBond' | 'OVSBridge' | 'OVSIntPort' | 'OVSPort' | 'alias' | 'any_bridge' | 'any_local_bridge' | 'bond' | 'bridge' | 'eth' | 'vlan';
+    export type Ttype_16 = 'OVSBond' | 'OVSBridge' | 'OVSIntPort' | 'OVSPort' | 'alias' | 'any_bridge' | 'any_local_bridge' | 'bond' | 'bridge' | 'eth' | 'fabric' | 'include_sdn' | 'vlan' | 'vnet';
     /**
      * Network interface type
      */
-    export type Ttype_16 = 'OVSBond' | 'OVSBridge' | 'OVSIntPort' | 'OVSPort' | 'alias' | 'bond' | 'bridge' | 'eth' | 'unknown' | 'vlan';
+    export type Ttype_17 = 'OVSBond' | 'OVSBridge' | 'OVSIntPort' | 'OVSPort' | 'alias' | 'bond' | 'bridge' | 'eth' | 'fabric' | 'unknown' | 'vlan' | 'vnet';
     /**
      * Either 'qemu' or 'lxc'. Only consider backups for guests of this type.
      */
-    export type Ttype_17 = 'lxc' | 'qemu';
+    export type Ttype_18 = 'lxc' | 'qemu';
     /**
      * Only list specific types of disks.
      */
-    export type Ttype_18 = 'journal_disks' | 'unused';
-    /**
-     * Only list storage of specific type
-     */
-    export type Ttype_19 = 'btrfs' | 'cephfs' | 'cifs' | 'dir' | 'glusterfs' | 'iscsi' | 'iscsidirect' | 'lvm' | 'lvmthin' | 'nfs' | 'pbs' | 'rbd' | 'zfs' | 'zfspool';
+    export type Ttype_19 = 'journal_disks' | 'unused';
     /**
      * Only list references of specified type.
      */
     export type Ttype_2 = 'alias' | 'ipset';
     /**
+     * Only list storage of specific type
+     */
+    export type Ttype_20 = 'btrfs' | 'cephfs' | 'cifs' | 'dir' | 'esxi' | 'iscsi' | 'iscsidirect' | 'lvm' | 'lvmthin' | 'nfs' | 'pbs' | 'rbd' | 'zfs' | 'zfspool';
+    /**
      * Realm type.
      */
-    export type Ttype_20 = 'ad' | 'ldap' | 'openid' | 'pam' | 'pve';
+    export type Ttype_21 = 'ad' | 'ldap' | 'openid' | 'pam' | 'pve';
     /**
      * TFA Entry Type.
      */
-    export type Ttype_21 = 'recovery' | 'totp' | 'u2f' | 'webauthn' | 'yubico';
-    export type Ttype_22 = 'lxc' | 'qemu' | 'storage';
+    export type Ttype_22 = 'recovery' | 'totp' | 'u2f' | 'webauthn' | 'yubico';
+    export type Ttype_23 = 'lxc' | 'qemu' | 'storage';
     /**
      * Only list resources of specific type
      */
@@ -870,22 +1125,22 @@ export namespace Proxmox {
      */
     export type Ttype_4 = 'group';
     /**
+     * Limit the returned list to the specified rule type.
+     */
+    export type Ttype_5 = 'node-affinity' | 'resource-affinity';
+    /**
      * Only list ACME plugins of a specific type
      */
-    export type Ttype_5 = 'dns' | 'standalone';
+    export type Ttype_6 = 'dns' | 'standalone';
     /**
-     * Type
+     * Type of the VNet.
      */
-    export type Ttype_6 = 'vnet';
-    export type Ttype_7 = 'subnet';
+    export type Ttype_7 = 'vnet';
+    export type Ttype_8 = 'subnet';
     /**
      * Only list SDN zones of specific type
      */
-    export type Ttype_8 = 'evpn' | 'faucet' | 'qinq' | 'simple' | 'vlan' | 'vxlan';
-    /**
-     * Only list sdn controllers of specific type
-     */
-    export type Ttype_9 = 'bgp' | 'evpn' | 'faucet' | 'isis';
+    export type Ttype_9 = 'evpn' | 'faucet' | 'qinq' | 'simple' | 'vlan' | 'vxlan';
     /**
      * u2f
      * @format {"appid":{"description":"U2F AppId URL override. Defaults to the origin.","format_description":"APPID","optional":1,"type":"string"},"origin":{"description":"U2F Origin override. Mostly useful for single nodes with a single URL.","format_description":"URL","optional":1,"type":"string"}}
@@ -908,7 +1163,7 @@ export namespace Proxmox {
     export type Turl = string;
     /**
      * Configure an USB device (n is 0 to 4, for machine version >= 7.1 and ostype l26 or windows > 7, n can be up to 14).
-     * @format {"host":{"default_key":1,"description":"The Host USB device or port or the value 'spice'. HOSTUSBDEVICE syntax is:\n\n 'bus-port(.port)*' (decimal numbers) or\n 'vendor_id:product_id' (hexadeciaml numbers) or\n 'spice'\n\nYou can use the 'lsusb -t' command to list existing usb devices.\n\nNOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such\nmachines - use with special care.\n\nThe value 'spice' can be used to add a usb redirection devices for spice.\n\nEither this or the 'mapping' key must be set.\n","format_description":"HOSTUSBDEVICE|spice","optional":1,"pattern":"(?^:(?:(?:(?^:(0x)?([0-9A-Fa-f]{4}):(0x)?([0-9A-Fa-f]{4})))|(?:(?^:(\\d+)\\-(\\d+(\\.\\d+)*)))|[Ss][Pp][Ii][Cc][Ee]))","type":"string"},"mapping":{"description":"The ID of a cluster wide mapping. Either this or the default-key 'host' must be set.","format":"pve-configid","format_description":"mapping-id","optional":1,"type":"string"},"usb3":{"default":0,"description":"Specifies whether if given host option is a USB3 device or port. For modern guests (machine version >= 7.1 and ostype l26 and windows > 7), this flag is irrelevant (all devices are plugged into a xhci controller).","optional":1,"type":"boolean"}}
+     * @format {"host":{"default_key":1,"description":"The Host USB device or port or the value 'spice'. HOSTUSBDEVICE syntax is:\n\n 'bus-port(.port)*' (decimal numbers) or\n 'vendor_id:product_id' (hexadecimal numbers) or\n 'spice'\n\nYou can use the 'lsusb -t' command to list existing usb devices.\n\nNOTE: This option allows direct access to host hardware. So it is no longer possible to migrate such\nmachines - use with special care.\n\nThe value 'spice' can be used to add a usb redirection devices for spice.\n\nEither this or the 'mapping' key must be set.\n","format_description":"HOSTUSBDEVICE|spice","optional":1,"pattern":"(?^:(?:(?:(?^:(0x)?([0-9A-Fa-f]{4}):(0x)?([0-9A-Fa-f]{4})))|(?:(?^:(\\d+)\\-(\\d+(\\.\\d+)*)))|[Ss][Pp][Ii][Cc][Ee]))","type":"string"},"mapping":{"description":"The ID of a cluster wide mapping. Either this or the default-key 'host' must be set.","format":"pve-configid","format_description":"mapping-id","optional":1,"type":"string"},"usb3":{"default":0,"description":"Specifies whether if given host option is a USB3 device or port. For modern guests (machine version >= 7.1 and ostype l26 and windows > 7), this flag is irrelevant (all devices are plugged into a xhci controller).","optional":1,"type":"boolean"}}
      */
     export type Tusb = string;
     /**
@@ -941,14 +1196,22 @@ export namespace Proxmox {
     /**
      * Configure the VGA Hardware. If you want to use high resolution modes (>= 1280x1024x16) you may need to increase the vga memory option. Since QEMU 2.9 the default VGA display type is 'std' for all OS types besides some Windows versions (XP and older) which use 'cirrus'. The 'qxl' option enables the SPICE display server. For win* OS you can select how many independent displays you want, Linux guests can add displays them self.
      * You can also run without any graphic card, using a serial device as terminal.
-     * @format {"clipboard":{"description":"Enable a specific clipboard. If not set, depending on the display type the SPICE one will be added.","enum":["vnc"],"optional":1,"type":"string"},"memory":{"description":"Sets the VGA memory (in MiB). Has no effect with serial display.","maximum":512,"minimum":4,"optional":1,"type":"integer"},"type":{"default":"std","default_key":1,"description":"Select the VGA type.","enum":["cirrus","qxl","qxl2","qxl3","qxl4","none","serial0","serial1","serial2","serial3","std","virtio","virtio-gl","vmware"],"optional":1,"type":"string"}}
+     * @format {"clipboard":{"description":"Enable a specific clipboard. If not set, depending on the display type the SPICE one will be added. Live migration with a VNC clipboard is not possible with QEMU machine version < 10.1.","enum":["vnc"],"optional":1,"type":"string"},"memory":{"description":"Sets the VGA memory (in MiB). Has no effect with serial display.","maximum":512,"minimum":4,"optional":1,"type":"integer"},"type":{"default":"std","default_key":1,"description":"Select the VGA type. Using type 'cirrus' is not recommended.","enum":["cirrus","qxl","qxl2","qxl3","qxl4","none","serial0","serial1","serial2","serial3","std","virtio","virtio-gl","vmware"],"optional":1,"type":"string"}}
      */
     export type Tvga = string;
     /**
      * Use volume as VIRTIO hard disk (n is 0 to 15). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume.
-     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads","io_uring"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"cyls":{"description":"Force the drive's physical geometry to have a specific cylinder count.","optional":1,"type":"integer"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","cow","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"heads":{"description":"Force the drive's physical geometry to have a specific head count.","optional":1,"type":"integer"},"import-from":{"description":"Create a new disk, importing from this source (volume ID or absolute path). When an absolute path is specified, it's up to you to ensure that the source is not actively used by another process during the import!","format":"pve-volume-id-or-absolute-path","format_description":"source volume","optional":1,"type":"string"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iothread":{"description":"Whether to use iothreads for this drive","optional":1,"type":"boolean"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"ro":{"description":"Whether the drive is read-only.","optional":1,"type":"boolean"},"secs":{"description":"Force the drive's physical geometry to have a specific sector count.","optional":1,"type":"integer"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"trans":{"description":"Force disk geometry bios translation mode.","enum":["none","lba","auto"],"optional":1,"type":"string"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"}}
+     * @format {"aio":{"description":"AIO type to use.","enum":["native","threads","io_uring"],"optional":1,"type":"string"},"backup":{"description":"Whether the drive should be included when making backups.","optional":1,"type":"boolean"},"bps":{"description":"Maximum r/w speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_rd":{"description":"Maximum read speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_rd_length":{"alias":"bps_rd_max_length"},"bps_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"bps_wr":{"description":"Maximum write speed in bytes per second.","format_description":"bps","optional":1,"type":"integer"},"bps_wr_length":{"alias":"bps_wr_max_length"},"bps_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"cache":{"description":"The drive's cache mode","enum":["none","writethrough","writeback","unsafe","directsync"],"optional":1,"type":"string"},"detect_zeroes":{"description":"Controls whether to detect and try to optimize writes of zeroes.","optional":1,"type":"boolean"},"discard":{"description":"Controls whether to pass discard/trim requests to the underlying storage.","enum":["ignore","on"],"optional":1,"type":"string"},"file":{"default_key":1,"description":"The drive's backing volume.","format":"pve-volume-id-or-qm-path","format_description":"volume","type":"string"},"format":{"description":"The drive's backing file's data format.","enum":["raw","qcow","qed","qcow2","vmdk","cloop"],"optional":1,"type":"string"},"import-from":{"description":"Create a new disk, importing from this source (volume ID or absolute path). When an absolute path is specified, it's up to you to ensure that the source is not actively used by another process during the import!","format":"pve-volume-id-or-absolute-path","format_description":"source volume","optional":1,"type":"string"},"iops":{"description":"Maximum r/w I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max":{"description":"Maximum unthrottled r/w I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_max_length":{"description":"Maximum length of I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_rd":{"description":"Maximum read I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_length":{"alias":"iops_rd_max_length"},"iops_rd_max":{"description":"Maximum unthrottled read I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_rd_max_length":{"description":"Maximum length of read I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iops_wr":{"description":"Maximum write I/O in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_length":{"alias":"iops_wr_max_length"},"iops_wr_max":{"description":"Maximum unthrottled write I/O pool in operations per second.","format_description":"iops","optional":1,"type":"integer"},"iops_wr_max_length":{"description":"Maximum length of write I/O bursts in seconds.","format_description":"seconds","minimum":1,"optional":1,"type":"integer"},"iothread":{"description":"Whether to use iothreads for this drive","optional":1,"type":"boolean"},"mbps":{"description":"Maximum r/w speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_max":{"description":"Maximum unthrottled r/w pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd":{"description":"Maximum read speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_rd_max":{"description":"Maximum unthrottled read pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr":{"description":"Maximum write speed in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"mbps_wr_max":{"description":"Maximum unthrottled write pool in megabytes per second.","format_description":"mbps","optional":1,"type":"number"},"media":{"default":"disk","description":"The drive's media type.","enum":["cdrom","disk"],"optional":1,"type":"string"},"replicate":{"default":1,"description":"Whether the drive should considered for replication jobs.","optional":1,"type":"boolean"},"rerror":{"description":"Read error action.","enum":["ignore","report","stop"],"optional":1,"type":"string"},"ro":{"description":"Whether the drive is read-only.","optional":1,"type":"boolean"},"serial":{"description":"The drive's reported serial number, url-encoded, up to 20 bytes long.","format":"urlencoded","format_description":"serial","maxLength":60,"optional":1,"type":"string"},"shared":{"default":0,"description":"Mark this locally-managed volume as available on all nodes","optional":1,"type":"boolean","verbose_description":"Mark this locally-managed volume as available on all nodes.\n\nWARNING: This option does not share the volume automatically, it assumes it is shared already!"},"size":{"description":"Disk size. This is purely informational and has no effect.","format":"disk-size","format_description":"DiskSize","optional":1,"type":"string"},"snapshot":{"description":"Controls qemu's snapshot mode feature. If activated, changes made to the disk are temporary and will be discarded when the VM is shutdown.","optional":1,"type":"boolean"},"volume":{"alias":"file"},"werror":{"description":"Write error action.","enum":["enospc","ignore","report","stop"],"optional":1,"type":"string"}}
      */
     export type Tvirtio = string;
+    /**
+     * Configuration for sharing a directory between host and guest using Virtio-fs.
+     * @format {"cache":{"default":"auto","description":"The caching policy the file system should use (auto, always, metadata, never).","enum":["auto","always","metadata","never"],"optional":1,"type":"string"},"direct-io":{"default":0,"description":"Honor the O_DIRECT flag passed down by guest applications.","optional":1,"type":"boolean"},"dirid":{"default_key":1,"description":"Mapping identifier of the directory mapping to be shared with the guest. Also used as a mount tag inside the VM.","format":"pve-configid","format_description":"mapping-id","type":"string"},"expose-acl":{"default":0,"description":"Enable support for POSIX ACLs (enabled ACL implies xattr) for this mount.","optional":1,"type":"boolean"},"expose-xattr":{"default":0,"description":"Enable support for extended attributes for this mount.","optional":1,"type":"boolean"}}
+     */
+    export type Tvirtiofs = string;
+    /**
+     * Which VLAN protocol should be used for the creation of the QinQ zone.
+     */
     export type Tvlanprotocol = '802.1ad' | '802.1q';
     /**
      * The VM generation ID (vmgenid) device exposes a 128-bit integer value identifier to the guest OS. This allows to notify the guest operating system when the virtual machine is executed with a different configuration (e.g. snapshot execution or creation from a template). The guest operating system notices the change, and is then able to react as appropriate by marking its copies of distributed databases as dirty, re-initializing its random number generator, etc.
@@ -956,6 +1219,23 @@ export namespace Proxmox {
      * @pattern (?:[a-fA-F0-9]{8}(?:-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}|[01])
      */
     export type Tvmgenid = string;
+    /**
+     * Only consider guests from this list of VMIDs.
+     * @type array
+     */
+    export type Tvms = any[];
+    /**
+     * The SDN vnet object identifier.
+     * @pattern [a-zA-Z][a-zA-Z0-9]*[a-zA-Z0-9]
+     * @minLength 2
+     * @maxLength 8
+     */
+    export type Tvnet = string;
+    /**
+     * Node specific wake on LAN settings.
+     * @format {"bind-interface":{"default":"The interface carrying the default route","description":"Bind to this interface when sending wake on LAN packet","format":"pve-iface","format_description":"bind interface","optional":1,"type":"string"},"broadcast-address":{"default":"255.255.255.255","description":"IPv4 broadcast address to use when sending wake on LAN packet","format":"ipv4","format_description":"IPv4 broadcast address","optional":1,"type":"string"},"mac":{"default_key":1,"description":"MAC address for wake on LAN","format":"mac-addr","format_description":"MAC address","type":"string"}}
+     */
+    export type Twakeonlan = string;
     /**
      * If a block.wal is requested but the size is not given, will be automatically selected by: bluestore_block_wal_size from the ceph database (osd or global section) or config (osd or global section) in that order. If this is not available, it will be sized 1% of the size of the OSD device. Fails if the available size is not enough.
      * @minimum 0.5
@@ -983,6 +1263,11 @@ export namespace Proxmox {
      * @format address-list
      */
     export type addresslist = string;
+    /**
+     * Options for backup fleecing (VM only).
+     * @format backup-fleecing
+     */
+    export type backupfleecing = string;
     /**
      * Other performance-related settings.
      * @format backup-performance
@@ -1020,7 +1305,12 @@ export namespace Proxmox {
      */
     export type emailopt = string;
     /**
-     * Comma-separated list of email addresses or users that should receive email notifications. Has no effect if the 'notification-target' option  is set at the same time.
+     * @format email-opt
+     * @maxLength 254
+     */
+    export type emailopt_1 = string;
+    /**
+     * Deprecated: Use notification targets/matchers instead. Comma-separated list of email addresses or users that should receive email notifications.
      * @format email-or-username-list
      */
     export type emailorusernamelist = string;
@@ -1030,12 +1320,18 @@ export namespace Proxmox {
      */
     export type graphitepath = string;
     /**
-     * The port to be used. Defaults to 465 for TLS based connections, 587 for STARTTLS based connections and port 25 for insecure plain-text connections.
+     * Only include metrics with a timestamp > start-time.
      * @type integer
      */
     export type integer = number;
     /**
-     * Network mask.
+     * RAM usage target for ballooning (in percent of total memory)
+     * @minimum 0
+     * @maximum 100
+     * @type integer
+     */
+    export type integer0_100 = number;
+    /**
      * @minimum 0
      * @maximum 128
      * @type integer
@@ -1056,12 +1352,12 @@ export namespace Proxmox {
      */
     export type integer0_300 = number;
     /**
-     * autonomous system number
+     * Maximum input value for the basic CPUID leaves the guest can query - that is the vendor (leaf 0), family/model/stepping and feature bits (leaf 1), cache and topology info (leaves 4 and B), and so on. Higher-numbered leaves are hidden. Setting '30' is a common workaround for Hyper-V boot failures on Windows guests running on recent Intel hosts. Only applies when the vCPU architecture is x86_64.
      * @minimum 0
-     * @maximum 4294967296
+     * @maximum 4294967295
      * @type integer
      */
-    export type integer0_4294967296 = number;
+    export type integer0_4294967295 = number;
     /**
      * Amount of memory shares for auto-ballooning. The larger the number is, the more memory this VM gets. Number is relative to weights of all other running VMs. Using zero disables auto-ballooning. Auto-ballooning is done by pvestatd.
      * @minimum 0
@@ -1083,6 +1379,13 @@ export namespace Proxmox {
      * @type integer
      */
     export type integer0_6 = number;
+    /**
+     * The index of this route map entry
+     * @minimum 0
+     * @maximum 65535
+     * @type integer
+     */
+    export type integer0_65535 = number;
     /**
      * Timeout for each guest shutdown task. Depending on `force-stop`, the shutdown gets then simply aborted or a hard-stop is forced.
      * @minimum 0
@@ -1119,12 +1422,33 @@ export namespace Proxmox {
      */
     export type integer16_4096 = number;
     /**
+     * HTTP request timeout in seconds
+     * @minimum 1
+     * @maximum 10
+     * @type integer
+     */
+    export type integer1_10 = number;
+    /**
      * Number of event-iteration to simulate and return.
      * @minimum 1
      * @maximum 100
      * @type integer
      */
     export type integer1_100 = number;
+    /**
+     * VLAN Tag (for VLAN or QinQ zones) or VXLAN VNI (for VXLAN or EVPN zones).
+     * @minimum 1
+     * @maximum 16777215
+     * @type integer
+     */
+    export type integer1_16777215 = number;
+    /**
+     * Number of bytes to read.
+     * @minimum 1
+     * @maximum 16777216
+     * @type integer
+     */
+    export type integer1_16777216 = number;
     /**
      * CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to weights of all the other running VMs.
      * @minimum 1
@@ -1153,6 +1477,19 @@ export namespace Proxmox {
      * @type integer
      */
     export type integer1_4094 = number;
+    /**
+     * @minimum 1
+     * @maximum 4294967295
+     * @type integer
+     */
+    export type integer1_4294967295 = number;
+    /**
+     * Defines the maximum number of tasks running concurrently.
+     * @minimum 1
+     * @maximum 64
+     * @type integer
+     */
+    export type integer1_64 = number;
     /**
      * Optional port.
      * @minimum 1
@@ -1203,6 +1540,13 @@ export namespace Proxmox {
      */
     export type integer30_60 = number;
     /**
+     * Number of physical address bits available to the guest.
+     * @minimum 32
+     * @maximum 64
+     * @type integer
+     */
+    export type integer32_64 = number;
+    /**
      * MTU for metrics transmission over UDP
      * @minimum 512
      * @maximum 65536
@@ -1245,6 +1589,11 @@ export namespace Proxmox {
      */
     export type integerMax32768 = number;
     /**
+     * Wipe step size in MiB. It will be capped to the maximum supported by the storage.
+     * @type integer
+     */
+    export type integer_1 = number;
+    /**
      * graphite TCP socket timeout (default=1)
      * @minimum 0
      * @type integer
@@ -1263,18 +1612,17 @@ export namespace Proxmox {
      */
     export type integer_Min1 = number;
     /**
+     * Maximum request body size in bytes
+     * @minimum 1024
+     * @type integer
+     */
+    export type integer_Min1024 = number;
+    /**
      * Amount of RAM for the container in MB.
      * @minimum 16
      * @type integer
      */
     export type integer_Min16 = number;
-    /**
-     * OSD services per physical device. Only useful for fast NVMe devices"
-     * ." to utilize their performance better.
-     * @minimum 1
-     * @type integer
-     */
-    export type integer_Min1_1 = number;
     /**
      * Maximum number of tracked connections.
      * @minimum 32768
@@ -1299,12 +1647,12 @@ export namespace Proxmox {
      */
     export type ip = string;
     /**
-     * peers address list.
+     * Comma-separated list of peers, that are part of the VXLAN zone. Usually the IPs of the nodes.
      * @format ip-list
      */
     export type iplist = string;
     /**
-     * IP address.
+     * IPv4 address for this node
      * @format ipv4
      */
     export type ipv4 = string;
@@ -1314,7 +1662,7 @@ export namespace Proxmox {
      */
     export type ipv4mask = string;
     /**
-     * IP address.
+     * IPv6 address for this node
      * @format ipv6
      */
     export type ipv6 = string;
@@ -1395,38 +1743,38 @@ export namespace Proxmox {
      * Plugin type.
      * @format pve-configid
      */
-    export type pveconfigid = 'graphite' | 'influxdb';
+    export type pveconfigid = 'graphite' | 'influxdb' | 'opentelemetry';
     /**
      * The name of the endpoint.
      * @format pve-configid
      */
     export type pveconfigid_1 = string;
     /**
-     * Plugin type.
-     * @format pve-configid
-     */
-    export type pveconfigid_2 = 'evpn' | 'faucet' | 'qinq' | 'simple' | 'vlan' | 'vxlan';
-    /**
-     * Plugin type.
-     * @format pve-configid
-     */
-    export type pveconfigid_3 = 'bgp' | 'evpn' | 'faucet' | 'isis';
-    /**
-     * Plugin type.
-     * @format pve-configid
-     */
-    export type pveconfigid_4 = 'netbox' | 'phpipam' | 'pve';
-    /**
-     * Plugin type.
-     * @format pve-configid
-     */
-    export type pveconfigid_5 = 'powerdns';
-    /**
-     * Fetch config values from given snapshot.
+     * Name for the custom CPU model. The 'custom-' prefix is optional.
      * @format pve-configid
      * @maxLength 40
      */
-    export type pveconfigid_6 = string;
+    export type pveconfigid_2 = string;
+    /**
+     * Plugin type.
+     * @format pve-configid
+     */
+    export type pveconfigid_3 = 'evpn' | 'faucet' | 'qinq' | 'simple' | 'vlan' | 'vxlan';
+    /**
+     * Plugin type.
+     * @format pve-configid
+     */
+    export type pveconfigid_4 = 'bgp' | 'evpn' | 'faucet' | 'isis';
+    /**
+     * Plugin type.
+     * @format pve-configid
+     */
+    export type pveconfigid_5 = 'netbox' | 'phpipam' | 'pve';
+    /**
+     * Plugin type.
+     * @format pve-configid
+     */
+    export type pveconfigid_6 = 'powerdns';
     /**
      * A list of settings you want to delete.
      * @format pve-configid-list
@@ -1434,7 +1782,7 @@ export namespace Proxmox {
      */
     export type pveconfigidlist = string;
     /**
-     * A list of settings you want to delete.
+     * A list of properties to delete.
      * @format pve-configid-list
      */
     export type pveconfigidlist_1 = string;
@@ -1449,7 +1797,7 @@ export namespace Proxmox {
      */
     export type pvecttimezone = string;
     /**
-     * Day of week selection.
+     * Deprecated: Use 'schedule' instead. Day of week selection. 'starttime' and 'dow' will be converted into 'schedule' if used.
      * @format pve-day-of-week-list
      */
     export type pvedayofweeklist = string;
@@ -1498,10 +1846,20 @@ export namespace Proxmox {
      */
     export type pvegroupidlist = string;
     /**
-     * List of cluster node members, where a priority can be given to each node. A resource bound to a group will run on the available nodes with the highest priority. If there are more nodes in the highest priority class, the services will get distributed to those nodes. The priorities have a relative meaning only.
-     * @format pve-ha-group-node-list
+     * List of cluster node members, where a priority can be given to each node. A resource will run on the available nodes with the highest priority. If there are more nodes in the highest priority class, the resources will get distributed to those nodes. The priorities have a relative meaning only. The higher the number, the higher the priority.
+     * @format pve-ha-node-list
      */
-    export type pvehagroupnodelist = string;
+    export type pvehanodelist = string;
+    /**
+     * List of cluster node members, where a priority can be given to each node. A resource will run on the available nodes with the highest priority. If there are more nodes in the highest priority class, the resources will get distributed to those nodes. The priorities have a relative meaning only. The higher the number, the higher the priority.
+     * @format pve-ha-node-list
+     */
+    export type pvehanodelist_1 = string;
+    /**
+     * List of HA resource IDs. This consists of a list of resource types followed by a resource specific name separated with a colon (example: vm:100,ct:101).
+     * @format pve-ha-resource-id-list
+     */
+    export type pveharesourceidlist = string;
     /**
      * HA resource ID. This consists of a resource type followed by a resource specific name, separated with colon (example: vm:100 / ct:100). For virtual machines and containers, you can simply use the VM or CT id as a shortcut (example: 100).
      * @format pve-ha-resource-or-vm-id
@@ -1525,7 +1883,7 @@ export namespace Proxmox {
      */
     export type pveiface_1 = string;
     /**
-     * ISIS interface.
+     * Comma-separated list of interfaces where IS-IS should be active.
      * @format pve-iface-list
      */
     export type pveifacelist = string;
@@ -1546,6 +1904,11 @@ export namespace Proxmox {
      */
     export type pvenodelist = string;
     /**
+     * The physical memory address bits that are reported to the guest OS. Should be smaller or equal to the host's. Set to 'host' to use value from host CPU, but note that doing so will break live migration to CPUs with other values.
+     * @format pve-phys-bits
+     */
+    export type pvephysbits = string;
+    /**
      * Add the VM to the specified pool.
      * @format pve-poolid
      */
@@ -1560,6 +1923,16 @@ export namespace Proxmox {
      * @maxLength 64
      */
     export type pveprivlist_1 = string;
+    /**
+     * Secure Encrypted Virtualization (SEV) features by AMD CPUs
+     * @format pve-qemu-sev-fmt
+     */
+    export type pveqemusevfmt = string;
+    /**
+     * Trusted Domain Extension (TDX) features by Intel CPUs
+     * @format pve-qemu-tdx-fmt
+     */
+    export type pveqemutdxfmt = string;
     /**
      * Specify guest boot order. Use the 'order=' sub-property as usage with no key or 'legacy=' is deprecated.
      * @format pve-qm-boot
@@ -1604,6 +1977,11 @@ export namespace Proxmox {
      */
     export type pveqmipconfig = string;
     /**
+     * Configure a VirtIO-based Random Number Generator.
+     * @format pve-qm-rng
+     */
+    export type pveqmrng = string;
+    /**
      * Specify SMBIOS type 1 fields.
      * @format pve-qm-smbios1
      * @maxLength 512
@@ -1636,40 +2014,51 @@ export namespace Proxmox {
      */
     export type pveroleidlist = string;
     /**
-     * Route-Target import
+     * List of Route Targets that should be imported into the VRF of the zone.
      * @format pve-sdn-bgp-rt-list
      */
     export type pvesdnbgprtlist = string;
     /**
-     * The SDN controller object identifier.
-     * @format pve-sdn-controller-id
+     * SDN fabric to use as underlay for this VXLAN zone.
+     * @format pve-sdn-fabric-id
      */
-    export type pvesdncontrollerid = string;
+    export type pvesdnfabricid = string;
     /**
-     * The SDN dns object identifier.
-     * @format pve-sdn-dns-id
+     * Identifier for SDN fabrics
+     * @pattern [a-zA-Z0-9][a-zA-Z0-9-]{0,6}[a-zA-Z0-9]
+     * @format pve-sdn-fabric-id
+     * @minLength 2
+     * @maxLength 8
      */
-    export type pvesdndnsid = string;
+    export type pvesdnfabricid_1 = string;
     /**
-     * The SDN ipam object identifier.
-     * @format pve-sdn-ipam-id
+     * Network Entity title for this node in the IS-IS network.
+     * @pattern [a-fA-F0-9]{2}(\.[a-fA-F0-9]{4}){3,9}\.[a-fA-F0-9]{2}
+     * @format pve-sdn-isis-net
+     * @minLength 20
+     * @maxLength 50
      */
-    export type pvesdnipamid = string;
+    export type pvesdnisisnet = string;
+    /**
+     * A prefix list that should be used for filtering routes that are to be installed into the kernel routing table
+     * @format pve-sdn-prefix-list-id
+     */
+    export type pvesdnprefixlistid = string;
+    /**
+     * The SDN prefix list identifier
+     * @format pve-sdn-prefix-list-id
+     */
+    export type pvesdnprefixlistid_1 = string;
+    /**
+     * Route Map that should be applied for incoming routes
+     * @format pve-sdn-route-map-id
+     */
+    export type pvesdnroutemapid = string;
     /**
      * The SDN subnet object identifier.
      * @format pve-sdn-subnet-id
      */
     export type pvesdnsubnetid = string;
-    /**
-     * The SDN vnet object identifier.
-     * @format pve-sdn-vnet-id
-     */
-    export type pvesdnvnetid = string;
-    /**
-     * The SDN zone object identifier.
-     * @format pve-sdn-zone-id
-     */
-    export type pvesdnzoneid = string;
     /**
      * Startup and shutdown behavior. Order is a non-negative number defining the general startup order. Shutdown in done with reverse ordering. Additionally you can set the 'up' or 'down' delay in seconds, which specifies a delay to wait before the next VM is started or stopped.
      * @format pve-startup-order
@@ -1684,17 +2073,12 @@ export namespace Proxmox {
      * Content type.
      * @format pve-storage-content
      */
-    export type pvestoragecontent_1 = 'iso' | 'vztmpl';
+    export type pvestoragecontent_1 = 'import' | 'iso' | 'vztmpl';
     /**
      * Only list stores which support this content type.
      * @format pve-storage-content-list
      */
     export type pvestoragecontentlist = string;
-    /**
-     * Default image format.
-     * @format pve-storage-format
-     */
-    export type pvestorageformat = string;
     /**
      * Store resulting file to this storage.
      * @format pve-storage-id
@@ -1736,6 +2120,11 @@ export namespace Proxmox {
      */
     export type pvestoragevgname = string;
     /**
+     * ZFS block size
+     * @format pve-storage-zfs-blocksize
+     */
+    export type pvestoragezfsblocksize = string;
+    /**
      * Tags of the VM. This is only meta information.
      * @format pve-tag-list
      */
@@ -1767,6 +2156,11 @@ export namespace Proxmox {
      * @format pve-userid-list
      */
     export type pveuseridlist = string;
+    /**
+     * Specify the allowed VLANs. For example: '2 4 100-200'. Only used if the bridge is VLAN aware.
+     * @format pve-vlan-id-or-range-list
+     */
+    export type pvevlanidorrangelist = string;
     /**
      * Emulated CPU type.
      * @format pve-vm-cpu-conf
@@ -1941,6 +2335,7 @@ export namespace Proxmox {
         'SDN.Allocate'?: boolean;
         'SDN.Audit'?: boolean;
         'SDN.Use'?: boolean;
+        'Sys.AccessNetwork'?: boolean;
         'Sys.Audit'?: boolean;
         'Sys.Console'?: boolean;
         'Sys.Incoming'?: boolean;
@@ -1961,9 +2356,14 @@ export namespace Proxmox {
         'VM.Config.Network'?: boolean;
         'VM.Config.Options'?: boolean;
         'VM.Console'?: boolean;
+        'VM.GuestAgent.Audit'?: boolean;
+        'VM.GuestAgent.FileRead'?: boolean;
+        'VM.GuestAgent.FileSystemMgmt'?: boolean;
+        'VM.GuestAgent.FileWrite'?: boolean;
+        'VM.GuestAgent.Unrestricted'?: boolean;
         'VM.Migrate'?: boolean;
-        'VM.Monitor'?: boolean;
         'VM.PowerMgmt'?: boolean;
+        'VM.Replicate'?: boolean;
         'VM.Snapshot'?: boolean;
         'VM.Snapshot.Rollback'?: boolean;
         /**
@@ -2184,17 +2584,7 @@ export namespace Proxmox {
          */
         keys?: string;
         lastname?: string;
-        tokens?: {
-                comment?: string;
-                /**
-                 * API token expiration date (seconds since epoch). '0' means no expiration date.
-                 */
-                expire?: number;
-                /**
-                 * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
-                 */
-                privsep?: boolean;
-            };
+        tokens?: any;
         /**
          * additionalProperties
          */
@@ -2299,9 +2689,17 @@ export namespace Proxmox {
          */
         expire?: number;
         /**
+         * The full token id. Only set when 'regenerate' was set.
+         */
+        'full-tokenid'?: string;
+        /**
          * Restrict API token privileges with separate ACLs (default), or give full privileges of corresponding user.
          */
         privsep?: boolean;
+        /**
+         * API token value used for authentication. Only set when 'regenerate' was set.
+         */
+        value?: string;
         /**
          * additionalProperties
          */
@@ -2397,13 +2795,82 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /cluster/acme/plugins
+     * Returned by GET /cluster/acme/plugins/\{id\}
      */
-    export interface clusterAcmePluginsIndex {
+    export interface clusterAcmePluginsGetPluginConfig {
+        /**
+         * API plugin name
+         */
+        api?: string;
+        /**
+         * DNS plugin data. (base64 encoded)
+         */
+        data?: string;
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        /**
+         * Flag to disable the config.
+         */
+        disable?: boolean;
+        /**
+         * List of cluster node names.
+         */
+        nodes?: string;
         /**
          * Unique identifier for ACME plugin instance.
          */
         plugin: string;
+        /**
+         * ACME challenge type.
+         */
+        type: string;
+        /**
+         * Extra delay in seconds to wait before requesting validation. Allows to cope with a long TTL of DNS records.
+         */
+        'validation-delay'?: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/acme/plugins
+     */
+    export interface clusterAcmePluginsIndex {
+        /**
+         * API plugin name
+         */
+        api?: string;
+        /**
+         * DNS plugin data. (base64 encoded)
+         */
+        data?: string;
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        /**
+         * Flag to disable the config.
+         */
+        disable?: boolean;
+        /**
+         * List of cluster node names.
+         */
+        nodes?: string;
+        /**
+         * Unique identifier for ACME plugin instance.
+         */
+        plugin: string;
+        /**
+         * ACME challenge type.
+         */
+        type: string;
+        /**
+         * Extra delay in seconds to wait before requesting validation. Allows to cope with a long TTL of DNS records.
+         */
+        'validation-delay'?: number;
         /**
          * additionalProperties
          */
@@ -2458,9 +2925,200 @@ export namespace Proxmox {
      */
     export interface clusterBackupIndex {
         /**
+         * Backup all known guest systems on this host.
+         */
+        all?: boolean;
+        /**
+         * Limit I/O bandwidth (in KiB/s).
+         */
+        bwlimit?: number;
+        /**
+         * Description for the Job.
+         */
+        comment?: string;
+        /**
+         * Compress dump file.
+         */
+        compress?: string;
+        /**
+         * Store resulting files to specified directory.
+         */
+        dumpdir?: string;
+        /**
+         * Enable or disable the job.
+         */
+        enabled?: boolean;
+        /**
+         * Exclude specified guest systems (assumes --all)
+         */
+        exclude?: string;
+        /**
+         * Exclude certain files/directories (shell globs). Paths starting with '/' are anchored to the container's root, other paths match relative to each subdirectory.
+         */
+        'exclude-path'?: string[];
+        /**
+         * Options for backup fleecing (VM only).
+         */
+        fleecing?: {
+                /**
+                 * Enable backup fleecing. Cache backup data from blocks where new guest writes happen on specified storage instead of copying them directly to the backup target. This can help guest IO performance and even prevent hangs, at the cost of requiring more storage space.
+                 */
+                enabled?: boolean;
+                /**
+                 * Use this storage to storage fleecing images. For efficient space usage, it's best to use a local storage that supports discard and either thin provisioning or sparse files.
+                 */
+                storage?: string;
+            };
+        /**
          * The job ID.
          */
         id: string;
+        /**
+         * Set IO priority when using the BFQ scheduler. For snapshot and suspend mode backups of VMs, this only affects the compressor. A value of 8 means the idle priority is used, otherwise the best-effort priority is used with the specified value.
+         */
+        ionice?: number;
+        /**
+         * Maximal time to wait for the global lock (minutes).
+         */
+        lockwait?: number;
+        /**
+         * Deprecated: use notification targets/matchers instead. Specify when to send a notification mail
+         */
+        mailnotification?: string;
+        /**
+         * Deprecated: Use notification targets/matchers instead. Comma-separated list of email addresses or users that should receive email notifications.
+         */
+        mailto?: string;
+        /**
+         * Backup mode.
+         */
+        mode?: string;
+        /**
+         * UNIX timestamp when this backup job will be executed next
+         */
+        'next-run'?: number;
+        /**
+         * Only run if executed on this node.
+         */
+        node?: string;
+        /**
+         * Template string for generating notes for the backup(s). It can contain variables which will be replaced by their values. Currently supported are \{\{cluster\}\}, \{\{guestname\}\}, \{\{node\}\}, and \{\{vmid\}\}, but more might be added in the future. Needs to be a single line, newline and backslash need to be escaped as '\n' and '\\' respectively.
+         */
+        'notes-template'?: string;
+        /**
+         * Determine which notification system to use. If set to 'legacy-sendmail', vzdump will consider the mailto/mailnotification parameters and send emails to the specified address(es) via the 'sendmail' command. If set to 'notification-system', a notification will be sent via PVE's notification system, and the mailto and mailnotification will be ignored. If set to 'auto' (default setting), an email will be sent if mailto is set, and the notification system will be used if not.
+         */
+        'notification-mode'?: string;
+        /**
+         * PBS mode used to detect file changes and switch encoding format for container backups.
+         */
+        'pbs-change-detection-mode'?: string;
+        /**
+         * Other performance-related settings.
+         */
+        performance?: {
+                /**
+                 * Applies to VMs. Allow up to this many IO workers at the same time.
+                 */
+                'max-workers'?: number;
+                /**
+                 * Applies to container backups sent to PBS. Limits the number of entries allowed in memory at a given time to avoid unintended OOM situations. Increase it to enable backups of containers with a large amount of files.
+                 */
+                'pbs-entries-max'?: number;
+            };
+        /**
+         * Use pigz instead of gzip when N>0. N=1 uses half of cores, N>1 uses N as thread count.
+         */
+        pigz?: number;
+        /**
+         * Backup all known guest systems included in the specified pool.
+         */
+        pool?: string;
+        /**
+         * If true, mark backup(s) as protected.
+         */
+        protected?: boolean;
+        /**
+         * Use these retention options instead of those from the storage configuration.
+         */
+        'prune-backups'?: {
+                /**
+                 * Keep all backups. Conflicts with the other options when true.
+                 */
+                'keep-all'?: boolean;
+                /**
+                 * Keep backups for the last <N> different days. If there is morethan one backup for a single day, only the latest one is kept.
+                 */
+                'keep-daily'?: number;
+                /**
+                 * Keep backups for the last <N> different hours. If there is morethan one backup for a single hour, only the latest one is kept.
+                 */
+                'keep-hourly'?: number;
+                /**
+                 * Keep the last <N> backups.
+                 */
+                'keep-last'?: number;
+                /**
+                 * Keep backups for the last <N> different months. If there is morethan one backup for a single month, only the latest one is kept.
+                 */
+                'keep-monthly'?: number;
+                /**
+                 * Keep backups for the last <N> different weeks. If there is morethan one backup for a single week, only the latest one is kept.
+                 */
+                'keep-weekly'?: number;
+                /**
+                 * Keep backups for the last <N> different years. If there is morethan one backup for a single year, only the latest one is kept.
+                 */
+                'keep-yearly'?: number;
+            };
+        /**
+         * Be quiet.
+         */
+        quiet?: boolean;
+        /**
+         * Prune older backups according to 'prune-backups'.
+         */
+        remove?: boolean;
+        /**
+         * If true, the job will be run as soon as possible if it was missed while the scheduler was not running.
+         */
+        'repeat-missed'?: boolean;
+        /**
+         * Backup schedule. The format is a subset of `systemd` calendar events.
+         */
+        schedule?: string;
+        /**
+         * Use specified hook script.
+         */
+        script?: string;
+        /**
+         * Exclude temporary files and logs.
+         */
+        stdexcludes?: boolean;
+        /**
+         * Stop running backup jobs on this host.
+         */
+        stop?: boolean;
+        /**
+         * Maximal time to wait until a guest system is stopped (minutes).
+         */
+        stopwait?: number;
+        /**
+         * Store resulting file to this storage.
+         */
+        storage?: string;
+        /**
+         * Store temporary files to specified directory.
+         */
+        tmpdir?: string;
+        /**
+         * The ID of the guest system you want to backup.
+         */
+        vmid?: string;
+        /**
+         * Zstd threads. N=0 uses half of the available cores, if N is set to a value bigger than 0, N is used as thread count.
+         */
+        zstd?: number;
         /**
          * additionalProperties
          */
@@ -2501,6 +3159,219 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /cluster/backup/\{id\}
+     */
+    export interface clusterBackupReadJob {
+        /**
+         * Backup all known guest systems on this host.
+         */
+        all?: boolean;
+        /**
+         * Limit I/O bandwidth (in KiB/s).
+         */
+        bwlimit?: number;
+        /**
+         * Description for the Job.
+         */
+        comment?: string;
+        /**
+         * Compress dump file.
+         */
+        compress?: string;
+        /**
+         * Store resulting files to specified directory.
+         */
+        dumpdir?: string;
+        /**
+         * Enable or disable the job.
+         */
+        enabled?: boolean;
+        /**
+         * Exclude specified guest systems (assumes --all)
+         */
+        exclude?: string;
+        /**
+         * Exclude certain files/directories (shell globs). Paths starting with '/' are anchored to the container's root, other paths match relative to each subdirectory.
+         */
+        'exclude-path'?: string[];
+        /**
+         * Options for backup fleecing (VM only).
+         */
+        fleecing?: {
+                /**
+                 * Enable backup fleecing. Cache backup data from blocks where new guest writes happen on specified storage instead of copying them directly to the backup target. This can help guest IO performance and even prevent hangs, at the cost of requiring more storage space.
+                 */
+                enabled?: boolean;
+                /**
+                 * Use this storage to storage fleecing images. For efficient space usage, it's best to use a local storage that supports discard and either thin provisioning or sparse files.
+                 */
+                storage?: string;
+            };
+        /**
+         * The job ID.
+         */
+        id: string;
+        /**
+         * Set IO priority when using the BFQ scheduler. For snapshot and suspend mode backups of VMs, this only affects the compressor. A value of 8 means the idle priority is used, otherwise the best-effort priority is used with the specified value.
+         */
+        ionice?: number;
+        /**
+         * Maximal time to wait for the global lock (minutes).
+         */
+        lockwait?: number;
+        /**
+         * Deprecated: use notification targets/matchers instead. Specify when to send a notification mail
+         */
+        mailnotification?: string;
+        /**
+         * Deprecated: Use notification targets/matchers instead. Comma-separated list of email addresses or users that should receive email notifications.
+         */
+        mailto?: string;
+        /**
+         * Backup mode.
+         */
+        mode?: string;
+        /**
+         * UNIX timestamp when this backup job will be executed next
+         */
+        'next-run'?: number;
+        /**
+         * Only run if executed on this node.
+         */
+        node?: string;
+        /**
+         * Template string for generating notes for the backup(s). It can contain variables which will be replaced by their values. Currently supported are \{\{cluster\}\}, \{\{guestname\}\}, \{\{node\}\}, and \{\{vmid\}\}, but more might be added in the future. Needs to be a single line, newline and backslash need to be escaped as '\n' and '\\' respectively.
+         */
+        'notes-template'?: string;
+        /**
+         * Determine which notification system to use. If set to 'legacy-sendmail', vzdump will consider the mailto/mailnotification parameters and send emails to the specified address(es) via the 'sendmail' command. If set to 'notification-system', a notification will be sent via PVE's notification system, and the mailto and mailnotification will be ignored. If set to 'auto' (default setting), an email will be sent if mailto is set, and the notification system will be used if not.
+         */
+        'notification-mode'?: string;
+        /**
+         * PBS mode used to detect file changes and switch encoding format for container backups.
+         */
+        'pbs-change-detection-mode'?: string;
+        /**
+         * Other performance-related settings.
+         */
+        performance?: {
+                /**
+                 * Applies to VMs. Allow up to this many IO workers at the same time.
+                 */
+                'max-workers'?: number;
+                /**
+                 * Applies to container backups sent to PBS. Limits the number of entries allowed in memory at a given time to avoid unintended OOM situations. Increase it to enable backups of containers with a large amount of files.
+                 */
+                'pbs-entries-max'?: number;
+            };
+        /**
+         * Use pigz instead of gzip when N>0. N=1 uses half of cores, N>1 uses N as thread count.
+         */
+        pigz?: number;
+        /**
+         * Backup all known guest systems included in the specified pool.
+         */
+        pool?: string;
+        /**
+         * If true, mark backup(s) as protected.
+         */
+        protected?: boolean;
+        /**
+         * Use these retention options instead of those from the storage configuration.
+         */
+        'prune-backups'?: {
+                /**
+                 * Keep all backups. Conflicts with the other options when true.
+                 */
+                'keep-all'?: boolean;
+                /**
+                 * Keep backups for the last <N> different days. If there is morethan one backup for a single day, only the latest one is kept.
+                 */
+                'keep-daily'?: number;
+                /**
+                 * Keep backups for the last <N> different hours. If there is morethan one backup for a single hour, only the latest one is kept.
+                 */
+                'keep-hourly'?: number;
+                /**
+                 * Keep the last <N> backups.
+                 */
+                'keep-last'?: number;
+                /**
+                 * Keep backups for the last <N> different months. If there is morethan one backup for a single month, only the latest one is kept.
+                 */
+                'keep-monthly'?: number;
+                /**
+                 * Keep backups for the last <N> different weeks. If there is morethan one backup for a single week, only the latest one is kept.
+                 */
+                'keep-weekly'?: number;
+                /**
+                 * Keep backups for the last <N> different years. If there is morethan one backup for a single year, only the latest one is kept.
+                 */
+                'keep-yearly'?: number;
+            };
+        /**
+         * Be quiet.
+         */
+        quiet?: boolean;
+        /**
+         * Prune older backups according to 'prune-backups'.
+         */
+        remove?: boolean;
+        /**
+         * If true, the job will be run as soon as possible if it was missed while the scheduler was not running.
+         */
+        'repeat-missed'?: boolean;
+        /**
+         * Backup schedule. The format is a subset of `systemd` calendar events.
+         */
+        schedule?: string;
+        /**
+         * Use specified hook script.
+         */
+        script?: string;
+        /**
+         * Exclude temporary files and logs.
+         */
+        stdexcludes?: boolean;
+        /**
+         * Stop running backup jobs on this host.
+         */
+        stop?: boolean;
+        /**
+         * Maximal time to wait until a guest system is stopped (minutes).
+         */
+        stopwait?: number;
+        /**
+         * Store resulting file to this storage.
+         */
+        storage?: string;
+        /**
+         * Store temporary files to specified directory.
+         */
+        tmpdir?: string;
+        /**
+         * The ID of the guest system you want to backup.
+         */
+        vmid?: string;
+        /**
+         * Zstd threads. N=0 uses half of the available cores, if N is set to a value bigger than 0, N is used as thread count.
+         */
+        zstd?: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/bulk-action/guest
+     */
+    export interface clusterBulkActionGuestIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /cluster/ceph
      */
     export interface clusterCephCephindex {
@@ -2535,155 +3406,82 @@ export namespace Proxmox {
      */
     export interface clusterCephMetadataMetadata {
         /**
-         * Metadata servers configured in the cluster and their properties.
+         * Metadata servers configured in the cluster and their properties, keyed by '<name>@<host>'.
          */
-        mds: {
-                /**
-                 * Useful properties are listed, but not the full list.
-                 */
-                $(id: string): {
-                        /**
-                         * Bind addresses and ports.
-                         */
-                        addr: string;
-                        /**
-                         * Ceph release codename currently used.
-                         */
-                        ceph_release: string;
-                        /**
-                         * Version info currently used by the service.
-                         */
-                        ceph_version: string;
-                        /**
-                         * Short version (numerical) info currently used by the service.
-                         */
-                        ceph_version_short: string;
-                        /**
-                         * Hostname on which the service is running.
-                         */
-                        hostname: string;
-                        /**
-                         * Memory of the service currently in swap.
-                         */
-                        mem_swap_kb: number;
-                        /**
-                         * Memory consumption of the service.
-                         */
-                        mem_total_kb: number;
-                        /**
-                         * Name of the service instance.
-                         */
-                        name: string;
-                    };
-            };
+        mds: any;
         /**
-         * Managers configured in the cluster and their properties.
+         * Managers configured in the cluster and their properties, keyed by '<name>@<host>'.
          */
-        mgr: {
-                /**
-                 * Useful properties are listed, but not the full list.
-                 */
-                $(id: string): {
-                        /**
-                         * Bind address
-                         */
-                        addr: string;
-                        /**
-                         * Ceph release codename currently used.
-                         */
-                        ceph_release: string;
-                        /**
-                         * Version info currently used by the service.
-                         */
-                        ceph_version: string;
-                        /**
-                         * Short version (numerical) info currently used by the service.
-                         */
-                        ceph_version_short: string;
-                        /**
-                         * Hostname on which the service is running.
-                         */
-                        hostname: string;
-                        /**
-                         * Memory of the service currently in swap.
-                         */
-                        mem_swap_kb: number;
-                        /**
-                         * Memory consumption of the service.
-                         */
-                        mem_total_kb: number;
-                        /**
-                         * Name of the service instance.
-                         */
-                        name: string;
-                    };
-            };
+        mgr: any;
         /**
-         * Monitors configured in the cluster and their properties.
+         * Monitors configured in the cluster and their properties, keyed by '<name>@<host>'.
          */
-        mon: {
-                /**
-                 * Useful properties are listed, but not the full list.
-                 */
-                $(id: string): {
-                        /**
-                         * Bind addresses and ports.
-                         */
-                        addrs: string;
-                        /**
-                         * Ceph release codename currently used.
-                         */
-                        ceph_release: string;
-                        /**
-                         * Version info currently used by the service.
-                         */
-                        ceph_version: string;
-                        /**
-                         * Short version (numerical) info currently used by the service.
-                         */
-                        ceph_version_short: string;
-                        /**
-                         * Hostname on which the service is running.
-                         */
-                        hostname: string;
-                        /**
-                         * Memory of the service currently in swap.
-                         */
-                        mem_swap_kb: number;
-                        /**
-                         * Memory consumption of the service.
-                         */
-                        mem_total_kb: number;
-                        /**
-                         * Name of the service instance.
-                         */
-                        name: string;
-                    };
-            };
+        mon: any;
         /**
-         * Ceph version installed on the nodes.
+         * Ceph version installed on the nodes, keyed by node name.
          */
-        node: {
-                $(node: string): {
-                        /**
-                         * GIT commit used for the build.
-                         */
-                        buildcommit: string;
-                        /**
-                         * Version info.
-                         */
-                        version: {
-                                /**
-                                 * major, minor & patch
-                                 */
-                                parts: string[];
-                                /**
-                                 * Version as single string.
-                                 */
-                                str: string;
-                            };
-                    };
-            };
+        node: any;
+        /**
+         * OSDs configured in the cluster and their properties.
+         */
+        osd: {
+                /**
+                 * Bind addresses and ports for backend inter OSD traffic.
+                 */
+                back_addr: string;
+                /**
+                 * Ceph release codename currently used.
+                 */
+                ceph_release: string;
+                /**
+                 * Version info currently used by the service.
+                 */
+                ceph_version: string;
+                /**
+                 * Short version (numerical) info currently used by the service.
+                 */
+                ceph_version_short: string;
+                /**
+                 * Comma-joined list of device identifiers (e.g. 'sdb=<serial>,sdc=<serial>').
+                 */
+                device_ids?: string;
+                /**
+                 * Comma-joined list of /dev/disk/by-path entries for the underlying devices.
+                 */
+                device_paths?: string;
+                /**
+                 * Comma-joined list of underlying device names (e.g. 'sdb,sdc').
+                 */
+                devices?: string;
+                /**
+                 * Bind addresses and ports for frontend traffic to OSDs.
+                 */
+                front_addr: string;
+                /**
+                 * Hostname on which the service is running.
+                 */
+                hostname: string;
+                /**
+                 * OSD ID.
+                 */
+                id: number;
+                /**
+                 * Memory of the service currently in swap.
+                 */
+                mem_swap_kb: number;
+                /**
+                 * Memory consumption of the service.
+                 */
+                mem_total_kb: number;
+                /**
+                 * Path to the OSD data directory.
+                 */
+                osd_data: string;
+                /**
+                 * OSD objectstore type.
+                 */
+                osd_objectstore: string;
+            }[];
         /**
          * additionalProperties
          */
@@ -2775,23 +3573,65 @@ export namespace Proxmox {
      * Returned by GET /cluster/firewall/groups/\{group\}/\{pos\}
      */
     export interface clusterFirewallGroupsGetRule {
+        /**
+         * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name
+         */
         action: string;
+        /**
+         * Descriptive comment
+         */
         comment?: string;
+        /**
+         * Restrict packet destination address
+         */
         dest?: string;
+        /**
+         * Restrict TCP/UDP destination port
+         */
         dport?: string;
+        /**
+         * Flag to enable/disable a rule
+         */
         enable?: number;
+        /**
+         * Specify icmp-type. Only valid if proto equals 'icmp' or 'icmpv6'/'ipv6-icmp'
+         */
         'icmp-type'?: string;
+        /**
+         * Network interface name. You have to use network configuration key names for VMs and containers
+         */
         iface?: string;
+        /**
+         * IP version (4 or 6) - automatically determined from source/dest addresses
+         */
         ipversion?: number;
         /**
          * Log level for firewall rule
          */
         log?: string;
+        /**
+         * Use predefined standard macro
+         */
         macro?: string;
+        /**
+         * Rule position in the ruleset
+         */
         pos: number;
+        /**
+         * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'
+         */
         proto?: string;
+        /**
+         * Restrict packet source address
+         */
         source?: string;
+        /**
+         * Restrict TCP/UDP source port
+         */
         sport?: string;
+        /**
+         * Rule type
+         */
         type: string;
         /**
          * additionalProperties
@@ -2802,7 +3642,66 @@ export namespace Proxmox {
      * Returned by GET /cluster/firewall/groups/\{group\}
      */
     export interface clusterFirewallGroupsGetRules {
+        /**
+         * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name
+         */
+        action: string;
+        /**
+         * Descriptive comment
+         */
+        comment?: string;
+        /**
+         * Restrict packet destination address
+         */
+        dest?: string;
+        /**
+         * Restrict TCP/UDP destination port
+         */
+        dport?: string;
+        /**
+         * Flag to enable/disable a rule
+         */
+        enable?: number;
+        /**
+         * Specify icmp-type. Only valid if proto equals 'icmp' or 'icmpv6'/'ipv6-icmp'
+         */
+        'icmp-type'?: string;
+        /**
+         * Network interface name. You have to use network configuration key names for VMs and containers
+         */
+        iface?: string;
+        /**
+         * IP version (4 or 6) - automatically determined from source/dest addresses
+         */
+        ipversion?: number;
+        /**
+         * Log level for firewall rule
+         */
+        log?: string;
+        /**
+         * Use predefined standard macro
+         */
+        macro?: string;
+        /**
+         * Rule position in the ruleset
+         */
         pos: number;
+        /**
+         * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'
+         */
+        proto?: string;
+        /**
+         * Restrict packet source address
+         */
+        source?: string;
+        /**
+         * Restrict TCP/UDP source port
+         */
+        sport?: string;
+        /**
+         * Rule type
+         */
+        type: string;
         /**
          * additionalProperties
          */
@@ -2903,6 +3802,10 @@ export namespace Proxmox {
          */
         log_ratelimit?: string;
         /**
+         * Forward policy.
+         */
+        policy_forward?: string;
+        /**
          * Input policy.
          */
         policy_in?: string;
@@ -2933,23 +3836,65 @@ export namespace Proxmox {
      * Returned by GET /cluster/firewall/rules/\{pos\}
      */
     export interface clusterFirewallRulesGetRule {
+        /**
+         * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name
+         */
         action: string;
+        /**
+         * Descriptive comment
+         */
         comment?: string;
+        /**
+         * Restrict packet destination address
+         */
         dest?: string;
+        /**
+         * Restrict TCP/UDP destination port
+         */
         dport?: string;
+        /**
+         * Flag to enable/disable a rule
+         */
         enable?: number;
+        /**
+         * Specify icmp-type. Only valid if proto equals 'icmp' or 'icmpv6'/'ipv6-icmp'
+         */
         'icmp-type'?: string;
+        /**
+         * Network interface name. You have to use network configuration key names for VMs and containers
+         */
         iface?: string;
+        /**
+         * IP version (4 or 6) - automatically determined from source/dest addresses
+         */
         ipversion?: number;
         /**
          * Log level for firewall rule
          */
         log?: string;
+        /**
+         * Use predefined standard macro
+         */
         macro?: string;
+        /**
+         * Rule position in the ruleset
+         */
         pos: number;
+        /**
+         * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'
+         */
         proto?: string;
+        /**
+         * Restrict packet source address
+         */
         source?: string;
+        /**
+         * Restrict TCP/UDP source port
+         */
         sport?: string;
+        /**
+         * Rule type
+         */
         type: string;
         /**
          * additionalProperties
@@ -2960,7 +3905,66 @@ export namespace Proxmox {
      * Returned by GET /cluster/firewall/rules
      */
     export interface clusterFirewallRulesGetRules {
+        /**
+         * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name
+         */
+        action: string;
+        /**
+         * Descriptive comment
+         */
+        comment?: string;
+        /**
+         * Restrict packet destination address
+         */
+        dest?: string;
+        /**
+         * Restrict TCP/UDP destination port
+         */
+        dport?: string;
+        /**
+         * Flag to enable/disable a rule
+         */
+        enable?: number;
+        /**
+         * Specify icmp-type. Only valid if proto equals 'icmp' or 'icmpv6'/'ipv6-icmp'
+         */
+        'icmp-type'?: string;
+        /**
+         * Network interface name. You have to use network configuration key names for VMs and containers
+         */
+        iface?: string;
+        /**
+         * IP version (4 or 6) - automatically determined from source/dest addresses
+         */
+        ipversion?: number;
+        /**
+         * Log level for firewall rule
+         */
+        log?: string;
+        /**
+         * Use predefined standard macro
+         */
+        macro?: string;
+        /**
+         * Rule position in the ruleset
+         */
         pos: number;
+        /**
+         * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'
+         */
+        proto?: string;
+        /**
+         * Restrict packet source address
+         */
+        source?: string;
+        /**
+         * Restrict TCP/UDP source port
+         */
+        sport?: string;
+        /**
+         * Rule type
+         */
+        type: string;
         /**
          * additionalProperties
          */
@@ -2997,9 +4001,47 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by POST /cluster/ha/resources/\{sid\}/migrate
+     */
+    export interface clusterHaResourcesMigrateMigrate {
+        /**
+         * HA resources, which are blocking the given HA resource from being migrated to the requested target node.
+         */
+        'blocking-resources'?: {
+                /**
+                 * The reason why the HA resource is blocking the migration.
+                 */
+                cause: string;
+                /**
+                 * The blocking HA resource id
+                 */
+                sid: string;
+            }[];
+        /**
+         * HA resources, which are migrated to the same requested target node as the given HA resource, because these are in positive affinity with the HA resource.
+         */
+        'comigrated-resources'?: string[];
+        /**
+         * Node, which was requested to be migrated to.
+         */
+        'requested-node': string;
+        /**
+         * HA resource, which is requested to be migrated.
+         */
+        sid: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /cluster/ha/resources/\{sid\}
      */
     export interface clusterHaResourcesRead {
+        /**
+         * HA resource may be migrated during automatic rebalancing.
+         */
+        'auto-rebalance'?: boolean;
         /**
          * Description.
          */
@@ -3009,11 +4051,15 @@ export namespace Proxmox {
          */
         digest: string;
         /**
+         * The HA resource is automatically migrated to the node with the highest priority according to their node affinity rule, if a node with a higher priority than the current node comes online.
+         */
+        failback?: boolean;
+        /**
          * The HA group identifier.
          */
         group?: string;
         /**
-         * Maximal number of service relocate tries when a service failes to start.
+         * Maximal number of service relocate tries when a service fails to start.
          */
         max_relocate?: number;
         /**
@@ -3038,13 +4084,86 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by POST /cluster/ha/resources/\{sid\}/relocate
+     */
+    export interface clusterHaResourcesRelocateRelocate {
+        /**
+         * HA resources, which are blocking the given HA resource from being relocated to the requested target node.
+         */
+        'blocking-resources'?: {
+                /**
+                 * The reason why the HA resource is blocking the relocation.
+                 */
+                cause: string;
+                /**
+                 * The blocking HA resource id
+                 */
+                sid: string;
+            }[];
+        /**
+         * HA resources, which are relocated to the same requested target node as the given HA resource, because these are in positive affinity with the HA resource.
+         */
+        'comigrated-resources'?: string[];
+        /**
+         * Node, which was requested to be relocated to.
+         */
+        'requested-node': string;
+        /**
+         * HA resource, which is requested to be relocated.
+         */
+        sid: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/ha/rules
+     */
+    export interface clusterHaRulesIndex {
+        rule: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/ha/rules/\{rule\}
+     */
+    export interface clusterHaRulesReadRule {
+        /**
+         * HA rule identifier.
+         */
+        rule: string;
+        /**
+         * HA rule type.
+         */
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /cluster/ha/status/current
      */
     export interface clusterHaStatusCurrentStatus {
         /**
+         * For type 'fencing'. Whether HA is armed, on standby, disarming or disarmed.
+         */
+        'armed-state'?: string;
+        /**
+         * HA resource may be migrated during automatic rebalancing.
+         */
+        'auto-rebalance'?: boolean;
+        /**
          * For type 'service'. Service state as seen by the CRM.
          */
         crm_state?: string;
+        /**
+         * The HA resource is automatically migrated to the node with the highest priority according to their node affinity rule, if a node with a higher priority than the current node comes online.
+         */
+        failback?: boolean;
         /**
          * Status entry ID (quorum, master, lrm:<node>, service:<sid>).
          */
@@ -3069,6 +4188,10 @@ export namespace Proxmox {
          * For type 'service'. Requested service state.
          */
         request_state?: string;
+        /**
+         * For type 'fencing'. How resources are handled while disarmed.
+         */
+        resource_mode?: string;
         /**
          * For type 'service'. Service ID.
          */
@@ -3154,7 +4277,7 @@ export namespace Proxmox {
          */
         realm: string;
         /**
-         * A semicolon-seperated list of things to remove when they or the user vanishes during a sync. The following values are possible: 'entry' removes the user/group when not returned from the sync. 'properties' removes the set properties on existing user/group that do not appear in the source (even custom ones). 'acl' removes acls when the user/group is not returned from the sync. Instead of a list it also can be 'none' (the default).
+         * A semicolon-separated list of things to remove when they or the user vanishes during a sync. The following values are possible: 'entry' removes the user/group when not returned from the sync. 'properties' removes the set properties on existing user/group that do not appear in the source (even custom ones). 'acl' removes acls when the user/group is not returned from the sync. Instead of a list it also can be 'none' (the default).
          */
         'remove-vanished'?: string;
         /**
@@ -3191,6 +4314,40 @@ export namespace Proxmox {
      * Returned by GET /cluster/log
      */
     export interface clusterLogLog {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/mapping/dir
+     */
+    export interface clusterMappingDirIndex {
+        /**
+         * A list of checks, only present if 'check-node' is set.
+         */
+        checks?: {
+                /**
+                 * The message of the error
+                 */
+                message: string;
+                /**
+                 * The severity of the error
+                 */
+                severity: string;
+            }[];
+        /**
+         * A description of the logical mapping.
+         */
+        description: string;
+        /**
+         * The logical ID of the mapping.
+         */
+        id: string;
+        /**
+         * The entries of the mapping.
+         */
+        map: string[];
         /**
          * additionalProperties
          */
@@ -3250,6 +4407,40 @@ export namespace Proxmox {
          * The entries of the mapping.
          */
         map: string[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/metrics/export
+     */
+    export interface clusterMetricsExportExport {
+        /**
+         * Array of system metrics. Metrics are sorted by their timestamp.
+         */
+        data: {
+                /**
+                 * Unique identifier for this metric object, for instance 'node/<nodename>' or 'qemu/<vmid>'.
+                 */
+                id: string;
+                /**
+                 * Name of the metric.
+                 */
+                metric: string;
+                /**
+                 * Time at which this metric was observed
+                 */
+                timestamp: number;
+                /**
+                 * Type of the metric.
+                 */
+                type: string;
+                /**
+                 * Metric value.
+                 */
+                value: number;
+            }[];
         /**
          * additionalProperties
          */
@@ -3557,9 +4748,133 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /cluster/notifications/endpoints/webhook/\{name\}
+     */
+    export interface clusterNotificationsEndpointsWebhookGetWebhookEndpoint {
+        /**
+         * HTTP body, base64 encoded
+         */
+        body?: string;
+        /**
+         * Comment
+         */
+        comment?: string;
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        /**
+         * Disable this target
+         */
+        disable?: boolean;
+        /**
+         * HTTP headers to set. These have to be formatted as a property string in the format name=<name>,value=<base64 of value>
+         */
+        header?: string[];
+        /**
+         * HTTP method
+         */
+        method: string;
+        /**
+         * The name of the endpoint.
+         */
+        name: string;
+        /**
+         * Secrets to set. These have to be formatted as a property string in the format name=<name>,value=<base64 of value>
+         */
+        secret?: string[];
+        /**
+         * Server URL
+         */
+        url: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/notifications/endpoints/webhook
+     */
+    export interface clusterNotificationsEndpointsWebhookGetWebhookEndpoints {
+        /**
+         * HTTP body, base64 encoded
+         */
+        body?: string;
+        /**
+         * Comment
+         */
+        comment?: string;
+        /**
+         * Disable this target
+         */
+        disable?: boolean;
+        /**
+         * HTTP headers to set. These have to be formatted as a property string in the format name=<name>,value=<base64 of value>
+         */
+        header?: string[];
+        /**
+         * HTTP method
+         */
+        method: string;
+        /**
+         * The name of the endpoint.
+         */
+        name: string;
+        /**
+         * Show if this entry was created by a user or was built-in
+         */
+        origin: string;
+        /**
+         * Secrets to set. These have to be formatted as a property string in the format name=<name>,value=<base64 of value>
+         */
+        secret?: string[];
+        /**
+         * Server URL
+         */
+        url: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /cluster/notifications
      */
     export interface clusterNotificationsIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/notifications/matcher-field-values
+     */
+    export interface clusterNotificationsMatcherFieldValuesGetMatcherFieldValues {
+        /**
+         * Additional comment for this value.
+         */
+        comment?: string;
+        /**
+         * Field this value belongs to.
+         */
+        field: string;
+        /**
+         * Notification metadata value known by the system.
+         */
+        value: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/notifications/matcher-fields
+     */
+    export interface clusterNotificationsMatcherFieldsGetMatcherFields {
+        /**
+         * Name of the field.
+         */
+        name: string;
         /**
          * additionalProperties
          */
@@ -3693,9 +5008,230 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /cluster/qemu/cpu-flags
+     */
+    export interface clusterQemuCpuFlagsIndex {
+        /**
+         * Description of the CPU flag.
+         */
+        description?: string;
+        /**
+         * Name of the CPU flag.
+         */
+        name: string;
+        /**
+         * List of nodes supporting the flag with the selected acceleration type ("accel").
+         */
+        'supported-on'?: string[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/qemu/custom-cpu-models
+     */
+    export interface clusterQemuCustomCpuModelsConfig {
+        /**
+         * Emulated CPU type. Can be default or custom name (custom model names must be prefixed with 'custom-').
+         */
+        cputype?: string;
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        /**
+         * List of additional CPU flags separated by ';'. Use '+FLAG' to enable, '-FLAG' to disable a flag. There is a special 'nested-virt' shorthand which controls nested virtualization for the current CPU ('svm' for AMD and 'vmx' for Intel). Custom CPU models can specify any flag supported by QEMU/KVM, VM-specific flags must be from the following set for security reasons: aes, amd-no-ssb, amd-ssbd, hv-evmcs, hv-tlbflush, ibpb, md-clear, nested-virt, pcid, pdpe1gb, spec-ctrl, ssbd, virt-ssbd
+         */
+        flags?: string;
+        /**
+         * Number of physical address bits available to the guest.
+         */
+        'guest-phys-bits'?: number;
+        /**
+         * Do not identify as a KVM virtual machine. Only affects vCPUs with x86-64 architecture.
+         */
+        hidden?: boolean;
+        /**
+         * The Hyper-V vendor ID. Some drivers or programs inside Windows guests need a specific ID.
+         */
+        'hv-vendor-id'?: string;
+        /**
+         * Maximum input value for the basic CPUID leaves the guest can query - that is the vendor (leaf 0), family/model/stepping and feature bits (leaf 1), cache and topology info (leaves 4 and B), and so on. Higher-numbered leaves are hidden. Setting '30' is a common workaround for Hyper-V boot failures on Windows guests running on recent Intel hosts. Only applies when the vCPU architecture is x86_64.
+         */
+        level?: number;
+        /**
+         * The physical memory address bits that are reported to the guest OS. Should be smaller or equal to the host's. Set to 'host' to use value from host CPU, but note that doing so will break live migration to CPUs with other values.
+         */
+        'phys-bits'?: string;
+        /**
+         * CPU model and vendor to report to the guest. Must be a QEMU/KVM supported model. Only valid for custom CPU model definitions, default models will always report themselves to the guest OS.
+         */
+        'reported-model'?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/qemu/custom-cpu-models/\{cputype\}
+     */
+    export interface clusterQemuCustomCpuModelsInfo {
+        /**
+         * Emulated CPU type. Can be default or custom name (custom model names must be prefixed with 'custom-').
+         */
+        cputype?: string;
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        /**
+         * List of additional CPU flags separated by ';'. Use '+FLAG' to enable, '-FLAG' to disable a flag. There is a special 'nested-virt' shorthand which controls nested virtualization for the current CPU ('svm' for AMD and 'vmx' for Intel). Custom CPU models can specify any flag supported by QEMU/KVM, VM-specific flags must be from the following set for security reasons: aes, amd-no-ssb, amd-ssbd, hv-evmcs, hv-tlbflush, ibpb, md-clear, nested-virt, pcid, pdpe1gb, spec-ctrl, ssbd, virt-ssbd
+         */
+        flags?: string;
+        /**
+         * Number of physical address bits available to the guest.
+         */
+        'guest-phys-bits'?: number;
+        /**
+         * Do not identify as a KVM virtual machine. Only affects vCPUs with x86-64 architecture.
+         */
+        hidden?: boolean;
+        /**
+         * The Hyper-V vendor ID. Some drivers or programs inside Windows guests need a specific ID.
+         */
+        'hv-vendor-id'?: string;
+        /**
+         * Maximum input value for the basic CPUID leaves the guest can query - that is the vendor (leaf 0), family/model/stepping and feature bits (leaf 1), cache and topology info (leaves 4 and B), and so on. Higher-numbered leaves are hidden. Setting '30' is a common workaround for Hyper-V boot failures on Windows guests running on recent Intel hosts. Only applies when the vCPU architecture is x86_64.
+         */
+        level?: number;
+        /**
+         * The physical memory address bits that are reported to the guest OS. Should be smaller or equal to the host's. Set to 'host' to use value from host CPU, but note that doing so will break live migration to CPUs with other values.
+         */
+        'phys-bits'?: string;
+        /**
+         * CPU model and vendor to report to the guest. Must be a QEMU/KVM supported model. Only valid for custom CPU model definitions, default models will always report themselves to the guest OS.
+         */
+        'reported-model'?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/qemu
+     */
+    export interface clusterQemuIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /cluster/replication
      */
     export interface clusterReplicationIndex {
+        /**
+         * Description.
+         */
+        comment?: string;
+        /**
+         * Flag to disable/deactivate the entry.
+         */
+        disable?: boolean;
+        /**
+         * Guest ID.
+         */
+        guest: number;
+        /**
+         * Replication Job ID. The ID is composed of a Guest ID and a job number, separated by a hyphen, i.e. '<GUEST>-<JOBNUM>'.
+         */
+        id: string;
+        /**
+         * Unique, sequential ID assigned to each job.
+         */
+        jobnum: number;
+        /**
+         * Rate limit in mbps (megabytes per second) as floating point number.
+         */
+        rate?: number;
+        /**
+         * Mark the replication job for removal. The job will remove all local replication snapshots. When set to 'full', it also tries to remove replicated volumes on the target. The job then removes itself from the configuration file.
+         */
+        remove_job?: string;
+        /**
+         * Storage replication schedule. The format is a subset of `systemd` calendar events.
+         */
+        schedule?: string;
+        /**
+         * For internal use, to detect if the guest was stolen.
+         */
+        source?: string;
+        /**
+         * Target node.
+         */
+        target: string;
+        /**
+         * Section type.
+         */
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/replication/\{id\}
+     */
+    export interface clusterReplicationRead {
+        /**
+         * Description.
+         */
+        comment?: string;
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        /**
+         * Flag to disable/deactivate the entry.
+         */
+        disable?: boolean;
+        /**
+         * Guest ID.
+         */
+        guest: number;
+        /**
+         * Replication Job ID. The ID is composed of a Guest ID and a job number, separated by a hyphen, i.e. '<GUEST>-<JOBNUM>'.
+         */
+        id: string;
+        /**
+         * Unique, sequential ID assigned to each job.
+         */
+        jobnum: number;
+        /**
+         * Rate limit in mbps (megabytes per second) as floating point number.
+         */
+        rate?: number;
+        /**
+         * Mark the replication job for removal. The job will remove all local replication snapshots. When set to 'full', it also tries to remove replicated volumes on the target. The job then removes itself from the configuration file.
+         */
+        remove_job?: string;
+        /**
+         * Storage replication schedule. The format is a subset of `systemd` calendar events.
+         */
+        schedule?: string;
+        /**
+         * For internal use, to detect if the guest was stolen.
+         */
+        source?: string;
+        /**
+         * Target node.
+         */
+        target: string;
+        /**
+         * Section type.
+         */
+        type: string;
         /**
          * additionalProperties
          */
@@ -3706,55 +5242,91 @@ export namespace Proxmox {
      */
     export interface clusterResourcesResources {
         /**
-         * The cgroup mode the node operates under (when type == node).
+         * The cgroup mode the node operates under (for type 'node').
          */
         'cgroup-mode'?: number;
         /**
-         * Allowed storage content types (when type == storage).
+         * Allowed storage content types (for type 'storage').
          */
         content?: string;
         /**
-         * CPU utilization (when type in node,qemu,lxc).
+         * CPU utilization (for types 'node', 'qemu' and 'lxc').
          */
         cpu?: number;
         /**
-         * Used disk space in bytes (when type in storage), used root image spave for VMs (type in qemu,lxc).
+         * Used disk space in bytes (for type 'storage'), used root image space for VMs (for types 'qemu' and 'lxc').
          */
         disk?: number;
+        /**
+         * The number of bytes the guest read from its block devices since the guest was started. This info is not available for all storage types. (for types 'qemu' and 'lxc')
+         */
+        diskread?: number;
+        /**
+         * The number of bytes the guest wrote to its block devices since the guest was started. This info is not available for all storage types. (for types 'qemu' and 'lxc')
+         */
+        diskwrite?: number;
         /**
          * HA service status (for HA managed VMs).
          */
         hastate?: string;
         /**
+         * The node's CPU architecture. (for type 'node').
+         */
+        'host-arch'?: string;
+        /**
          * Resource id.
          */
         id: string;
         /**
-         * Support level (when type == node).
+         * Support level (for type 'node').
          */
         level?: string;
         /**
-         * Number of available CPUs (when type in node,qemu,lxc).
+         * The guest's current config lock (for types 'qemu' and 'lxc')
+         */
+        lock?: string;
+        /**
+         * Number of available CPUs (for types 'node', 'qemu' and 'lxc').
          */
         maxcpu?: number;
         /**
-         * Storage size in bytes (when type in storage), root image size for VMs (type in qemu,lxc).
+         * Storage size in bytes (for type 'storage'), root image size for VMs (for types 'qemu' and 'lxc').
          */
         maxdisk?: number;
         /**
-         * Number of available memory in bytes (when type in node,qemu,lxc).
+         * Number of available memory in bytes (for types 'node', 'qemu' and 'lxc').
          */
         maxmem?: number;
         /**
-         * Used memory in bytes (when type in node,qemu,lxc).
+         * Used memory in bytes (for types 'node', 'qemu' and 'lxc').
          */
         mem?: number;
+        /**
+         * Used memory in bytes from the point of view of the host (for types 'qemu').
+         */
+        memhost?: number;
         /**
          * Name of the resource.
          */
         name?: string;
         /**
-         * The cluster node name (when type in node,storage,qemu,lxc).
+         * The amount of traffic in bytes that was sent to the guest over the network since it was started. (for types 'qemu' and 'lxc')
+         */
+        netin?: number;
+        /**
+         * The amount of traffic in bytes that was sent from the guest over the network since it was started. (for types 'qemu' and 'lxc')
+         */
+        netout?: number;
+        /**
+         * The name of a Network entity (for type 'network').
+         */
+        network?: string;
+        /**
+         * The type of network resource (for type 'network').
+         */
+        'network-type'?: string;
+        /**
+         * The cluster node name (for types 'node', 'storage', 'qemu', and 'lxc').
          */
         node?: string;
         /**
@@ -3762,29 +5334,53 @@ export namespace Proxmox {
          */
         plugintype?: string;
         /**
-         * The pool name (when type in pool,qemu,lxc).
+         * The pool name (for types 'pool', 'qemu' and 'lxc').
          */
         pool?: string;
+        /**
+         * The protocol of a fabric (for type 'network', network-type 'fabric').
+         */
+        protocol?: string;
+        /**
+         * The name of an SDN entity (for type 'sdn')
+         */
+        sdn?: string;
+        /**
+         * Determines whether the storage is shared
+         */
+        shared?: boolean;
         /**
          * Resource type dependent status.
          */
         status?: string;
         /**
-         * The storage identifier (when type == storage).
+         * The storage identifier (for type 'storage').
          */
         storage?: string;
+        /**
+         * The guest's tags (for types 'qemu' and 'lxc')
+         */
+        tags?: string;
+        /**
+         * Determines if the guest is a template. (for types 'qemu' and 'lxc')
+         */
+        template?: boolean;
         /**
          * Resource type.
          */
         type: string;
         /**
-         * Node uptime in seconds (when type in node,qemu,lxc).
+         * Uptime of node or virtual guest in seconds (for types 'node', 'qemu' and 'lxc').
          */
         uptime?: number;
         /**
-         * The numerical vmid (when type in qemu,lxc).
+         * The numerical vmid (for types 'qemu' and 'lxc').
          */
         vmid?: number;
+        /**
+         * The type of an SDN zone (for type 'sdn').
+         */
+        'zone-type'?: string;
         /**
          * additionalProperties
          */
@@ -3794,9 +5390,264 @@ export namespace Proxmox {
      * Returned by GET /cluster/sdn/controllers
      */
     export interface clusterSdnControllersIndex {
+        /**
+         * The local ASN of the controller. BGP & EVPN only.
+         */
+        asn?: number;
+        /**
+         * Whether to use eBGP or iBGP. Auto mode chooses depending on BGP controller or falls back to iBGP.
+         */
+        'bgp-mode'?: string;
+        /**
+         * Consider different AS paths of equal length for multipath computation. BGP only.
+         */
+        'bgp-multipath-as-relax'?: boolean;
+        /**
+         * Name of the controller.
+         */
         controller: string;
-        pending?: boolean;
+        /**
+         * Digest of the controller section.
+         */
+        digest?: string;
+        /**
+         * Enable eBGP (remote-as external). BGP only.
+         */
+        ebgp?: boolean;
+        /**
+         * Set maximum amount of hops for eBGP peers. Needs ebgp set to 1. BGP only.
+         */
+        'ebgp-multihop'?: number;
+        /**
+         * Name of the IS-IS domain. IS-IS only.
+         */
+        'isis-domain'?: string;
+        /**
+         * Comma-separated list of interfaces where IS-IS should be active. IS-IS only.
+         */
+        'isis-ifaces'?: string;
+        /**
+         * Network Entity title for this node in the IS-IS network. IS-IS only.
+         */
+        'isis-net'?: string;
+        /**
+         * Name of the loopback/dummy interface that provides the Router-IP. BGP only.
+         */
+        loopback?: string;
+        /**
+         * Node(s) where this controller is active.
+         */
+        node?: string;
+        /**
+         * List of cluster node names.
+         */
+        nodes?: string;
+        /**
+         * Name of the peer group for this EVPN controller
+         */
+        'peer-group-name'?: string;
+        /**
+         * Comma-separated list of the peers IP addresses.
+         */
+        peers?: string;
+        /**
+         * Changes that have not yet been applied to the running configuration.
+         */
+        pending?: {
+                /**
+                 * The local ASN of the controller. BGP & EVPN only.
+                 */
+                asn?: number;
+                /**
+                 * Whether to use eBGP or iBGP. Auto mode chooses depending on BGP controller or falls back to iBGP.
+                 */
+                'bgp-mode'?: string;
+                /**
+                 * Consider different AS paths of equal length for multipath computation. BGP only.
+                 */
+                'bgp-multipath-as-relax'?: boolean;
+                /**
+                 * Enable eBGP (remote-as external). BGP only.
+                 */
+                ebgp?: boolean;
+                /**
+                 * Set maximum amount of hops for eBGP peers. Needs ebgp set to 1. BGP only.
+                 */
+                'ebgp-multihop'?: number;
+                /**
+                 * Name of the IS-IS domain. IS-IS only.
+                 */
+                'isis-domain'?: string;
+                /**
+                 * Comma-separated list of interfaces where IS-IS should be active. IS-IS only.
+                 */
+                'isis-ifaces'?: string;
+                /**
+                 * Network Entity title for this node in the IS-IS network. IS-IS only.
+                 */
+                'isis-net'?: string;
+                /**
+                 * Name of the loopback/dummy interface that provides the Router-IP. BGP only.
+                 */
+                loopback?: string;
+                /**
+                 * Node(s) where this controller is active.
+                 */
+                node?: string;
+                /**
+                 * List of cluster node names.
+                 */
+                nodes?: string;
+                /**
+                 * Name of the peer group for this EVPN controller
+                 */
+                'peer-group-name'?: string;
+                /**
+                 * Comma-separated list of the peers IP addresses.
+                 */
+                peers?: string;
+            };
+        /**
+         * State of the SDN configuration object.
+         */
         state?: string;
+        /**
+         * Type of the controller
+         */
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/controllers/\{controller\}
+     */
+    export interface clusterSdnControllersRead {
+        /**
+         * The local ASN of the controller. BGP & EVPN only.
+         */
+        asn?: number;
+        /**
+         * Whether to use eBGP or iBGP. Auto mode chooses depending on BGP controller or falls back to iBGP.
+         */
+        'bgp-mode'?: string;
+        /**
+         * Consider different AS paths of equal length for multipath computation. BGP only.
+         */
+        'bgp-multipath-as-relax'?: boolean;
+        /**
+         * Name of the controller.
+         */
+        controller: string;
+        /**
+         * Digest of the controller section.
+         */
+        digest?: string;
+        /**
+         * Enable eBGP (remote-as external). BGP only.
+         */
+        ebgp?: boolean;
+        /**
+         * Set maximum amount of hops for eBGP peers. Needs ebgp set to 1. BGP only.
+         */
+        'ebgp-multihop'?: number;
+        /**
+         * Name of the IS-IS domain. IS-IS only.
+         */
+        'isis-domain'?: string;
+        /**
+         * Comma-separated list of interfaces where IS-IS should be active. IS-IS only.
+         */
+        'isis-ifaces'?: string;
+        /**
+         * Network Entity title for this node in the IS-IS network. IS-IS only.
+         */
+        'isis-net'?: string;
+        /**
+         * Name of the loopback/dummy interface that provides the Router-IP. BGP only.
+         */
+        loopback?: string;
+        /**
+         * Node(s) where this controller is active.
+         */
+        node?: string;
+        /**
+         * List of cluster node names.
+         */
+        nodes?: string;
+        /**
+         * Name of the peer group for this EVPN controller
+         */
+        'peer-group-name'?: string;
+        /**
+         * Comma-separated list of the peers IP addresses.
+         */
+        peers?: string;
+        /**
+         * Changes that have not yet been applied to the running configuration.
+         */
+        pending?: {
+                /**
+                 * The local ASN of the controller. BGP & EVPN only.
+                 */
+                asn?: number;
+                /**
+                 * Whether to use eBGP or iBGP. Auto mode chooses depending on BGP controller or falls back to iBGP.
+                 */
+                'bgp-mode'?: string;
+                /**
+                 * Consider different AS paths of equal length for multipath computation. BGP only.
+                 */
+                'bgp-multipath-as-relax'?: boolean;
+                /**
+                 * Enable eBGP (remote-as external). BGP only.
+                 */
+                ebgp?: boolean;
+                /**
+                 * Set maximum amount of hops for eBGP peers. Needs ebgp set to 1. BGP only.
+                 */
+                'ebgp-multihop'?: number;
+                /**
+                 * Name of the IS-IS domain. IS-IS only.
+                 */
+                'isis-domain'?: string;
+                /**
+                 * Comma-separated list of interfaces where IS-IS should be active. IS-IS only.
+                 */
+                'isis-ifaces'?: string;
+                /**
+                 * Network Entity title for this node in the IS-IS network. IS-IS only.
+                 */
+                'isis-net'?: string;
+                /**
+                 * Name of the loopback/dummy interface that provides the Router-IP. BGP only.
+                 */
+                loopback?: string;
+                /**
+                 * Node(s) where this controller is active.
+                 */
+                node?: string;
+                /**
+                 * List of cluster node names.
+                 */
+                nodes?: string;
+                /**
+                 * Name of the peer group for this EVPN controller
+                 */
+                'peer-group-name'?: string;
+                /**
+                 * Comma-separated list of the peers IP addresses.
+                 */
+                peers?: string;
+            };
+        /**
+         * State of the SDN configuration object.
+         */
+        state?: string;
+        /**
+         * Type of the controller
+         */
         type: string;
         /**
          * additionalProperties
@@ -3809,6 +5660,410 @@ export namespace Proxmox {
     export interface clusterSdnDnsIndex {
         dns: string;
         type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/dry-run
+     */
+    export interface clusterSdnDryRunDryRun {
+        /**
+         * The difference between the current and pending FRR configuration.
+         */
+        'frr-diff'?: string;
+        /**
+         * The difference between the current and pending /etc/network/interfaces.d/sdn configuration.
+         */
+        'interfaces-diff'?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/fabrics/all
+     */
+    export interface clusterSdnFabricsAllListAll {
+        fabrics: {
+                /**
+                 * OSPF area. Either a IPv4 address or a 32-bit number. Gets validated in rust.
+                 */
+                area?: string;
+                /**
+                 * The csnp_interval property for Openfabric
+                 */
+                csnp_interval?: number;
+                /**
+                 * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+                 */
+                digest?: string;
+                /**
+                 * The hello_interval property for Openfabric
+                 */
+                hello_interval?: number;
+                /**
+                 * Identifier for SDN fabrics
+                 */
+                id: string;
+                /**
+                 * The IP prefix for Node IPs
+                 */
+                ip6_prefix?: string;
+                /**
+                 * The IP prefix for Node IPs
+                 */
+                ip_prefix?: string;
+                /**
+                 * the token for unlocking the global SDN configuration
+                 */
+                'lock-token'?: string;
+                /**
+                 * A seconds interval, between 1 and 65535 inclusive, of how often to send an authenticated empty packet to the peer for the purpose of keeping a stateful firewall or NAT mapping valid persistently. For example, if the interface very rarely sends traffic, but it might at anytime receive traffic from another node, and it is behind NAT, the interface might benefit from having a persistent keepalive interval of 25 seconds. If unset or set to 0, it is turned off
+                 */
+                persistent_keepalive?: number;
+                /**
+                 * Type of configuration entry in an SDN Fabric section config
+                 */
+                protocol: string;
+                redistribute: string[];
+                /**
+                 * A prefix list that should be used for filtering routes that are to be installed into the kernel routing table
+                 */
+                route_filter?: string;
+            }[];
+        nodes: {
+                /**
+                 * A list of IPs that are routable via this node in the WireGuard fabric.
+                 */
+                allowed_ips?: string[];
+                /**
+                 * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+                 */
+                digest?: string;
+                /**
+                 * The endpoint used for connecting to this node.
+                 */
+                endpoint?: string;
+                /**
+                 * Identifier for SDN fabrics
+                 */
+                fabric_id: string;
+                interfaces: string[];
+                /**
+                 * IPv4 address for this node
+                 */
+                ip?: string;
+                /**
+                 * IPv6 address for this node
+                 */
+                ip6?: string;
+                /**
+                 * the token for unlocking the global SDN configuration
+                 */
+                'lock-token'?: string;
+                /**
+                 * Identifier for nodes in an SDN fabric
+                 */
+                node_id: string;
+                peers?: string[];
+                /**
+                 * Type of configuration entry in an SDN Fabric section config
+                 */
+                protocol: string;
+                /**
+                 * The public key for the external node.
+                 */
+                public_key?: string;
+                /**
+                 * The role of this node in the WireGuard fabric.
+                 */
+                role?: string;
+            }[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/fabrics/fabric/\{id\}
+     */
+    export interface clusterSdnFabricsFabricGetFabric {
+        /**
+         * OSPF area. Either a IPv4 address or a 32-bit number. Gets validated in rust.
+         */
+        area?: string;
+        /**
+         * The csnp_interval property for Openfabric
+         */
+        csnp_interval?: number;
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        /**
+         * The hello_interval property for Openfabric
+         */
+        hello_interval?: number;
+        /**
+         * Identifier for SDN fabrics
+         */
+        id: string;
+        /**
+         * The IP prefix for Node IPs
+         */
+        ip6_prefix?: string;
+        /**
+         * The IP prefix for Node IPs
+         */
+        ip_prefix?: string;
+        /**
+         * the token for unlocking the global SDN configuration
+         */
+        'lock-token'?: string;
+        /**
+         * A seconds interval, between 1 and 65535 inclusive, of how often to send an authenticated empty packet to the peer for the purpose of keeping a stateful firewall or NAT mapping valid persistently. For example, if the interface very rarely sends traffic, but it might at anytime receive traffic from another node, and it is behind NAT, the interface might benefit from having a persistent keepalive interval of 25 seconds. If unset or set to 0, it is turned off
+         */
+        persistent_keepalive?: number;
+        /**
+         * Type of configuration entry in an SDN Fabric section config
+         */
+        protocol: string;
+        redistribute: string[];
+        /**
+         * A prefix list that should be used for filtering routes that are to be installed into the kernel routing table
+         */
+        route_filter?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/fabrics/fabric
+     */
+    export interface clusterSdnFabricsFabricIndex {
+        /**
+         * OSPF area. Either a IPv4 address or a 32-bit number. Gets validated in rust.
+         */
+        area?: string;
+        /**
+         * The csnp_interval property for Openfabric
+         */
+        csnp_interval?: number;
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        /**
+         * The hello_interval property for Openfabric
+         */
+        hello_interval?: number;
+        /**
+         * Identifier for SDN fabrics
+         */
+        id: string;
+        /**
+         * The IP prefix for Node IPs
+         */
+        ip6_prefix?: string;
+        /**
+         * The IP prefix for Node IPs
+         */
+        ip_prefix?: string;
+        /**
+         * the token for unlocking the global SDN configuration
+         */
+        'lock-token'?: string;
+        /**
+         * A seconds interval, between 1 and 65535 inclusive, of how often to send an authenticated empty packet to the peer for the purpose of keeping a stateful firewall or NAT mapping valid persistently. For example, if the interface very rarely sends traffic, but it might at anytime receive traffic from another node, and it is behind NAT, the interface might benefit from having a persistent keepalive interval of 25 seconds. If unset or set to 0, it is turned off
+         */
+        persistent_keepalive?: number;
+        /**
+         * Type of configuration entry in an SDN Fabric section config
+         */
+        protocol: string;
+        redistribute: string[];
+        /**
+         * A prefix list that should be used for filtering routes that are to be installed into the kernel routing table
+         */
+        route_filter?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/fabrics
+     */
+    export interface clusterSdnFabricsIndex {
+        subdir: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/fabrics/node/\{fabric_id\}/\{node_id\}
+     */
+    export interface clusterSdnFabricsNode {fabricId} {nodeId}GetNode {
+        /**
+         * A list of IPs that are routable via this node in the WireGuard fabric.
+         */
+        allowed_ips?: string[];
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        /**
+         * The endpoint used for connecting to this node.
+         */
+        endpoint?: string;
+        /**
+         * Identifier for SDN fabrics
+         */
+        fabric_id: string;
+        interfaces: string[];
+        /**
+         * IPv4 address for this node
+         */
+        ip?: string;
+        /**
+         * IPv6 address for this node
+         */
+        ip6?: string;
+        /**
+         * the token for unlocking the global SDN configuration
+         */
+        'lock-token'?: string;
+        /**
+         * Identifier for nodes in an SDN fabric
+         */
+        node_id: string;
+        peers?: string[];
+        /**
+         * Type of configuration entry in an SDN Fabric section config
+         */
+        protocol: string;
+        /**
+         * The public key for the external node.
+         */
+        public_key?: string;
+        /**
+         * The role of this node in the WireGuard fabric.
+         */
+        role?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/fabrics/node/\{fabric_id\}
+     */
+    export interface clusterSdnFabricsNode {fabricId}ListNodesFabric {
+        /**
+         * A list of IPs that are routable via this node in the WireGuard fabric.
+         */
+        allowed_ips?: string[];
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        /**
+         * The endpoint used for connecting to this node.
+         */
+        endpoint?: string;
+        /**
+         * Identifier for SDN fabrics
+         */
+        fabric_id: string;
+        interfaces: string[];
+        /**
+         * IPv4 address for this node
+         */
+        ip?: string;
+        /**
+         * IPv6 address for this node
+         */
+        ip6?: string;
+        /**
+         * the token for unlocking the global SDN configuration
+         */
+        'lock-token'?: string;
+        /**
+         * Identifier for nodes in an SDN fabric
+         */
+        node_id: string;
+        peers?: string[];
+        /**
+         * Type of configuration entry in an SDN Fabric section config
+         */
+        protocol: string;
+        /**
+         * The public key for the external node.
+         */
+        public_key?: string;
+        /**
+         * The role of this node in the WireGuard fabric.
+         */
+        role?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/fabrics/node
+     */
+    export interface clusterSdnFabricsNodeListNodes {
+        /**
+         * A list of IPs that are routable via this node in the WireGuard fabric.
+         */
+        allowed_ips?: string[];
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        /**
+         * The endpoint used for connecting to this node.
+         */
+        endpoint?: string;
+        /**
+         * Identifier for SDN fabrics
+         */
+        fabric_id: string;
+        interfaces: string[];
+        /**
+         * IPv4 address for this node
+         */
+        ip?: string;
+        /**
+         * IPv6 address for this node
+         */
+        ip6?: string;
+        /**
+         * the token for unlocking the global SDN configuration
+         */
+        'lock-token'?: string;
+        /**
+         * Identifier for nodes in an SDN fabric
+         */
+        node_id: string;
+        peers?: string[];
+        /**
+         * Type of configuration entry in an SDN Fabric section config
+         */
+        protocol: string;
+        /**
+         * The public key for the external node.
+         */
+        public_key?: string;
+        /**
+         * The role of this node in the WireGuard fabric.
+         */
+        role?: string;
         /**
          * additionalProperties
          */
@@ -3836,9 +6091,435 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /cluster/sdn/prefix-lists/\{id\}/entries
+     */
+    export interface clusterSdnPrefixListsEntriesGetPrefixListEntries {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/prefix-lists
+     */
+    export interface clusterSdnPrefixListsListPrefixLists {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/route-maps/entries/\{route-map-id\}/entry/\{order\}
+     */
+    export interface clusterSdnRouteMapsEntries {routeMapId}EntryGetRouteMapEntry {
+        /**
+         * Matching policy of a route map entry.
+         */
+        action: string;
+        /**
+         * The SDN route map identifier
+         */
+        call?: string;
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        'exit-action'?: string;
+        match?: string[];
+        /**
+         * The index of this route map entry
+         */
+        order: number;
+        /**
+         * The SDN route map identifier
+         */
+        'route-map-id': string;
+        set?: string[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/route-maps/entries/\{route-map-id\}
+     */
+    export interface clusterSdnRouteMapsEntries {routeMapId}ListRouteMapEntriesForRouteMap {
+        /**
+         * Matching policy of a route map entry.
+         */
+        action: string;
+        /**
+         * The SDN route map identifier
+         */
+        call?: string;
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        'exit-action'?: string;
+        match?: string[];
+        /**
+         * The index of this route map entry
+         */
+        order: number;
+        /**
+         * The SDN route map identifier
+         */
+        'route-map-id': string;
+        set?: string[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/route-maps/entries
+     */
+    export interface clusterSdnRouteMapsEntriesListRouteMapEntries {
+        /**
+         * Matching policy of a route map entry.
+         */
+        action: string;
+        /**
+         * The SDN route map identifier
+         */
+        call?: string;
+        /**
+         * Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+         */
+        digest?: string;
+        'exit-action'?: string;
+        match?: string[];
+        /**
+         * The index of this route map entry
+         */
+        order: number;
+        /**
+         * The SDN route map identifier
+         */
+        'route-map-id': string;
+        set?: string[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/route-maps
+     */
+    export interface clusterSdnRouteMapsListRouteMaps {
+        /**
+         * The SDN route map identifier
+         */
+        id: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/vnets/\{vnet\}/firewall
+     */
+    export interface clusterSdnVnetsFirewallIndex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/vnets/\{vnet\}/firewall/options
+     */
+    export interface clusterSdnVnetsFirewallOptionsGetOptions {
+        /**
+         * Enable/disable firewall rules.
+         */
+        enable?: boolean;
+        /**
+         * Log level for forwarded traffic.
+         */
+        log_level_forward?: string;
+        /**
+         * Forward policy.
+         */
+        policy_forward?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/vnets/\{vnet\}/firewall/rules/\{pos\}
+     */
+    export interface clusterSdnVnetsFirewallRulesGetRule {
+        /**
+         * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name
+         */
+        action: string;
+        /**
+         * Descriptive comment
+         */
+        comment?: string;
+        /**
+         * Restrict packet destination address
+         */
+        dest?: string;
+        /**
+         * Restrict TCP/UDP destination port
+         */
+        dport?: string;
+        /**
+         * Flag to enable/disable a rule
+         */
+        enable?: number;
+        /**
+         * Specify icmp-type. Only valid if proto equals 'icmp' or 'icmpv6'/'ipv6-icmp'
+         */
+        'icmp-type'?: string;
+        /**
+         * Network interface name. You have to use network configuration key names for VMs and containers
+         */
+        iface?: string;
+        /**
+         * IP version (4 or 6) - automatically determined from source/dest addresses
+         */
+        ipversion?: number;
+        /**
+         * Log level for firewall rule
+         */
+        log?: string;
+        /**
+         * Use predefined standard macro
+         */
+        macro?: string;
+        /**
+         * Rule position in the ruleset
+         */
+        pos: number;
+        /**
+         * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'
+         */
+        proto?: string;
+        /**
+         * Restrict packet source address
+         */
+        source?: string;
+        /**
+         * Restrict TCP/UDP source port
+         */
+        sport?: string;
+        /**
+         * Rule type
+         */
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/vnets/\{vnet\}/firewall/rules
+     */
+    export interface clusterSdnVnetsFirewallRulesGetRules {
+        /**
+         * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name
+         */
+        action: string;
+        /**
+         * Descriptive comment
+         */
+        comment?: string;
+        /**
+         * Restrict packet destination address
+         */
+        dest?: string;
+        /**
+         * Restrict TCP/UDP destination port
+         */
+        dport?: string;
+        /**
+         * Flag to enable/disable a rule
+         */
+        enable?: number;
+        /**
+         * Specify icmp-type. Only valid if proto equals 'icmp' or 'icmpv6'/'ipv6-icmp'
+         */
+        'icmp-type'?: string;
+        /**
+         * Network interface name. You have to use network configuration key names for VMs and containers
+         */
+        iface?: string;
+        /**
+         * IP version (4 or 6) - automatically determined from source/dest addresses
+         */
+        ipversion?: number;
+        /**
+         * Log level for firewall rule
+         */
+        log?: string;
+        /**
+         * Use predefined standard macro
+         */
+        macro?: string;
+        /**
+         * Rule position in the ruleset
+         */
+        pos: number;
+        /**
+         * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'
+         */
+        proto?: string;
+        /**
+         * Restrict packet source address
+         */
+        source?: string;
+        /**
+         * Restrict TCP/UDP source port
+         */
+        sport?: string;
+        /**
+         * Rule type
+         */
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /cluster/sdn/vnets
      */
     export interface clusterSdnVnetsIndex {
+        /**
+         * Alias name of the VNet.
+         */
+        alias?: string;
+        /**
+         * Digest of the VNet section.
+         */
+        digest?: string;
+        /**
+         * If true, sets the isolated property for all interfaces on the bridge of this VNet.
+         */
+        'isolate-ports'?: boolean;
+        /**
+         * Changes that have not yet been applied to the running configuration.
+         */
+        pending?: {
+                /**
+                 * Alias name of the VNet.
+                 */
+                alias?: string;
+                /**
+                 * If true, sets the isolated property for all interfaces on the bridge of this VNet.
+                 */
+                'isolate-ports'?: boolean;
+                /**
+                 * VLAN Tag (for VLAN or QinQ zones) or VXLAN VNI (for VXLAN or EVPN zones).
+                 */
+                tag?: number;
+                /**
+                 * Allow VLANs to pass through this VNet.
+                 */
+                vlanaware?: boolean;
+                /**
+                 * Name of the zone this VNet belongs to.
+                 */
+                zone?: string;
+            };
+        /**
+         * State of the SDN configuration object.
+         */
+        state?: string;
+        /**
+         * VLAN Tag (for VLAN or QinQ zones) or VXLAN VNI (for VXLAN or EVPN zones).
+         */
+        tag?: number;
+        /**
+         * Type of the VNet.
+         */
+        type: string;
+        /**
+         * Allow VLANs to pass through this VNet.
+         */
+        vlanaware?: boolean;
+        /**
+         * Name of the VNet.
+         */
+        vnet: string;
+        /**
+         * Name of the zone this VNet belongs to.
+         */
+        zone?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/vnets/\{vnet\}
+     */
+    export interface clusterSdnVnetsRead {
+        /**
+         * Alias name of the VNet.
+         */
+        alias?: string;
+        /**
+         * Digest of the VNet section.
+         */
+        digest?: string;
+        /**
+         * If true, sets the isolated property for all interfaces on the bridge of this VNet.
+         */
+        'isolate-ports'?: boolean;
+        /**
+         * Changes that have not yet been applied to the running configuration.
+         */
+        pending?: {
+                /**
+                 * Alias name of the VNet.
+                 */
+                alias?: string;
+                /**
+                 * If true, sets the isolated property for all interfaces on the bridge of this VNet.
+                 */
+                'isolate-ports'?: boolean;
+                /**
+                 * VLAN Tag (for VLAN or QinQ zones) or VXLAN VNI (for VXLAN or EVPN zones).
+                 */
+                tag?: number;
+                /**
+                 * Allow VLANs to pass through this VNet.
+                 */
+                vlanaware?: boolean;
+                /**
+                 * Name of the zone this VNet belongs to.
+                 */
+                zone?: string;
+            };
+        /**
+         * State of the SDN configuration object.
+         */
+        state?: string;
+        /**
+         * VLAN Tag (for VLAN or QinQ zones) or VXLAN VNI (for VXLAN or EVPN zones).
+         */
+        tag?: number;
+        /**
+         * Type of the VNet.
+         */
+        type: string;
+        /**
+         * Allow VLANs to pass through this VNet.
+         */
+        vlanaware?: boolean;
+        /**
+         * Name of the VNet.
+         */
+        vnet: string;
+        /**
+         * Name of the zone this VNet belongs to.
+         */
+        zone?: string;
         /**
          * additionalProperties
          */
@@ -3857,16 +6538,424 @@ export namespace Proxmox {
      * Returned by GET /cluster/sdn/zones
      */
     export interface clusterSdnZonesIndex {
+        /**
+         * Advertise IP prefixes (Type-5 routes) instead of MAC/IP pairs (Type-2 routes). EVPN zone only.
+         */
+        'advertise-subnets'?: boolean;
+        /**
+         * the bridge for which VLANs should be managed. VLAN & QinQ zone only.
+         */
+        bridge?: string;
+        /**
+         * Disable auto mac learning. VLAN zone only.
+         */
+        'bridge-disable-mac-learning'?: boolean;
+        /**
+         * ID of the controller for this zone. EVPN zone only.
+         */
+        controller?: string;
+        /**
+         * Name of DHCP server backend for this zone.
+         */
         dhcp?: string;
+        /**
+         * Digest of the controller section.
+         */
+        digest?: string;
+        /**
+         * Suppress IPv4 ARP && IPv6 Neighbour Discovery messages. EVPN zone only.
+         */
+        'disable-arp-nd-suppression'?: boolean;
+        /**
+         * ID of the DNS server for this zone.
+         */
         dns?: string;
+        /**
+         * Domain name for this zone.
+         */
         dnszone?: string;
+        /**
+         * List of PVE Nodes that should act as exit node for this zone. EVPN zone only.
+         */
+        exitnodes?: string;
+        /**
+         * Create routes on the exit nodes, so they can connect to EVPN guests. EVPN zone only.
+         */
+        'exitnodes-local-routing'?: boolean;
+        /**
+         * Force traffic through this exitnode first. EVPN zone only.
+         */
+        'exitnodes-primary'?: string;
+        /**
+         * ID of the IPAM for this zone.
+         */
         ipam?: string;
+        /**
+         * MAC address of the anycast router for this zone.
+         */
+        mac?: string;
+        /**
+         * MTU of the zone, will be used for the created VNet bridges.
+         */
         mtu?: number;
+        /**
+         * Nodes where this zone should be created.
+         */
         nodes?: string;
-        pending?: boolean;
+        /**
+         * Comma-separated list of peers, that are part of the VXLAN zone. Usually the IPs of the nodes. VXLAN zone only.
+         */
+        peers?: string;
+        /**
+         * Changes that have not yet been applied to the running configuration.
+         */
+        pending?: {
+                /**
+                 * Advertise IP prefixes (Type-5 routes) instead of MAC/IP pairs (Type-2 routes). EVPN zone only.
+                 */
+                'advertise-subnets'?: boolean;
+                /**
+                 * the bridge for which VLANs should be managed. VLAN & QinQ zone only.
+                 */
+                bridge?: string;
+                /**
+                 * Disable auto mac learning. VLAN zone only.
+                 */
+                'bridge-disable-mac-learning'?: boolean;
+                /**
+                 * ID of the controller for this zone. EVPN zone only.
+                 */
+                controller?: string;
+                /**
+                 * Name of DHCP server backend for this zone.
+                 */
+                dhcp?: string;
+                /**
+                 * Suppress IPv4 ARP && IPv6 Neighbour Discovery messages. EVPN zone only.
+                 */
+                'disable-arp-nd-suppression'?: boolean;
+                /**
+                 * ID of the DNS server for this zone.
+                 */
+                dns?: string;
+                /**
+                 * Domain name for this zone.
+                 */
+                dnszone?: string;
+                /**
+                 * List of PVE Nodes that should act as exit node for this zone. EVPN zone only.
+                 */
+                exitnodes?: string;
+                /**
+                 * Create routes on the exit nodes, so they can connect to EVPN guests. EVPN zone only.
+                 */
+                'exitnodes-local-routing'?: boolean;
+                /**
+                 * Force traffic through this exitnode first. EVPN zone only.
+                 */
+                'exitnodes-primary'?: string;
+                /**
+                 * ID of the IPAM for this zone.
+                 */
+                ipam?: string;
+                /**
+                 * MAC address of the anycast router for this zone.
+                 */
+                mac?: string;
+                /**
+                 * MTU of the zone, will be used for the created VNet bridges.
+                 */
+                mtu?: number;
+                /**
+                 * Nodes where this zone should be created.
+                 */
+                nodes?: string;
+                /**
+                 * Comma-separated list of peers, that are part of the VXLAN zone. Usually the IPs of the nodes. VXLAN zone only.
+                 */
+                peers?: string;
+                /**
+                 * ID of the reverse DNS server for this zone.
+                 */
+                reversedns?: string;
+                /**
+                 * Route-Targets that should be imported into the VRF of this zone via BGP. EVPN zone only.
+                 */
+                'rt-import'?: string;
+                /**
+                 * Additional controllers.
+                 */
+                'secondary-controllers'?: string[];
+                /**
+                 * Service-VLAN Tag (outer VLAN). QinQ zone only
+                 */
+                tag?: number;
+                /**
+                 * VLAN protocol for the creation of the QinQ zone. QinQ zone only.
+                 */
+                'vlan-protocol'?: string;
+                /**
+                 * VNI for the zone VRF. EVPN zone only.
+                 */
+                'vrf-vxlan'?: number;
+                /**
+                 * UDP port that should be used for the VXLAN tunnel (default 4789). VXLAN zone only.
+                 */
+                'vxlan-port'?: number;
+            };
+        /**
+         * ID of the reverse DNS server for this zone.
+         */
         reversedns?: string;
+        /**
+         * Route-Targets that should be imported into the VRF of this zone via BGP. EVPN zone only.
+         */
+        'rt-import'?: string;
+        /**
+         * Additional controllers.
+         */
+        'secondary-controllers'?: string[];
+        /**
+         * State of the SDN configuration object.
+         */
         state?: string;
+        /**
+         * Service-VLAN Tag (outer VLAN). QinQ zone only
+         */
+        tag?: number;
+        /**
+         * Type of the zone.
+         */
         type: string;
+        /**
+         * VLAN protocol for the creation of the QinQ zone. QinQ zone only.
+         */
+        'vlan-protocol'?: string;
+        /**
+         * VNI for the zone VRF. EVPN zone only.
+         */
+        'vrf-vxlan'?: number;
+        /**
+         * UDP port that should be used for the VXLAN tunnel (default 4789). VXLAN zone only.
+         */
+        'vxlan-port'?: number;
+        /**
+         * Name of the zone.
+         */
+        zone: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /cluster/sdn/zones/\{zone\}
+     */
+    export interface clusterSdnZonesRead {
+        /**
+         * Advertise IP prefixes (Type-5 routes) instead of MAC/IP pairs (Type-2 routes). EVPN zone only.
+         */
+        'advertise-subnets'?: boolean;
+        /**
+         * the bridge for which VLANs should be managed. VLAN & QinQ zone only.
+         */
+        bridge?: string;
+        /**
+         * Disable auto mac learning. VLAN zone only.
+         */
+        'bridge-disable-mac-learning'?: boolean;
+        /**
+         * ID of the controller for this zone. EVPN zone only.
+         */
+        controller?: string;
+        /**
+         * Name of DHCP server backend for this zone.
+         */
+        dhcp?: string;
+        /**
+         * Digest of the controller section.
+         */
+        digest?: string;
+        /**
+         * Suppress IPv4 ARP && IPv6 Neighbour Discovery messages. EVPN zone only.
+         */
+        'disable-arp-nd-suppression'?: boolean;
+        /**
+         * ID of the DNS server for this zone.
+         */
+        dns?: string;
+        /**
+         * Domain name for this zone.
+         */
+        dnszone?: string;
+        /**
+         * List of PVE Nodes that should act as exit node for this zone. EVPN zone only.
+         */
+        exitnodes?: string;
+        /**
+         * Create routes on the exit nodes, so they can connect to EVPN guests. EVPN zone only.
+         */
+        'exitnodes-local-routing'?: boolean;
+        /**
+         * Force traffic through this exitnode first. EVPN zone only.
+         */
+        'exitnodes-primary'?: string;
+        /**
+         * ID of the IPAM for this zone.
+         */
+        ipam?: string;
+        /**
+         * MAC address of the anycast router for this zone.
+         */
+        mac?: string;
+        /**
+         * MTU of the zone, will be used for the created VNet bridges.
+         */
+        mtu?: number;
+        /**
+         * Nodes where this zone should be created.
+         */
+        nodes?: string;
+        /**
+         * Comma-separated list of peers, that are part of the VXLAN zone. Usually the IPs of the nodes. VXLAN zone only.
+         */
+        peers?: string;
+        /**
+         * Changes that have not yet been applied to the running configuration.
+         */
+        pending?: {
+                /**
+                 * Advertise IP prefixes (Type-5 routes) instead of MAC/IP pairs (Type-2 routes). EVPN zone only.
+                 */
+                'advertise-subnets'?: boolean;
+                /**
+                 * the bridge for which VLANs should be managed. VLAN & QinQ zone only.
+                 */
+                bridge?: string;
+                /**
+                 * Disable auto mac learning. VLAN zone only.
+                 */
+                'bridge-disable-mac-learning'?: boolean;
+                /**
+                 * ID of the controller for this zone. EVPN zone only.
+                 */
+                controller?: string;
+                /**
+                 * Name of DHCP server backend for this zone.
+                 */
+                dhcp?: string;
+                /**
+                 * Suppress IPv4 ARP && IPv6 Neighbour Discovery messages. EVPN zone only.
+                 */
+                'disable-arp-nd-suppression'?: boolean;
+                /**
+                 * ID of the DNS server for this zone.
+                 */
+                dns?: string;
+                /**
+                 * Domain name for this zone.
+                 */
+                dnszone?: string;
+                /**
+                 * List of PVE Nodes that should act as exit node for this zone. EVPN zone only.
+                 */
+                exitnodes?: string;
+                /**
+                 * Create routes on the exit nodes, so they can connect to EVPN guests. EVPN zone only.
+                 */
+                'exitnodes-local-routing'?: boolean;
+                /**
+                 * Force traffic through this exitnode first. EVPN zone only.
+                 */
+                'exitnodes-primary'?: string;
+                /**
+                 * ID of the IPAM for this zone.
+                 */
+                ipam?: string;
+                /**
+                 * MAC address of the anycast router for this zone.
+                 */
+                mac?: string;
+                /**
+                 * MTU of the zone, will be used for the created VNet bridges.
+                 */
+                mtu?: number;
+                /**
+                 * Nodes where this zone should be created.
+                 */
+                nodes?: string;
+                /**
+                 * Comma-separated list of peers, that are part of the VXLAN zone. Usually the IPs of the nodes. VXLAN zone only.
+                 */
+                peers?: string;
+                /**
+                 * ID of the reverse DNS server for this zone.
+                 */
+                reversedns?: string;
+                /**
+                 * Route-Targets that should be imported into the VRF of this zone via BGP. EVPN zone only.
+                 */
+                'rt-import'?: string;
+                /**
+                 * Additional controllers.
+                 */
+                'secondary-controllers'?: string[];
+                /**
+                 * Service-VLAN Tag (outer VLAN). QinQ zone only
+                 */
+                tag?: number;
+                /**
+                 * VLAN protocol for the creation of the QinQ zone. QinQ zone only.
+                 */
+                'vlan-protocol'?: string;
+                /**
+                 * VNI for the zone VRF. EVPN zone only.
+                 */
+                'vrf-vxlan'?: number;
+                /**
+                 * UDP port that should be used for the VXLAN tunnel (default 4789). VXLAN zone only.
+                 */
+                'vxlan-port'?: number;
+            };
+        /**
+         * ID of the reverse DNS server for this zone.
+         */
+        reversedns?: string;
+        /**
+         * Route-Targets that should be imported into the VRF of this zone via BGP. EVPN zone only.
+         */
+        'rt-import'?: string;
+        /**
+         * Additional controllers.
+         */
+        'secondary-controllers'?: string[];
+        /**
+         * State of the SDN configuration object.
+         */
+        state?: string;
+        /**
+         * Service-VLAN Tag (outer VLAN). QinQ zone only
+         */
+        tag?: number;
+        /**
+         * Type of the zone.
+         */
+        type: string;
+        /**
+         * VLAN protocol for the creation of the QinQ zone. QinQ zone only.
+         */
+        'vlan-protocol'?: string;
+        /**
+         * VNI for the zone VRF. EVPN zone only.
+         */
+        'vrf-vxlan'?: number;
+        /**
+         * UDP port that should be used for the VXLAN tunnel (default 4789). VXLAN zone only.
+         */
+        'vxlan-port'?: number;
+        /**
+         * Name of the zone.
+         */
         zone: string;
         /**
          * additionalProperties
@@ -4079,6 +7168,46 @@ export namespace Proxmox {
      */
     export interface nodesAptUpdateListUpdates {
         /**
+         * Package Architecture.
+         */
+        Arch: string;
+        /**
+         * Package description.
+         */
+        Description: string;
+        /**
+         * Version for which PVE has already sent an update notification for.
+         */
+        NotifyStatus?: string;
+        /**
+         * Old version currently installed.
+         */
+        OldVersion?: string;
+        /**
+         * Package origin, e.g., 'Proxmox' or 'Debian'.
+         */
+        Origin: string;
+        /**
+         * Package name.
+         */
+        Package: string;
+        /**
+         * Package priority.
+         */
+        Priority: string;
+        /**
+         * Package section.
+         */
+        Section: string;
+        /**
+         * Package title.
+         */
+        Title: string;
+        /**
+         * New version to be updated to.
+         */
+        Version: string;
+        /**
          * additionalProperties
          */
         [additionalProperties: string]: any;
@@ -4087,6 +7216,58 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/apt/versions
      */
     export interface nodesAptVersionsVersions {
+        /**
+         * Package Architecture.
+         */
+        Arch: string;
+        /**
+         * Current state of the package installed on the system.
+         */
+        CurrentState: string;
+        /**
+         * Package description.
+         */
+        Description: string;
+        /**
+         * Version of the currently running pve-manager API server.
+         */
+        ManagerVersion?: string;
+        /**
+         * Version for which PVE has already sent an update notification for.
+         */
+        NotifyStatus?: string;
+        /**
+         * Old version currently installed.
+         */
+        OldVersion?: string;
+        /**
+         * Package origin, e.g., 'Proxmox' or 'Debian'.
+         */
+        Origin: string;
+        /**
+         * Package name.
+         */
+        Package: string;
+        /**
+         * Package priority.
+         */
+        Priority: string;
+        /**
+         * Kernel release, only for package 'proxmox-ve'.
+         */
+        RunningKernel?: string;
+        /**
+         * Package section.
+         */
+        Section: string;
+        /**
+         * Package title.
+         */
+        Title: string;
+        /**
+         * New version to be updated to.
+         */
+        Version: string;
         /**
          * additionalProperties
          */
@@ -4102,9 +7283,34 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/\{node\}/capabilities/qemu/cpu-flags
+     */
+    export interface nodesCapabilitiesQemuCpuFlagsIndex {
+        /**
+         * Description of the CPU flag.
+         */
+        description?: string;
+        /**
+         * Name of the CPU flag.
+         */
+        name: string;
+        /**
+         * List of nodes supporting the CPU flag with the selected acceleration type ("accel").
+         */
+        'supported-on'?: string[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /nodes/\{node\}/capabilities/qemu/cpu
      */
     export interface nodesCapabilitiesQemuCpuIndex {
+        /**
+         * True for PVE-internal abstract profiles like x86-64-v2, -v3, -v4. These do not correspond to a QEMU CPU type and cannot be used as a custom model's 'reported-model'.
+         */
+        abstract?: boolean;
         /**
          * True if this is a custom CPU model.
          */
@@ -4127,6 +7333,10 @@ export namespace Proxmox {
      */
     export interface nodesCapabilitiesQemuMachinesTypes {
         /**
+         * Notable changes of a version, currently only set for +pveX versions.
+         */
+        changes?: string;
+        /**
          * Full name of machine type and version.
          */
         id: string;
@@ -4138,6 +7348,19 @@ export namespace Proxmox {
          * The machine version.
          */
         version: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/\{node\}/capabilities/qemu/migration
+     */
+    export interface nodesCapabilitiesQemuMigrationCapabilities {
+        /**
+         * Whether the host supports live-migrating additional VM state via the dbus-vmstate helper.
+         */
+        'has-dbus-vmstate': boolean;
         /**
          * additionalProperties
          */
@@ -4156,11 +7379,29 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/ceph/cfg/db
      */
     export interface nodesCephCfgDbDb {
+        /**
+         * Set if the value can be changed at runtime without restarting the affected daemons. Emitted as the integer 1/0 to match the existing PVE wire convention.
+         */
         can_update_at_runtime: boolean;
+        /**
+         * Config level the entry is exposed at: 'basic' for operator-visible settings, 'advanced' for tuning parameters, 'dev' for developer-only knobs.
+         */
         level: string;
+        /**
+         * Match expression restricting the entry's scope; empty when the entry has no mask. Examples: 'host:foo', 'class:ssd'.
+         */
         mask: string;
+        /**
+         * Config key name.
+         */
         name: string;
+        /**
+         * Ceph config section the entry applies to: 'global', a daemon type ('mon', 'osd', 'mgr', 'mds', 'client'), or a specific daemon (e.g. 'osd.0', 'mon.<name>').
+         */
         section: string;
+        /**
+         * Configured value for the key (always serialised as a string by Ceph, regardless of the option's underlying type).
+         */
         value: string;
         /**
          * additionalProperties
@@ -4181,11 +7422,11 @@ export namespace Proxmox {
      */
     export interface nodesCephCmdSafetyCmdSafety {
         /**
-         * If it is safe to run the command.
+         * True if Ceph reports the requested action is safe.
          */
         safe: boolean;
         /**
-         * Status message given by Ceph.
+         * Human-readable status message from Ceph (typically the reason an action is not safe); absent when Ceph returned no message.
          */
         status?: string;
         /**
@@ -4198,13 +7439,25 @@ export namespace Proxmox {
      */
     export interface nodesCephFsIndex {
         /**
-         * The name of the data pool.
+         * Name of the filesystem's first data pool. A CephFS can have more than one data pool; consumers interested in the full set should read 'data_pools' instead. Kept for backwards compatibility.
          */
         data_pool: string;
         /**
-         * The name of the metadata pool.
+         * Numeric ids of the data pools.
+         */
+        data_pool_ids?: any[];
+        /**
+         * Names of all data pools assigned to the filesystem; a CephFS can have multiple data pools (e.g. replicated metadata plus EC data, or multiple device-class-specific data pools).
+         */
+        data_pools?: string[];
+        /**
+         * Name of the metadata pool.
          */
         metadata_pool: string;
+        /**
+         * Numeric id of the metadata pool.
+         */
+        metadata_pool_id?: number;
         /**
          * The ceph filesystem name.
          */
@@ -4228,11 +7481,11 @@ export namespace Proxmox {
      */
     export interface nodesCephLogLog {
         /**
-         * Line number
+         * Log-file line number (1-based).
          */
         n: number;
         /**
-         * Line text
+         * Log line text.
          */
         t: string;
         /**
@@ -4244,19 +7497,48 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/ceph/mds
      */
     export interface nodesCephMdsIndex {
+        /**
+         * Address as advertised by the MDS; Ceph-formatted (typically 'IP:PORT/NONCE').
+         */
         addr?: string;
+        /**
+         * Full Ceph version string of the MDS daemon.
+         */
+        ceph_version?: string;
+        /**
+         * Short Ceph version string of the MDS daemon (e.g. '19.2.0').
+         */
+        ceph_version_short?: string;
+        /**
+         * Set when the MDS's data directory exists on this node.
+         */
+        direxists?: boolean;
+        /**
+         * Name of the CephFS this MDS is bound to; absent or null for standby MDSes not currently serving a rank.
+         */
+        fs_name?: string;
+        /**
+         * Host the MDS runs on.
+         */
         host?: string;
         /**
-         * The name (ID) for the MDS
+         * The name (ID) for the MDS.
          */
         name: string;
+        /**
+         * MDS rank within the file system; -1 for standby MDSes not currently bound to a rank.
+         */
         rank?: number;
+        /**
+         * Set if a ceph-mds@<id> systemd unit is enabled on the hosting node; absent otherwise.
+         */
+        service?: boolean;
         /**
          * If true, the standby MDS is polling the active MDS for faster recovery (hot standby).
          */
         standby_replay?: boolean;
         /**
-         * State of the MDS
+         * MDS state: Ceph-reported run state (e.g. 'up:active', 'up:standby', 'up:standby-replay') for daemons known to the cluster; 'stopped' or 'unknown' for configured daemons not visible to the cluster.
          */
         state: string;
         /**
@@ -4268,14 +7550,36 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/ceph/mgr
      */
     export interface nodesCephMgrIndex {
+        /**
+         * Address as advertised by the manager; Ceph-formatted (typically 'IP:PORT/NONCE').
+         */
         addr?: string;
+        /**
+         * Full Ceph version string of the manager daemon.
+         */
+        ceph_version?: string;
+        /**
+         * Short Ceph version string of the manager daemon (e.g. '19.2.0').
+         */
+        ceph_version_short?: string;
+        /**
+         * Set when the manager's data directory exists on this node.
+         */
+        direxists?: boolean;
+        /**
+         * Host the manager runs on.
+         */
         host?: string;
         /**
-         * The name (ID) for the MGR
+         * The name (ID) for the MGR.
          */
         name: string;
         /**
-         * State of the MGR
+         * Set if a ceph-mgr@<id> systemd unit is enabled on the hosting node; absent otherwise.
+         */
+        service?: boolean;
+        /**
+         * Manager state: 'active' or 'standby' for daemons visible to the mgr cluster, 'stopped' or 'unknown' for configured daemons not currently visible.
          */
         state: string;
         /**
@@ -4287,16 +7591,63 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/ceph/mon
      */
     export interface nodesCephMonListmon {
+        /**
+         * Address as advertised by the monitor; Ceph-formatted (typically 'IP:PORT/NONCE', possibly as a messenger-v2 vector depending on Ceph version and ceph.conf shape).
+         */
         addr?: string;
+        /**
+         * Full Ceph version string of the monitor daemon.
+         */
         ceph_version?: string;
+        /**
+         * Short Ceph version string of the monitor daemon (e.g. '19.2.0').
+         */
         ceph_version_short?: string;
-        direxists?: string;
-        host?: boolean;
+        /**
+         * Set when the monitor's data directory exists on this node.
+         */
+        direxists?: boolean;
+        /**
+         * Host the monitor runs on.
+         */
+        host?: string;
+        /**
+         * Monitor id (typically the hostname).
+         */
         name: string;
+        /**
+         * Set when the monitor is part of the current quorum.
+         */
         quorum?: boolean;
+        /**
+         * Rank of the monitor within the mon map.
+         */
         rank?: number;
-        service?: number;
+        /**
+         * Set if a ceph-mon@<id> systemd unit is enabled on the hosting node; absent otherwise.
+         */
+        service?: boolean;
+        /**
+         * Run state of the monitor: 'running' (in quorum), 'stopped' (systemd unit configured but daemon not visible to the cluster), or 'unknown' (no rados access).
+         */
         state?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/\{node\}/ceph/osd
+     */
+    export interface nodesCephOsdIndex {
+        /**
+         * Comma-joined list of currently-set OSD flags; absent when no flags are set on the cluster.
+         */
+        flags?: string;
+        /**
+         * Top-level CRUSH bucket; recursive structure with 'children' lists holding nested buckets and OSD leaves. Per-node properties (status, weight, in, usage, latencies, etc.) vary by node type and are not statically typed here.
+         */
+        root: any;
         /**
          * additionalProperties
          */
@@ -4352,15 +7703,15 @@ export namespace Proxmox {
                  */
                 device: string;
                 /**
-                 * Physical disks used
+                 * Underlying physical device(s) used by this OSD device (comma- or space-joined when multiple).
                  */
-                devices: string;
+                physical_device: string;
                 /**
-                 * Size in bytes
+                 * Size of the OSD device in bytes.
                  */
                 size: number;
                 /**
-                 * Discard support of the physical device
+                 * Whether the underlying physical device supports discard/TRIM.
                  */
                 support_discard: boolean;
                 /**
@@ -4376,6 +7727,10 @@ export namespace Proxmox {
                  * Address and port used to talk to other OSDs.
                  */
                 back_addr: string;
+                /**
+                 * Whether the OSD is encrypted with LUKS via dm-crypt.
+                 */
+                encrypted: boolean;
                 /**
                  * Address and port used to talk to clients and monitors.
                  */
@@ -4397,7 +7752,7 @@ export namespace Proxmox {
                  */
                 id: number;
                 /**
-                 * Memory usage of the OSD service.
+                 * Proportional set size (PSS) memory usage of the OSD daemon process in bytes; 0 when the process is not running.
                  */
                 mem_usage: number;
                 /**
@@ -4409,9 +7764,9 @@ export namespace Proxmox {
                  */
                 osd_objectstore: string;
                 /**
-                 * OSD process ID.
+                 * OSD process ID; absent if the systemd unit for this OSD is not currently running.
                  */
-                pid: number;
+                pid?: number;
                 /**
                  * Ceph version of the OSD service.
                  */
@@ -4435,22 +7790,73 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/ceph/pool
      */
     export interface nodesCephPoolLspools {
+        /**
+         * Application tags attached to the pool (mapping of application name to its metadata object).
+         */
         application_metadata?: any;
+        /**
+         * Raw pg_autoscaler status object for this pool; shape varies between Ceph releases.
+         */
         autoscale_status?: any;
-        bytes_used: number;
+        /**
+         * Bytes currently used in the pool; absent if no usage statistics are reported.
+         */
+        bytes_used?: number;
+        /**
+         * Numeric id of the CRUSH rule used by this pool.
+         */
         crush_rule: number;
-        crush_rule_name: string;
+        /**
+         * Human-readable name of the CRUSH rule used by this pool; absent if the rule id is not in the current CRUSH map.
+         */
+        crush_rule_name?: string;
+        /**
+         * Minimum number of replicas required to accept writes.
+         */
         min_size: number;
-        percent_used: number;
+        /**
+         * Percentage of pool capacity currently used; absent if no usage statistics are reported.
+         */
+        percent_used?: number;
+        /**
+         * Placement-group autoscaler mode ('on', 'warn' or 'off').
+         */
         pg_autoscale_mode?: string;
+        /**
+         * Current placement-group count.
+         */
         pg_num: number;
+        /**
+         * Optimal placement-group count computed by pg_autoscaler.
+         */
         pg_num_final?: number;
+        /**
+         * Minimum placement-group count the pg_autoscaler may choose.
+         */
         pg_num_min?: number;
+        /**
+         * Numeric pool id assigned by Ceph.
+         */
         pool: number;
+        /**
+         * Operator-visible name of the pool.
+         */
         pool_name: string;
+        /**
+         * Replication factor (target number of object replicas).
+         */
         size: number;
+        /**
+         * Operator-supplied target size in bytes; hints the pg_autoscaler.
+         */
         target_size?: number;
+        /**
+         * Operator-supplied target ratio of total pool capacity; hints the pg_autoscaler.
+         */
         target_size_ratio?: number;
+        /**
+         * Pool type: 'replicated' for n-way replication, 'erasure' for an erasure-coded pool, 'unknown' for types PVE does not yet map.
+         */
         type: string;
         /**
          * additionalProperties
@@ -4474,14 +7880,29 @@ export namespace Proxmox {
          * The application of the pool.
          */
         application?: string;
+        /**
+         * Names of applications currently associated with the pool.
+         */
         application_list?: string[];
+        /**
+         * Raw pg_autoscaler status object for this pool; shape varies between Ceph releases.
+         */
         autoscale_status?: any;
         /**
          * The rule to use for mapping object placement in the cluster.
          */
         crush_rule?: string;
+        /**
+         * Set if the pool uses fast-read for erasure-coded reads.
+         */
         fast_read: boolean;
+        /**
+         * Set if the pool hashes pool id into its CRUSH placement-seed.
+         */
         hashpspool: boolean;
+        /**
+         * Numeric pool id assigned by Ceph.
+         */
         id: number;
         /**
          * Minimum number of replicas per object
@@ -4491,10 +7912,25 @@ export namespace Proxmox {
          * The name of the pool. It must be unique.
          */
         name: string;
+        /**
+         * Set if deep-scrubbing is disabled for this pool.
+         */
         'nodeep-scrub': boolean;
+        /**
+         * Set if pool delete is blocked.
+         */
         nodelete: boolean;
+        /**
+         * Set if changing the placement-group count is blocked.
+         */
         nopgchange: boolean;
+        /**
+         * Set if scrubbing is disabled for this pool.
+         */
         noscrub: boolean;
+        /**
+         * Set if changing the replication size is blocked.
+         */
         nosizechange: boolean;
         /**
          * The automatic PG scaling mode of the pool.
@@ -4508,11 +7944,17 @@ export namespace Proxmox {
          * Minimal number of placement groups.
          */
         pg_num_min?: number;
+        /**
+         * Placement-group-for-placement count.
+         */
         pgp_num: number;
         /**
          * Number of replicas per object
          */
         size?: number;
+        /**
+         * Optional pool usage and IO statistics (only present when verbose=1 is requested).
+         */
         statistics?: any;
         /**
          * The estimated target size of the pool for the PG autoscaler.
@@ -4522,7 +7964,13 @@ export namespace Proxmox {
          * The estimated target ratio of the pool for the PG autoscaler.
          */
         target_size_ratio?: number;
+        /**
+         * Set if hitsets use GMT timestamps (for cache-tier pools).
+         */
         use_gmt_hitset: boolean;
+        /**
+         * Set if the pool sets the FADV_DONTNEED hint on writes.
+         */
         write_fadvise_dontneed: boolean;
         /**
          * additionalProperties
@@ -4677,6 +8125,10 @@ export namespace Proxmox {
          */
         acmedomain3?: string;
         /**
+         * RAM usage target for ballooning (in percent of total memory)
+         */
+        'ballooning-target'?: number;
+        /**
          * Description for the Node. Shown in the web-interface node notes panel. This is saved as comment inside the configuration file.
          */
         description?: string;
@@ -4685,11 +8137,15 @@ export namespace Proxmox {
          */
         digest?: string;
         /**
+         * The location of the node. Overrides the default from the datacenter config.
+         */
+        location?: string;
+        /**
          * Initial delay in seconds, before starting all the Virtual Guests with on-boot enabled.
          */
         'startall-onboot-delay'?: number;
         /**
-         * MAC address for wake on LAN
+         * Node specific wake on LAN settings.
          */
         wakeonlan?: string;
         /**
@@ -4990,6 +8446,10 @@ export namespace Proxmox {
          */
         enable?: boolean;
         /**
+         * Log level for forwarded traffic.
+         */
+        log_level_forward?: string;
+        /**
          * Log level for incoming traffic.
          */
         log_level_in?: string;
@@ -5025,6 +8485,10 @@ export namespace Proxmox {
          * Conntrack syn recv timeout.
          */
         nf_conntrack_tcp_timeout_syn_recv?: number;
+        /**
+         * Enable nftables based firewall (tech preview)
+         */
+        nftables?: boolean;
         /**
          * Enable SMURFS filter.
          */
@@ -5062,23 +8526,65 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/firewall/rules/\{pos\}
      */
     export interface nodesFirewallRulesGetRule {
+        /**
+         * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name
+         */
         action: string;
+        /**
+         * Descriptive comment
+         */
         comment?: string;
+        /**
+         * Restrict packet destination address
+         */
         dest?: string;
+        /**
+         * Restrict TCP/UDP destination port
+         */
         dport?: string;
+        /**
+         * Flag to enable/disable a rule
+         */
         enable?: number;
+        /**
+         * Specify icmp-type. Only valid if proto equals 'icmp' or 'icmpv6'/'ipv6-icmp'
+         */
         'icmp-type'?: string;
+        /**
+         * Network interface name. You have to use network configuration key names for VMs and containers
+         */
         iface?: string;
+        /**
+         * IP version (4 or 6) - automatically determined from source/dest addresses
+         */
         ipversion?: number;
         /**
          * Log level for firewall rule
          */
         log?: string;
+        /**
+         * Use predefined standard macro
+         */
         macro?: string;
+        /**
+         * Rule position in the ruleset
+         */
         pos: number;
+        /**
+         * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'
+         */
         proto?: string;
+        /**
+         * Restrict packet source address
+         */
         source?: string;
+        /**
+         * Restrict TCP/UDP source port
+         */
         sport?: string;
+        /**
+         * Rule type
+         */
         type: string;
         /**
          * additionalProperties
@@ -5089,7 +8595,66 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/firewall/rules
      */
     export interface nodesFirewallRulesGetRules {
+        /**
+         * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name
+         */
+        action: string;
+        /**
+         * Descriptive comment
+         */
+        comment?: string;
+        /**
+         * Restrict packet destination address
+         */
+        dest?: string;
+        /**
+         * Restrict TCP/UDP destination port
+         */
+        dport?: string;
+        /**
+         * Flag to enable/disable a rule
+         */
+        enable?: number;
+        /**
+         * Specify icmp-type. Only valid if proto equals 'icmp' or 'icmpv6'/'ipv6-icmp'
+         */
+        'icmp-type'?: string;
+        /**
+         * Network interface name. You have to use network configuration key names for VMs and containers
+         */
+        iface?: string;
+        /**
+         * IP version (4 or 6) - automatically determined from source/dest addresses
+         */
+        ipversion?: number;
+        /**
+         * Log level for firewall rule
+         */
+        log?: string;
+        /**
+         * Use predefined standard macro
+         */
+        macro?: string;
+        /**
+         * Rule position in the ruleset
+         */
         pos: number;
+        /**
+         * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'
+         */
+        proto?: string;
+        /**
+         * Restrict packet source address
+         */
+        source?: string;
+        /**
+         * Restrict TCP/UDP source port
+         */
+        sport?: string;
+        /**
+         * Rule type
+         */
+        type: string;
         /**
          * additionalProperties
          */
@@ -5106,14 +8671,21 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/\{node\}/hardware/pci/\{pciid\}/mdev
+     * Returned by GET /nodes/\{node\}/hardware/pci/\{pci-id-or-mapping\}/mdev
      */
-    export interface nodesHardwarePciMdevMdevscan {
+    export interface nodesHardwarePci {pciIdOrMapping}MdevMdevscan {
         /**
          * The number of still available instances of this type.
          */
         available: number;
+        /**
+         * Additional description of the type.
+         */
         description: string;
+        /**
+         * A human readable name for the type.
+         */
+        name?: string;
         /**
          * The name of the mdev type.
          */
@@ -5124,9 +8696,9 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/\{node\}/hardware/pci/\{pciid\}
+     * Returned by GET /nodes/\{node\}/hardware/pci/\{pci-id-or-mapping\}
      */
-    export interface nodesHardwarePciPciindex {
+    export interface nodesHardwarePci {pciIdOrMapping}PciIndex {
         method: string;
         /**
          * additionalProperties
@@ -5136,7 +8708,7 @@ export namespace Proxmox {
     /**
      * Returned by GET /nodes/\{node\}/hardware/pci
      */
-    export interface nodesHardwarePciPciscan {
+    export interface nodesHardwarePciPciScan {
         /**
          * The PCI Class of the device.
          */
@@ -5328,11 +8900,19 @@ export namespace Proxmox {
          */
         digest: string;
         /**
+         * Command to run as init, optionally with arguments; may start with an absolute path, relative path, or a binary in $PATH.
+         */
+        entrypoint?: string;
+        /**
+         * The container runtime environment as NUL-separated list. Replaces any lxc.environment.runtime entries in the config.
+         */
+        env?: string;
+        /**
          * Allow containers access to advanced features.
          */
         features?: string;
         /**
-         * Script that will be exectued during various steps in the containers lifetime.
+         * Script that will be executed during various steps in the containers lifetime.
          */
         hookscript?: string;
         /**
@@ -5432,7 +9012,7 @@ export namespace Proxmox {
          */
         tty?: number;
         /**
-         * Makes the container run as unprivileged user. (Should not be modified manually.)
+         * Makes the container run as unprivileged user. For creation, the default is 1. For restore, the default is the value from the backup. (Should not be modified manually.)
          */
         unprivileged?: boolean;
         /**
@@ -5609,23 +9189,65 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/firewall/rules/\{pos\}
      */
     export interface nodesLxcFirewallRulesGetRule {
+        /**
+         * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name
+         */
         action: string;
+        /**
+         * Descriptive comment
+         */
         comment?: string;
+        /**
+         * Restrict packet destination address
+         */
         dest?: string;
+        /**
+         * Restrict TCP/UDP destination port
+         */
         dport?: string;
+        /**
+         * Flag to enable/disable a rule
+         */
         enable?: number;
+        /**
+         * Specify icmp-type. Only valid if proto equals 'icmp' or 'icmpv6'/'ipv6-icmp'
+         */
         'icmp-type'?: string;
+        /**
+         * Network interface name. You have to use network configuration key names for VMs and containers
+         */
         iface?: string;
+        /**
+         * IP version (4 or 6) - automatically determined from source/dest addresses
+         */
         ipversion?: number;
         /**
          * Log level for firewall rule
          */
         log?: string;
+        /**
+         * Use predefined standard macro
+         */
         macro?: string;
+        /**
+         * Rule position in the ruleset
+         */
         pos: number;
+        /**
+         * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'
+         */
         proto?: string;
+        /**
+         * Restrict packet source address
+         */
         source?: string;
+        /**
+         * Restrict TCP/UDP source port
+         */
         sport?: string;
+        /**
+         * Rule type
+         */
         type: string;
         /**
          * additionalProperties
@@ -5636,7 +9258,66 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/firewall/rules
      */
     export interface nodesLxcFirewallRulesGetRules {
+        /**
+         * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name
+         */
+        action: string;
+        /**
+         * Descriptive comment
+         */
+        comment?: string;
+        /**
+         * Restrict packet destination address
+         */
+        dest?: string;
+        /**
+         * Restrict TCP/UDP destination port
+         */
+        dport?: string;
+        /**
+         * Flag to enable/disable a rule
+         */
+        enable?: number;
+        /**
+         * Specify icmp-type. Only valid if proto equals 'icmp' or 'icmpv6'/'ipv6-icmp'
+         */
+        'icmp-type'?: string;
+        /**
+         * Network interface name. You have to use network configuration key names for VMs and containers
+         */
+        iface?: string;
+        /**
+         * IP version (4 or 6) - automatically determined from source/dest addresses
+         */
+        ipversion?: number;
+        /**
+         * Log level for firewall rule
+         */
+        log?: string;
+        /**
+         * Use predefined standard macro
+         */
+        macro?: string;
+        /**
+         * Rule position in the ruleset
+         */
         pos: number;
+        /**
+         * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'
+         */
+        proto?: string;
+        /**
+         * Restrict packet source address
+         */
+        source?: string;
+        /**
+         * Restrict TCP/UDP source port
+         */
+        sport?: string;
+        /**
+         * Rule type
+         */
+        type: string;
         /**
          * additionalProperties
          */
@@ -5646,6 +9327,10 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/interfaces
      */
     export interface nodesLxcInterfacesIp {
+        /**
+         * The MAC address of the interface
+         */
+        'hardware-address': string;
         /**
          * The MAC address of the interface
          */
@@ -5659,9 +9344,65 @@ export namespace Proxmox {
          */
         inet6?: string;
         /**
+         * The addresses of the interface
+         */
+        'ip-addresses': {
+                /**
+                 * IP-Address
+                 */
+                'ip-address'?: string;
+                /**
+                 * IP-Family
+                 */
+                'ip-address-type'?: string;
+                /**
+                 * IP-Prefix
+                 */
+                prefix?: number;
+            }[];
+        /**
          * The name of the interface
          */
         name: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/\{node\}/lxc/\{vmid\}/migrate
+     */
+    export interface nodesLxcMigrateMigrateVmPrecondition {
+        /**
+         * List of nodes allowed for migration.
+         */
+        'allowed-nodes'?: string[];
+        /**
+         * HA resources, which will be migrated to the same target node as the VM, because these are in positive affinity with the VM.
+         */
+        'dependent-ha-resources'?: string[];
+        /**
+         * List of not allowed nodes with additional information.
+         */
+        'not-allowed-nodes'?: {
+                /**
+                 * HA resources, which are blocking the container from being migrated to the node.
+                 */
+                'blocking-ha-resources'?: {
+                        /**
+                         * The reason why the HA resource is blocking the migration.
+                         */
+                        cause: string;
+                        /**
+                         * The blocking HA resource id
+                         */
+                        sid: string;
+                    }[];
+            };
+        /**
+         * Determines if the container is running.
+         */
+        running: boolean;
         /**
          * additionalProperties
          */
@@ -5787,9 +9528,25 @@ export namespace Proxmox {
      */
     export interface nodesLxcStatusCurrentVmStatus {
         /**
+         * Current CPU usage.
+         */
+        cpu?: number;
+        /**
          * Maximum usable CPUs.
          */
         cpus?: number;
+        /**
+         * Root disk image space-usage in bytes.
+         */
+        disk?: number;
+        /**
+         * The amount of bytes the guest read from it's block devices since the guest was started. (Note: This info is not available for all storage types.)
+         */
+        diskread?: number;
+        /**
+         * The amount of bytes the guest wrote from it's block devices since the guest was started. (Note: This info is not available for all storage types.)
+         */
+        diskwrite?: number;
         /**
          * HA manager service status.
          */
@@ -5799,7 +9556,7 @@ export namespace Proxmox {
          */
         lock?: string;
         /**
-         * Root disk size in bytes.
+         * Root disk image size in bytes.
          */
         maxdisk?: number;
         /**
@@ -5811,9 +9568,41 @@ export namespace Proxmox {
          */
         maxswap?: number;
         /**
+         * Currently used memory in bytes.
+         */
+        mem?: number;
+        /**
          * Container name.
          */
         name?: string;
+        /**
+         * The amount of traffic in bytes that was sent to the guest over the network since it was started.
+         */
+        netin?: number;
+        /**
+         * The amount of traffic in bytes that was sent from the guest over the network since it was started.
+         */
+        netout?: number;
+        /**
+         * CPU Some pressure stall average over the last 10 seconds.
+         */
+        pressurecpusome?: number;
+        /**
+         * IO Full pressure stall average over the last 10 seconds.
+         */
+        pressureiofull?: number;
+        /**
+         * IO Some pressure stall average over the last 10 seconds.
+         */
+        pressureiosome?: number;
+        /**
+         * Memory Full pressure stall average over the last 10 seconds.
+         */
+        pressurememoryfull?: number;
+        /**
+         * Memory Some pressure stall average over the last 10 seconds.
+         */
+        pressurememorysome?: number;
         /**
          * LXC Container status.
          */
@@ -5823,7 +9612,11 @@ export namespace Proxmox {
          */
         tags?: string;
         /**
-         * Uptime.
+         * Determines if the guest is a template.
+         */
+        template?: boolean;
+        /**
+         * Uptime in seconds.
          */
         uptime?: number;
         /**
@@ -5863,15 +9656,31 @@ export namespace Proxmox {
      */
     export interface nodesLxcVm {
         /**
+         * Current CPU usage.
+         */
+        cpu?: number;
+        /**
          * Maximum usable CPUs.
          */
         cpus?: number;
+        /**
+         * Root disk image space-usage in bytes.
+         */
+        disk?: number;
+        /**
+         * The amount of bytes the guest read from it's block devices since the guest was started. (Note: This info is not available for all storage types.)
+         */
+        diskread?: number;
+        /**
+         * The amount of bytes the guest wrote from it's block devices since the guest was started. (Note: This info is not available for all storage types.)
+         */
+        diskwrite?: number;
         /**
          * The current config lock, if any.
          */
         lock?: string;
         /**
-         * Root disk size in bytes.
+         * Root disk image size in bytes.
          */
         maxdisk?: number;
         /**
@@ -5883,9 +9692,41 @@ export namespace Proxmox {
          */
         maxswap?: number;
         /**
+         * Currently used memory in bytes.
+         */
+        mem?: number;
+        /**
          * Container name.
          */
         name?: string;
+        /**
+         * The amount of traffic in bytes that was sent to the guest over the network since it was started.
+         */
+        netin?: number;
+        /**
+         * The amount of traffic in bytes that was sent from the guest over the network since it was started.
+         */
+        netout?: number;
+        /**
+         * CPU Some pressure stall average over the last 10 seconds.
+         */
+        pressurecpusome?: number;
+        /**
+         * IO Full pressure stall average over the last 10 seconds.
+         */
+        pressureiofull?: number;
+        /**
+         * IO Some pressure stall average over the last 10 seconds.
+         */
+        pressureiosome?: number;
+        /**
+         * Memory Full pressure stall average over the last 10 seconds.
+         */
+        pressurememoryfull?: number;
+        /**
+         * Memory Some pressure stall average over the last 10 seconds.
+         */
+        pressurememorysome?: number;
         /**
          * LXC Container status.
          */
@@ -5895,7 +9736,11 @@ export namespace Proxmox {
          */
         tags?: string;
         /**
-         * Uptime.
+         * Determines if the guest is a template.
+         */
+        template?: boolean;
+        /**
+         * Uptime in seconds.
          */
         uptime?: number;
         /**
@@ -5922,6 +9767,10 @@ export namespace Proxmox {
      */
     export interface nodesLxcVncproxyVncproxy {
         cert: string;
+        /**
+         * Password used for authentication within the VNC protocol. Consists of printable ASCII characters ('!' .. '~').
+         */
+        password?: string;
         port: number;
         ticket: string;
         upid: string;
@@ -5954,6 +9803,198 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/network
      */
     export interface nodesNetworkIndex {
+        /**
+         * Set to true if the interface is active.
+         */
+        active?: boolean;
+        /**
+         * IP address.
+         */
+        address?: string;
+        /**
+         * IP address.
+         */
+        address6?: string;
+        /**
+         * Automatically start interface on boot.
+         */
+        autostart?: boolean;
+        /**
+         * Specify the primary interface for active-backup bond.
+         */
+        'bond-primary'?: string;
+        /**
+         * Bonding mode.
+         */
+        bond_mode?: string;
+        /**
+         * Selects the transmit hash policy to use for slave selection in balance-xor and 802.3ad modes.
+         */
+        bond_xmit_hash_policy?: string;
+        /**
+         * The bridge port access VLAN.
+         */
+        'bridge-access'?: number;
+        /**
+         * Bridge port ARP/ND suppress flag.
+         */
+        'bridge-arp-nd-suppress'?: boolean;
+        /**
+         * Bridge port learning flag.
+         */
+        'bridge-learning'?: boolean;
+        /**
+         * Bridge port multicast flood flag.
+         */
+        'bridge-multicast-flood'?: boolean;
+        /**
+         * Bridge port unicast flood flag.
+         */
+        'bridge-unicast-flood'?: boolean;
+        /**
+         * Specify the interfaces you want to add to your bridge.
+         */
+        bridge_ports?: string;
+        /**
+         * Specify the allowed VLANs. For example: '2 4 100-200'. Only used if the bridge is VLAN aware.
+         */
+        bridge_vids?: string;
+        /**
+         * Enable bridge vlan support.
+         */
+        bridge_vlan_aware?: boolean;
+        /**
+         * IPv4 CIDR.
+         */
+        cidr?: string;
+        /**
+         * IPv6 CIDR.
+         */
+        cidr6?: string;
+        /**
+         * Comments
+         */
+        comments?: string;
+        /**
+         * Comments
+         */
+        comments6?: string;
+        /**
+         * Set to true if the interface physically exists.
+         */
+        exists?: boolean;
+        /**
+         * The network families.
+         */
+        families?: string[];
+        /**
+         * Default gateway address.
+         */
+        gateway?: string;
+        /**
+         * Default ipv6 gateway address.
+         */
+        gateway6?: string;
+        /**
+         * Network interface name.
+         */
+        iface: string;
+        /**
+         * The link type.
+         */
+        'link-type'?: string;
+        /**
+         * The network configuration method for IPv4.
+         */
+        method?: string;
+        /**
+         * The network configuration method for IPv6.
+         */
+        method6?: string;
+        /**
+         * MTU.
+         */
+        mtu?: number;
+        /**
+         * Network mask.
+         */
+        netmask?: string;
+        /**
+         * Network mask.
+         */
+        netmask6?: number;
+        /**
+         * A list of additional interface options for IPv4.
+         */
+        options?: string[];
+        /**
+         * A list of additional interface options for IPv6.
+         */
+        options6?: string[];
+        /**
+         * Specify the interfaces used by the bonding device.
+         */
+        ovs_bonds?: string;
+        /**
+         * The OVS bridge associated with a OVS port. This is required when you create an OVS port.
+         */
+        ovs_bridge?: string;
+        /**
+         * OVS interface options.
+         */
+        ovs_options?: string;
+        /**
+         * Specify the interfaces you want to add to your bridge.
+         */
+        ovs_ports?: string;
+        /**
+         * Specify a VLan tag (used by OVSPort, OVSIntPort, OVSBond)
+         */
+        ovs_tag?: number;
+        /**
+         * The order of the interface.
+         */
+        priority?: number;
+        /**
+         * Specify the interfaces used by the bonding device.
+         */
+        slaves?: string;
+        /**
+         * Network interface type
+         */
+        type: string;
+        /**
+         * The uplink ID.
+         */
+        'uplink-id'?: string;
+        /**
+         * vlan-id for a custom named vlan interface (ifupdown2 only).
+         */
+        'vlan-id'?: number;
+        /**
+         * The VLAN protocol.
+         */
+        'vlan-protocol'?: string;
+        /**
+         * Specify the raw interface for the vlan interface.
+         */
+        'vlan-raw-device'?: string;
+        /**
+         * The VXLAN ID.
+         */
+        'vxlan-id'?: number;
+        /**
+         * The VXLAN local tunnel IP.
+         */
+        'vxlan-local-tunnelip'?: string;
+        /**
+         * The physical device for the VXLAN tunnel.
+         */
+        'vxlan-physdev'?: string;
+        /**
+         * The VXLAN SVC node IP.
+         */
+        'vxlan-svcnodeip'?: string;
         /**
          * additionalProperties
          */
@@ -6029,7 +10070,7 @@ export namespace Proxmox {
          */
         content: string;
         /**
-         * If set to 1, the output is truncated and not complete
+         * If set to 1, the read did not reach the end of the file.
          */
         truncated?: boolean;
         /**
@@ -6088,7 +10129,15 @@ export namespace Proxmox {
          */
         agent?: string;
         /**
-         * Virtual processor architecture. Defaults to the host.
+         * Allow memory pages of this guest to be merged via KSM (Kernel Samepage Merging).
+         */
+        'allow-ksm'?: boolean;
+        /**
+         * Secure Encrypted Virtualization (SEV) features by AMD CPUs
+         */
+        'amd-sev'?: string;
+        /**
+         * Virtual processor architecture. Defaults to the host architecture.
          */
         arch?: string;
         /**
@@ -6106,7 +10155,7 @@ export namespace Proxmox {
          */
         autostart?: boolean;
         /**
-         * Amount of target RAM for the VM in MiB. Using zero disables the ballon driver.
+         * Amount of target RAM for the VM in MiB. The balloon driver is enabled by default, unless it is explicitly disabled by setting the value to zero.
          */
         balloon?: number;
         /**
@@ -6243,7 +10292,8 @@ export namespace Proxmox {
          */
         hotplug?: string;
         /**
-         * Enable/disable hugepages memory.
+         * Enables hugepages memory.
+         * Sets the size of hugepages in MiB. If the value is set to 'any' then 1 GiB hugepages will be used if possible, otherwise the size will fall back to 2 MiB.
          */
         hugepages?: string;
         /**
@@ -6262,6 +10312,10 @@ export namespace Proxmox {
          * Use volume as IDE hard disk or CD-ROM (n is 0 to 3).
          */
         ide3?: string;
+        /**
+         * Trusted Domain Extension (TDX) features by Intel CPUs
+         */
+        'intel-tdx'?: string;
         /**
          * cloud-init: Specify IP addresses and gateways for the corresponding interface.
          * IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.
@@ -6383,7 +10437,7 @@ export namespace Proxmox {
          */
         lock?: string;
         /**
-         * Specifies the QEMU machine type.
+         * Specify the QEMU machine.
          */
         machine?: string;
         /**
@@ -6391,7 +10445,11 @@ export namespace Proxmox {
          */
         memory?: string;
         /**
-         * Set maximum tolerated downtime (in seconds) for migrations.
+         * Some (read-only) meta-information about this guest.
+         */
+        meta?: string;
+        /**
+         * Set maximum tolerated downtime (in seconds) for migrations. Should the migration not be able to converge in the very end, because too much newly dirtied RAM needs to be transferred, the limit will be increased automatically step-by-step until migration can converge. Will be capped to 2000 seconds (maximum in QEMU).
          */
         migrate_downtime?: number;
         /**
@@ -6459,9 +10517,9 @@ export namespace Proxmox {
          * win7;; Microsoft Windows 7
          * win8;; Microsoft Windows 8/2012/2012r2
          * win10;; Microsoft Windows 10/2016/2019
-         * win11;; Microsoft Windows 11/2022
+         * win11;; Microsoft Windows 11/2022/2025
          * l24;; Linux 2.4 Kernel
-         * l26;; Linux 2.6 - 6.X Kernel
+         * l26;; Linux 2.6 - 7.X Kernel
          * solaris;; Solaris/OpenSolaris/OpenIndiania kernel
          */
         ostype?: string;
@@ -6494,6 +10552,10 @@ export namespace Proxmox {
          */
         parallel3?: string;
         /**
+         * Parent snapshot name. This is used internally, and should not be modified.
+         */
+        parent?: string;
+        /**
          * Sets the protection flag of the VM. This will disable the remove VM and remove disk operations.
          */
         protection?: boolean;
@@ -6505,6 +10567,18 @@ export namespace Proxmox {
          * Configure a VirtIO-based Random Number Generator.
          */
         rng0?: string;
+        /**
+         * List of VirtIO network devices and their effective host_mtu setting. A value of 0 means that the host_mtu parameter is to be avoided for the corresponding device. This is used internally for snapshots.
+         */
+        'running-nets-host-mtu'?: string;
+        /**
+         * Specifies the QEMU '-cpu' parameter of the running vm. This is used internally for snapshots.
+         */
+        runningcpu?: string;
+        /**
+         * Specifies the QEMU machine type of the running vm. This is used internally for snapshots.
+         */
+        runningmachine?: string;
         /**
          * Use volume as SATA hard disk or CD-ROM (n is 0 to 5).
          */
@@ -6593,6 +10667,10 @@ export namespace Proxmox {
          * The number of CPUs. Please use option -sockets instead.
          */
         smp?: number;
+        /**
+         * Timestamp for snapshots.
+         */
+        snaptime?: number;
         /**
          * The number of CPU sockets.
          */
@@ -6691,10 +10769,30 @@ export namespace Proxmox {
          */
         virtio3?: string;
         /**
+         * Configuration for sharing a directory between host and guest using Virtio-fs.
+         */
+        virtiofs0?: string;
+        /**
+         * Configuration for sharing a directory between host and guest using Virtio-fs.
+         */
+        virtiofs1?: string;
+        /**
+         * Configuration for sharing a directory between host and guest using Virtio-fs.
+         */
+        virtiofs2?: string;
+        /**
+         * Configuration for sharing a directory between host and guest using Virtio-fs.
+         */
+        virtiofs3?: string;
+        /**
          * The VM generation ID (vmgenid) device exposes a 128-bit integer value identifier to the guest OS. This allows to notify the guest operating system when the virtual machine is executed with a different configuration (e.g. snapshot execution or creation from a template). The guest operating system notices the change, and is then able to react as appropriate by marking its copies of distributed databases as dirty, re-initializing its random number generator, etc.
          * Note that auto-creation only works when done through API/CLI create or update methods, but not when manually editing the config file.
          */
         vmgenid?: string;
+        /**
+         * Reference to a volume which stores the VM state. This is used internally for snapshots.
+         */
+        vmstate?: string;
         /**
          * Default storage for VM state volumes/files.
          */
@@ -6862,23 +10960,65 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/firewall/rules/\{pos\}
      */
     export interface nodesQemuFirewallRulesGetRule {
+        /**
+         * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name
+         */
         action: string;
+        /**
+         * Descriptive comment
+         */
         comment?: string;
+        /**
+         * Restrict packet destination address
+         */
         dest?: string;
+        /**
+         * Restrict TCP/UDP destination port
+         */
         dport?: string;
+        /**
+         * Flag to enable/disable a rule
+         */
         enable?: number;
+        /**
+         * Specify icmp-type. Only valid if proto equals 'icmp' or 'icmpv6'/'ipv6-icmp'
+         */
         'icmp-type'?: string;
+        /**
+         * Network interface name. You have to use network configuration key names for VMs and containers
+         */
         iface?: string;
+        /**
+         * IP version (4 or 6) - automatically determined from source/dest addresses
+         */
         ipversion?: number;
         /**
          * Log level for firewall rule
          */
         log?: string;
+        /**
+         * Use predefined standard macro
+         */
         macro?: string;
+        /**
+         * Rule position in the ruleset
+         */
         pos: number;
+        /**
+         * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'
+         */
         proto?: string;
+        /**
+         * Restrict packet source address
+         */
         source?: string;
+        /**
+         * Restrict TCP/UDP source port
+         */
         sport?: string;
+        /**
+         * Rule type
+         */
         type: string;
         /**
          * additionalProperties
@@ -6889,7 +11029,66 @@ export namespace Proxmox {
      * Returned by GET /nodes/\{node\}/qemu/\{vmid\}/firewall/rules
      */
     export interface nodesQemuFirewallRulesGetRules {
+        /**
+         * Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name
+         */
+        action: string;
+        /**
+         * Descriptive comment
+         */
+        comment?: string;
+        /**
+         * Restrict packet destination address
+         */
+        dest?: string;
+        /**
+         * Restrict TCP/UDP destination port
+         */
+        dport?: string;
+        /**
+         * Flag to enable/disable a rule
+         */
+        enable?: number;
+        /**
+         * Specify icmp-type. Only valid if proto equals 'icmp' or 'icmpv6'/'ipv6-icmp'
+         */
+        'icmp-type'?: string;
+        /**
+         * Network interface name. You have to use network configuration key names for VMs and containers
+         */
+        iface?: string;
+        /**
+         * IP version (4 or 6) - automatically determined from source/dest addresses
+         */
+        ipversion?: number;
+        /**
+         * Log level for firewall rule
+         */
+        log?: string;
+        /**
+         * Use predefined standard macro
+         */
+        macro?: string;
+        /**
+         * Rule position in the ruleset
+         */
         pos: number;
+        /**
+         * IP protocol. You can use protocol names ('tcp'/'udp') or simple numbers, as defined in '/etc/protocols'
+         */
+        proto?: string;
+        /**
+         * Restrict packet source address
+         */
+        source?: string;
+        /**
+         * Restrict TCP/UDP source port
+         */
+        sport?: string;
+        /**
+         * Rule type
+         */
+        type: string;
         /**
          * additionalProperties
          */
@@ -6900,25 +11099,75 @@ export namespace Proxmox {
      */
     export interface nodesQemuMigrateMigrateVmPrecondition {
         /**
-         * List nodes allowed for offline migration, only passed if VM is offline
+         * List of nodes allowed for migration.
          */
         allowed_nodes?: string[];
         /**
-         * List local disks including CD-Rom, unsused and not referenced disks
+         * HA resources, which will be migrated to the same target node as the VM, because these are in positive affinity with the VM.
          */
-        local_disks: string[];
+        'dependent-ha-resources'?: string[];
         /**
-         * List local resources e.g. pci, usb
+         * Whether the VM host supports migrating additional VM state, such as conntrack entries.
+         */
+        'has-dbus-vmstate': boolean;
+        /**
+         * List local disks including CD-Rom, unused and not referenced disks
+         */
+        local_disks: {
+                /**
+                 * True if the disk is a cdrom.
+                 */
+                cdrom: boolean;
+                /**
+                 * True if the disk is unused.
+                 */
+                is_unused: boolean;
+                /**
+                 * The size of the disk in bytes.
+                 */
+                size: number;
+                /**
+                 * The volid of the disk.
+                 */
+                volid: string;
+            }[];
+        /**
+         * List local resources (e.g. pci, usb) that block migration.
          */
         local_resources: string[];
         /**
-         * List of mapped resources e.g. pci, usb
+         * Object of mapped resources with additional information such if they're live migratable.
+         */
+        'mapped-resource-info': any;
+        /**
+         * List of mapped resources e.g. pci, usb. Deprecated, use 'mapped-resource-info' instead.
          */
         'mapped-resources': string[];
         /**
-         * List not allowed nodes with additional informations, only passed if VM is offline
+         * List of not allowed nodes with additional information.
          */
-        not_allowed_nodes?: any;
+        not_allowed_nodes?: {
+                /**
+                 * HA resources, which are blocking the VM from being migrated to the node.
+                 */
+                'blocking-ha-resources'?: {
+                        /**
+                         * The reason why the HA resource is blocking the migration.
+                         */
+                        cause: string;
+                        /**
+                         * The blocking HA resource id
+                         */
+                        sid: string;
+                    }[];
+                /**
+                 * A list of not available storages.
+                 */
+                unavailable_storages?: string[];
+            };
+        /**
+         * Determines if the VM is running.
+         */
         running: boolean;
         /**
          * additionalProperties
@@ -7057,9 +11306,21 @@ export namespace Proxmox {
          */
         clipboard?: string;
         /**
+         * Current CPU usage.
+         */
+        cpu?: number;
+        /**
          * Maximum usable CPUs.
          */
         cpus?: number;
+        /**
+         * The amount of bytes the guest read from it's block devices since the guest was started. (Note: This info is not available for all storage types.)
+         */
+        diskread?: number;
+        /**
+         * The amount of bytes the guest wrote from it's block devices since the guest was started. (Note: This info is not available for all storage types.)
+         */
+        diskwrite?: number;
         /**
          * HA manager service status.
          */
@@ -7077,13 +11338,53 @@ export namespace Proxmox {
          */
         maxmem?: number;
         /**
-         * VM name.
+         * Currently used memory in bytes. Does not take into account kernel same-page merging (KSM). Uses information from ballooning when available.
+         */
+        mem?: number;
+        /**
+         * Current memory usage on the host. Does not take into account kernel same-page merging (KSM).
+         */
+        memhost?: number;
+        /**
+         * VM (host)name.
          */
         name?: string;
         /**
-         * PID of running qemu process.
+         * The amount of traffic in bytes that was sent to the guest over the network since it was started.
+         */
+        netin?: number;
+        /**
+         * The amount of traffic in bytes that was sent from the guest over the network since it was started.
+         */
+        netout?: number;
+        /**
+         * PID of the QEMU process, if the VM is running.
          */
         pid?: number;
+        /**
+         * CPU Full pressure stall average over the last 10 seconds.
+         */
+        pressurecpufull?: number;
+        /**
+         * CPU Some pressure stall average over the last 10 seconds.
+         */
+        pressurecpusome?: number;
+        /**
+         * IO Full pressure stall average over the last 10 seconds.
+         */
+        pressureiofull?: number;
+        /**
+         * IO Some pressure stall average over the last 10 seconds.
+         */
+        pressureiosome?: number;
+        /**
+         * Memory Full pressure stall average over the last 10 seconds.
+         */
+        pressurememoryfull?: number;
+        /**
+         * Memory Some pressure stall average over the last 10 seconds.
+         */
+        pressurememorysome?: number;
         /**
          * VM run state from the 'query-status' QMP monitor command.
          */
@@ -7093,9 +11394,13 @@ export namespace Proxmox {
          */
         'running-machine'?: string;
         /**
-         * The currently running QEMU version (if running).
+         * The QEMU version the VM is currently using (if running).
          */
         'running-qemu'?: string;
+        /**
+         * Guest has serial device configured.
+         */
+        serial?: boolean;
         /**
          * QEMU VGA configuration supports spice.
          */
@@ -7109,7 +11414,11 @@ export namespace Proxmox {
          */
         tags?: string;
         /**
-         * Uptime.
+         * Determines if the guest is a template.
+         */
+        template?: boolean;
+        /**
+         * Uptime in seconds.
          */
         uptime?: number;
         /**
@@ -7149,9 +11458,21 @@ export namespace Proxmox {
      */
     export interface nodesQemuVm {
         /**
+         * Current CPU usage.
+         */
+        cpu?: number;
+        /**
          * Maximum usable CPUs.
          */
         cpus?: number;
+        /**
+         * The amount of bytes the guest read from it's block devices since the guest was started. (Note: This info is not available for all storage types.)
+         */
+        diskread?: number;
+        /**
+         * The amount of bytes the guest wrote from it's block devices since the guest was started. (Note: This info is not available for all storage types.)
+         */
+        diskwrite?: number;
         /**
          * The current config lock, if any.
          */
@@ -7165,13 +11486,53 @@ export namespace Proxmox {
          */
         maxmem?: number;
         /**
-         * VM name.
+         * Currently used memory in bytes. Does not take into account kernel same-page merging (KSM). Uses information from ballooning when available.
+         */
+        mem?: number;
+        /**
+         * Current memory usage on the host. Does not take into account kernel same-page merging (KSM).
+         */
+        memhost?: number;
+        /**
+         * VM (host)name.
          */
         name?: string;
         /**
-         * PID of running qemu process.
+         * The amount of traffic in bytes that was sent to the guest over the network since it was started.
+         */
+        netin?: number;
+        /**
+         * The amount of traffic in bytes that was sent from the guest over the network since it was started.
+         */
+        netout?: number;
+        /**
+         * PID of the QEMU process, if the VM is running.
          */
         pid?: number;
+        /**
+         * CPU Full pressure stall average over the last 10 seconds.
+         */
+        pressurecpufull?: number;
+        /**
+         * CPU Some pressure stall average over the last 10 seconds.
+         */
+        pressurecpusome?: number;
+        /**
+         * IO Full pressure stall average over the last 10 seconds.
+         */
+        pressureiofull?: number;
+        /**
+         * IO Some pressure stall average over the last 10 seconds.
+         */
+        pressureiosome?: number;
+        /**
+         * Memory Full pressure stall average over the last 10 seconds.
+         */
+        pressurememoryfull?: number;
+        /**
+         * Memory Some pressure stall average over the last 10 seconds.
+         */
+        pressurememorysome?: number;
         /**
          * VM run state from the 'query-status' QMP monitor command.
          */
@@ -7181,9 +11542,13 @@ export namespace Proxmox {
          */
         'running-machine'?: string;
         /**
-         * The currently running QEMU version (if running).
+         * The QEMU version the VM is currently using (if running).
          */
         'running-qemu'?: string;
+        /**
+         * Guest has serial device configured.
+         */
+        serial?: boolean;
         /**
          * QEMU process status.
          */
@@ -7193,7 +11558,11 @@ export namespace Proxmox {
          */
         tags?: string;
         /**
-         * Uptime.
+         * Determines if the guest is a template.
+         */
+        template?: boolean;
+        /**
+         * Uptime in seconds.
          */
         uptime?: number;
         /**
@@ -7221,7 +11590,7 @@ export namespace Proxmox {
     export interface nodesQemuVncproxyVncproxy {
         cert: string;
         /**
-         * Returned if requested with 'generate-password' param. Consists of printable ASCII characters ('!' .. '~').
+         * Password used for authentication within the VNC protocol. Consists of printable ASCII characters ('!' .. '~').
          */
         password?: string;
         port: number;
@@ -7328,19 +11697,6 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
-     * Returned by GET /nodes/\{node\}/scan/glusterfs
-     */
-    export interface nodesScanGlusterfsGlusterfsscan {
-        /**
-         * The volume name.
-         */
-        volname: string;
-        /**
-         * additionalProperties
-         */
-        [additionalProperties: string]: any;
-    }
-    /**
      * Returned by GET /nodes/\{node\}/scan
      */
     export interface nodesScanIndex {
@@ -7441,9 +11797,151 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/\{node\}/sdn/fabrics/\{fabric\}
+     */
+    export interface nodesSdnFabricsDiridx {
+        subdir: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/\{node\}/sdn/fabrics/\{fabric\}/interfaces
+     */
+    export interface nodesSdnFabricsInterfacesInterfaces {
+        /**
+         * The name of the network interface.
+         */
+        name: string;
+        /**
+         * The current state of the interface.
+         */
+        state: string;
+        /**
+         * The type of this interface in the fabric (e.g. Point-to-Point, Broadcast, ..).
+         */
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/\{node\}/sdn/fabrics/\{fabric\}/neighbors
+     */
+    export interface nodesSdnFabricsNeighborsNeighbors {
+        /**
+         * The IP or hostname of the neighbor.
+         */
+        neighbor: string;
+        /**
+         * The status of the neighbor, as returned by FRR.
+         */
+        status: string;
+        /**
+         * The uptime of this neighbor, as returned by FRR (e.g. 8h24m12s).
+         */
+        uptime: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/\{node\}/sdn/fabrics/\{fabric\}/routes
+     */
+    export interface nodesSdnFabricsRoutesRoutes {
+        /**
+         * The CIDR block for this routing table entry.
+         */
+        route: string;
+        /**
+         * A list of nexthops for that route.
+         */
+        via: string[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /nodes/\{node\}/sdn
      */
     export interface nodesSdnSdnindex {
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/\{node\}/sdn/vnets/\{vnet\}
+     */
+    export interface nodesSdnVnetsDiridx {
+        subdir: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/\{node\}/sdn/vnets/\{vnet\}/mac-vrf
+     */
+    export interface nodesSdnVnetsMacVrfMacVrf {
+        /**
+         * The IP address of the MAC VRF entry.
+         */
+        ip: string;
+        /**
+         * The MAC address of the MAC VRF entry.
+         */
+        mac: string;
+        /**
+         * The IP address of the nexthop.
+         */
+        nexthop: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/\{node\}/sdn/zones/\{zone\}/bridges
+     */
+    export interface nodesSdnZonesBridgesBridges {
+        /**
+         * Name of the bridge.
+         */
+        name: string;
+        /**
+         * All ports that are members of the bridge
+         */
+        ports: {
+                /**
+                 * The index of the guests network device that this interface belongs to.
+                 */
+                index?: string;
+                /**
+                 * The name of the bridge port.
+                 */
+                name: string;
+                /**
+                 * The primary VLAN configured for the port of this bridge (= PVID). Only for VLAN-aware bridges.
+                 */
+                primary_vlan?: number;
+                /**
+                 * A list of VLANs and VLAN ranges that are allowed for this bridge port in addition to the primary VLAN. Only for VLAN-aware bridges.
+                 */
+                vlans?: string[];
+                /**
+                 * The ID of the guest that this interface belongs to.
+                 */
+                vmid?: number;
+            }[];
+        /**
+         * Whether VLAN filtering is enabled for this bridge (= VLAN-aware).
+         */
+        vlan_filtering: string;
         /**
          * additionalProperties
          */
@@ -7498,9 +11996,58 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/\{node\}/sdn/zones/\{zone\}/ip-vrf
+     */
+    export interface nodesSdnZonesIpVrfIpVrf {
+        /**
+         * The CIDR of the route table entry.
+         */
+        ip: string;
+        /**
+         * This route's metric.
+         */
+        metric: number;
+        /**
+         * A list of nexthops for the route table entry.
+         */
+        nexthops: string[];
+        /**
+         * The protocol where this route was learned from (e.g. BGP).
+         */
+        protocol: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /nodes/\{node\}/services
      */
     export interface nodesServicesIndex {
+        /**
+         * Current state of the service process (systemd ActiveState).
+         */
+        'active-state': string;
+        /**
+         * Description of the service.
+         */
+        desc: string;
+        /**
+         * Short identifier for the service (e.g., "pveproxy").
+         */
+        name: string;
+        /**
+         * Systemd unit name (e.g., pveproxy).
+         */
+        service: string;
+        /**
+         * Execution status of the service (systemd SubState).
+         */
+        state: string;
+        /**
+         * Whether the service is enabled (systemd UnitFileState).
+         */
+        'unit-state': string;
         /**
          * additionalProperties
          */
@@ -7511,6 +12058,39 @@ export namespace Proxmox {
      */
     export interface nodesServicesSrvcmdidx {
         subdir: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/\{node\}/services/\{service\}/state
+     */
+    export interface nodesServicesStateServiceState {
+        /**
+         * Current state of the service process (systemd ActiveState).
+         */
+        'active-state': string;
+        /**
+         * Description of the service.
+         */
+        desc: string;
+        /**
+         * Short identifier for the service (e.g., "pveproxy").
+         */
+        name: string;
+        /**
+         * Systemd unit name (e.g., pveproxy).
+         */
+        service: string;
+        /**
+         * Execution status of the service (systemd SubState).
+         */
+        state: string;
+        /**
+         * Whether the service is enabled (systemd UnitFileState).
+         */
+        'unit-state': string;
         /**
          * additionalProperties
          */
@@ -7531,9 +12111,122 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/\{node\}/status
+     */
+    export interface nodesStatusStatus {
+        /**
+         * Meta-information about the boot mode.
+         */
+        'boot-info': {
+                /**
+                 * Through which firmware the system got booted.
+                 */
+                mode: string;
+                /**
+                 * System is booted in secure mode, only applicable for the "efi" mode.
+                 */
+                secureboot?: boolean;
+            };
+        /**
+         * The current cpu usage.
+         */
+        cpu: number;
+        cpuinfo: {
+                /**
+                 * The number of physical cores of the CPU.
+                 */
+                cores: number;
+                /**
+                 * The number of logical threads of the CPU.
+                 */
+                cpus: number;
+                /**
+                 * The CPU model
+                 */
+                model: string;
+                /**
+                 * The number of logical threads of the CPU.
+                 */
+                sockets: number;
+            };
+        /**
+         * Meta-information about the currently booted kernel of this node.
+         */
+        'current-kernel': {
+                /**
+                 * Hardware (architecture) type
+                 */
+                machine: string;
+                /**
+                 * OS kernel release (e.g., "6.8.0")
+                 */
+                release: string;
+                /**
+                 * OS kernel name (e.g., "Linux")
+                 */
+                sysname: string;
+                /**
+                 * OS kernel version with build info
+                 */
+                version: string;
+            };
+        /**
+         * An array of load avg for 1, 5 and 15 minutes respectively.
+         */
+        loadavg: string[];
+        memory: {
+                /**
+                 * The available memory in bytes.
+                 */
+                available: number;
+                /**
+                 * The free memory in bytes.
+                 */
+                free: number;
+                /**
+                 * The total memory in bytes.
+                 */
+                total: number;
+                /**
+                 * The used memory in bytes.
+                 */
+                used: number;
+            };
+        /**
+         * The PVE version string.
+         */
+        pveversion: string;
+        rootfs: {
+                /**
+                 * The available bytes in the root filesystem.
+                 */
+                avail: number;
+                /**
+                 * The free bytes on the root filesystem.
+                 */
+                free: number;
+                /**
+                 * The total size of the root filesystem in bytes.
+                 */
+                total: number;
+                /**
+                 * The used bytes in the root filesystem.
+                 */
+                used: number;
+            };
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /nodes/\{node\}/storage/\{storage\}/content
      */
     export interface nodesStorageContentIndex {
+        /**
+         * Approximate volume size in bytes. Present instead of 'size' for storages where determining the exact size has technical limitations. Will typically be an upper bound on the actual size, but the exact semantics depend on the storage plugin.
+         */
+        'approximate-size'?: number;
         /**
          * Creation time (seconds since the UNIX Epoch).
          */
@@ -7561,7 +12254,7 @@ export namespace Proxmox {
         /**
          * Volume size in bytes.
          */
-        size: number;
+        size?: number;
         /**
          * Used space. Please note that most storage plugins do not report anything useful here.
          */
@@ -7669,6 +12362,69 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/\{node\}/storage/\{storage\}/identity
+     */
+    export interface nodesStorageIdentityIdentity {
+        /**
+         * Unique identifier for this storage instance. The exact format and semantics depend on the storage plugin type.
+         */
+        id: string;
+        /**
+         * The type of the storage.
+         */
+        type: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/\{node\}/storage/\{storage\}/import-metadata
+     */
+    export interface nodesStorageImportMetadataGetImportMetadata {
+        /**
+         * Parameters which can be used in a call to create a VM or container.
+         */
+        'create-args': any;
+        /**
+         * Recognised disk volumes as `$bus$id` => `$storeid:$path` map.
+         */
+        disks?: any;
+        /**
+         * Recognised network interfaces as `net$id` => \{ ...params \} object.
+         */
+        net?: any;
+        /**
+         * The type of the import-source of this guest volume.
+         */
+        source: string;
+        /**
+         * The type of guest this is going to produce.
+         */
+        type: string;
+        /**
+         * List of known issues that can affect the import of a guest. Note that lack of warning does not imply that there cannot be any problems.
+         */
+        warnings?: {
+                /**
+                 * Related subject (config) key of warning.
+                 */
+                key?: string;
+                /**
+                 * What this warning is about.
+                 */
+                type: string;
+                /**
+                 * Related subject (config) value of warning.
+                 */
+                value?: string;
+            }[];
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /nodes/\{node\}/storage
      */
     export interface nodesStorageIndex {
@@ -7688,6 +12444,23 @@ export namespace Proxmox {
          * Set when storage is enabled (not disabled).
          */
         enabled?: boolean;
+        /**
+         * Lists the supported and default format. Use 'formats' instead. Only included if 'format' parameter is set.
+         */
+        formats?: {
+                /**
+                 * The default format of the storage.
+                 */
+                default: string;
+                /**
+                 * The list of supported formats
+                 */
+                supported: string[];
+            };
+        /**
+         * Instead of creating new volumes, one must select one that is already existing. Only included if 'format' parameter is set.
+         */
+        select_existing?: boolean;
         /**
          * Shared flag from storage configuration.
          */
@@ -7766,6 +12539,104 @@ export namespace Proxmox {
         [additionalProperties: string]: any;
     }
     /**
+     * Returned by GET /nodes/\{node\}/storage/\{storage\}/status
+     */
+    export interface nodesStorageStatusReadStatus {
+        /**
+         * Set when storage is accessible.
+         */
+        active?: boolean;
+        /**
+         * Available storage space in bytes.
+         */
+        avail?: number;
+        /**
+         * Allowed storage content types.
+         */
+        content: string;
+        /**
+         * Set when storage is enabled (not disabled).
+         */
+        enabled?: boolean;
+        /**
+         * Shared flag from storage configuration.
+         */
+        shared?: boolean;
+        /**
+         * Total storage space in bytes.
+         */
+        total?: number;
+        /**
+         * Storage type.
+         */
+        type: string;
+        /**
+         * Used storage space in bytes.
+         */
+        used?: number;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
+     * Returned by GET /nodes/\{node\}/subscription
+     */
+    export interface nodesSubscriptionGet {
+        /**
+         * Timestamp of the last check done.
+         */
+        checktime?: number;
+        /**
+         * The subscription key, if set and permitted to access.
+         */
+        key?: string;
+        /**
+         * A short code for the subscription level.
+         */
+        level?: string;
+        /**
+         * A more human readable status message.
+         */
+        message?: string;
+        /**
+         * Next due date of the set subscription.
+         */
+        nextduedate?: string;
+        /**
+         * Human readable productname of the set subscription.
+         */
+        productname?: string;
+        /**
+         * Register date of the set subscription.
+         */
+        regdate?: string;
+        /**
+         * The server ID, if permitted to access.
+         */
+        serverid?: string;
+        /**
+         * Signature for offline keys
+         */
+        signature?: string;
+        /**
+         * The number of sockets for this host.
+         */
+        sockets?: number;
+        /**
+         * The current subscription status.
+         */
+        status: string;
+        /**
+         * URL to the web shop.
+         */
+        url?: string;
+        /**
+         * additionalProperties
+         */
+        [additionalProperties: string]: any;
+    }
+    /**
      * Returned by GET /nodes/\{node\}/syslog
      */
     export interface nodesSyslogSyslog {
@@ -7826,6 +12697,7 @@ export namespace Proxmox {
         id: string;
         node: string;
         pid: number;
+        pstart: number;
         starttime: number;
         status: string;
         type: string;
@@ -7849,9 +12721,21 @@ export namespace Proxmox {
      * Returned by POST /nodes/\{node\}/termproxy
      */
     export interface nodesTermproxyTermproxy {
+        /**
+         * port used to bind termproxy to.
+         */
         port: number;
+        /**
+         * VNC ticket used to verify websocket connection.
+         */
         ticket: string;
+        /**
+         * UPID for termproxy worker task.
+         */
         upid: string;
+        /**
+         * user/token that generated the VNC ticket in `ticket`.
+         */
         user: string;
         /**
          * additionalProperties
@@ -7905,6 +12789,10 @@ export namespace Proxmox {
      */
     export interface nodesVncshellVncshell {
         cert: string;
+        /**
+         * Password used for authentication within the VNC protocol. Consists of printable ASCII characters ('!' .. '~').
+         */
+        password?: string;
         port: number;
         ticket: string;
         upid: string;
@@ -7949,9 +12837,13 @@ export namespace Proxmox {
          */
         exclude?: string;
         /**
-         * Exclude certain files/directories (shell globs). Paths starting with '/' are anchored to the container's root,  other paths match relative to each subdirectory.
+         * Exclude certain files/directories (shell globs). Paths starting with '/' are anchored to the container's root, other paths match relative to each subdirectory.
          */
         'exclude-path'?: string[];
+        /**
+         * Options for backup fleecing (VM only).
+         */
+        fleecing?: string;
         /**
          * Set IO priority when using the BFQ scheduler. For snapshot and suspend mode backups of VMs, this only affects the compressor. A value of 8 means the idle priority is used, otherwise the best-effort priority is used with the specified value.
          */
@@ -7961,17 +12853,13 @@ export namespace Proxmox {
          */
         lockwait?: number;
         /**
-         * Deprecated: use 'notification-policy' instead.
+         * Deprecated: use notification targets/matchers instead. Specify when to send a notification mail
          */
         mailnotification?: string;
         /**
-         * Comma-separated list of email addresses or users that should receive email notifications. Has no effect if the 'notification-target' option  is set at the same time.
+         * Deprecated: Use notification targets/matchers instead. Comma-separated list of email addresses or users that should receive email notifications.
          */
         mailto?: string;
-        /**
-         * Deprecated: use 'prune-backups' instead. Maximal number of backup files per guest system.
-         */
-        maxfiles?: number;
         /**
          * Backup mode.
          */
@@ -7985,13 +12873,13 @@ export namespace Proxmox {
          */
         'notes-template'?: string;
         /**
-         * Specify when to send a notification
+         * Determine which notification system to use. If set to 'legacy-sendmail', vzdump will consider the mailto/mailnotification parameters and send emails to the specified address(es) via the 'sendmail' command. If set to 'notification-system', a notification will be sent via PVE's notification system, and the mailto and mailnotification will be ignored. If set to 'auto' (default setting), an email will be sent if mailto is set, and the notification system will be used if not.
          */
-        'notification-policy'?: string;
+        'notification-mode'?: string;
         /**
-         * Determine the target to which notifications should be sent. Can either be a notification endpoint or a notification group. This option takes precedence over 'mailto', meaning that if both are  set, the 'mailto' option will be ignored.
+         * PBS mode used to detect file changes and switch encoding format for container backups.
          */
-        'notification-target'?: string;
+        'pbs-change-detection-mode'?: string;
         /**
          * Other performance-related settings.
          */
@@ -8049,7 +12937,7 @@ export namespace Proxmox {
          */
         vmid?: string;
         /**
-         * Zstd threads. N=0 uses half of the available cores, N>0 uses N as thread count.
+         * Zstd threads. N=0 uses half of the available cores, if N is set to a value bigger than 0, N is used as thread count.
          */
         zstd?: number;
         /**
@@ -8097,11 +12985,11 @@ export namespace Proxmox {
      */
     export interface storageCreate {
         /**
-         * Partial, possible server generated, configuration properties.
+         * Partial, possibly server generated, configuration properties.
          */
         config?: {
                 /**
-                 * The, possible auto-generated, encryption-key.
+                 * The, possibly auto-generated, encryption-key.
                  */
                 'encryption-key'?: string;
             };
@@ -8133,11 +13021,11 @@ export namespace Proxmox {
      */
     export interface storageUpdate {
         /**
-         * Partial, possible server generated, configuration properties.
+         * Partial, possibly server generated, configuration properties.
          */
         config?: {
                 /**
-                 * The, possible auto-generated, encryption-key.
+                 * The, possibly auto-generated, encryption-key.
                  */
                 'encryption-key'?: string;
             };
@@ -8193,14 +13081,14 @@ export namespace Proxmox {
                  * List replication jobs.
                  * GET /cluster/replication
                  * @allowtoken 1
-                 * @permissions {"description":"Requires the VM.Audit permission on /vms/<vmid>.","user":"all"}
+                 * @permissions {"description":"Will only return replication jobs for which the calling user has VM.Audit permission on /vms/<vmid>.","user":"all"}
                  */
                 $get(): Promise<clusterReplicationIndex[]>;
                 /**
                  * Create a new replication job
                  * POST /cluster/replication
                  * @allowtoken 1
-                 * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
+                 * @permissions {"description":"Requires the VM.Replicate permission on /vms/<vmid>.","user":"all"}
                  */
                 $post(param: { comment?: String0_4096, disable?: boolean, id: pvereplicationjobid, rate?: Trate, remove_job?: Tremove_job, schedule?: pvecalendarevent, source?: pvenode, target: pvenode, type: Ttype }): Promise<null>;
                 $(id: string): {
@@ -8208,7 +13096,7 @@ export namespace Proxmox {
                      * Mark replication job for removal.
                      * DELETE /cluster/replication/\{id\}
                      * @allowtoken 1
-                     * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
+                     * @permissions {"description":"Requires the VM.Replicate permission on /vms/<vmid>.","user":"all"}
                      */
                     $delete(param?: { force?: boolean, keep?: boolean }): Promise<null>;
                     /**
@@ -8217,12 +13105,12 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"Requires the VM.Audit permission on /vms/<vmid>.","user":"all"}
                      */
-                    $get(): Promise<any>;
+                    $get(): Promise<clusterReplicationRead>;
                     /**
                      * Update replication job configuration.
                      * PUT /cluster/replication/\{id\}
                      * @allowtoken 1
-                     * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
+                     * @permissions {"description":"Requires the VM.Replicate permission on /vms/<vmid>.","user":"all"}
                      */
                     $put(param?: { comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_64, disable?: boolean, rate?: Trate, remove_job?: Tremove_job, schedule?: pvecalendarevent, source?: pvenode }): Promise<null>;
                 };
@@ -8264,15 +13152,24 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param: { 'api-path-prefix'?: string, bucket?: string, disable?: boolean, influxdbproto?: Tinfluxdbproto, 'max-body-size'?: integer_Min1, mtu?: integer512_65536, organization?: string, path?: graphitepath, port: integer1_65536, proto?: Tproto, server: address, timeout?: integer_Min0, token?: string, type: pveconfigid, 'verify-certificate'?: boolean }): Promise<null>;
+                        $post(param: { 'api-path-prefix'?: string, bucket?: string, disable?: boolean, influxdbproto?: Tinfluxdbproto, 'max-body-size'?: integer_Min1, mtu?: integer512_65536, organization?: string, 'otel-compression'?: Totelcompression, 'otel-headers'?: String0_1024, 'otel-max-body-size'?: integer_Min1024, 'otel-path'?: string, 'otel-protocol'?: Totelprotocol, 'otel-resource-attributes'?: String0_1024, 'otel-timeout'?: integer1_10, 'otel-verify-ssl'?: boolean, path?: graphitepath, port: integer1_65536, proto?: Tproto, server: address, timeout?: integer_Min0, token?: string, type: pveconfigid, 'verify-certificate'?: boolean }): Promise<null>;
                         /**
                          * Update metric server configuration.
                          * PUT /cluster/metrics/server/\{id\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $put(param: { 'api-path-prefix'?: string, bucket?: string, delete?: pveconfigidlist, digest?: String0_64, disable?: boolean, influxdbproto?: Tinfluxdbproto, 'max-body-size'?: integer_Min1, mtu?: integer512_65536, organization?: string, path?: graphitepath, port: integer1_65536, proto?: Tproto, server: address, timeout?: integer_Min0, token?: string, 'verify-certificate'?: boolean }): Promise<null>;
+                        $put(param: { 'api-path-prefix'?: string, bucket?: string, delete?: pveconfigidlist, digest?: String0_64, disable?: boolean, influxdbproto?: Tinfluxdbproto, 'max-body-size'?: integer_Min1, mtu?: integer512_65536, organization?: string, 'otel-compression'?: Totelcompression, 'otel-headers'?: String0_1024, 'otel-max-body-size'?: integer_Min1024, 'otel-path'?: string, 'otel-protocol'?: Totelprotocol, 'otel-resource-attributes'?: String0_1024, 'otel-timeout'?: integer1_10, 'otel-verify-ssl'?: boolean, path?: graphitepath, port: integer1_65536, proto?: Tproto, server: address, timeout?: integer_Min0, token?: string, 'verify-certificate'?: boolean }): Promise<null>;
                     };
+                },
+                export: {
+                    /**
+                     * Retrieve metrics of the cluster.
+                     * GET /cluster/metrics/export
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
+                     */
+                    $get(param?: { history?: boolean, 'local-only'?: boolean, 'node-list'?: string, 'start-time'?: integer }): Promise<clusterMetricsExportExport>;
                 },
             },
             notifications: {
@@ -8283,6 +13180,24 @@ export namespace Proxmox {
                  * @permissions {"user":"all"}
                  */
                 $get(): Promise<clusterNotificationsIndex[]>;
+                'matcher-fields': {
+                    /**
+                     * Returns known notification metadata fields
+                     * GET /cluster/notifications/matcher-fields
+                     * @allowtoken 1
+                     * @permissions {"check":["or",["perm","/mapping/notifications",["Mapping.Modify"]],["perm","/mapping/notifications",["Mapping.Audit"]]]}
+                     */
+                    $get(): Promise<clusterNotificationsMatcherFieldsGetMatcherFields[]>;
+                },
+                'matcher-field-values': {
+                    /**
+                     * Returns known notification metadata fields and their known values
+                     * GET /cluster/notifications/matcher-field-values
+                     * @allowtoken 1
+                     * @permissions {"check":["or",["perm","/mapping/notifications",["Mapping.Modify"]],["perm","/mapping/notifications",["Mapping.Audit"]]]}
+                     */
+                    $get(): Promise<clusterNotificationsMatcherFieldValuesGetMatcherFieldValues[]>;
+                },
                 endpoints: {
                     /**
                      * Index for all available endpoint types.
@@ -8303,7 +13218,7 @@ export namespace Proxmox {
                          * Create a new sendmail endpoint
                          * POST /cluster/notifications/endpoints/sendmail
                          * @allowtoken 1
-                         * @permissions {"check":["perm","/mapping/notifications",["Mapping.Modify"]]}
+                         * @permissions {"check":["and",["perm","/mapping/notifications",["Mapping.Modify"]],["or",["perm","/",["Sys.Audit","Sys.Modify"]],["perm","/",["Sys.AccessNetwork"]]]]}
                          */
                         $post(param: { author?: string, comment?: string, disable?: boolean, 'from-address'?: string, mailto?: Tmailto, 'mailto-user'?: Tmailtouser, name: pveconfigid_1 }): Promise<null>;
                         $(name: string): {
@@ -8325,7 +13240,7 @@ export namespace Proxmox {
                              * Update existing sendmail endpoint
                              * PUT /cluster/notifications/endpoints/sendmail/\{name\}
                              * @allowtoken 1
-                             * @permissions {"check":["perm","/mapping/notifications",["Mapping.Modify"]]}
+                             * @permissions {"check":["and",["perm","/mapping/notifications",["Mapping.Modify"]],["or",["perm","/",["Sys.Audit","Sys.Modify"]],["perm","/",["Sys.AccessNetwork"]]]]}
                              */
                             $put(param?: { author?: string, comment?: string, delete?: Tdelete, digest?: String0_64, disable?: boolean, 'from-address'?: string, mailto?: Tmailto, 'mailto-user'?: Tmailtouser }): Promise<null>;
                         };
@@ -8342,7 +13257,7 @@ export namespace Proxmox {
                          * Create a new gotify endpoint
                          * POST /cluster/notifications/endpoints/gotify
                          * @allowtoken 1
-                         * @permissions {"check":["perm","/mapping/notifications",["Mapping.Modify"]]}
+                         * @permissions {"check":["and",["perm","/mapping/notifications",["Mapping.Modify"]],["or",["perm","/",["Sys.Audit","Sys.Modify"]],["perm","/",["Sys.AccessNetwork"]]]]}
                          */
                         $post(param: { comment?: string, disable?: boolean, name: pveconfigid_1, server: string, token: string }): Promise<null>;
                         $(name: string): {
@@ -8364,7 +13279,7 @@ export namespace Proxmox {
                              * Update existing gotify endpoint
                              * PUT /cluster/notifications/endpoints/gotify/\{name\}
                              * @allowtoken 1
-                             * @permissions {"check":["perm","/mapping/notifications",["Mapping.Modify"]]}
+                             * @permissions {"check":["and",["perm","/mapping/notifications",["Mapping.Modify"]],["or",["perm","/",["Sys.Audit","Sys.Modify"]],["perm","/",["Sys.AccessNetwork"]]]]}
                              */
                             $put(param?: { comment?: string, delete?: Tdelete, digest?: String0_64, disable?: boolean, server?: string, token?: string }): Promise<null>;
                         };
@@ -8381,7 +13296,7 @@ export namespace Proxmox {
                          * Create a new smtp endpoint
                          * POST /cluster/notifications/endpoints/smtp
                          * @allowtoken 1
-                         * @permissions {"check":["or",["perm","/mapping/notifications",["Mapping.Modify"]]]}
+                         * @permissions {"check":["and",["perm","/mapping/notifications",["Mapping.Modify"]],["or",["perm","/",["Sys.Audit","Sys.Modify"]],["perm","/",["Sys.AccessNetwork"]]]]}
                          */
                         $post(param: { author?: string, comment?: string, disable?: boolean, 'from-address': string, mailto?: Tmailto, 'mailto-user'?: Tmailtouser, mode?: Tmode, name: pveconfigid_1, password?: string, port?: integer, server: string, username?: string }): Promise<null>;
                         $(name: string): {
@@ -8403,9 +13318,48 @@ export namespace Proxmox {
                              * Update existing smtp endpoint
                              * PUT /cluster/notifications/endpoints/smtp/\{name\}
                              * @allowtoken 1
-                             * @permissions {"check":["or",["perm","/mapping/notifications",["Mapping.Modify"]]]}
+                             * @permissions {"check":["and",["perm","/mapping/notifications",["Mapping.Modify"]],["or",["perm","/",["Sys.Audit","Sys.Modify"]],["perm","/",["Sys.AccessNetwork"]]]]}
                              */
                             $put(param?: { author?: string, comment?: string, delete?: Tdelete, digest?: String0_64, disable?: boolean, 'from-address'?: string, mailto?: Tmailto, 'mailto-user'?: Tmailtouser, mode?: Tmode, password?: string, port?: integer, server?: string, username?: string }): Promise<null>;
+                        };
+                    },
+                    webhook: {
+                        /**
+                         * Returns a list of all webhook endpoints
+                         * GET /cluster/notifications/endpoints/webhook
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/mapping/notifications",["Mapping.Audit"]]}
+                         */
+                        $get(): Promise<clusterNotificationsEndpointsWebhookGetWebhookEndpoints[]>;
+                        /**
+                         * Create a new webhook endpoint
+                         * POST /cluster/notifications/endpoints/webhook
+                         * @allowtoken 1
+                         * @permissions {"check":["and",["perm","/mapping/notifications",["Mapping.Modify"]],["or",["perm","/",["Sys.Audit","Sys.Modify"]],["perm","/",["Sys.AccessNetwork"]]]]}
+                         */
+                        $post(param: { body?: string, comment?: string, disable?: boolean, header?: Theader, method: Tmethod, name: pveconfigid_1, secret?: Theader, url: string }): Promise<null>;
+                        $(name: string): {
+                            /**
+                             * Remove webhook endpoint
+                             * DELETE /cluster/notifications/endpoints/webhook/\{name\}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/mapping/notifications",["Mapping.Modify"]]}
+                             */
+                            $delete(): Promise<null>;
+                            /**
+                             * Return a specific webhook endpoint
+                             * GET /cluster/notifications/endpoints/webhook/\{name\}
+                             * @allowtoken 1
+                             * @permissions {"check":["or",["perm","/mapping/notifications",["Mapping.Modify"]],["perm","/mapping/notifications",["Mapping.Audit"]]]}
+                             */
+                            $get(): Promise<clusterNotificationsEndpointsWebhookGetWebhookEndpoint>;
+                            /**
+                             * Update existing webhook endpoint
+                             * PUT /cluster/notifications/endpoints/webhook/\{name\}
+                             * @allowtoken 1
+                             * @permissions {"check":["and",["perm","/mapping/notifications",["Mapping.Modify"]],["or",["perm","/",["Sys.Audit","Sys.Modify"]],["perm","/",["Sys.AccessNetwork"]]]]}
+                             */
+                            $put(param?: { body?: string, comment?: string, delete?: Tdelete, digest?: String0_64, disable?: boolean, header?: Theader, method?: Tmethod, secret?: Theader, url?: string }): Promise<null>;
                         };
                     },
                 },
@@ -8443,7 +13397,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/mapping/notifications",["Mapping.Modify"]]}
                      */
-                    $post(param: { comment?: string, disable?: boolean, 'invert-match'?: boolean, 'match-calendar'?: Tmatchcalendar, 'match-field'?: Tmatchcalendar, 'match-severity'?: Tmatchcalendar, mode?: Tmode_1, name: pveconfigid_1, target?: Tdelete }): Promise<null>;
+                    $post(param: { comment?: string, disable?: boolean, 'invert-match'?: boolean, 'match-calendar'?: Theader, 'match-field'?: Theader, 'match-severity'?: Theader, mode?: Tmode_1, name: pveconfigid_1, target?: Tdelete }): Promise<null>;
                     $(name: string): {
                         /**
                          * Remove matcher
@@ -8465,7 +13419,64 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/mapping/notifications",["Mapping.Modify"]]}
                          */
-                        $put(param?: { comment?: string, delete?: Tdelete, digest?: String0_64, disable?: boolean, 'invert-match'?: boolean, 'match-calendar'?: Tmatchcalendar, 'match-field'?: Tmatchcalendar, 'match-severity'?: Tmatchcalendar, mode?: Tmode_1, target?: Tdelete }): Promise<null>;
+                        $put(param?: { comment?: string, delete?: Tdelete, digest?: String0_64, disable?: boolean, 'invert-match'?: boolean, 'match-calendar'?: Theader, 'match-field'?: Theader, 'match-severity'?: Theader, mode?: Tmode_1, target?: Tdelete }): Promise<null>;
+                    };
+                },
+            },
+            qemu: {
+                /**
+                 * Cluster-wide QEMU index
+                 * GET /cluster/qemu
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
+                 */
+                $get(): Promise<clusterQemuIndex[]>;
+                'cpu-flags': {
+                    /**
+                     * List of available CPU flags. Currently only implemented for x86_64, returns an empty list for aarch64.
+                     * GET /cluster/qemu/cpu-flags
+                     * @allowtoken 1
+                     * @permissions {"check":["or",["perm","/nodes",["Sys.Audit"]],["perm","/mapping/cpu",["Mapping.Audit","Mapping.Use","Mapping.Modify"],"any",1]]}
+                     */
+                    $get(param?: { accel?: Taccel, arch?: Tarch }): Promise<clusterQemuCpuFlagsIndex[]>;
+                },
+                'custom-cpu-models': {
+                    /**
+                     * List all custom CPU model definitions visible to the user.
+                     * GET /cluster/qemu/custom-cpu-models
+                     * @allowtoken 1
+                     * @permissions {"description":"Only lists entries where the user has 'Mapping.Modify', 'Mapping.Use' or 'Mapping.Audit' permissions on '/mapping/cpu/<name>'.","user":"all"}
+                     */
+                    $get(): Promise<clusterQemuCustomCpuModelsConfig[]>;
+                    /**
+                     * Add a custom CPU model definition.
+                     * POST /cluster/qemu/custom-cpu-models
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/mapping/cpu",["Mapping.Modify"]]}
+                     */
+                    $post(param: { cputype: pveconfigid_2, flags?: Tflags, 'guest-phys-bits'?: integer32_64, hidden?: boolean, 'hv-vendor-id'?: Thvvendorid, level?: integer0_4294967295, 'phys-bits'?: pvephysbits, 'reported-model': Treportedmodel }): Promise<null>;
+                    $(cputype: string): {
+                        /**
+                         * Delete a custom CPU model definition.
+                         * DELETE /cluster/qemu/custom-cpu-models/\{cputype\}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/mapping/cpu/{cputype}",["Mapping.Modify"]]}
+                         */
+                        $delete(): Promise<null>;
+                        /**
+                         * Retrieve details about a specific custom CPU model.
+                         * GET /cluster/qemu/custom-cpu-models/\{cputype\}
+                         * @allowtoken 1
+                         * @permissions {"check":["or",["perm","/mapping/cpu/{cputype}",["Mapping.Audit"]],["perm","/mapping/cpu/{cputype}",["Mapping.Use"]],["perm","/mapping/cpu/{cputype}",["Mapping.Modify"]]]}
+                         */
+                        $get(): Promise<clusterQemuCustomCpuModelsInfo>;
+                        /**
+                         * Update a custom CPU model definition.
+                         * PUT /cluster/qemu/custom-cpu-models/\{cputype\}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/mapping/cpu/{cputype}",["Mapping.Modify"]]}
+                         */
+                        $put(param?: { delete?: pveconfigidlist_1, digest?: String0_64, flags?: Tflags, 'guest-phys-bits'?: integer32_64, hidden?: boolean, 'hv-vendor-id'?: Thvvendorid, level?: integer0_4294967295, 'phys-bits'?: pvephysbits, 'reported-model'?: Treportedmodel }): Promise<null>;
                     };
                 },
             },
@@ -8482,7 +13493,7 @@ export namespace Proxmox {
                  * POST /cluster/config
                  * @allowtoken 1
                  */
-                $post(param: { clustername: pvenode_1, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, votes?: integer_Min1 }): Promise<string>;
+                $post(param: { clustername: pvenode_1, link0?: Tlink, link1?: Tlink, link2?: Tlink, link3?: Tlink, link4?: Tlink, link5?: Tlink, link6?: Tlink, link7?: Tlink, nodeid?: integer_Min1, 'token-coefficient'?: integer_Min0, votes?: integer_Min1 }): Promise<string>;
                 apiversion: {
                     /**
                      * Return the version of the cluster join API available on this node.
@@ -8773,7 +13784,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $put(param?: { delete?: pveconfigidlist_1, digest?: String0_64, ebtables?: boolean, enable?: integer_Min0, log_ratelimit?: Tlog_ratelimit, policy_in?: Tpolicy_in, policy_out?: Tpolicy_in }): Promise<null>;
+                    $put(param?: { delete?: pveconfigidlist_1, digest?: String0_64, ebtables?: boolean, enable?: integer_Min0, log_ratelimit?: Tlog_ratelimit, policy_forward?: Tpolicy_forward, policy_in?: Tpolicy_in, policy_out?: Tpolicy_in }): Promise<null>;
                 },
                 macros: {
                     /**
@@ -8808,7 +13819,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["Sys.Modify"]],"description":"The 'tmpdir', 'dumpdir' and 'script' parameters are additionally restricted to the 'root@pam' user."}
                  */
-                $post(param?: { all?: boolean, bwlimit?: integer_Min0, comment?: String0_512, compress?: Tcompress, dow?: pvedayofweeklist, dumpdir?: string, enabled?: boolean, exclude?: pvevmidlist, 'exclude-path'?: Tmatchcalendar, id?: pveconfigid_1, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: emailorusernamelist, maxfiles?: integer_Min1, mode?: Tmode_2, node?: pvenode, 'notes-template'?: String0_1024, 'notification-policy'?: Tnotificationpolicy, 'notification-target'?: pveconfigid_1, performance?: backupperformance, pigz?: integer, pool?: string, protected?: boolean, 'prune-backups'?: prunebackups, quiet?: boolean, remove?: boolean, 'repeat-missed'?: boolean, schedule?: pvecalendarevent, script?: string, starttime?: Tstarttime, stdexcludes?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<null>;
+                $post(param?: { all?: boolean, bwlimit?: integer_Min0, comment?: String0_512, compress?: Tcompress, dow?: pvedayofweeklist, dumpdir?: string, enabled?: boolean, exclude?: pvevmidlist, 'exclude-path'?: Theader, fleecing?: backupfleecing, id?: pveconfigid_1, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: emailorusernamelist, mode?: Tmode_2, node?: pvenode, 'notes-template'?: String0_1024, 'notification-mode'?: Tnotificationmode, 'pbs-change-detection-mode'?: Tpbschangedetectionmode, performance?: backupperformance, pigz?: integer, pool?: string, protected?: boolean, 'prune-backups'?: prunebackups, quiet?: boolean, remove?: boolean, 'repeat-missed'?: boolean, schedule?: pvecalendarevent, script?: string, starttime?: Tstarttime, stdexcludes?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<null>;
                 $(id: string): {
                     /**
                      * Delete vzdump backup job definition.
@@ -8823,14 +13834,14 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
-                    $get(): Promise<any>;
+                    $get(): Promise<clusterBackupReadJob>;
                     /**
                      * Update vzdump backup job definition.
                      * PUT /cluster/backup/\{id\}
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]],"description":"The 'tmpdir', 'dumpdir' and 'script' parameters are additionally restricted to the 'root@pam' user."}
                      */
-                    $put(param?: { all?: boolean, bwlimit?: integer_Min0, comment?: String0_512, compress?: Tcompress, delete?: pveconfigidlist_1, dow?: pvedayofweeklist, dumpdir?: string, enabled?: boolean, exclude?: pvevmidlist, 'exclude-path'?: Tmatchcalendar, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: emailorusernamelist, maxfiles?: integer_Min1, mode?: Tmode_2, node?: pvenode, 'notes-template'?: String0_1024, 'notification-policy'?: Tnotificationpolicy, 'notification-target'?: pveconfigid_1, performance?: backupperformance, pigz?: integer, pool?: string, protected?: boolean, 'prune-backups'?: prunebackups, quiet?: boolean, remove?: boolean, 'repeat-missed'?: boolean, schedule?: pvecalendarevent, script?: string, starttime?: Tstarttime, stdexcludes?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<null>;
+                    $put(param?: { all?: boolean, bwlimit?: integer_Min0, comment?: String0_512, compress?: Tcompress, delete?: pveconfigidlist_1, dow?: pvedayofweeklist, dumpdir?: string, enabled?: boolean, exclude?: pvevmidlist, 'exclude-path'?: Theader, fleecing?: backupfleecing, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: emailorusernamelist, mode?: Tmode_2, node?: pvenode, 'notes-template'?: String0_1024, 'notification-mode'?: Tnotificationmode, 'pbs-change-detection-mode'?: Tpbschangedetectionmode, performance?: backupperformance, pigz?: integer, pool?: string, protected?: boolean, 'prune-backups'?: prunebackups, quiet?: boolean, remove?: boolean, 'repeat-missed'?: boolean, schedule?: pvecalendarevent, script?: string, starttime?: Tstarttime, stdexcludes?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<null>;
                     included_volumes: {
                         /**
                          * Returns included guests and the backup status of their disks. Optimized to be used in ExtJS tree views.
@@ -8881,7 +13892,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Console"]]}
                      */
-                    $post(param: { comment?: String0_4096, group?: pveconfigid_1, max_relocate?: integer_Min0, max_restart?: integer_Min0, sid: pveharesourceorvmid, state?: Tstate, type?: Ttype_3 }): Promise<null>;
+                    $post(param: { 'auto-rebalance'?: boolean, comment?: String0_4096, failback?: boolean, group?: pveconfigid_1, max_relocate?: integer_Min0, max_restart?: integer_Min0, sid: pveharesourceorvmid, state?: Tstate, type?: Ttype_3 }): Promise<null>;
                     $(sid: string): {
                         /**
                          * Delete resource configuration.
@@ -8889,7 +13900,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Console"]]}
                          */
-                        $delete(): Promise<null>;
+                        $delete(param?: { purge?: boolean }): Promise<null>;
                         /**
                          * Read resource configuration.
                          * GET /cluster/ha/resources/\{sid\}
@@ -8903,7 +13914,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Console"]]}
                          */
-                        $put(param?: { comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_64, group?: pveconfigid_1, max_relocate?: integer_Min0, max_restart?: integer_Min0, state?: Tstate }): Promise<null>;
+                        $put(param?: { 'auto-rebalance'?: boolean, comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_64, failback?: boolean, group?: pveconfigid_1, max_relocate?: integer_Min0, max_restart?: integer_Min0, state?: Tstate }): Promise<null>;
                         migrate: {
                             /**
                              * Request resource migration (online) to another node.
@@ -8911,56 +13922,95 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Console"]]}
                              */
-                            $post(param: { node: pvenode }): Promise<null>;
+                            $post(param: { node: pvenode }): Promise<clusterHaResourcesMigrateMigrate>;
                         },
                         relocate: {
                             /**
-                             * Request resource relocatzion to another node. This stops the service on the old node, and restarts it on the target node.
+                             * Request resource relocation to another node. This stops the service on the old node, and restarts it on the target node.
                              * POST /cluster/ha/resources/\{sid\}/relocate
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Console"]]}
                              */
-                            $post(param: { node: pvenode }): Promise<null>;
+                            $post(param: { node: pvenode }): Promise<clusterHaResourcesRelocateRelocate>;
                         },
                     };
                 },
                 groups: {
                     /**
-                     * Get HA groups.
+                     * Get HA groups. (deprecated in favor of HA rules)
                      * GET /cluster/ha/groups
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Audit"]]}
                      */
                     $get(): Promise<clusterHaGroupsIndex[]>;
                     /**
-                     * Create a new HA group.
+                     * Create a new HA group. (deprecated in favor of HA rules)
                      * POST /cluster/ha/groups
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Console"]]}
                      */
-                    $post(param: { comment?: String0_4096, group: pveconfigid_1, nodes: pvehagroupnodelist, nofailback?: boolean, restricted?: boolean, type?: Ttype_4 }): Promise<null>;
+                    $post(param: { comment?: String0_4096, group: pveconfigid_1, nodes: pvehanodelist, nofailback?: boolean, restricted?: boolean, type?: Ttype_4 }): Promise<null>;
                     $(group: string): {
                         /**
-                         * Delete ha group configuration.
+                         * Delete ha group configuration. (deprecated in favor of HA rules)
                          * DELETE /cluster/ha/groups/\{group\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Console"]]}
                          */
                         $delete(): Promise<null>;
                         /**
-                         * Read ha group configuration.
+                         * Read ha group configuration. (deprecated in favor of HA rules)
                          * GET /cluster/ha/groups/\{group\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
                         $get(): Promise<any>;
                         /**
-                         * Update ha group configuration.
+                         * Update ha group configuration. (deprecated in favor of HA rules)
                          * PUT /cluster/ha/groups/\{group\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Console"]]}
                          */
-                        $put(param?: { comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_64, nodes?: pvehagroupnodelist, nofailback?: boolean, restricted?: boolean }): Promise<null>;
+                        $put(param?: { comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_64, nodes?: pvehanodelist, nofailback?: boolean, restricted?: boolean }): Promise<null>;
+                    };
+                },
+                rules: {
+                    /**
+                     * Get HA rules.
+                     * GET /cluster/ha/rules
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Audit"]]}
+                     */
+                    $get(param?: { resource?: string, type?: Ttype_5 }): Promise<clusterHaRulesIndex[]>;
+                    /**
+                     * Create HA rule.
+                     * POST /cluster/ha/rules
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/",["Sys.Console"]]}
+                     */
+                    $post(param: { affinity?: Taffinity, comment?: String0_4096, disable?: boolean, nodes?: pvehanodelist_1, resources: pveharesourceidlist, rule: pveconfigid_1, strict?: Tstrict, type: Ttype_5 }): Promise<null>;
+                    $(rule: string): {
+                        /**
+                         * Delete HA rule.
+                         * DELETE /cluster/ha/rules/\{rule\}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Console"]]}
+                         */
+                        $delete(): Promise<null>;
+                        /**
+                         * Read HA rule.
+                         * GET /cluster/ha/rules/\{rule\}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Audit"]]}
+                         */
+                        $get(): Promise<clusterHaRulesReadRule>;
+                        /**
+                         * Update HA rule.
+                         * PUT /cluster/ha/rules/\{rule\}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Console"]]}
+                         */
+                        $put(param: { affinity?: Taffinity, comment?: String0_4096, delete?: pveconfigidlist, digest?: String0_64, disable?: boolean, nodes?: pvehanodelist_1, resources?: pveharesourceidlist, strict?: Tstrict, type: Ttype_5 }): Promise<null>;
                     };
                 },
                 status: {
@@ -8973,7 +14023,7 @@ export namespace Proxmox {
                     $get(): Promise<clusterHaStatusIndex[]>;
                     current: {
                         /**
-                         * Get HA manger status.
+                         * Get HA manager status.
                          * GET /cluster/ha/status/current
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
@@ -8982,12 +14032,30 @@ export namespace Proxmox {
                     },
                     manager_status: {
                         /**
-                         * Get full HA manger status, including LRM status.
+                         * Get full HA manager status, including LRM status.
                          * GET /cluster/ha/status/manager_status
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
                         $get(): Promise<any>;
+                    },
+                    'disarm-ha': {
+                        /**
+                         * Request disarming the HA stack, releasing all watchdogs cluster-wide.
+                         * POST /cluster/ha/status/disarm-ha
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Console"]]}
+                         */
+                        $post(param: { 'resource-mode': Tresourcemode }): Promise<null>;
+                    },
+                    'arm-ha': {
+                        /**
+                         * Request re-arming the HA stack after it was disarmed.
+                         * POST /cluster/ha/status/arm-ha
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/",["Sys.Console"]]}
+                         */
+                        $post(): Promise<null>;
                     },
                 },
             },
@@ -9006,14 +14074,14 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $get(param?: { type?: Ttype_5 }): Promise<clusterAcmePluginsIndex[]>;
+                    $get(param?: { type?: Ttype_6 }): Promise<clusterAcmePluginsIndex[]>;
                     /**
                      * Add ACME plugin configuration.
                      * POST /cluster/acme/plugins
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $post(param: { api?: Tapi, data?: string, disable?: boolean, id: pveconfigid_1, nodes?: pvenodelist, type: Ttype_5, 'validation-delay'?: integer0_172800 }): Promise<null>;
+                    $post(param: { api?: Tapi, data?: string, disable?: boolean, id: pveconfigid_1, nodes?: pvenodelist, type: Ttype_6, 'validation-delay'?: integer0_172800 }): Promise<null>;
                     $(id: string): {
                         /**
                          * Delete ACME plugin configuration.
@@ -9028,7 +14096,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $get(): Promise<any>;
+                        $get(): Promise<clusterAcmePluginsGetPluginConfig>;
                         /**
                          * Update ACME plugin configuration.
                          * PUT /cluster/acme/plugins/\{id\}
@@ -9145,7 +14213,7 @@ export namespace Proxmox {
                      */
                     $get(): Promise<clusterCephFlagsGetAllFlags[]>;
                     /**
-                     * Set/Unset multiple ceph flags at once.
+                     * Set/Unset multiple Ceph flags at once. Each flag is a top-level optional boolean: passing true sets the flag, false unsets it, omitting it leaves the current state untouched. Runs as a worker task; returns a UPID to follow.
                      * PUT /cluster/ceph/flags
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
@@ -9160,7 +14228,7 @@ export namespace Proxmox {
                          */
                         $get(): Promise<boolean>;
                         /**
-                         * Set or clear (unset) a specific ceph flag
+                         * Set or clear (unset) a specific Ceph flag. Runs synchronously (unlike the bulk PUT /cluster/ceph/flags endpoint, which forks a worker task).
                          * PUT /cluster/ceph/flags/\{flag\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
@@ -9234,6 +14302,45 @@ export namespace Proxmox {
                  * @permissions {"user":"all"}
                  */
                 $get(): Promise<any[]>;
+                dir: {
+                    /**
+                     * List directory mapping
+                     * GET /cluster/mapping/dir
+                     * @allowtoken 1
+                     * @permissions {"description":"Only lists entries where you have 'Mapping.Modify', 'Mapping.Use' or 'Mapping.Audit' permissions on '/mapping/dir/<id>'.","user":"all"}
+                     */
+                    $get(param?: { 'check-node'?: pvenode }): Promise<clusterMappingDirIndex[]>;
+                    /**
+                     * Create a new directory mapping.
+                     * POST /cluster/mapping/dir
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/mapping/dir",["Mapping.Modify"]]}
+                     */
+                    $post(param: { description?: String0_4096, id: pveconfigid_1, map: Tmap }): Promise<null>;
+                    $(id: string): {
+                        /**
+                         * Remove directory mapping.
+                         * DELETE /cluster/mapping/dir/\{id\}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/mapping/dir",["Mapping.Modify"]]}
+                         */
+                        $delete(): Promise<null>;
+                        /**
+                         * Get directory mapping.
+                         * GET /cluster/mapping/dir/\{id\}
+                         * @allowtoken 1
+                         * @permissions {"check":["or",["perm","/mapping/dir/{id}",["Mapping.Use"]],["perm","/mapping/dir/{id}",["Mapping.Modify"]],["perm","/mapping/dir/{id}",["Mapping.Audit"]]]}
+                         */
+                        $get(): Promise<any>;
+                        /**
+                         * Update a directory mapping.
+                         * PUT /cluster/mapping/dir/\{id\}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/mapping/dir/{id}",["Mapping.Modify"]]}
+                         */
+                        $put(param?: { delete?: pveconfigidlist, description?: String0_4096, digest?: String0_64, map?: Tmap }): Promise<null>;
+                    };
+                },
                 pci: {
                     /**
                      * List PCI Hardware Mapping
@@ -9248,7 +14355,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/mapping/pci",["Mapping.Modify"]]}
                      */
-                    $post(param: { description?: String0_4096, id: pveconfigid_1, map: Tmap, mdev?: boolean }): Promise<null>;
+                    $post(param: { description?: String0_4096, id: pveconfigid_1, 'live-migration-capable'?: boolean, map: Tmap_1, mdev?: boolean }): Promise<null>;
                     $(id: string): {
                         /**
                          * Remove Hardware Mapping.
@@ -9270,7 +14377,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/mapping/pci/{id}",["Mapping.Modify"]]}
                          */
-                        $put(param?: { delete?: pveconfigidlist, description?: String0_4096, digest?: String0_64, map?: Tmap, mdev?: boolean }): Promise<null>;
+                        $put(param?: { delete?: pveconfigidlist, description?: String0_4096, digest?: String0_64, 'live-migration-capable'?: boolean, map?: Tmap_1, mdev?: boolean }): Promise<null>;
                     };
                 },
                 usb: {
@@ -9287,7 +14394,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/mapping/usb",["Mapping.Modify"]]}
                      */
-                    $post(param: { description?: String0_4096, id: pveconfigid_1, map: Tmap_1 }): Promise<null>;
+                    $post(param: { description?: String0_4096, id: pveconfigid_1, map: Tmap_2 }): Promise<null>;
                     $(id: string): {
                         /**
                          * Remove Hardware Mapping.
@@ -9309,8 +14416,62 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/mapping/usb/{id}",["Mapping.Modify"]]}
                          */
-                        $put(param: { delete?: pveconfigidlist, description?: String0_4096, digest?: String0_64, map: Tmap_1 }): Promise<null>;
+                        $put(param: { delete?: pveconfigidlist, description?: String0_4096, digest?: String0_64, map: Tmap_2 }): Promise<null>;
                     };
+                },
+            },
+            'bulk-action': {
+                /**
+                 * List resource types.
+                 * GET /cluster/bulk-action
+                 * @allowtoken 1
+                 * @permissions {"user":"all"}
+                 */
+                $get(): Promise<any[]>;
+                guest: {
+                    /**
+                     * Bulk action index.
+                     * GET /cluster/bulk-action/guest
+                     * @allowtoken 1
+                     * @permissions {"user":"all"}
+                     */
+                    $get(): Promise<clusterBulkActionGuestIndex[]>;
+                    start: {
+                        /**
+                         * Bulk start or resume all guests on the cluster.
+                         * POST /cluster/bulk-action/guest/start
+                         * @allowtoken 1
+                         * @permissions {"description":"The 'VM.PowerMgmt' permission is required on '/' or on '/vms/<ID>' for each ID passed via the 'vms' parameter.","user":"all"}
+                         */
+                        $post(param?: { 'max-workers'?: integer1_64, maxworkers?: integer1_64, timeout?: integer, vms?: Tvms }): Promise<string>;
+                    },
+                    shutdown: {
+                        /**
+                         * Bulk shutdown all guests on the cluster.
+                         * POST /cluster/bulk-action/guest/shutdown
+                         * @allowtoken 1
+                         * @permissions {"description":"The 'VM.PowerMgmt' permission is required on '/' or on '/vms/<ID>' for each ID passed via the 'vms' parameter.","user":"all"}
+                         */
+                        $post(param?: { 'force-stop'?: boolean, 'max-workers'?: integer1_64, maxworkers?: integer1_64, timeout?: integer, vms?: Tvms }): Promise<string>;
+                    },
+                    suspend: {
+                        /**
+                         * Bulk suspend all guests on the cluster.
+                         * POST /cluster/bulk-action/guest/suspend
+                         * @allowtoken 1
+                         * @permissions {"description":"The 'VM.PowerMgmt' permission is required on '/' or on '/vms/<ID>' for each ID passed via the 'vms' parameter. Additionally, you need 'VM.Config.Disk' on the '/vms/{vmid}' path and 'Datastore.AllocateSpace' for the configured state-storage(s)","user":"all"}
+                         */
+                        $post(param?: { 'max-workers'?: integer1_64, maxworkers?: integer1_64, statestorage?: pvestorageid, 'to-disk'?: boolean, vms?: Tvms }): Promise<string>;
+                    },
+                    migrate: {
+                        /**
+                         * Bulk migrate all guests on the cluster.
+                         * POST /cluster/bulk-action/guest/migrate
+                         * @allowtoken 1
+                         * @permissions {"description":"The 'VM.Migrate' permission is required on '/' or on '/vms/<ID>' for each ID passed via the 'vms' parameter.","user":"all"}
+                         */
+                        $post(param: { 'max-workers'?: integer1_64, maxworkers?: integer1_64, online?: boolean, target: pvenode, vms?: Tvms, 'with-local-disks'?: boolean }): Promise<string>;
+                    },
                 },
             },
             sdn: {
@@ -9327,7 +14488,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/sdn",["SDN.Allocate"]]}
                  */
-                $put(): Promise<string>;
+                $put(param?: { 'lock-token'?: string, 'release-lock'?: boolean }): Promise<string>;
                 vnets: {
                     /**
                      * SDN vnets index.
@@ -9342,7 +14503,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Allocate"]]}
                      */
-                    $post(param: { alias?: Talias, tag?: integer, type?: Ttype_6, vlanaware?: boolean, vnet: pvesdnvnetid, zone: string }): Promise<null>;
+                    $post(param: { alias?: Talias, 'isolate-ports'?: boolean, 'lock-token'?: string, tag?: integer1_16777215, type?: Ttype_7, vlanaware?: boolean, vnet: Tvnet, zone: string }): Promise<null>;
                     $(vnet: string): {
                         /**
                          * Delete sdn vnet object configuration.
@@ -9350,21 +14511,84 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"description":"Require 'SDN.Allocate' permission on '/sdn/zones/<zone>/<vnet>'","user":"all"}
                          */
-                        $delete(): Promise<null>;
+                        $delete(param?: { 'lock-token'?: string }): Promise<null>;
                         /**
                          * Read sdn vnet configuration.
                          * GET /cluster/sdn/vnets/\{vnet\}
                          * @allowtoken 1
                          * @permissions {"description":"Require 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/zones/<zone>/<vnet>'","user":"all"}
                          */
-                        $get(param?: { pending?: boolean, running?: boolean }): Promise<any>;
+                        $get(param?: { pending?: boolean, running?: boolean }): Promise<clusterSdnVnetsRead>;
                         /**
                          * Update sdn vnet object configuration.
                          * PUT /cluster/sdn/vnets/\{vnet\}
                          * @allowtoken 1
                          * @permissions {"description":"Require 'SDN.Allocate' permission on '/sdn/zones/<zone>/<vnet>'","user":"all"}
                          */
-                        $put(param?: { alias?: Talias, delete?: pveconfigidlist, digest?: String0_64, tag?: integer, vlanaware?: boolean, zone?: string }): Promise<null>;
+                        $put(param?: { alias?: Talias, delete?: pveconfigidlist, digest?: String0_64, 'isolate-ports'?: boolean, 'lock-token'?: string, tag?: integer1_16777215, vlanaware?: boolean, zone?: string }): Promise<null>;
+                        firewall: {
+                            /**
+                             * Directory index.
+                             * GET /cluster/sdn/vnets/\{vnet\}/firewall
+                             * @allowtoken 1
+                             */
+                            $get(): Promise<clusterSdnVnetsFirewallIndex[]>;
+                            rules: {
+                                /**
+                                 * List rules.
+                                 * GET /cluster/sdn/vnets/\{vnet\}/firewall/rules
+                                 * @allowtoken 1
+                                 * @permissions {"description":"Needs SDN.Audit or SDN.Allocate permissions on '/sdn/zones/<zone>/<vnet>'","user":"all"}
+                                 */
+                                $get(): Promise<clusterSdnVnetsFirewallRulesGetRules[]>;
+                                /**
+                                 * Create new rule.
+                                 * POST /cluster/sdn/vnets/\{vnet\}/firewall/rules
+                                 * @allowtoken 1
+                                 * @permissions {"description":"Needs SDN.Allocate permissions on '/sdn/zones/<zone>/<vnet>'","user":"all"}
+                                 */
+                                $post(param: { action: Taction, comment?: string, dest?: pvefwaddrspec, digest?: String0_64, dport?: pvefwdportspec, enable?: integer_Min0, 'icmp-type'?: pvefwicmptypespec, iface?: pveiface, log?: Tlog, macro?: String0_128, pos?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type: Ttype_1 }): Promise<null>;
+                                $(pos: string): {
+                                    /**
+                                     * Delete rule.
+                                     * DELETE /cluster/sdn/vnets/\{vnet\}/firewall/rules/\{pos\}
+                                     * @allowtoken 1
+                                     * @permissions {"description":"Needs SDN.Allocate permissions on '/sdn/zones/<zone>/<vnet>'","user":"all"}
+                                     */
+                                    $delete(param?: { digest?: String0_64 }): Promise<null>;
+                                    /**
+                                     * Get single rule data.
+                                     * GET /cluster/sdn/vnets/\{vnet\}/firewall/rules/\{pos\}
+                                     * @allowtoken 1
+                                     * @permissions {"description":"Needs SDN.Audit or SDN.Allocate permissions on '/sdn/zones/<zone>/<vnet>'","user":"all"}
+                                     */
+                                    $get(): Promise<clusterSdnVnetsFirewallRulesGetRule>;
+                                    /**
+                                     * Modify rule data.
+                                     * PUT /cluster/sdn/vnets/\{vnet\}/firewall/rules/\{pos\}
+                                     * @allowtoken 1
+                                     * @permissions {"description":"Needs SDN.Allocate permissions on '/sdn/zones/<zone>/<vnet>'","user":"all"}
+                                     */
+                                    $put(param?: { action?: Taction, comment?: string, delete?: pveconfigidlist_1, dest?: pvefwaddrspec, digest?: String0_64, dport?: pvefwdportspec, enable?: integer_Min0, 'icmp-type'?: pvefwicmptypespec, iface?: pveiface, log?: Tlog, macro?: String0_128, moveto?: integer_Min0, proto?: pvefwprotocolspec, source?: pvefwaddrspec, sport?: pvefwsportspec, type?: Ttype_1 }): Promise<null>;
+                                };
+                            },
+                            options: {
+                                /**
+                                 * Get vnet firewall options.
+                                 * GET /cluster/sdn/vnets/\{vnet\}/firewall/options
+                                 * @allowtoken 1
+                                 * @permissions {"description":"Needs SDN.Audit or SDN.Allocate permissions on '/sdn/zones/<zone>/<vnet>'","user":"all"}
+                                 */
+                                $get(): Promise<clusterSdnVnetsFirewallOptionsGetOptions>;
+                                /**
+                                 * Set Firewall options.
+                                 * PUT /cluster/sdn/vnets/\{vnet\}/firewall/options
+                                 * @allowtoken 1
+                                 * @permissions {"description":"Needs SDN.Allocate permissions on '/sdn/zones/<zone>/<vnet>'","user":"all"}
+                                 */
+                                $put(param?: { delete?: pveconfigidlist_1, digest?: String0_64, enable?: boolean, log_level_forward?: Tlog, policy_forward?: Tpolicy_forward }): Promise<null>;
+                            },
+                        },
                         subnets: {
                             /**
                              * SDN subnets index.
@@ -9379,7 +14603,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"description":"Require 'SDN.Allocate' permission on '/sdn/zones/<zone>/<vnet>'","user":"all"}
                              */
-                            $post(param: { 'dhcp-dns-server'?: ip, 'dhcp-range'?: Tdhcprange, dnszoneprefix?: dnsname, gateway?: ip, snat?: boolean, subnet: pvesdnsubnetid, type: Ttype_7 }): Promise<null>;
+                            $post(param: { 'dhcp-dns-server'?: ip, 'dhcp-range'?: Tdhcprange, dnszoneprefix?: dnsname, gateway?: ip, 'lock-token'?: string, snat?: boolean, subnet: pvesdnsubnetid, type: Ttype_8 }): Promise<null>;
                             $(subnet: string): {
                                 /**
                                  * Delete sdn subnet object configuration.
@@ -9387,7 +14611,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"description":"Require 'SDN.Allocate' permission on '/sdn/zones/<zone>/<vnet>'","user":"all"}
                                  */
-                                $delete(): Promise<null>;
+                                $delete(param?: { 'lock-token'?: string }): Promise<null>;
                                 /**
                                  * Read sdn subnet configuration.
                                  * GET /cluster/sdn/vnets/\{vnet\}/subnets/\{subnet\}
@@ -9401,7 +14625,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"description":"Require 'SDN.Allocate' permission on '/sdn/zones/<zone>/<vnet>'","user":"all"}
                                  */
-                                $put(param?: { delete?: pveconfigidlist, 'dhcp-dns-server'?: ip, 'dhcp-range'?: Tdhcprange, digest?: String0_64, dnszoneprefix?: dnsname, gateway?: ip, snat?: boolean }): Promise<null>;
+                                $put(param?: { delete?: pveconfigidlist, 'dhcp-dns-server'?: ip, 'dhcp-range'?: Tdhcprange, digest?: String0_64, dnszoneprefix?: dnsname, gateway?: ip, 'lock-token'?: string, snat?: boolean }): Promise<null>;
                             };
                         },
                         ips: {
@@ -9411,21 +14635,21 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/sdn/zones/{zone}/{vnet}",["SDN.Allocate"]]}
                              */
-                            $delete(param: { ip: ip, mac?: macaddr, zone: pvesdnzoneid }): Promise<null>;
+                            $delete(param: { ip: ip, mac?: macaddr, zone: Tvnet }): Promise<null>;
                             /**
                              * Create IP Mapping in a VNet
                              * POST /cluster/sdn/vnets/\{vnet\}/ips
                              * @allowtoken 1
                              * @permissions {"check":["perm","/sdn/zones/{zone}/{vnet}",["SDN.Allocate"]]}
                              */
-                            $post(param: { ip: ip, mac?: macaddr, zone: pvesdnzoneid }): Promise<null>;
+                            $post(param: { ip: ip, mac?: macaddr, zone: Tvnet }): Promise<null>;
                             /**
                              * Update IP Mapping in a VNet
                              * PUT /cluster/sdn/vnets/\{vnet\}/ips
                              * @allowtoken 1
                              * @permissions {"check":["perm","/sdn/zones/{zone}/{vnet}",["SDN.Allocate"]]}
                              */
-                            $put(param: { ip: ip, mac?: macaddr, vmid?: pvevmid, zone: pvesdnzoneid }): Promise<null>;
+                            $put(param: { ip: ip, mac?: macaddr, vmid?: pvevmid, zone: Tvnet }): Promise<null>;
                         },
                     };
                 },
@@ -9436,14 +14660,14 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/zones/<zone>'","user":"all"}
                      */
-                    $get(param?: { pending?: boolean, running?: boolean, type?: Ttype_8 }): Promise<clusterSdnZonesIndex[]>;
+                    $get(param?: { pending?: boolean, running?: boolean, type?: Ttype_9 }): Promise<clusterSdnZonesIndex[]>;
                     /**
                      * Create a new sdn zone object.
                      * POST /cluster/sdn/zones
                      * @allowtoken 1
                      * @permissions {"check":["perm","/sdn/zones",["SDN.Allocate"]]}
                      */
-                    $post(param: { 'advertise-subnets'?: boolean, bridge?: string, 'bridge-disable-mac-learning'?: boolean, controller?: string, dhcp?: Tdhcp, 'disable-arp-nd-suppression'?: boolean, dns?: string, dnszone?: dnsname, 'dp-id'?: integer, exitnodes?: pvenodelist, 'exitnodes-local-routing'?: boolean, 'exitnodes-primary'?: pvenode, ipam?: string, mac?: macaddr, mtu?: integer, nodes?: pvenodelist, peers?: iplist, reversedns?: string, 'rt-import'?: pvesdnbgprtlist, tag?: integer_Min0, type: pveconfigid_2, 'vlan-protocol'?: Tvlanprotocol, 'vrf-vxlan'?: integer, 'vxlan-port'?: integer1_65536, zone: pvesdnzoneid }): Promise<null>;
+                    $post(param: { 'advertise-subnets'?: boolean, bridge?: string, 'bridge-disable-mac-learning'?: boolean, controller?: string, dhcp?: Tdhcp, 'disable-arp-nd-suppression'?: boolean, dns?: string, dnszone?: dnsname, 'dp-id'?: integer, exitnodes?: pvenodelist, 'exitnodes-local-routing'?: boolean, 'exitnodes-primary'?: pvenode, fabric?: pvesdnfabricid, ipam?: string, 'lock-token'?: string, mac?: macaddr, mtu?: integer, nodes?: pvenodelist, peers?: iplist, reversedns?: string, 'rt-import'?: pvesdnbgprtlist, 'secondary-controllers'?: Tsecondarycontrollers, tag?: integer_Min0, type: pveconfigid_3, 'vlan-protocol'?: Tvlanprotocol, 'vrf-vxlan'?: integer1_16777215, 'vxlan-port'?: integer1_65536, zone: Tvnet }): Promise<null>;
                     $(zone: string): {
                         /**
                          * Delete sdn zone object configuration.
@@ -9451,21 +14675,21 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Allocate"]]}
                          */
-                        $delete(): Promise<null>;
+                        $delete(param?: { 'lock-token'?: string }): Promise<null>;
                         /**
                          * Read sdn zone configuration.
                          * GET /cluster/sdn/zones/\{zone\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Allocate"]]}
                          */
-                        $get(param?: { pending?: boolean, running?: boolean }): Promise<any>;
+                        $get(param?: { pending?: boolean, running?: boolean }): Promise<clusterSdnZonesRead>;
                         /**
                          * Update sdn zone object configuration.
                          * PUT /cluster/sdn/zones/\{zone\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Allocate"]]}
                          */
-                        $put(param?: { 'advertise-subnets'?: boolean, bridge?: string, 'bridge-disable-mac-learning'?: boolean, controller?: string, delete?: pveconfigidlist, dhcp?: Tdhcp, digest?: String0_64, 'disable-arp-nd-suppression'?: boolean, dns?: string, dnszone?: dnsname, 'dp-id'?: integer, exitnodes?: pvenodelist, 'exitnodes-local-routing'?: boolean, 'exitnodes-primary'?: pvenode, ipam?: string, mac?: macaddr, mtu?: integer, nodes?: pvenodelist, peers?: iplist, reversedns?: string, 'rt-import'?: pvesdnbgprtlist, tag?: integer_Min0, 'vlan-protocol'?: Tvlanprotocol, 'vrf-vxlan'?: integer, 'vxlan-port'?: integer1_65536 }): Promise<null>;
+                        $put(param?: { 'advertise-subnets'?: boolean, bridge?: string, 'bridge-disable-mac-learning'?: boolean, controller?: string, delete?: pveconfigidlist, dhcp?: Tdhcp, digest?: String0_64, 'disable-arp-nd-suppression'?: boolean, dns?: string, dnszone?: dnsname, 'dp-id'?: integer, exitnodes?: pvenodelist, 'exitnodes-local-routing'?: boolean, 'exitnodes-primary'?: pvenode, fabric?: pvesdnfabricid, ipam?: string, 'lock-token'?: string, mac?: macaddr, mtu?: integer, nodes?: pvenodelist, peers?: iplist, reversedns?: string, 'rt-import'?: pvesdnbgprtlist, 'secondary-controllers'?: Tsecondarycontrollers, tag?: integer_Min0, 'vlan-protocol'?: Tvlanprotocol, 'vrf-vxlan'?: integer1_16777215, 'vxlan-port'?: integer1_65536 }): Promise<null>;
                     };
                 },
                 controllers: {
@@ -9475,14 +14699,14 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/controllers/<controller>'","user":"all"}
                      */
-                    $get(param?: { pending?: boolean, running?: boolean, type?: Ttype_9 }): Promise<clusterSdnControllersIndex[]>;
+                    $get(param?: { pending?: boolean, running?: boolean, type?: Ttype_10 }): Promise<clusterSdnControllersIndex[]>;
                     /**
                      * Create a new sdn controller object.
                      * POST /cluster/sdn/controllers
                      * @allowtoken 1
                      * @permissions {"check":["perm","/sdn/controllers",["SDN.Allocate"]]}
                      */
-                    $post(param: { asn?: integer0_4294967296, 'bgp-multipath-as-path-relax'?: boolean, controller: pvesdncontrollerid, ebgp?: boolean, 'ebgp-multihop'?: integer, 'isis-domain'?: string, 'isis-ifaces'?: pveifacelist, 'isis-net'?: string, loopback?: string, node?: pvenode, peers?: iplist, type: pveconfigid_3 }): Promise<null>;
+                    $post(param: { asn?: integer0_4294967295, 'bgp-mode'?: Tbgpmode, 'bgp-multipath-as-path-relax'?: boolean, controller: Tcontroller, ebgp?: boolean, 'ebgp-multihop'?: integer, fabric?: pvesdnfabricid, 'isis-domain'?: string, 'isis-ifaces'?: pveifacelist, 'isis-net'?: pvesdnisisnet, 'lock-token'?: string, loopback?: string, node?: pvenode, nodes?: pvenodelist, 'peer-group-name'?: pveconfigid_1, peers?: iplist, 'route-map-in'?: pvesdnroutemapid, 'route-map-out'?: pvesdnroutemapid, type: pveconfigid_4 }): Promise<null>;
                     $(controller: string): {
                         /**
                          * Delete sdn controller object configuration.
@@ -9490,21 +14714,21 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/controllers",["SDN.Allocate"]]}
                          */
-                        $delete(): Promise<null>;
+                        $delete(param?: { 'lock-token'?: string }): Promise<null>;
                         /**
                          * Read sdn controller configuration.
                          * GET /cluster/sdn/controllers/\{controller\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/controllers/{controller}",["SDN.Allocate"]]}
                          */
-                        $get(param?: { pending?: boolean, running?: boolean }): Promise<any>;
+                        $get(param?: { pending?: boolean, running?: boolean }): Promise<clusterSdnControllersRead>;
                         /**
                          * Update sdn controller object configuration.
                          * PUT /cluster/sdn/controllers/\{controller\}
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/controllers",["SDN.Allocate"]]}
                          */
-                        $put(param?: { asn?: integer0_4294967296, 'bgp-multipath-as-path-relax'?: boolean, delete?: pveconfigidlist, digest?: String0_64, ebgp?: boolean, 'ebgp-multihop'?: integer, 'isis-domain'?: string, 'isis-ifaces'?: pveifacelist, 'isis-net'?: string, loopback?: string, node?: pvenode, peers?: iplist }): Promise<null>;
+                        $put(param?: { asn?: integer0_4294967295, 'bgp-mode'?: Tbgpmode, 'bgp-multipath-as-path-relax'?: boolean, delete?: pveconfigidlist, digest?: String0_64, ebgp?: boolean, 'ebgp-multihop'?: integer, fabric?: pvesdnfabricid, 'isis-domain'?: string, 'isis-ifaces'?: pveifacelist, 'isis-net'?: pvesdnisisnet, 'lock-token'?: string, loopback?: string, node?: pvenode, nodes?: pvenodelist, 'peer-group-name'?: pveconfigid_1, peers?: iplist, 'route-map-in'?: pvesdnroutemapid, 'route-map-out'?: pvesdnroutemapid }): Promise<null>;
                     };
                 },
                 ipams: {
@@ -9514,14 +14738,14 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/ipams/<ipam>'","user":"all"}
                      */
-                    $get(param?: { type?: Ttype_10 }): Promise<clusterSdnIpamsIndex[]>;
+                    $get(param?: { type?: Ttype_11 }): Promise<clusterSdnIpamsIndex[]>;
                     /**
                      * Create a new sdn ipam object.
                      * POST /cluster/sdn/ipams
                      * @allowtoken 1
                      * @permissions {"check":["perm","/sdn/ipams",["SDN.Allocate"]]}
                      */
-                    $post(param: { ipam: pvesdnipamid, section?: integer, token?: string, type: pveconfigid_4, url?: string }): Promise<null>;
+                    $post(param: { fingerprint?: Tfingerprint, ipam: Tipam, 'lock-token'?: string, section?: integer, token?: string, type: pveconfigid_5, url?: string }): Promise<null>;
                     $(ipam: string): {
                         /**
                          * Delete sdn ipam object configuration.
@@ -9529,7 +14753,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/ipams",["SDN.Allocate"]]}
                          */
-                        $delete(): Promise<null>;
+                        $delete(param?: { 'lock-token'?: string }): Promise<null>;
                         /**
                          * Read sdn ipam configuration.
                          * GET /cluster/sdn/ipams/\{ipam\}
@@ -9543,7 +14767,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/ipams",["SDN.Allocate"]]}
                          */
-                        $put(param?: { delete?: pveconfigidlist, digest?: String0_64, section?: integer, token?: string, url?: string }): Promise<null>;
+                        $put(param?: { delete?: pveconfigidlist, digest?: String0_64, fingerprint?: Tfingerprint, 'lock-token'?: string, section?: integer, token?: string, url?: string }): Promise<null>;
                         status: {
                             /**
                              * List PVE IPAM Entries
@@ -9562,14 +14786,14 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/dns/<dns>'","user":"all"}
                      */
-                    $get(param?: { type?: Ttype_11 }): Promise<clusterSdnDnsIndex[]>;
+                    $get(param?: { type?: Ttype_12 }): Promise<clusterSdnDnsIndex[]>;
                     /**
                      * Create a new sdn dns object.
                      * POST /cluster/sdn/dns
                      * @allowtoken 1
                      * @permissions {"check":["perm","/sdn/dns",["SDN.Allocate"]]}
                      */
-                    $post(param: { dns: pvesdndnsid, key: string, reversemaskv6?: integer, reversev6mask?: integer, ttl?: integer, type: pveconfigid_5, url: string }): Promise<null>;
+                    $post(param: { dns: Tipam, fingerprint?: Tfingerprint, key: string, 'lock-token'?: string, reversemaskv6?: integer, reversev6mask?: integer, ttl?: integer, type: pveconfigid_6, url: string }): Promise<null>;
                     $(dns: string): {
                         /**
                          * Delete sdn dns object configuration.
@@ -9577,7 +14801,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/dns",["SDN.Allocate"]]}
                          */
-                        $delete(): Promise<null>;
+                        $delete(param?: { 'lock-token'?: string }): Promise<null>;
                         /**
                          * Read sdn dns configuration.
                          * GET /cluster/sdn/dns/\{dns\}
@@ -9591,8 +14815,284 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/sdn/dns",["SDN.Allocate"]]}
                          */
-                        $put(param?: { delete?: pveconfigidlist, digest?: String0_64, key?: string, reversemaskv6?: integer, ttl?: integer, url?: string }): Promise<null>;
+                        $put(param?: { delete?: pveconfigidlist, digest?: String0_64, fingerprint?: Tfingerprint, key?: string, 'lock-token'?: string, reversemaskv6?: integer, ttl?: integer, url?: string }): Promise<null>;
                     };
+                },
+                fabrics: {
+                    /**
+                     * SDN Fabrics Index
+                     * GET /cluster/sdn/fabrics
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn/fabrics",["SDN.Audit"]]}
+                     */
+                    $get(): Promise<clusterSdnFabricsIndex[]>;
+                    fabric: {
+                        /**
+                         * SDN Fabrics Index
+                         * GET /cluster/sdn/fabrics/fabric
+                         * @allowtoken 1
+                         * @permissions {"description":"Only list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions on '/sdn/fabrics/<fabric>'","user":"all"}
+                         */
+                        $get(param?: { pending?: boolean, running?: boolean }): Promise<clusterSdnFabricsFabricIndex[]>;
+                        /**
+                         * Add a fabric
+                         * POST /cluster/sdn/fabrics/fabric
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/sdn/fabrics",["SDN.Allocate"]]}
+                         */
+                        $post(param: { area?: Tarea, csnp_interval?: Tcsnp_interval, digest?: String0_64, hello_interval?: Tcsnp_interval, id: pvesdnfabricid_1, ip6_prefix?: CIDR, ip_prefix?: CIDR, 'lock-token'?: string, persistent_keepalive?: Tpersistent_keepalive, protocol: Tprotocol, redistribute: Tredistribute, route_filter?: pvesdnprefixlistid }): Promise<null>;
+                        $(id: string): {
+                            /**
+                             * Add a fabric
+                             * DELETE /cluster/sdn/fabrics/fabric/\{id\}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/sdn/fabrics/{id}",["SDN.Allocate"]]}
+                             */
+                            $delete(): Promise<null>;
+                            /**
+                             * Update a fabric
+                             * GET /cluster/sdn/fabrics/fabric/\{id\}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/sdn/fabrics/{id}",["SDN.Audit","SDN.Allocate"],"any",1]}
+                             */
+                            $get(): Promise<clusterSdnFabricsFabricGetFabric>;
+                            /**
+                             * Update a fabric
+                             * PUT /cluster/sdn/fabrics/fabric/\{id\}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/sdn/fabrics/{id}",["SDN.Allocate"]]}
+                             */
+                            $put(param: { area?: Tarea, csnp_interval?: Tcsnp_interval, delete: Tdelete_1, digest?: String0_64, hello_interval?: Tcsnp_interval, ip6_prefix?: CIDR, ip_prefix?: CIDR, 'lock-token'?: string, persistent_keepalive?: Tpersistent_keepalive, protocol: Tprotocol, redistribute: Tredistribute, route_filter?: pvesdnprefixlistid }): Promise<null>;
+                        };
+                    },
+                    node: {
+                        /**
+                         * SDN Fabrics Index
+                         * GET /cluster/sdn/fabrics/node
+                         * @allowtoken 1
+                         * @permissions {"description":"Only list nodes where you have 'SDN.Audit' or 'SDN.Allocate' permissions on\n'/sdn/fabrics/<fabric>' and 'Sys.Audit' or 'Sys.Modify' on /nodes/<node_id>","user":"all"}
+                         */
+                        $get(param?: { pending?: boolean, running?: boolean }): Promise<clusterSdnFabricsNodeListNodes[]>;
+                        $(fabric_id: string): {
+                            /**
+                             * SDN Fabrics Index
+                             * GET /cluster/sdn/fabrics/node/\{fabric_id\}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/sdn/fabrics/{fabric_id}",["SDN.Audit"]],"description":"Only returns nodes where you have 'Sys.Audit' or 'Sys.Modify' permissions."}
+                             */
+                            $get(param?: { pending?: boolean, running?: boolean }): Promise<clusterSdnFabricsNode {fabricId}ListNodesFabric[]>;
+                            /**
+                             * Add a node
+                             * POST /cluster/sdn/fabrics/node/\{fabric_id\}
+                             * @allowtoken 1
+                             * @permissions {"check":["and",["perm","/sdn/fabrics/{fabric_id}",["SDN.Allocate"]],["perm","/nodes/{node_id}",["Sys.Modify"]]]}
+                             */
+                            $post(param: { allowed_ips?: Tallowed_ips, digest?: String0_64, endpoint?: Tendpoint, interfaces: Tinterfaces, ip?: ipv4, ip6?: ipv6, 'lock-token'?: string, node_id: pvenode, peers?: Tpeers, protocol: Tprotocol, public_key?: Tendpoint, role?: Trole }): Promise<null>;
+                            $(node_id: string): {
+                                /**
+                                 * Add a node
+                                 * DELETE /cluster/sdn/fabrics/node/\{fabric_id\}/\{node_id\}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["and",["perm","/sdn/fabrics/{fabric_id}",["SDN.Allocate"]],["perm","/nodes/{node_id}",["Sys.Modify"]]]}
+                                 */
+                                $delete(): Promise<null>;
+                                /**
+                                 * Get a node
+                                 * GET /cluster/sdn/fabrics/node/\{fabric_id\}/\{node_id\}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["and",["perm","/sdn/fabrics/{fabric_id}",["SDN.Audit","SDN.Allocate"],"any",1],["perm","/nodes/{node_id}",["Sys.Audit","Sys.Modify"],"any",1]]}
+                                 */
+                                $get(): Promise<clusterSdnFabricsNode {fabricId} {nodeId}GetNode>;
+                                /**
+                                 * Update a node
+                                 * PUT /cluster/sdn/fabrics/node/\{fabric_id\}/\{node_id\}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["and",["perm","/sdn/fabrics/{fabric_id}",["SDN.Allocate"]],["perm","/nodes/{node_id}",["Sys.Modify"]]]}
+                                 */
+                                $put(param: { allowed_ips?: Tallowed_ips, delete: Tdelete_2, digest?: String0_64, endpoint?: Tendpoint, interfaces: Tinterfaces, ip?: ipv4, ip6?: ipv6, 'lock-token'?: string, peers?: Tpeers, protocol: Tprotocol, public_key?: Tendpoint, role?: Trole }): Promise<null>;
+                            };
+                        };
+                    },
+                    all: {
+                        /**
+                         * SDN Fabrics Index
+                         * GET /cluster/sdn/fabrics/all
+                         * @allowtoken 1
+                         * @permissions {"description":"Only list fabrics where you have 'SDN.Audit' or 'SDN.Allocate' permissions on\n'/sdn/fabrics/<fabric>', only list nodes where you have 'Sys.Audit' or 'Sys.Modify' on /nodes/<node_id>","user":"all"}
+                         */
+                        $get(param?: { pending?: boolean, running?: boolean }): Promise<clusterSdnFabricsAllListAll>;
+                    },
+                },
+                'prefix-lists': {
+                    /**
+                     * List Prefix Lists
+                     * GET /cluster/sdn/prefix-lists
+                     * @allowtoken 1
+                     * @permissions {"description":"Only returns prefix list entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions.","user":"all"}
+                     */
+                    $get(param?: { pending?: boolean, running?: boolean, verbose?: boolean }): Promise<clusterSdnPrefixListsListPrefixLists[]>;
+                    /**
+                     * Create Prefix List
+                     * POST /cluster/sdn/prefix-lists
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn/prefix-lists",["SDN.Allocate"]]}
+                     */
+                    $post(param: { digest?: String0_64, entries?: Tentries, id: pvesdnprefixlistid_1, 'lock-token'?: string }): Promise<null>;
+                    $(id: string): {
+                        /**
+                         * Delete Prefix List
+                         * DELETE /cluster/sdn/prefix-lists/\{id\}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/sdn/prefix-lists/{id}",["SDN.Allocate"]]}
+                         */
+                        $delete(param?: { 'lock-token'?: string }): Promise<null>;
+                        /**
+                         * Get Prefix List
+                         * GET /cluster/sdn/prefix-lists/\{id\}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/sdn/prefix-lists/{id}",["SDN.Audit"]]}
+                         */
+                        $get(): Promise<any>;
+                        /**
+                         * Update Prefix List
+                         * PUT /cluster/sdn/prefix-lists/\{id\}
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/sdn/prefix-lists/{id}",["SDN.Allocate"]]}
+                         */
+                        $put(param?: { delete?: Tdelete_3, digest?: String0_64, entries?: Tentries_1, 'lock-token'?: string }): Promise<null>;
+                        entries: {
+                            /**
+                             * List Prefix List Entries
+                             * GET /cluster/sdn/prefix-lists/\{id\}/entries
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/sdn/prefix-lists/{id}",["SDN.Audit"]]}
+                             */
+                            $get(): Promise<clusterSdnPrefixListsEntriesGetPrefixListEntries[]>;
+                            /**
+                             * Create Prefix List Entry
+                             * POST /cluster/sdn/prefix-lists/\{id\}/entries
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/sdn/prefix-lists/{id}",["SDN.Allocate"]]}
+                             */
+                            $post(param: { action: Taction_1, ge?: integer0_128, le?: integer0_128, 'lock-token'?: string, prefix: FullRangeCIDR, seq?: integer1_4294967295 }): Promise<null>;
+                            $(url_seq: string): {
+                                /**
+                                 * Delete Prefix List Entry
+                                 * DELETE /cluster/sdn/prefix-lists/\{id\}/entries/\{url_seq\}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/sdn/prefix-lists/{id}",["SDN.Allocate"]]}
+                                 */
+                                $delete(param?: { 'lock-token'?: string }): Promise<null>;
+                                /**
+                                 * Get Prefix List Entry
+                                 * GET /cluster/sdn/prefix-lists/\{id\}/entries/\{url_seq\}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/sdn/prefix-lists/{id}",["SDN.Audit"]]}
+                                 */
+                                $get(): Promise<any>;
+                                /**
+                                 * Update Prefix List Entry
+                                 * PUT /cluster/sdn/prefix-lists/\{id\}/entries/\{url_seq\}
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/sdn/prefix-lists/{id}",["SDN.Allocate"]]}
+                                 */
+                                $put(param?: { action?: Taction_1, delete?: Tdelete_4, digest?: String0_64, ge?: integer0_128, le?: integer0_128, 'lock-token'?: string, prefix?: FullRangeCIDR, seq?: integer1_4294967295 }): Promise<null>;
+                            };
+                        },
+                    };
+                },
+                'route-maps': {
+                    /**
+                     * List Route Maps
+                     * GET /cluster/sdn/route-maps
+                     * @allowtoken 1
+                     * @permissions {"description":"Only returns route maps where you have 'SDN.Audit' or 'SDN.Allocate' permissions.","user":"all"}
+                     */
+                    $get(param?: { running?: boolean }): Promise<clusterSdnRouteMapsListRouteMaps[]>;
+                    entries: {
+                        /**
+                         * Lists all route map entries.
+                         * GET /cluster/sdn/route-maps/entries
+                         * @allowtoken 1
+                         * @permissions {"description":"Only returns route map entries where you have 'SDN.Audit' or 'SDN.Allocate' permissions.","user":"all"}
+                         */
+                        $get(param?: { pending?: boolean, running?: boolean }): Promise<clusterSdnRouteMapsEntriesListRouteMapEntries[]>;
+                        /**
+                         * Create Route Map entry
+                         * POST /cluster/sdn/route-maps/entries
+                         * @allowtoken 1
+                         * @permissions {"check":["perm","/sdn/route-maps",["SDN.Allocate"]]}
+                         */
+                        $post(param: { action: Taction_1, call?: pvesdnroutemapid, digest?: String0_64, 'exit-action'?: Texitaction, 'lock-token'?: string, match?: Tmatch, order: integer0_65535, 'route-map-id': pvesdnroutemapid, set?: Tset }): Promise<null>;
+                        $(route-map-id: string): {
+                            /**
+                             * List all entries for a given Route Map
+                             * GET /cluster/sdn/route-maps/entries/\{route-map-id\}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/sdn/route-maps/{route-map-id}",["SDN.Audit","SDN.Allocate"],"any",1]}
+                             */
+                            $get(param?: { pending?: boolean, running?: boolean }): Promise<clusterSdnRouteMapsEntries {routeMapId}ListRouteMapEntriesForRouteMap[]>;
+                            entry: {
+                                $(order: string): {
+                                    /**
+                                     * Delete Route Map Entry
+                                     * DELETE /cluster/sdn/route-maps/entries/\{route-map-id\}/entry/\{order\}
+                                     * @allowtoken 1
+                                     * @permissions {"check":["perm","/sdn/route-maps/{route-map-id}",["SDN.Allocate"]]}
+                                     */
+                                    $delete(param?: { 'lock-token'?: string }): Promise<null>;
+                                    /**
+                                     * Get Route Map Entry
+                                     * GET /cluster/sdn/route-maps/entries/\{route-map-id\}/entry/\{order\}
+                                     * @allowtoken 1
+                                     * @permissions {"check":["perm","/sdn/route-maps/{route-map-id}",["SDN.Audit","SDN.Allocate"],"any",1]}
+                                     */
+                                    $get(): Promise<clusterSdnRouteMapsEntries {routeMapId}EntryGetRouteMapEntry>;
+                                    /**
+                                     * Update Route Map Entry
+                                     * PUT /cluster/sdn/route-maps/entries/\{route-map-id\}/entry/\{order\}
+                                     * @allowtoken 1
+                                     * @permissions {"check":["perm","/sdn/route-maps/{route-map-id}",["SDN.Allocate"]]}
+                                     */
+                                    $put(param?: { action?: Taction_1, call?: pvesdnroutemapid, delete?: Tdelete_5, digest?: String0_64, 'exit-action'?: Texitaction, 'lock-token'?: string, match?: Tmatch, set?: Tset }): Promise<null>;
+                                };
+                            },
+                        };
+                    },
+                },
+                lock: {
+                    /**
+                     * Release global lock for SDN configuration
+                     * DELETE /cluster/sdn/lock
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn",["SDN.Allocate"]]}
+                     */
+                    $delete(param?: { force?: boolean, 'lock-token'?: string }): Promise<null>;
+                    /**
+                     * Acquire global lock for SDN configuration
+                     * POST /cluster/sdn/lock
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn",["SDN.Allocate"]]}
+                     */
+                    $post(param?: { 'allow-pending'?: boolean }): Promise<string>;
+                },
+                rollback: {
+                    /**
+                     * Rollback pending changes to SDN configuration
+                     * POST /cluster/sdn/rollback
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/sdn",["SDN.Allocate"]]}
+                     */
+                    $post(param?: { 'lock-token'?: string, 'release-lock'?: boolean }): Promise<null>;
+                },
+                'dry-run': {
+                    /**
+                     * Dry-run the SDN apply action and return the difference between the current configuration and the pending configuration
+                     * GET /cluster/sdn/dry-run
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
+                     */
+                    $get(param: { node: pvenode }): Promise<clusterSdnDryRunDryRun>;
                 },
             },
             log: {
@@ -9600,7 +15100,7 @@ export namespace Proxmox {
                  * Read cluster log
                  * GET /cluster/log
                  * @allowtoken 1
-                 * @permissions {"user":"all"}
+                 * @permissions {"description":"The user needs 'Sys.Syslog' on '/' in order to get all logs.","user":"all"}
                  */
                 $get(param?: { max?: integer_Min1 }): Promise<clusterLogLog[]>;
             },
@@ -9611,7 +15111,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"user":"all"}
                  */
-                $get(param?: { type?: Ttype_12 }): Promise<clusterResourcesResources[]>;
+                $get(param?: { type?: Ttype_13 }): Promise<clusterResourcesResources[]>;
             },
             tasks: {
                 /**
@@ -9636,7 +15136,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/",["Sys.Modify"]]}
                  */
-                $put(param?: { bwlimit?: Tbwlimit, console?: Tconsole, crs?: Tcrs, delete?: pveconfigidlist_1, description?: String0_65536, email_from?: emailopt, fencing?: Tfencing, ha?: Tha, http_proxy?: Thttp_proxy, keyboard?: Tkeyboard, language?: Tlanguage, mac_prefix?: macprefix, max_workers?: integer_Min1, migration?: Tmigration, migration_unsecure?: boolean, 'next-id'?: Tnextid, notify?: Tnotify, 'registered-tags'?: Tregisteredtags, 'tag-style'?: Ttagstyle, u2f?: Tu2f, 'user-tag-access'?: Tusertagaccess, webauthn?: Twebauthn }): Promise<null>;
+                $put(param?: { bwlimit?: Tbwlimit, 'consent-text'?: String0_65536, console?: Tconsole, crs?: Tcrs, delete?: pveconfigidlist_1, description?: String0_65536, email_from?: emailopt, fencing?: Tfencing, ha?: Tha, http_proxy?: Thttp_proxy, keyboard?: Tkeyboard, language?: Tlanguage, location?: Tlocation, mac_prefix?: macprefix, max_workers?: integer_Min1, migration?: Tmigration, migration_unsecure?: boolean, 'next-id'?: Tnextid, notify?: Tnotify, 'registered-tags'?: Tregisteredtags, replication?: Treplication, 'tag-style'?: Ttagstyle, u2f?: Tu2f, 'user-tag-access'?: Tusertagaccess, webauthn?: Twebauthn }): Promise<null>;
             },
             status: {
                 /**
@@ -9678,7 +15178,7 @@ export namespace Proxmox {
                      * Virtual machine index (per node).
                      * GET /nodes/\{node\}/qemu
                      * @allowtoken 1
-                     * @permissions {"description":"Only list VMs where you have VM.Audit permissons on /vms/<vmid>.","user":"all"}
+                     * @permissions {"description":"Only list VMs where you have VM.Audit permissions on /vms/<vmid>.","user":"all"}
                      */
                     $get(param?: { full?: boolean }): Promise<nodesQemuVm[]>;
                     /**
@@ -9687,7 +15187,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"You need 'VM.Allocate' permissions on /vms/{vmid} or on the VM pool /pool/{pool}. For restore (option 'archive'), it is enough if the user has 'VM.Backup' permission and the VM already exists. If you create disks you need 'Datastore.AllocateSpace' on any used storage.If you use a bridge/vlan, you need 'SDN.Use' on any used bridge/vlan.","user":"all"}
                      */
-                    $post(param: { acpi?: boolean, affinity?: pvecpuset, agent?: Tagent, arch?: Tarch, archive?: String0_255, args?: string, audio0?: Taudio0, autostart?: boolean, balloon?: integer_Min0, bios?: Tbios, boot?: pveqmboot, bootdisk?: pveqmbootdisk, bwlimit?: integer_Min0_1, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciupgrade?: boolean, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer1_262144, description?: String0_8192, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keephugepages?: boolean, keyboard?: Tkeyboard, kvm?: boolean, 'live-restore'?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: Tmemory, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, pool?: pvepoolid, protection?: boolean, reboot?: boolean, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, start?: boolean, startdate?: Tstartdate, startup?: pvestartuporder, storage?: pvestorageid, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, tpmstate0?: Ttpmstate0, unique?: boolean, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmid: pvevmid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<string>;
+                    $post(param: { acpi?: boolean, affinity?: pvecpuset, agent?: Tagent, 'allow-ksm'?: boolean, 'amd-sev'?: pveqemusevfmt, arch?: Tarch, archive?: String0_255, args?: string, audio0?: Taudio0, autostart?: boolean, balloon?: integer_Min0, bios?: Tbios, boot?: pveqmboot, bootdisk?: pveqmbootdisk, bwlimit?: integer_Min0_1, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciupgrade?: boolean, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer1_262144, description?: String0_8192, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, 'ha-managed'?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, 'import-working-storage'?: pvestorageid, 'intel-tdx'?: pveqemutdxfmt, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keephugepages?: boolean, keyboard?: Tkeyboard, kvm?: boolean, 'live-restore'?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: Tmemory, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, pool?: pvepoolid, protection?: boolean, reboot?: boolean, rng0?: pveqmrng, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, start?: boolean, startdate?: Tstartdate, startup?: pvestartuporder, storage?: pvestorageid, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, tpmstate0?: Ttpmstate0, unique?: boolean, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, virtiofs0?: Tvirtiofs, virtiofs1?: Tvirtiofs, virtiofs2?: Tvirtiofs, virtiofs3?: Tvirtiofs, vmgenid?: Tvmgenid, vmid: pvevmid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<string>;
                     $(vmid: number): {
                         /**
                          * Destroy the VM and  all used/owned volumes. Removes any VM specific permissions and firewall rules
@@ -9898,7 +15398,7 @@ export namespace Proxmox {
                              * Execute QEMU Guest Agent commands.
                              * POST /nodes/\{node\}/qemu/\{vmid\}/agent
                              * @allowtoken 1
-                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Unrestricted","VM.GuestAgent.Unrestricted"],"any",1]}
                              */
                             $post(param: { command: Tcommand }): Promise<any>;
                             'fsfreeze-freeze': {
@@ -9906,7 +15406,7 @@ export namespace Proxmox {
                                  * Execute fsfreeze-freeze.
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/agent/fsfreeze-freeze
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.FileSystemMgmt","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $post(): Promise<any>;
                             },
@@ -9915,7 +15415,7 @@ export namespace Proxmox {
                                  * Execute fsfreeze-status.
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/agent/fsfreeze-status
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Audit","VM.GuestAgent.FileSystemMgmt","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $post(): Promise<any>;
                             },
@@ -9924,7 +15424,7 @@ export namespace Proxmox {
                                  * Execute fsfreeze-thaw.
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/agent/fsfreeze-thaw
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.FileSystemMgmt","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $post(): Promise<any>;
                             },
@@ -9933,7 +15433,7 @@ export namespace Proxmox {
                                  * Execute fstrim.
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/agent/fstrim
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.FileSystemMgmt","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $post(): Promise<any>;
                             },
@@ -9942,7 +15442,7 @@ export namespace Proxmox {
                                  * Execute get-fsinfo.
                                  * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-fsinfo
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Audit","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $get(): Promise<any>;
                             },
@@ -9951,7 +15451,7 @@ export namespace Proxmox {
                                  * Execute get-host-name.
                                  * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-host-name
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Audit","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $get(): Promise<any>;
                             },
@@ -9960,7 +15460,7 @@ export namespace Proxmox {
                                  * Execute get-memory-block-info.
                                  * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-memory-block-info
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Audit","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $get(): Promise<any>;
                             },
@@ -9969,7 +15469,7 @@ export namespace Proxmox {
                                  * Execute get-memory-blocks.
                                  * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-memory-blocks
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Audit","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $get(): Promise<any>;
                             },
@@ -9978,7 +15478,7 @@ export namespace Proxmox {
                                  * Execute get-osinfo.
                                  * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-osinfo
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Audit","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $get(): Promise<any>;
                             },
@@ -9987,7 +15487,7 @@ export namespace Proxmox {
                                  * Execute get-time.
                                  * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-time
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Audit","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $get(): Promise<any>;
                             },
@@ -9996,7 +15496,7 @@ export namespace Proxmox {
                                  * Execute get-timezone.
                                  * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-timezone
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Audit","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $get(): Promise<any>;
                             },
@@ -10005,7 +15505,7 @@ export namespace Proxmox {
                                  * Execute get-users.
                                  * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-users
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Audit","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $get(): Promise<any>;
                             },
@@ -10014,7 +15514,7 @@ export namespace Proxmox {
                                  * Execute get-vcpus.
                                  * GET /nodes/\{node\}/qemu/\{vmid\}/agent/get-vcpus
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Audit","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $get(): Promise<any>;
                             },
@@ -10023,7 +15523,7 @@ export namespace Proxmox {
                                  * Execute info.
                                  * GET /nodes/\{node\}/qemu/\{vmid\}/agent/info
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Audit","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $get(): Promise<any>;
                             },
@@ -10032,7 +15532,7 @@ export namespace Proxmox {
                                  * Execute network-get-interfaces.
                                  * GET /nodes/\{node\}/qemu/\{vmid\}/agent/network-get-interfaces
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Audit","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $get(): Promise<any>;
                             },
@@ -10041,7 +15541,7 @@ export namespace Proxmox {
                                  * Execute ping.
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/agent/ping
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Audit","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $post(): Promise<any>;
                             },
@@ -10050,7 +15550,7 @@ export namespace Proxmox {
                                  * Execute shutdown.
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/agent/shutdown
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $post(): Promise<any>;
                             },
@@ -10059,7 +15559,7 @@ export namespace Proxmox {
                                  * Execute suspend-disk.
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/agent/suspend-disk
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $post(): Promise<any>;
                             },
@@ -10068,7 +15568,7 @@ export namespace Proxmox {
                                  * Execute suspend-hybrid.
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/agent/suspend-hybrid
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $post(): Promise<any>;
                             },
@@ -10077,7 +15577,7 @@ export namespace Proxmox {
                                  * Execute suspend-ram.
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/agent/suspend-ram
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $post(): Promise<any>;
                             },
@@ -10086,7 +15586,7 @@ export namespace Proxmox {
                                  * Sets the password for the given user to the given password
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/agent/set-user-password
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Unrestricted"]]}
                                  */
                                 $post(param: { crypted?: boolean, password: String5_1024, username: string }): Promise<any>;
                             },
@@ -10095,7 +15595,7 @@ export namespace Proxmox {
                                  * Executes the given command in the vm via the guest-agent and returns an object with the pid.
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/agent/exec
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Unrestricted"]]}
                                  */
                                 $post(param: { command: Tcommand_1, 'input-data'?: String0_65536 }): Promise<nodesQemuAgentExecExec>;
                             },
@@ -10104,7 +15604,7 @@ export namespace Proxmox {
                                  * Gets the status of the given pid started by the guest-agent
                                  * GET /nodes/\{node\}/qemu/\{vmid\}/agent/exec-status
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.Unrestricted"]]}
                                  */
                                 $get(param: { pid: integer }): Promise<nodesQemuAgentExecStatusExecStatus>;
                             },
@@ -10113,16 +15613,16 @@ export namespace Proxmox {
                                  * Reads the given file via guest agent. Is limited to 16777216 bytes.
                                  * GET /nodes/\{node\}/qemu/\{vmid\}/agent/file-read
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.FileRead","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
-                                $get(param: { file: string }): Promise<nodesQemuAgentFileReadFileRead>;
+                                $get(param: { count?: integer1_16777216, decode?: boolean, file: string, offset?: integer_Min0 }): Promise<nodesQemuAgentFileReadFileRead>;
                             },
                             'file-write': {
                                 /**
                                  * Writes the given file via guest agent.
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/agent/file-write
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]]}
+                                 * @permissions {"check":["perm","/vms/{vmid}",["VM.GuestAgent.FileWrite","VM.GuestAgent.Unrestricted"],"any",1]}
                                  */
                                 $post(param: { content: String0_61440, encode?: boolean, file: string }): Promise<null>;
                             },
@@ -10152,21 +15652,21 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param?: { current?: boolean, snapshot?: pveconfigid_6 }): Promise<nodesQemuConfigVmConfig>;
+                            $get(param?: { current?: boolean, snapshot?: pveconfigid_2 }): Promise<nodesQemuConfigVmConfig>;
                             /**
-                             * Set virtual machine options (asynchrounous API).
+                             * Set virtual machine options (asynchronous API).
                              * POST /nodes/\{node\}/qemu/\{vmid\}/config
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CDROM","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.HWType","VM.Config.Options","VM.Config.Cloudinit"],"any",1]}
                              */
-                            $post(param?: { acpi?: boolean, affinity?: pvecpuset, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: boolean, background_delay?: integer1_30, balloon?: integer_Min0, bios?: Tbios, boot?: pveqmboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciupgrade?: boolean, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer1_262144, delete?: pveconfigidlist_1, description?: String0_8192, digest?: String0_40, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keephugepages?: boolean, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: Tmemory, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: boolean, reboot?: boolean, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: boolean, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, tpmstate0?: Ttpmstate0, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<string>;
+                            $post(param?: { acpi?: boolean, affinity?: pvecpuset, agent?: Tagent, 'allow-ksm'?: boolean, 'amd-sev'?: pveqemusevfmt, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: boolean, background_delay?: integer1_30, balloon?: integer_Min0, bios?: Tbios, boot?: pveqmboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciupgrade?: boolean, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer1_262144, delete?: pveconfigidlist_1, description?: String0_8192, digest?: String0_40, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, 'import-working-storage'?: pvestorageid, 'intel-tdx'?: pveqemutdxfmt, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keephugepages?: boolean, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: Tmemory, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: boolean, reboot?: boolean, revert?: pveconfigidlist_1, rng0?: pveqmrng, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: boolean, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, tpmstate0?: Ttpmstate0, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, virtiofs0?: Tvirtiofs, virtiofs1?: Tvirtiofs, virtiofs2?: Tvirtiofs, virtiofs3?: Tvirtiofs, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<string>;
                             /**
-                             * Set virtual machine options (synchrounous API) - You should consider using the POST method instead for any actions involving hotplug or storage allocation.
+                             * Set virtual machine options (synchronous API) - You should consider using the POST method instead for any actions involving hotplug or storage allocation.
                              * PUT /nodes/\{node\}/qemu/\{vmid\}/config
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CDROM","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.HWType","VM.Config.Options","VM.Config.Cloudinit"],"any",1]}
                              */
-                            $put(param?: { acpi?: boolean, affinity?: pvecpuset, agent?: Tagent, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: boolean, balloon?: integer_Min0, bios?: Tbios, boot?: pveqmboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciupgrade?: boolean, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer1_262144, delete?: pveconfigidlist_1, description?: String0_8192, digest?: String0_40, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keephugepages?: boolean, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: Tmemory, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: boolean, reboot?: boolean, revert?: pveconfigidlist_1, rng0?: Trng0, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: boolean, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, tpmstate0?: Ttpmstate0, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<null>;
+                            $put(param?: { acpi?: boolean, affinity?: pvecpuset, agent?: Tagent, 'allow-ksm'?: boolean, 'amd-sev'?: pveqemusevfmt, arch?: Tarch, args?: string, audio0?: Taudio0, autostart?: boolean, balloon?: integer_Min0, bios?: Tbios, boot?: pveqmboot, bootdisk?: pveqmbootdisk, cdrom?: pveqmide, cicustom?: pveqmcicustom, cipassword?: string, citype?: Tcitype, ciupgrade?: boolean, ciuser?: string, cores?: integer_Min1, cpu?: pvevmcpuconf, cpulimit?: Tcpulimit, cpuunits?: integer1_262144, delete?: pveconfigidlist_1, description?: String0_8192, digest?: String0_40, efidisk0?: Tefidisk0, force?: boolean, freeze?: boolean, hookscript?: pvevolumeid, hostpci0?: pveqmhostpci, hostpci1?: pveqmhostpci, hostpci2?: pveqmhostpci, hostpci3?: pveqmhostpci, hostpci4?: pveqmhostpci, hostpci5?: pveqmhostpci, hostpci6?: pveqmhostpci, hostpci7?: pveqmhostpci, hotplug?: pvehotplugfeatures, hugepages?: Thugepages, ide0?: Tide, ide1?: Tide, ide2?: Tide, ide3?: Tide, 'intel-tdx'?: pveqemutdxfmt, ipconfig0?: pveqmipconfig, ipconfig1?: pveqmipconfig, ipconfig2?: pveqmipconfig, ipconfig3?: pveqmipconfig, ipconfig4?: pveqmipconfig, ipconfig5?: pveqmipconfig, ipconfig6?: pveqmipconfig, ipconfig7?: pveqmipconfig, ivshmem?: Tivshmem, keephugepages?: boolean, keyboard?: Tkeyboard, kvm?: boolean, localtime?: boolean, lock?: Tlock, machine?: Tmachine, memory?: Tmemory, migrate_downtime?: Tmigrate_downtime, migrate_speed?: integer_Min0, name?: dnsname, nameserver?: addresslist, net0?: Tnet, net1?: Tnet, net2?: Tnet, net3?: Tnet, numa?: boolean, numa0?: Tnuma, numa1?: Tnuma, numa2?: Tnuma, numa3?: Tnuma, onboot?: boolean, ostype?: Tostype, parallel0?: Tparallel, parallel1?: Tparallel, parallel2?: Tparallel, parallel3?: Tparallel, protection?: boolean, reboot?: boolean, revert?: pveconfigidlist_1, rng0?: pveqmrng, sata0?: Tsata, sata1?: Tsata, sata2?: Tsata, sata3?: Tsata, scsi0?: Tscsi, scsi1?: Tscsi, scsi2?: Tscsi, scsi3?: Tscsi, scsihw?: Tscsihw, searchdomain?: string, serial0?: Tserial, serial1?: Tserial, serial2?: Tserial, serial3?: Tserial, shares?: integer0_50000, skiplock?: boolean, smbios1?: pveqmsmbios1, smp?: integer_Min1, sockets?: integer_Min1, spice_enhancements?: Tspice_enhancements, sshkeys?: urlencoded, startdate?: Tstartdate, startup?: pvestartuporder, tablet?: boolean, tags?: pvetaglist, tdf?: boolean, template?: boolean, tpmstate0?: Ttpmstate0, unused0?: Tunused, unused1?: Tunused, unused2?: Tunused, unused3?: Tunused, usb0?: Tusb, usb1?: Tusb, usb2?: Tusb, usb3?: Tusb, vcpus?: integer_Min1, vga?: Tvga, virtio0?: Tvirtio, virtio1?: Tvirtio, virtio2?: Tvirtio, virtio3?: Tvirtio, virtiofs0?: Tvirtiofs, virtiofs1?: Tvirtiofs, virtiofs2?: Tvirtiofs, virtiofs3?: Tvirtiofs, vmgenid?: Tvmgenid, vmstatestorage?: pvestorageid, watchdog?: pveqmwatchdog }): Promise<null>;
                         },
                         pending: {
                             /**
@@ -10199,7 +15699,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                                  */
-                                $get(param: { type: Ttype_13 }): Promise<string>;
+                                $get(param: { type: Ttype_14 }): Promise<string>;
                             },
                         },
                         unlink: {
@@ -10231,7 +15731,7 @@ export namespace Proxmox {
                         },
                         vncwebsocket: {
                             /**
-                             * Opens a weksocket for VNC traffic.
+                             * Opens a websocket for VNC traffic.
                              * GET /nodes/\{node\}/qemu/\{vmid\}/vncwebsocket
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]],"description":"You also need to pass a valid ticket (vncticket)."}
@@ -10271,16 +15771,16 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { 'force-cpu'?: string, machine?: Tmachine, migratedfrom?: pvenode, migration_network?: CIDR, migration_type?: Tmigration_type, skiplock?: boolean, stateuri?: String0_128, targetstorage?: storagepairlist, timeout?: integer_Min0 }): Promise<string>;
+                                $post(param?: { 'force-cpu'?: string, machine?: Tmachine, migratedfrom?: pvenode, migration_network?: CIDR, migration_type?: Tmigration_type, 'nets-host-mtu'?: Tnetshostmtu, skiplock?: boolean, stateuri?: String0_128, targetstorage?: storagepairlist, timeout?: integer_Min0, 'with-conntrack-state'?: boolean }): Promise<string>;
                             },
                             stop: {
                                 /**
-                                 * Stop virtual machine. The qemu process will exit immediately. Thisis akin to pulling the power plug of a running computer and may damage the VM data
+                                 * Stop virtual machine. The qemu process will exit immediately. This is akin to pulling the power plug of a running computer and may damage the VM data.
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/status/stop
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { keepActive?: boolean, migratedfrom?: pvenode, skiplock?: boolean, timeout?: integer_Min0 }): Promise<string>;
+                                $post(param?: { keepActive?: boolean, migratedfrom?: pvenode, 'overrule-shutdown'?: boolean, skiplock?: boolean, timeout?: integer_Min0 }): Promise<string>;
                             },
                             reset: {
                                 /**
@@ -10293,7 +15793,7 @@ export namespace Proxmox {
                             },
                             shutdown: {
                                 /**
-                                 * Shutdown virtual machine. This is similar to pressing the power button on a physical machine.This will send an ACPI event for the guest OS, which should then proceed to a clean shutdown.
+                                 * Shutdown virtual machine. This is similar to pressing the power button on a physical machine. This will send an ACPI event for the guest OS, which should then proceed to a clean shutdown.
                                  * POST /nodes/\{node\}/qemu/\{vmid\}/status/shutdown
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
@@ -10344,7 +15844,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { feature: Tfeature, snapname?: pveconfigid_6 }): Promise<nodesQemuFeatureVmFeature>;
+                            $get(param: { feature: Tfeature, snapname?: pveconfigid_2 }): Promise<nodesQemuFeatureVmFeature>;
                         },
                         clone: {
                             /**
@@ -10353,7 +15853,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Clone"]],["or",["perm","/vms/{newid}",["VM.Allocate"]],["perm","/pool/{pool}",["VM.Allocate"],"require_param","pool"]]],"description":"You need 'VM.Clone' permissions on /vms/{vmid}, and 'VM.Allocate' permissions on /vms/{newid} (or on the VM pool /pool/{pool}). You also need 'Datastore.AllocateSpace' on any used storage and 'SDN.Use' on any used bridge/vnet"}
                              */
-                            $post(param: { bwlimit?: integer_Min0_1, description?: string, format?: Tformat, full?: boolean, name?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_6, storage?: pvestorageid, target?: pvenode }): Promise<string>;
+                            $post(param: { bwlimit?: integer_Min0_1, description?: string, format?: Tformat, full?: boolean, name?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_2, storage?: pvestorageid, target?: pvenode }): Promise<string>;
                         },
                         move_disk: {
                             /**
@@ -10378,7 +15878,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
                              */
-                            $post(param: { bwlimit?: integer_Min0_1, force?: boolean, migration_network?: CIDR, migration_type?: Tmigration_type, online?: boolean, target: pvenode, targetstorage?: storagepairlist, 'with-local-disks'?: boolean }): Promise<string>;
+                            $post(param: { bwlimit?: integer_Min0_1, force?: boolean, migration_network?: CIDR, migration_type?: Tmigration_type, online?: boolean, target: pvenode, targetstorage?: storagepairlist, 'with-conntrack-state'?: boolean, 'with-local-disks'?: boolean }): Promise<string>;
                         },
                         remote_migrate: {
                             /**
@@ -10394,7 +15894,7 @@ export namespace Proxmox {
                              * Execute QEMU monitor commands.
                              * POST /nodes/\{node\}/qemu/\{vmid\}/monitor
                              * @allowtoken 1
-                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Monitor"]],"description":"Sys.Modify is required for (sub)commands which are not read-only ('info *' and 'help')"}
+                             * @permissions {"check":["perm","/vms/{vmid}",["Sys.Audit","Sys.Modify"],"any",1],"description":"The following commands do not require any additional privilege: ?, help, info\n\nThe following commands require 'Sys.Modify': announce_self, backup_cancel, balloon, block_job_cancel, block_job_complete, block_job_pause, block_job_resume, block_job_set_speed, block_resize, block_set_io_throttle, boot_set, c, calc_dirty_rate, cancel_vcpu_dirty_limit, chardev-send-break, closefd, commit, cont, cpu, delvm, eject, exit_preconfig, expire_password, getfd, gpa2hpa, gpa2hva, gva2gpa, i, loadvm, log, migrate_cancel, migrate_continue, migrate_pause, migrate_set_capability, migrate_set_parameter, migrate_start_postcopy, mouse_button, mouse_move, mouse_set, one-insn-per-tb, p, print, q, qemu-io, qom-get, qom-list, quit, replay_break, replay_delete_break, replay_seek, ringbuf_read, ringbuf_write, s, savevm, sendkey, set_link, set_password, set_vcpu_dirty_limit, snapshot_blkdev_internal, snapshot_delete_blkdev_internal, stop, stopcapture, sum, sync-profile, system_powerdown, system_reset, system_wakeup, trace-event, x, x_colo_lost_heartbeat, xp\n\nThe following commands are root-only: backup, block_stream, change, chardev-add, chardev-change, chardev-remove, client_migrate_info, device_add, device_del, drive_add, drive_backup, drive_del, drive_mirror, dump-guest-memory, dumpdtb, gdbserver, hostfwd_add, hostfwd_remove, logfile, mce, memsave, migrate, migrate_incoming, migrate_recover, nbd_server_add, nbd_server_remove, nbd_server_start, nbd_server_stop, netdev_add, netdev_del, nmi, o, object_add, object_del, pcie_aer_inject_error, pmemsave, qom-set, savevm-end, savevm-start, screendump, snapshot_blkdev, watchdog_action, wavcapture, xen-event-inject, xen-event-list\n\nThe following commands are deprecated: stopcapture, wavcapture\n"}
                              */
                             $post(param: { command: string }): Promise<string>;
                         },
@@ -10421,7 +15921,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                              */
-                            $post(param: { description?: string, snapname: pveconfigid_6, vmstate?: boolean }): Promise<string>;
+                            $post(param: { description?: string, snapname: pveconfigid_2, vmstate?: boolean }): Promise<string>;
                             $(snapname: string): {
                                 /**
                                  * Delete a VM snapshot.
@@ -10490,6 +15990,15 @@ export namespace Proxmox {
                              */
                             $get(param: { socket: string, ticket: string }): Promise<nodesQemuMtunnelwebsocketMtunnelwebsocket>;
                         },
+                        'dbus-vmstate': {
+                            /**
+                             * Control the dbus-vmstate helper for a given running VM.
+                             * POST /nodes/\{node\}/qemu/\{vmid\}/dbus-vmstate
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
+                             */
+                            $post(param: { action: Taction_2 }): Promise<null>;
+                        },
                     };
                 },
                 lxc: {
@@ -10497,16 +16006,16 @@ export namespace Proxmox {
                      * LXC container index (per node).
                      * GET /nodes/\{node\}/lxc
                      * @allowtoken 1
-                     * @permissions {"description":"Only list CTs where you have VM.Audit permissons on /vms/<vmid>.","user":"all"}
+                     * @permissions {"description":"Only list CTs where you have VM.Audit permission on /vms/<vmid>.","user":"all"}
                      */
                     $get(): Promise<nodesLxcVm[]>;
                     /**
                      * Create or restore a container.
                      * POST /nodes/\{node\}/lxc
                      * @allowtoken 1
-                     * @permissions {"description":"You need 'VM.Allocate' permissions on /vms/{vmid} or on the VM pool /pool/{pool}. For restore, it is enough if the user has 'VM.Backup' permission and the VM already exists. You also need 'Datastore.AllocateSpace' permissions on the storage.","user":"all"}
+                     * @permissions {"description":"You need 'VM.Allocate' permission on /vms/{vmid} or on the VM pool /pool/{pool}. For restore, it is enough if the user has 'VM.Backup' permission and the VM already exists. You also need 'Datastore.AllocateSpace' permissions on the storage. For privileged containers, 'Sys.Modify' permissions on '/' are required.","user":"all"}
                      */
-                    $post(param: { arch?: Tarch_1, bwlimit?: Tbwlimit_1, cmode?: Tcmode, console?: boolean, cores?: integer1_8192, cpulimit?: Tcpulimit_1, cpuunits?: integer0_500000, debug?: boolean, description?: String0_8192, dev0?: Tdev, dev1?: Tdev, dev2?: Tdev, dev3?: Tdev, features?: Tfeatures, force?: boolean, hookscript?: pvevolumeid, hostname?: dnsname_1, 'ignore-unpack-errors'?: boolean, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: lxcipwithllifacelist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: boolean, ostemplate: String0_255, ostype?: Tostype_1, password?: Tpassword, pool?: pvepoolid, protection?: boolean, restore?: boolean, rootfs?: Trootfs, searchdomain?: dnsnamelist, 'ssh-public-keys'?: string, start?: boolean, startup?: pvestartuporder, storage?: pvestorageid, swap?: integer_Min0, tags?: pvetaglist, template?: boolean, timezone?: pvecttimezone, tty?: integer0_6, unique?: boolean, unprivileged?: boolean, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1, vmid: pvevmid }): Promise<string>;
+                    $post(param: { arch?: Tarch_1, bwlimit?: Tbwlimit_1, cmode?: Tcmode, console?: boolean, cores?: integer1_8192, cpulimit?: Tcpulimit_1, cpuunits?: integer0_500000, debug?: boolean, description?: String0_8192, dev0?: Tdev, dev1?: Tdev, dev2?: Tdev, dev3?: Tdev, entrypoint?: Tentrypoint, env?: Tenv, features?: Tfeatures, force?: boolean, 'ha-managed'?: boolean, hookscript?: pvevolumeid, hostname?: dnsname_1, 'ignore-unpack-errors'?: boolean, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: lxcipwithllifacelist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: boolean, ostemplate: String0_255, ostype?: Tostype_1, password?: Tpassword, pool?: pvepoolid, protection?: boolean, restore?: boolean, rootfs?: Trootfs, searchdomain?: dnsnamelist, 'ssh-public-keys'?: string, start?: boolean, startup?: pvestartuporder, storage?: pvestorageid, swap?: integer_Min0, tags?: pvetaglist, template?: boolean, timezone?: pvecttimezone, tty?: integer0_6, unique?: boolean, unprivileged?: boolean, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1, vmid: pvevmid }): Promise<string>;
                     $(vmid: number): {
                         /**
                          * Destroy the container (also delete all uses files).
@@ -10529,14 +16038,14 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param?: { current?: boolean, snapshot?: pveconfigid_6 }): Promise<nodesLxcConfigVmConfig>;
+                            $get(param?: { current?: boolean, snapshot?: pveconfigid_2 }): Promise<nodesLxcConfigVmConfig>;
                             /**
                              * Set container options.
                              * PUT /nodes/\{node\}/lxc/\{vmid\}/config
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Config.Disk","VM.Config.CPU","VM.Config.Memory","VM.Config.Network","VM.Config.Options"],"any",1],"description":"non-volume mount points in rootfs and mp[n] are restricted to root@pam"}
                              */
-                            $put(param?: { arch?: Tarch_1, cmode?: Tcmode, console?: boolean, cores?: integer1_8192, cpulimit?: Tcpulimit_1, cpuunits?: integer0_500000, debug?: boolean, delete?: pveconfigidlist_1, description?: String0_8192, dev0?: Tdev, dev1?: Tdev, dev2?: Tdev, dev3?: Tdev, digest?: String0_40, features?: Tfeatures, hookscript?: pvevolumeid, hostname?: dnsname_1, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: lxcipwithllifacelist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: boolean, ostype?: Tostype_1, protection?: boolean, revert?: pveconfigidlist_1, rootfs?: Trootfs, searchdomain?: dnsnamelist, startup?: pvestartuporder, swap?: integer_Min0, tags?: pvetaglist, template?: boolean, timezone?: pvecttimezone, tty?: integer0_6, unprivileged?: boolean, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1 }): Promise<null>;
+                            $put(param?: { arch?: Tarch_1, cmode?: Tcmode, console?: boolean, cores?: integer1_8192, cpulimit?: Tcpulimit_1, cpuunits?: integer0_500000, debug?: boolean, delete?: pveconfigidlist_1, description?: String0_8192, dev0?: Tdev, dev1?: Tdev, dev2?: Tdev, dev3?: Tdev, digest?: String0_40, entrypoint?: Tentrypoint, env?: Tenv, features?: Tfeatures, hookscript?: pvevolumeid, hostname?: dnsname_1, lock?: Tlock_1, memory?: integer_Min16, mp0?: Tmp, mp1?: Tmp, mp2?: Tmp, mp3?: Tmp, nameserver?: lxcipwithllifacelist, net0?: Tnet_1, net1?: Tnet_1, net2?: Tnet_1, net3?: Tnet_1, onboot?: boolean, ostype?: Tostype_1, protection?: boolean, revert?: pveconfigidlist_1, rootfs?: Trootfs, searchdomain?: dnsnamelist, startup?: pvestartuporder, swap?: integer_Min0, tags?: pvetaglist, template?: boolean, timezone?: pvecttimezone, tty?: integer0_6, unprivileged?: boolean, unused0?: Tunused_1, unused1?: Tunused_1, unused2?: Tunused_1, unused3?: Tunused_1 }): Promise<null>;
                         },
                         status: {
                             /**
@@ -10571,7 +16080,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/vms/{vmid}",["VM.PowerMgmt"]]}
                                  */
-                                $post(param?: { skiplock?: boolean }): Promise<string>;
+                                $post(param?: { 'overrule-shutdown'?: boolean, skiplock?: boolean }): Promise<string>;
                             },
                             shutdown: {
                                 /**
@@ -10624,7 +16133,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Snapshot"]]}
                              */
-                            $post(param: { description?: string, snapname: pveconfigid_6 }): Promise<string>;
+                            $post(param: { description?: string, snapname: pveconfigid_2 }): Promise<string>;
                             $(snapname: string): {
                                 /**
                                  * Delete a LXC snapshot.
@@ -10887,7 +16396,7 @@ export namespace Proxmox {
                         },
                         vncwebsocket: {
                             /**
-                             * Opens a weksocket for VNC traffic.
+                             * Opens a websocket for VNC traffic.
                              * GET /nodes/\{node\}/lxc/\{vmid\}/vncwebsocket
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Console"]],"description":"You also need to pass a valid ticket (vncticket)."}
@@ -10914,6 +16423,13 @@ export namespace Proxmox {
                         },
                         migrate: {
                             /**
+                             * Get preconditions for migration.
+                             * GET /nodes/\{node\}/lxc/\{vmid\}/migrate
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/vms/{vmid}",["VM.Migrate"]]}
+                             */
+                            $get(param?: { target?: pvenode }): Promise<nodesLxcMigrateMigrateVmPrecondition>;
+                            /**
                              * Migrate the container to another node. Creates a new migration task.
                              * POST /nodes/\{node\}/lxc/\{vmid\}/migrate
                              * @allowtoken 1
@@ -10928,7 +16444,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/vms/{vmid}",["VM.Audit"]]}
                              */
-                            $get(param: { feature: Tfeature, snapname?: pveconfigid_6 }): Promise<nodesLxcFeatureVmFeature>;
+                            $get(param: { feature: Tfeature, snapname?: pveconfigid_2 }): Promise<nodesLxcFeatureVmFeature>;
                         },
                         template: {
                             /**
@@ -10946,7 +16462,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["and",["perm","/vms/{vmid}",["VM.Clone"]],["or",["perm","/vms/{newid}",["VM.Allocate"]],["perm","/pool/{pool}",["VM.Allocate"],"require_param","pool"]]],"description":"You need 'VM.Clone' permissions on /vms/{vmid}, and 'VM.Allocate' permissions on /vms/{newid} (or on the VM pool /pool/{pool}). You also need 'Datastore.AllocateSpace' on any used storage, and 'SDN.Use' on any bridge."}
                              */
-                            $post(param: { bwlimit?: Tbwlimit_1, description?: string, full?: boolean, hostname?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_6, storage?: pvestorageid, target?: pvenode }): Promise<string>;
+                            $post(param: { bwlimit?: Tbwlimit_1, description?: string, full?: boolean, hostname?: dnsname, newid: pvevmid, pool?: pvepoolid, snapname?: pveconfigid_2, storage?: pvestorageid, target?: pvenode }): Promise<string>;
                         },
                         resize: {
                             /**
@@ -11040,7 +16556,7 @@ export namespace Proxmox {
                         },
                         value: {
                             /**
-                             * Get configured values from either the config file or config DB.
+                             * Get configured values from either ceph.conf or the mon config DB. Underscores in section and key names are normalised to hyphens in the response, regardless of how they're written in the source.
                              * GET /nodes/\{node\}/ceph/cfg/value
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Audit"]]}
@@ -11055,13 +16571,13 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
                          */
-                        $get(): Promise<any>;
+                        $get(): Promise<nodesCephOsdIndex>;
                         /**
                          * Create OSD
                          * POST /nodes/\{node\}/ceph/osd
                          * @allowtoken 1
                          */
-                        $post(param: { 'crush-device-class'?: string, db_dev?: string, db_dev_size?: Trate, dev: string, encrypted?: boolean, 'osds-per-device'?: integer_Min1_1, wal_dev?: string, wal_dev_size?: Twal_dev_size }): Promise<string>;
+                        $post(param: { 'crush-device-class'?: string, db_dev?: string, db_dev_size?: Trate, dev: string, encrypted?: boolean, 'osds-per-device'?: integer_Min1, wal_dev?: string, wal_dev_size?: Twal_dev_size }): Promise<string>;
                         $(osdid: string): {
                             /**
                              * Destroy OSD
@@ -11092,7 +16608,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/",["Sys.Audit"],"any",1]}
                                  */
-                                $get(param?: { type?: Ttype_14 }): Promise<nodesCephOsdLvInfoOsdvolume>;
+                                $get(param?: { type?: Ttype_15 }): Promise<nodesCephOsdLvInfoOsdvolume>;
                             },
                             in: {
                                 /**
@@ -11183,14 +16699,14 @@ export namespace Proxmox {
                         $get(): Promise<nodesCephMonListmon[]>;
                         $(monid: string): {
                             /**
-                             * Destroy Ceph Monitor and Manager.
+                             * Destroy a Ceph Monitor. Refuses to remove the last monitor of the cluster. Does not destroy any Manager on the same node; use /nodes/\{node\}/ceph/mgr/\{id\} for that.
                              * DELETE /nodes/\{node\}/ceph/mon/\{monid\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
                              */
                             $delete(): Promise<string>;
                             /**
-                             * Create Ceph Monitor and Manager
+                             * Create a Ceph Monitor. Also auto-creates a Manager for the first monitor.
                              * POST /nodes/\{node\}/ceph/mon/\{monid\}
                              * @allowtoken 1
                              * @permissions {"check":["perm","/",["Sys.Modify"]]}
@@ -11207,6 +16723,13 @@ export namespace Proxmox {
                          */
                         $get(): Promise<nodesCephFsIndex[]>;
                         $(name: string): {
+                            /**
+                             * Destroy a Ceph filesystem. Refuses if any PVE storage entry of type 'cephfs' still references the filesystem and is not disabled. Optionally also removes the storage entries and/or the underlying metadata and data pools.
+                             * DELETE /nodes/\{node\}/ceph/fs/\{name\}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/",["Sys.Modify"]]}
+                             */
+                            $delete(param?: { 'remove-pools'?: boolean, 'remove-storages'?: boolean }): Promise<string>;
                             /**
                              * Create a Ceph filesystem
                              * POST /nodes/\{node\}/ceph/fs/\{name\}
@@ -11266,7 +16789,7 @@ export namespace Proxmox {
                     },
                     init: {
                         /**
-                         * Create initial ceph default configuration and setup symlinks.
+                         * Create the initial Ceph default configuration and set up symlinks. Idempotent on re-call: if a [global] section already exists in ceph.conf, the existing fsid / auth / pool defaults are preserved and most parameters are silently ignored.
                          * POST /nodes/\{node\}/ceph/init
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
@@ -11298,11 +16821,11 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Modify"]]}
                          */
-                        $post(param?: { service?: Tservice_1 }): Promise<string>;
+                        $post(param?: { service?: Tservice }): Promise<string>;
                     },
                     status: {
                         /**
-                         * Get ceph status.
+                         * Get the Ceph cluster status (raw 'ceph status' output). The response is cluster-wide and identical to /cluster/ceph/status; this node-level alias exists for operator convenience.
                          * GET /nodes/\{node\}/ceph/status
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Datastore.Audit"],"any",1]}
@@ -11343,7 +16866,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit"]]}
                          */
-                        $get(param: { action: Taction_1, id: string, service: Tservice_2 }): Promise<nodesCephCmdSafetyCmdSafety>;
+                        $get(param: { action: Taction_3, id: string, service: Tservice_1 }): Promise<nodesCephCmdSafetyCmdSafety>;
                     },
                 },
                 vzdump: {
@@ -11351,9 +16874,9 @@ export namespace Proxmox {
                      * Create backup.
                      * POST /nodes/\{node\}/vzdump
                      * @allowtoken 1
-                     * @permissions {"description":"The user needs 'VM.Backup' permissions on any VM, and 'Datastore.AllocateSpace' on the backup storage. The 'tmpdir', 'dumpdir' and 'script' parameters are restricted to the 'root@pam' user. The 'maxfiles' and 'prune-backups' settings require 'Datastore.Allocate' on the backup storage. The 'bwlimit', 'performance' and 'ionice' parameters require 'Sys.Modify' on '/'. ","user":"all"}
+                     * @permissions {"description":"The user needs 'VM.Backup' permissions on any VM, and 'Datastore.AllocateSpace' on the backup storage (and fleecing storage when fleecing is used). The 'tmpdir', 'dumpdir', 'script' and 'job-id' parameters are restricted to the 'root@pam' user. The 'prune-backups' setting requires 'Datastore.Allocate' on the backup storage. The 'bwlimit', 'performance' and 'ionice' parameters require 'Sys.Modify' on '/'.","user":"all"}
                      */
-                    $post(param?: { all?: boolean, bwlimit?: integer_Min0, compress?: Tcompress, dumpdir?: string, exclude?: pvevmidlist, 'exclude-path'?: Tmatchcalendar, ionice?: integer0_8, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: emailorusernamelist, maxfiles?: integer_Min1, mode?: Tmode_2, 'notes-template'?: String0_1024, 'notification-policy'?: Tnotificationpolicy, 'notification-target'?: pveconfigid_1, performance?: backupperformance, pigz?: integer, pool?: string, protected?: boolean, 'prune-backups'?: prunebackups, quiet?: boolean, remove?: boolean, script?: string, stdexcludes?: boolean, stdout?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<string>;
+                    $post(param?: { all?: boolean, bwlimit?: integer_Min0, compress?: Tcompress, dumpdir?: string, exclude?: pvevmidlist, 'exclude-path'?: Theader, fleecing?: backupfleecing, ionice?: integer0_8, 'job-id'?: Tjobid, lockwait?: integer_Min0, mailnotification?: Tmailnotification, mailto?: emailorusernamelist, mode?: Tmode_2, 'notes-template'?: String0_1024, 'notification-mode'?: Tnotificationmode, 'pbs-change-detection-mode'?: Tpbschangedetectionmode, performance?: backupperformance, pigz?: integer, pool?: string, protected?: boolean, 'prune-backups'?: prunebackups, quiet?: boolean, remove?: boolean, script?: string, stdexcludes?: boolean, stdout?: boolean, stop?: boolean, stopwait?: integer_Min0, storage?: pvestorageid, tmpdir?: string, vmid?: pvevmidlist, zstd?: integer }): Promise<string>;
                     defaults: {
                         /**
                          * Get the currently configured vzdump defaults.
@@ -11396,7 +16919,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                              */
-                            $get(): Promise<any>;
+                            $get(): Promise<nodesServicesStateServiceState>;
                         },
                         start: {
                             /**
@@ -11450,7 +16973,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
-                    $get(): Promise<any>;
+                    $get(): Promise<nodesSubscriptionGet>;
                     /**
                      * Update subscription info.
                      * POST /nodes/\{node\}/subscription
@@ -11480,21 +17003,21 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"user":"all"}
                      */
-                    $get(param?: { type?: Ttype_15 }): Promise<nodesNetworkIndex[]>;
+                    $get(param?: { type?: Ttype_16 }): Promise<nodesNetworkIndex[]>;
                     /**
                      * Create network device configuration
                      * POST /nodes/\{node\}/network
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $post(param: { address?: ipv4, address6?: ipv6, autostart?: boolean, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vlan_aware?: boolean, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, gateway?: ipv4, gateway6?: ipv6, iface: pveiface, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_16, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1 }): Promise<null>;
+                    $post(param: { address?: ipv4, address6?: ipv6, autostart?: boolean, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vids?: pvevlanidorrangelist, bridge_vlan_aware?: boolean, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, gateway?: ipv4, gateway6?: ipv6, iface: pveiface, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_17, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1 }): Promise<null>;
                     /**
                      * Reload network configuration
                      * PUT /nodes/\{node\}/network
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                      */
-                    $put(): Promise<string>;
+                    $put(param?: { 'regenerate-frr'?: boolean }): Promise<string>;
                     $(iface: string): {
                         /**
                          * Delete network device configuration
@@ -11516,7 +17039,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $put(param: { address?: ipv4, address6?: ipv6, autostart?: boolean, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vlan_aware?: boolean, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, delete?: pveconfigidlist_1, gateway?: ipv4, gateway6?: ipv6, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_16, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1 }): Promise<null>;
+                        $put(param: { address?: ipv4, address6?: ipv6, autostart?: boolean, 'bond-primary'?: pveiface_1, bond_mode?: Tbond_mode, bond_xmit_hash_policy?: Tbond_xmit_hash_policy, bridge_ports?: pveifacelist, bridge_vids?: pvevlanidorrangelist, bridge_vlan_aware?: boolean, cidr?: CIDRv4, cidr6?: CIDRv6, comments?: string, comments6?: string, delete?: pveconfigidlist_1, gateway?: ipv4, gateway6?: ipv6, mtu?: integer1280_65520, netmask?: ipv4mask, netmask6?: integer0_128, ovs_bonds?: pveifacelist, ovs_bridge?: pveiface_1, ovs_options?: String0_1024, ovs_ports?: pveifacelist, ovs_tag?: integer1_4094, slaves?: pveifacelist, type: Ttype_17, 'vlan-id'?: integer1_4094, 'vlan-raw-device'?: pveiface_1 }): Promise<null>;
                     };
                 },
                 tasks: {
@@ -11596,15 +17119,6 @@ export namespace Proxmox {
                          */
                         $get(param: { fingerprint?: Tfingerprint, password: string, port?: integer1_65535, server: pvestorageserver, username: string }): Promise<nodesScanPbsPbsscan[]>;
                     },
-                    glusterfs: {
-                        /**
-                         * Scan remote GlusterFS server.
-                         * GET /nodes/\{node\}/scan/glusterfs
-                         * @allowtoken 1
-                         * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
-                         */
-                        $get(param: { server: pvestorageserver }): Promise<nodesScanGlusterfsGlusterfsscan[]>;
-                    },
                     iscsi: {
                         /**
                          * Scan remote iSCSI server.
@@ -11657,23 +17171,23 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/",["Sys.Audit","Sys.Modify"],"any",1]}
                          */
-                        $get(param?: { 'pci-class-blacklist'?: stringlist, verbose?: boolean }): Promise<nodesHardwarePciPciscan[]>;
-                        $(pciid: string): {
+                        $get(param?: { 'pci-class-blacklist'?: stringlist, verbose?: boolean }): Promise<nodesHardwarePciPciScan[]>;
+                        $(pci-id-or-mapping: string): {
                             /**
                              * Index of available pci methods
-                             * GET /nodes/\{node\}/hardware/pci/\{pciid\}
+                             * GET /nodes/\{node\}/hardware/pci/\{pci-id-or-mapping\}
                              * @allowtoken 1
                              * @permissions {"user":"all"}
                              */
-                            $get(): Promise<nodesHardwarePciPciindex[]>;
+                            $get(): Promise<nodesHardwarePci {pciIdOrMapping}PciIndex[]>;
                             mdev: {
                                 /**
                                  * List mediated device types for given PCI device.
-                                 * GET /nodes/\{node\}/hardware/pci/\{pciid\}/mdev
+                                 * GET /nodes/\{node\}/hardware/pci/\{pci-id-or-mapping\}/mdev
                                  * @allowtoken 1
                                  * @permissions {"check":["perm","/",["Sys.Audit","Sys.Modify"],"any",1]}
                                  */
-                                $get(): Promise<nodesHardwarePciMdevMdevscan[]>;
+                                $get(): Promise<nodesHardwarePci {pciIdOrMapping}MdevMdevscan[]>;
                             },
                         };
                     },
@@ -11708,9 +17222,18 @@ export namespace Proxmox {
                              * List all custom and default CPU models.
                              * GET /nodes/\{node\}/capabilities/qemu/cpu
                              * @allowtoken 1
-                             * @permissions {"description":"Only returns custom models when the current user has Sys.Audit on /nodes.","user":"all"}
+                             * @permissions {"description":"Custom models are filtered to those the current user has any of Mapping.{Audit,Use,Modify} on /mapping/cpu/<name>; Sys.Audit on /nodes continues to grant visibility of all custom models for back-compat.","user":"all"}
                              */
-                            $get(): Promise<nodesCapabilitiesQemuCpuIndex[]>;
+                            $get(param?: { arch?: Tarch }): Promise<nodesCapabilitiesQemuCpuIndex[]>;
+                        },
+                        'cpu-flags': {
+                            /**
+                             * List of available VM-specific CPU flags. Returns an empty list for 'aarch64' as no VM-specific flags are defined for it yet.
+                             * GET /nodes/\{node\}/capabilities/qemu/cpu-flags
+                             * @allowtoken 1
+                             * @permissions {"user":"all"}
+                             */
+                            $get(param?: { accel?: Taccel, arch?: Tarch }): Promise<nodesCapabilitiesQemuCpuFlagsIndex[]>;
                         },
                         machines: {
                             /**
@@ -11719,7 +17242,16 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"user":"all"}
                              */
-                            $get(): Promise<nodesCapabilitiesQemuMachinesTypes[]>;
+                            $get(param?: { arch?: Tarch }): Promise<nodesCapabilitiesQemuMachinesTypes[]>;
+                        },
+                        migration: {
+                            /**
+                             * Get node-specific QEMU migration capabilities of the node. Requires the 'Sys.Audit' permission on '/nodes/<node>'.
+                             * GET /nodes/\{node\}/capabilities/qemu/migration
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
+                             */
+                            $get(): Promise<nodesCapabilitiesQemuMigrationCapabilities>;
                         },
                     },
                 },
@@ -11745,14 +17277,14 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"description":"You need the 'Datastore.Allocate' privilege on the storage (or if a VM ID is specified, 'Datastore.AllocateSpace' and 'VM.Backup' for the VM).","user":"all"}
                              */
-                            $delete(param?: { 'prune-backups'?: prunebackups, type?: Ttype_17, vmid?: pvevmid }): Promise<string>;
+                            $delete(param?: { 'prune-backups'?: prunebackups, type?: Ttype_18, vmid?: pvevmid }): Promise<string>;
                             /**
                              * Get prune information for backups. NOTE: this is only a preview and might not be what a subsequent prune call does if backups are removed/added in the meantime.
                              * GET /nodes/\{node\}/storage/\{storage\}/prunebackups
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                              */
-                            $get(param?: { 'prune-backups'?: prunebackups, type?: Ttype_17, vmid?: pvevmid }): Promise<nodesStoragePrunebackupsDryrun[]>;
+                            $get(param?: { 'prune-backups'?: prunebackups, type?: Ttype_18, vmid?: pvevmid }): Promise<nodesStoragePrunebackupsDryrun[]>;
                         },
                         content: {
                             /**
@@ -11816,7 +17348,7 @@ export namespace Proxmox {
                                  * @allowtoken 1
                                  * @permissions {"description":"You need read access for the volume.","user":"all"}
                                  */
-                                $get(param: { filepath: string, tar?: boolean, volume: string }): Promise<any>; // TODO Promise<ReadableStream>;
+                                $get(param: { filepath: string, tar?: boolean, volume: string }): Promise<any>;
                             },
                         },
                         status: {
@@ -11826,7 +17358,7 @@ export namespace Proxmox {
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
                              */
-                            $get(): Promise<any>;
+                            $get(): Promise<nodesStorageStatusReadStatus>;
                         },
                         rrd: {
                             /**
@@ -11848,7 +17380,7 @@ export namespace Proxmox {
                         },
                         upload: {
                             /**
-                             * Upload templates and ISO images.
+                             * Upload templates, ISO images, OVAs and VM images.
                              * POST /nodes/\{node\}/storage/\{storage\}/upload
                              * @allowtoken 1
                              * @permissions {"check":["perm","/storage/{storage}",["Datastore.AllocateTemplate"]]}
@@ -11857,12 +17389,39 @@ export namespace Proxmox {
                         },
                         'download-url': {
                             /**
-                             * Download templates and ISO images by using an URL.
+                             * Download templates, ISO images, OVAs and VM images by using an URL.
                              * POST /nodes/\{node\}/storage/\{storage\}/download-url
                              * @allowtoken 1
-                             * @permissions {"check":["and",["perm","/storage/{storage}",["Datastore.AllocateTemplate"]],["perm","/",["Sys.Audit","Sys.Modify"]]]}
+                             * @permissions {"check":["and",["perm","/storage/{storage}",["Datastore.AllocateTemplate"]],["or",["perm","/",["Sys.Audit","Sys.Modify"]],["perm","/nodes/{node}",["Sys.AccessNetwork"]]]],"description":"Requires allocation access on the storage and as this allows one to probe the (local!) host network indirectly it also requires one of Sys.Modify on / (for backwards compatibility) or the newer Sys.AccessNetwork privilege on the node."}
                              */
                             $post(param: { checksum?: string, 'checksum-algorithm'?: Tchecksumalgorithm, compression?: string, content: pvestoragecontent_1, filename: String0_255, url: Turl, 'verify-certificates'?: boolean }): Promise<string>;
+                        },
+                        'oci-registry-pull': {
+                            /**
+                             * Pull an OCI image from a registry.
+                             * POST /nodes/\{node\}/storage/\{storage\}/oci-registry-pull
+                             * @allowtoken 1
+                             * @permissions {"check":["and",["perm","/storage/{storage}",["Datastore.AllocateTemplate"]],["perm","/nodes/{node}",["Sys.AccessNetwork"]]]}
+                             */
+                            $post(param: { filename?: String1_255, reference: Treference }): Promise<string>;
+                        },
+                        'import-metadata': {
+                            /**
+                             * Get the base parameters for creating a guest which imports data from a foreign importable guest, like an ESXi VM
+                             * GET /nodes/\{node\}/storage/\{storage\}/import-metadata
+                             * @allowtoken 1
+                             * @permissions {"description":"You need read access for the volume.","user":"all"}
+                             */
+                            $get(param: { volume: string }): Promise<nodesStorageImportMetadataGetImportMetadata>;
+                        },
+                        identity: {
+                            /**
+                             * Return identity information for this storage instance.
+                             * GET /nodes/\{node\}/storage/\{storage\}/identity
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/storage/{storage}",["Datastore.Audit","Datastore.AllocateSpace"],"any",1]}
+                             */
+                            $get(): Promise<nodesStorageIdentityIdentity>;
                         },
                     };
                 },
@@ -11988,7 +17547,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["or",["perm","/",["Sys.Audit"]],["perm","/nodes/{node}",["Sys.Audit"]]]}
                          */
-                        $get(param?: { 'include-partitions'?: boolean, skipsmart?: boolean, type?: Ttype_18 }): Promise<nodesDisksListList[]>;
+                        $get(param?: { 'include-partitions'?: boolean, skipsmart?: boolean, type?: Ttype_19 }): Promise<nodesDisksListList[]>;
                     },
                     smart: {
                         /**
@@ -12048,7 +17607,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $get(param: { name: string, version?: string }): Promise<string>;
+                        $get(param: { name: Tname_2, version?: string }): Promise<string>;
                     },
                     repositories: {
                         /**
@@ -12144,7 +17703,7 @@ export namespace Proxmox {
                          * @allowtoken 1
                          * @permissions {"check":["perm","/nodes/{node}",["Sys.Modify"]]}
                          */
-                        $put(param?: { delete?: pveconfigidlist_1, digest?: String0_64, enable?: boolean, log_level_in?: Tlog, log_level_out?: Tlog, log_nf_conntrack?: boolean, ndp?: boolean, nf_conntrack_allow_invalid?: boolean, nf_conntrack_helpers?: pvefwconntrackhelper, nf_conntrack_max?: integer_Min32768, nf_conntrack_tcp_timeout_established?: integer_Min7875, nf_conntrack_tcp_timeout_syn_recv?: integer30_60, nosmurfs?: boolean, protection_synflood?: boolean, protection_synflood_burst?: integer, protection_synflood_rate?: integer, smurf_log_level?: Tlog, tcp_flags_log_level?: Tlog, tcpflags?: boolean }): Promise<null>;
+                        $put(param?: { delete?: pveconfigidlist_1, digest?: String0_64, enable?: boolean, log_level_forward?: Tlog, log_level_in?: Tlog, log_level_out?: Tlog, log_nf_conntrack?: boolean, ndp?: boolean, nf_conntrack_allow_invalid?: boolean, nf_conntrack_helpers?: pvefwconntrackhelper, nf_conntrack_max?: integer_Min32768, nf_conntrack_tcp_timeout_established?: integer_Min7875, nf_conntrack_tcp_timeout_syn_recv?: integer30_60, nftables?: boolean, nosmurfs?: boolean, protection_synflood?: boolean, protection_synflood_burst?: integer, protection_synflood_rate?: integer, smurf_log_level?: Tlog, tcp_flags_log_level?: Tlog, tcpflags?: boolean }): Promise<null>;
                     },
                     log: {
                         /**
@@ -12195,7 +17754,7 @@ export namespace Proxmox {
                              * Schedule replication job to start as soon as possible.
                              * POST /nodes/\{node\}/replication/\{id\}/schedule_now
                              * @allowtoken 1
-                             * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
+                             * @permissions {"description":"Requires the VM.Replicate permission on /vms/<vmid>.","user":"all"}
                              */
                             $post(): Promise<string>;
                         },
@@ -12281,7 +17840,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/",["Sys.Modify"]]}
                      */
-                    $put(param?: { acme?: Tacme, acmedomain0?: Tacmedomain, acmedomain1?: Tacmedomain, acmedomain2?: Tacmedomain, acmedomain3?: Tacmedomain, delete?: pveconfigidlist_1, description?: String0_65536, digest?: String0_40, 'startall-onboot-delay'?: integer0_300, wakeonlan?: macaddr }): Promise<null>;
+                    $put(param?: { acme?: Tacme, acmedomain0?: Tacmedomain, acmedomain1?: Tacmedomain, acmedomain2?: Tacmedomain, acmedomain3?: Tacmedomain, 'ballooning-target'?: integer0_100, delete?: pveconfigidlist_1, description?: String0_65536, digest?: String0_40, location?: Tlocation, 'startall-onboot-delay'?: integer0_300, wakeonlan?: Twakeonlan }): Promise<null>;
                 },
                 sdn: {
                     /**
@@ -12291,6 +17850,44 @@ export namespace Proxmox {
                      * @permissions {"user":"all"}
                      */
                     $get(): Promise<nodesSdnSdnindex[]>;
+                    fabrics: {
+                        $(fabric: string): {
+                            /**
+                             * Directory index for SDN fabric status.
+                             * GET /nodes/\{node\}/sdn/fabrics/\{fabric\}
+                             * @allowtoken 1
+                             * @permissions {"check":["perm","/sdn/fabrics/{fabric}",["SDN.Audit"]]}
+                             */
+                            $get(): Promise<nodesSdnFabricsDiridx[]>;
+                            routes: {
+                                /**
+                                 * Get all routes for a fabric.
+                                 * GET /nodes/\{node\}/sdn/fabrics/\{fabric\}/routes
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/sdn/fabrics/{fabric}",["SDN.Audit"]]}
+                                 */
+                                $get(): Promise<nodesSdnFabricsRoutesRoutes[]>;
+                            },
+                            neighbors: {
+                                /**
+                                 * Get all neighbors for a fabric.
+                                 * GET /nodes/\{node\}/sdn/fabrics/\{fabric\}/neighbors
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/sdn/fabrics/{fabric}",["SDN.Audit"]]}
+                                 */
+                                $get(): Promise<nodesSdnFabricsNeighborsNeighbors[]>;
+                            },
+                            interfaces: {
+                                /**
+                                 * Get all interfaces for a fabric.
+                                 * GET /nodes/\{node\}/sdn/fabrics/\{fabric\}/interfaces
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/sdn/fabrics/{fabric}",["SDN.Audit"]]}
+                                 */
+                                $get(): Promise<nodesSdnFabricsInterfacesInterfaces[]>;
+                            },
+                        };
+                    },
                     zones: {
                         /**
                          * Get status for all zones.
@@ -12301,9 +17898,10 @@ export namespace Proxmox {
                         $get(): Promise<nodesSdnZonesIndex[]>;
                         $(zone: string): {
                             /**
-                             * 
+                             * Directory index for SDN zone status.
+                             * GET /nodes/\{node\}/sdn/zones/\{zone\}
                              * @allowtoken 1
-                             * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Audit"],"any",1]}
+                             * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Audit"]]}
                              */
                             $get(): Promise<nodesSdnZonesDiridx[]>;
                             content: {
@@ -12311,9 +17909,46 @@ export namespace Proxmox {
                                  * List zone content.
                                  * GET /nodes/\{node\}/sdn/zones/\{zone\}/content
                                  * @allowtoken 1
-                                 * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Audit"],"any",1]}
+                                 * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Audit"]]}
                                  */
                                 $get(): Promise<nodesSdnZonesContentIndex[]>;
+                            },
+                            bridges: {
+                                /**
+                                 * Get a list of all bridges (vnets) that are part of a zone, as well as the ports that are members of that bridge.
+                                 * GET /nodes/\{node\}/sdn/zones/\{zone\}/bridges
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Audit"]]}
+                                 */
+                                $get(): Promise<nodesSdnZonesBridgesBridges[]>;
+                            },
+                            'ip-vrf': {
+                                /**
+                                 * Get the IP VRF of an EVPN zone.
+                                 * GET /nodes/\{node\}/sdn/zones/\{zone\}/ip-vrf
+                                 * @allowtoken 1
+                                 * @permissions {"check":["perm","/sdn/zones/{zone}",["SDN.Audit"]]}
+                                 */
+                                $get(): Promise<nodesSdnZonesIpVrfIpVrf[]>;
+                            },
+                        };
+                    },
+                    vnets: {
+                        $(vnet: string): {
+                            /**
+                             * 
+                             * @allowtoken 1
+                             * @permissions {"description":"Require 'SDN.Audit' permissions on '/sdn/zones/<zone>/<vnet>'","user":"all"}
+                             */
+                            $get(): Promise<nodesSdnVnetsDiridx[]>;
+                            'mac-vrf': {
+                                /**
+                                 * Get the MAC VRF for a VNet in an EVPN zone.
+                                 * GET /nodes/\{node\}/sdn/vnets/\{vnet\}/mac-vrf
+                                 * @allowtoken 1
+                                 * @permissions {"description":"Require 'SDN.Audit' permissions on '/sdn/zones/<zone>/<vnet>'","user":"all"}
+                                 */
+                                $get(): Promise<nodesSdnVnetsMacVrfMacVrf[]>;
                             },
                         };
                     },
@@ -12334,7 +17969,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
-                    $get(): Promise<any>;
+                    $get(): Promise<nodesStatusStatus>;
                     /**
                      * Reboot or shutdown a node.
                      * POST /nodes/\{node\}/status
@@ -12376,7 +18011,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
-                    $get(param: { cf?: Tcf, ds: pveconfigidlist_1, timeframe: Ttimeframe }): Promise<nodesRrdRrd>;
+                    $get(param: { cf?: Tcf, ds: pveconfigidlist_1, timeframe: Ttimeframe_1 }): Promise<nodesRrdRrd>;
                 },
                 rrddata: {
                     /**
@@ -12385,7 +18020,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/nodes/{node}",["Sys.Audit"]]}
                      */
-                    $get(param: { cf?: Tcf, timeframe: Ttimeframe }): Promise<nodesRrddataRrddata[]>;
+                    $get(param: { cf?: Tcf, timeframe: Ttimeframe_1 }): Promise<nodesRrddataRrddata[]>;
                 },
                 syslog: {
                     /**
@@ -12489,12 +18124,21 @@ export namespace Proxmox {
                      */
                     $post(param: { storage: pvestorageid, template: String0_255 }): Promise<string>;
                 },
+                'query-oci-repo-tags': {
+                    /**
+                     * List all tags for an OCI repository reference.
+                     * GET /nodes/\{node\}/query-oci-repo-tags
+                     * @allowtoken 1
+                     * @permissions {"check":["perm","/nodes/{node}",["Sys.AccessNetwork"]]}
+                     */
+                    $get(param: { reference: Treference_1 }): Promise<string[]>;
+                },
                 'query-url-metadata': {
                     /**
                      * Query metadata of an URL: file size, file name and mime type.
                      * GET /nodes/\{node\}/query-url-metadata
                      * @allowtoken 1
-                     * @permissions {"check":["perm","/",["Sys.Audit","Sys.Modify"]]}
+                     * @permissions {"check":["or",["perm","/",["Sys.Audit","Sys.Modify"]],["perm","/nodes/{node}",["Sys.AccessNetwork"]]]}
                      */
                     $get(param: { url: Turl, 'verify-certificates'?: boolean }): Promise<nodesQueryUrlMetadataQueryUrlMetadata>;
                 },
@@ -12514,7 +18158,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"The 'VM.PowerMgmt' permission is required on '/' or on '/vms/<ID>' for each ID passed via the 'vms' parameter.","user":"all"}
                      */
-                    $post(param?: { force?: boolean, vms?: pvevmidlist }): Promise<string>;
+                    $post(param?: { force?: boolean, 'max-workers'?: integer1_64, vms?: pvevmidlist }): Promise<string>;
                 },
                 stopall: {
                     /**
@@ -12523,7 +18167,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"The 'VM.PowerMgmt' permission is required on '/' or on '/vms/<ID>' for each ID passed via the 'vms' parameter.","user":"all"}
                      */
-                    $post(param?: { 'force-stop'?: boolean, timeout?: integer0_7200, vms?: pvevmidlist }): Promise<string>;
+                    $post(param?: { 'force-stop'?: boolean, 'max-workers'?: integer1_64, timeout?: integer0_7200, vms?: pvevmidlist }): Promise<string>;
                 },
                 suspendall: {
                     /**
@@ -12532,7 +18176,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"The 'VM.PowerMgmt' permission is required on '/' or on '/vms/<ID>' for each ID passed via the 'vms' parameter. Additionally, you need 'VM.Config.Disk' on the '/vms/{vmid}' path and 'Datastore.AllocateSpace' for the configured state-storage(s)","user":"all"}
                      */
-                    $post(param?: { vms?: pvevmidlist }): Promise<string>;
+                    $post(param?: { 'max-workers'?: integer1_64, vms?: pvevmidlist }): Promise<string>;
                 },
                 migrateall: {
                     /**
@@ -12541,7 +18185,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"description":"The 'VM.Migrate' permission is required on '/' or on '/vms/<ID>' for each ID passed via the 'vms' parameter.","user":"all"}
                      */
-                    $post(param: { maxworkers?: integer_Min1, target: pvenode, vms?: pvevmidlist, 'with-local-disks'?: boolean }): Promise<string>;
+                    $post(param: { 'max-workers'?: integer1_64, maxworkers?: integer1_64, target: pvenode, vms?: pvevmidlist, 'with-local-disks'?: boolean }): Promise<string>;
                 },
                 hosts: {
                     /**
@@ -12568,14 +18212,14 @@ export namespace Proxmox {
              * @allowtoken 1
              * @permissions {"description":"Only list entries where you have 'Datastore.Audit' or 'Datastore.AllocateSpace' permissions on '/storage/<storage>'","user":"all"}
              */
-            $get(param?: { type?: Ttype_19 }): Promise<storageIndex[]>;
+            $get(param?: { type?: Ttype_20 }): Promise<storageIndex[]>;
             /**
              * Create a new storage.
              * POST /storage
              * @allowtoken 1
              * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
              */
-            $post(param: { authsupported?: string, base?: pvevolumeid, blocksize?: string, bwlimit?: Tbwlimit, comstar_hg?: string, comstar_tg?: string, content?: pvestoragecontentlist, 'content-dirs'?: pvediroverridelist, 'create-base-path'?: boolean, 'create-subdirs'?: boolean, 'data-pool'?: string, datastore?: string, disable?: boolean, domain?: String0_256, 'encryption-key'?: string, export?: pvestoragepath, fingerprint?: Tfingerprint, format?: pvestorageformat, 'fs-name'?: pveconfigid_1, fuse?: boolean, is_mountpoint?: string, iscsiprovider?: string, keyring?: string, krbd?: boolean, lio_tpg?: string, 'master-pubkey'?: string, 'max-protected-backups'?: integer_Min__1, maxfiles?: integer_Min0, mkdir?: boolean, monhost?: pvestorageportaldnslist, mountpoint?: pvestoragepath, namespace?: string, nocow?: boolean, nodes?: pvenodelist, nowritecache?: boolean, options?: pvestorageoptions, password?: String0_256, path?: pvestoragepath, pool?: string, port?: integer1_65535, portal?: pvestorageportaldns, preallocation?: Tpreallocation, 'prune-backups'?: prunebackups, saferemove?: boolean, saferemove_throughput?: string, server?: pvestorageserver, server2?: pvestorageserver, share?: string, shared?: boolean, smbversion?: Tsmbversion, sparse?: boolean, storage: pvestorageid, subdir?: pvestoragepath, tagged_only?: boolean, target?: string, thinpool?: pvestoragevgname, transport?: Ttransport, type: Ttype_19, username?: string, vgname?: pvestoragevgname, volume?: string }): Promise<storageCreate>;
+            $post(param: { authsupported?: string, base?: pvevolumeid, blocksize?: pvestoragezfsblocksize, bwlimit?: Tbwlimit, comstar_hg?: string, comstar_tg?: string, content?: pvestoragecontentlist, 'content-dirs'?: pvediroverridelist, 'create-base-path'?: boolean, 'create-subdirs'?: boolean, 'data-pool'?: string, datastore?: string, disable?: boolean, domain?: String0_256, 'encryption-key'?: string, export?: pvestoragepath, fingerprint?: Tfingerprint, format?: Tformat_1, 'fs-name'?: pveconfigid_1, fuse?: boolean, is_mountpoint?: string, iscsiprovider?: string, keyring?: string, krbd?: boolean, lio_tpg?: string, 'master-pubkey'?: string, 'max-protected-backups'?: integer_Min__1, mkdir?: boolean, monhost?: pvestorageportaldnslist, mountpoint?: pvestoragepath, namespace?: string, nocow?: boolean, nodes?: pvenodelist, nowritecache?: boolean, options?: pvestorageoptions, password?: String0_256, path?: pvestoragepath, pool?: string, port?: integer1_65535, portal?: pvestorageportaldns, preallocation?: Tpreallocation, 'prune-backups'?: prunebackups, saferemove?: boolean, 'saferemove-stepsize'?: integer_1, saferemove_throughput?: string, server?: pvestorageserver, share?: string, shared?: boolean, 'skip-cert-verification'?: boolean, smbversion?: Tsmbversion, 'snapshot-as-volume-chain'?: boolean, sparse?: boolean, storage: pvestorageid, subdir?: pvestoragepath, tagged_only?: boolean, target?: string, thinpool?: pvestoragevgname, type: Ttype_20, username?: string, vgname?: pvestoragevgname, 'zfs-base-path'?: pvestoragepath }): Promise<storageCreate>;
             $(storage: string): {
                 /**
                  * Delete storage configuration.
@@ -12597,7 +18241,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/storage",["Datastore.Allocate"]]}
                  */
-                $put(param?: { blocksize?: string, bwlimit?: Tbwlimit, comstar_hg?: string, comstar_tg?: string, content?: pvestoragecontentlist, 'content-dirs'?: pvediroverridelist, 'create-base-path'?: boolean, 'create-subdirs'?: boolean, 'data-pool'?: string, delete?: pveconfigidlist, digest?: String0_64, disable?: boolean, domain?: String0_256, 'encryption-key'?: string, fingerprint?: Tfingerprint, format?: pvestorageformat, 'fs-name'?: pveconfigid_1, fuse?: boolean, is_mountpoint?: string, keyring?: string, krbd?: boolean, lio_tpg?: string, 'master-pubkey'?: string, 'max-protected-backups'?: integer_Min__1, maxfiles?: integer_Min0, mkdir?: boolean, monhost?: pvestorageportaldnslist, mountpoint?: pvestoragepath, namespace?: string, nocow?: boolean, nodes?: pvenodelist, nowritecache?: boolean, options?: pvestorageoptions, password?: String0_256, pool?: string, port?: integer1_65535, preallocation?: Tpreallocation, 'prune-backups'?: prunebackups, saferemove?: boolean, saferemove_throughput?: string, server?: pvestorageserver, server2?: pvestorageserver, shared?: boolean, smbversion?: Tsmbversion, sparse?: boolean, subdir?: pvestoragepath, tagged_only?: boolean, transport?: Ttransport, username?: string }): Promise<storageUpdate>;
+                $put(param?: { blocksize?: pvestoragezfsblocksize, bwlimit?: Tbwlimit, comstar_hg?: string, comstar_tg?: string, content?: pvestoragecontentlist, 'content-dirs'?: pvediroverridelist, 'create-base-path'?: boolean, 'create-subdirs'?: boolean, 'data-pool'?: string, delete?: pveconfigidlist, digest?: String0_64, disable?: boolean, domain?: String0_256, 'encryption-key'?: string, fingerprint?: Tfingerprint, format?: Tformat_1, 'fs-name'?: pveconfigid_1, fuse?: boolean, is_mountpoint?: string, keyring?: string, krbd?: boolean, lio_tpg?: string, 'master-pubkey'?: string, 'max-protected-backups'?: integer_Min__1, mkdir?: boolean, monhost?: pvestorageportaldnslist, mountpoint?: pvestoragepath, namespace?: string, nocow?: boolean, nodes?: pvenodelist, nowritecache?: boolean, options?: pvestorageoptions, password?: String0_256, pool?: string, port?: integer1_65535, preallocation?: Tpreallocation, 'prune-backups'?: prunebackups, saferemove?: boolean, 'saferemove-stepsize'?: integer_1, saferemove_throughput?: string, server?: pvestorageserver, shared?: boolean, 'skip-cert-verification'?: boolean, smbversion?: Tsmbversion, 'snapshot-as-volume-chain'?: boolean, sparse?: boolean, subdir?: pvestoragepath, tagged_only?: boolean, username?: string, 'zfs-base-path'?: pvestoragepath }): Promise<storageUpdate>;
             };
         },
         access: {
@@ -12622,7 +18266,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"],"groups_param","create"]],"description":"You need 'Realm.AllocateUser' on '/access/realm/<realm>' on the realm of user <userid>, and 'User.Modify' permissions to '/access/groups/<group>' for any group specified (or 'User.Modify' on '/access/groups' if you pass no groups."}
                  */
-                $post(param: { comment?: string, email?: emailopt, enable?: boolean, expire?: integer_Min0, firstname?: string, groups?: pvegroupidlist, keys?: string, lastname?: string, password?: String5_64, userid: pveuserid }): Promise<null>;
+                $post(param: { comment?: String0_2048, email?: emailopt_1, enable?: boolean, expire?: integer_Min0, firstname?: String0_1024, groups?: pvegroupidlist, keys?: Tkeys, lastname?: String0_1024, password?: String8_64, userid: pveuserid }): Promise<null>;
                 $(userid: string): {
                     /**
                      * Delete user.
@@ -12644,7 +18288,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["userid-group",["User.Modify"],"groups_param","update"]}
                      */
-                    $put(param?: { append?: boolean, comment?: string, email?: emailopt, enable?: boolean, expire?: integer_Min0, firstname?: string, groups?: pvegroupidlist, keys?: string, lastname?: string }): Promise<null>;
+                    $put(param?: { append?: boolean, comment?: String0_2048, email?: emailopt_1, enable?: boolean, expire?: integer_Min0, firstname?: String0_1024, groups?: pvegroupidlist, keys?: Tkeys, lastname?: String0_1024 }): Promise<null>;
                     tfa: {
                         /**
                          * Get user TFA types (Personal and Realm).
@@ -12694,12 +18338,12 @@ export namespace Proxmox {
                              */
                             $post(param?: { comment?: string, expire?: integer_Min0, privsep?: boolean }): Promise<accessUsersTokenGenerateToken>;
                             /**
-                             * Update API token for a specific user.
+                             * Update API token for a specific user. NOTE: when 'regenerate' is set, the returned token value needs to be stored as it cannot be retrieved afterwards!
                              * PUT /access/users/\{userid\}/token/\{tokenid\}
                              * @allowtoken 1
                              * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify"]]]}
                              */
-                            $put(param?: { comment?: string, expire?: integer_Min0, privsep?: boolean }): Promise<accessUsersTokenUpdateTokenInfo>;
+                            $put(param?: { comment?: string, delete?: pveconfigidlist_1, expire?: integer_Min0, privsep?: boolean, regenerate?: boolean }): Promise<accessUsersTokenUpdateTokenInfo>;
                         };
                     },
                 };
@@ -12812,7 +18456,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/access/realm",["Realm.Allocate"]]}
                  */
-                $post(param: { 'acr-values'?: string, autocreate?: boolean, base_dn?: String0_256, bind_dn?: String0_256, capath?: string, 'case-sensitive'?: boolean, cert?: string, certkey?: string, 'check-connection'?: boolean, 'client-id'?: String0_256, 'client-key'?: String0_256, comment?: String0_4096, default?: boolean, domain?: Tdomain, filter?: String0_2048, group_classes?: ldapsimpleattrlist, group_dn?: String0_256, group_filter?: String0_2048, group_name_attr?: ldapsimpleattr, 'issuer-url'?: String0_256, mode?: Tmode_3, password?: string, port?: integer1_65535, prompt?: Tprompt, realm: pverealm, scopes?: string, secure?: boolean, server1?: address_1, server2?: address_1, sslversion?: Tsslversion, 'sync-defaults-options'?: realmsyncoptions, sync_attributes?: Tsync_attributes, tfa?: pvetfaconfig, type: Ttype_20, user_attr?: Tuser_attr, user_classes?: ldapsimpleattrlist, 'username-claim'?: string, verify?: boolean }): Promise<null>;
+                $post(param: { 'acr-values'?: Tacrvalues, audiences?: Tacrvalues, autocreate?: boolean, base_dn?: String0_256, bind_dn?: String0_256, capath?: string, 'case-sensitive'?: boolean, cert?: string, certkey?: string, 'check-connection'?: boolean, 'client-id'?: String0_256, 'client-key'?: String0_256, comment?: String0_4096, default?: boolean, domain?: Tdomain, filter?: String0_2048, group_classes?: ldapsimpleattrlist, group_dn?: String0_256, group_filter?: String0_2048, group_name_attr?: ldapsimpleattr, 'groups-autocreate'?: boolean, 'groups-claim'?: Tgroupsclaim, 'groups-overwrite'?: boolean, 'issuer-url'?: String0_256, mode?: Tmode_3, password?: string, port?: integer1_65535, prompt?: Tprompt, 'query-userinfo'?: boolean, realm: pverealm, scopes?: string, secure?: boolean, server1?: address_1, server2?: address_1, sslversion?: Tsslversion, 'sync-defaults-options'?: realmsyncoptions, sync_attributes?: Tsync_attributes, tfa?: pvetfaconfig, type: Ttype_21, user_attr?: Tuser_attr, user_classes?: ldapsimpleattrlist, 'username-claim'?: string, verify?: boolean }): Promise<null>;
                 $(realm: string): {
                     /**
                      * Delete an authentication server.
@@ -12834,7 +18478,7 @@ export namespace Proxmox {
                      * @allowtoken 1
                      * @permissions {"check":["perm","/access/realm",["Realm.Allocate"]]}
                      */
-                    $put(param?: { 'acr-values'?: string, autocreate?: boolean, base_dn?: String0_256, bind_dn?: String0_256, capath?: string, 'case-sensitive'?: boolean, cert?: string, certkey?: string, 'check-connection'?: boolean, 'client-id'?: String0_256, 'client-key'?: String0_256, comment?: String0_4096, default?: boolean, delete?: pveconfigidlist, digest?: String0_64, domain?: Tdomain, filter?: String0_2048, group_classes?: ldapsimpleattrlist, group_dn?: String0_256, group_filter?: String0_2048, group_name_attr?: ldapsimpleattr, 'issuer-url'?: String0_256, mode?: Tmode_3, password?: string, port?: integer1_65535, prompt?: Tprompt, scopes?: string, secure?: boolean, server1?: address_1, server2?: address_1, sslversion?: Tsslversion, 'sync-defaults-options'?: realmsyncoptions, sync_attributes?: Tsync_attributes, tfa?: pvetfaconfig, user_attr?: Tuser_attr, user_classes?: ldapsimpleattrlist, verify?: boolean }): Promise<null>;
+                    $put(param?: { 'acr-values'?: Tacrvalues, audiences?: Tacrvalues, autocreate?: boolean, base_dn?: String0_256, bind_dn?: String0_256, capath?: string, 'case-sensitive'?: boolean, cert?: string, certkey?: string, 'check-connection'?: boolean, 'client-id'?: String0_256, 'client-key'?: String0_256, comment?: String0_4096, default?: boolean, delete?: pveconfigidlist, digest?: String0_64, domain?: Tdomain, filter?: String0_2048, group_classes?: ldapsimpleattrlist, group_dn?: String0_256, group_filter?: String0_2048, group_name_attr?: ldapsimpleattr, 'groups-autocreate'?: boolean, 'groups-claim'?: Tgroupsclaim, 'groups-overwrite'?: boolean, 'issuer-url'?: String0_256, mode?: Tmode_3, password?: string, port?: integer1_65535, prompt?: Tprompt, 'query-userinfo'?: boolean, scopes?: string, secure?: boolean, server1?: address_1, server2?: address_1, sslversion?: Tsslversion, 'sync-defaults-options'?: realmsyncoptions, sync_attributes?: Tsync_attributes, tfa?: pvetfaconfig, user_attr?: Tuser_attr, user_classes?: ldapsimpleattrlist, verify?: boolean }): Promise<null>;
                     sync: {
                         /**
                          * Syncs users and/or groups from the configured LDAP to user.cfg. NOTE: Synced groups will have the name 'name-$realm', so make sure those groups do not exist to prevent overwriting.
@@ -12895,7 +18539,7 @@ export namespace Proxmox {
                      * @allowtoken 0
                      * @permissions {"check":["or",["userid-param","self"],["userid-group",["User.Modify"]]]}
                      */
-                    $post(param: { challenge?: string, description?: String0_255, password?: String5_64, totp?: string, type: Ttype_21, value?: string }): Promise<accessTfaAddTfaEntry>;
+                    $post(param: { challenge?: string, description?: String0_255, password?: String5_64, totp?: string, type: Ttype_22, value?: string }): Promise<accessTfaAddTfaEntry>;
                     $(id: string): {
                         /**
                          * Delete a TFA entry by ID.
@@ -12937,21 +18581,30 @@ export namespace Proxmox {
                  */
                 $post(param: { 'new-format'?: boolean, otp?: string, password: string, path?: String0_64, privs?: pveprivlist_1, realm?: pverealm, 'tfa-challenge'?: string, username: String0_64 }): Promise<accessTicketCreateTicket>;
             },
+            vncticket: {
+                /**
+                 * verify VNC authentication ticket.
+                 * POST /access/vncticket
+                 * @allowtoken 1
+                 * @permissions {"description":"You need to pass valid credientials.","user":"world"}
+                 */
+                $post(param: { authid: String0_64, path: String0_64, port?: integer, privs: pveprivlist_1, vncticket: string }): Promise<null>;
+            },
             password: {
                 /**
                  * Change user password.
                  * PUT /access/password
                  * @allowtoken 0
-                 * @permissions {"check":["or",["userid-param","self"],["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"]]]],"description":"Each user is allowed to change his own password. A user can change the password of another user if he has 'Realm.AllocateUser' (on the realm of user <userid>) and 'User.Modify' permission on /access/groups/<group> on a group where user <userid> is member of."}
+                 * @permissions {"check":["or",["userid-param","self"],["and",["userid-param","Realm.AllocateUser"],["userid-group",["User.Modify"]]]],"description":"Each user is allowed to change their own password. A user can change the password of another user if they have 'Realm.AllocateUser' (on the realm of user <userid>) and 'User.Modify' permission on /access/groups/<group> on a group where user <userid> is member of. For the PAM realm, a password change does not take  effect cluster-wide, but only applies to the local node."}
                  */
-                $put(param: { password: String5_64, userid: pveuserid }): Promise<null>;
+                $put(param: { 'confirmation-password'?: String5_64, password: String8_64, userid: pveuserid }): Promise<null>;
             },
             permissions: {
                 /**
                  * Retrieve effective permissions of given user/token.
                  * GET /access/permissions
                  * @allowtoken 1
-                 * @permissions {"description":"Each user/token is allowed to dump their own permissions. A user can dump the permissions of another user if they have 'Sys.Audit' permission on /access.","user":"all"}
+                 * @permissions {"description":"Each user/token is allowed to dump their own permissions (or that of owned tokens). A user can dump the permissions of another user or their tokens if they have 'Sys.Audit' permission on /access.","user":"all"}
                  */
                 $get(param?: { path?: string, userid?: Tuserid }): Promise<any>;
             },
@@ -12970,7 +18623,7 @@ export namespace Proxmox {
              * @allowtoken 1
              * @permissions {"description":"List all pools where you have Pool.Audit permissions on /pool/<pool>, or the pool specific with {poolid}","user":"all"}
              */
-            $get(param?: { poolid?: pvepoolid, type?: Ttype_22 }): Promise<poolsIndex[]>;
+            $get(param?: { poolid?: pvepoolid, type?: Ttype_23 }): Promise<poolsIndex[]>;
             /**
              * Create new pool.
              * POST /pools
@@ -12999,7 +18652,7 @@ export namespace Proxmox {
                  * @allowtoken 1
                  * @permissions {"check":["perm","/pool/{poolid}",["Pool.Audit"]]}
                  */
-                $get(param?: { type?: Ttype_22 }): Promise<poolsReadPool>;
+                $get(param?: { type?: Ttype_23 }): Promise<poolsReadPool>;
                 /**
                  * Update pool data (deprecated, no support for nested pools - use 'PUT /pools/?poolid=\{poolid\}' instead).
                  * PUT /pools/\{poolid\}
