@@ -4,11 +4,15 @@ export interface PveCommon {
     description?: string;
     verbose_description?: string;
     optional?: 0 | 1 | '1'; // add '1' since Proxmox 8
+    requires?: "ha-auto-rebalance" | "storage" | "starttime" | "delete" | "eab-kid" | "eab-hmac-key"
+    | "todisk" | "to-disk" | "archive" | "restore" | "netmask6" | "netmask" | "db_dev" | "network"
+    | "address" | "address6" | "wal_dev" | "checksum" | "checksum-algorithm" | "cmd" | "poolid"
+    | "privs" | "path" | "groups" | "size";
 }
 
 export interface PveFormatNumber extends PveCommon {
     type: 'integer' | 'number';
-    default?: 0 | 1 | 5 | 100 | 512 | 1024 | 1000 | 1000000,
+    default?: 0 | 1 | 3 | 5 | 10 | 30 | 100 | 512 | 1024 | 1000 | 1000000,
     default_key?: 1,
     maximum?: number,
     minimum?: number | '0',
@@ -42,6 +46,10 @@ export interface PveFormatAlias extends PveCommon {
 
 export type PveFormat = PveFormatNumber | PveFormatBoolean | PveFormatString | PveFormatAlias;
 
+/**
+ * used by PveFormatNumber, PveFormatBoolean, PveParametersNumber, PveParametersInteger, PveParametersEnum,
+ * PveParametersString, PveParametersBoolean, PveCallParametersNul, PveParametersArray, PveParametersObject, PveParametersUndef, PveParametersAny
+ */
 export interface PveParametersCommon extends PveCommon {
     additionalProperties?: 0 | 1;
     /**
@@ -51,11 +59,11 @@ export interface PveParametersCommon extends PveCommon {
     /**
      * @since PVE 9
      */
-    "instance-types"?: Array<"resource-affinity" | "node-affinity">;
+    "instance-types"?: Array<"resource-affinity" | "node-affinity" | "ospf" | "openfabric" | "wireguard">;
     /**
      * @since PVE 9
      */
-    "type-property"?: "type";
+    "type-property"?: "type" | "protocol";
 }
 
 export interface PveParametersNumber extends PveParametersCommon {
@@ -68,7 +76,7 @@ export interface PveParametersNumber extends PveParametersCommon {
     renderer?: 'bytes' | "timestamp" | 'timestamp_gmt' | 'duration' | 'fraction_as_percentage';
     title?: string; // only inside items
     // reference to an other key of the current object
-    requires?: string; // "delete" | "todisk" | "archive" | "db_dev" | "wal_dev";
+    // requires?: string; // "delete" | "todisk" | "archive" | "db_dev" | "wal_dev";
 }
 
 export interface PveParametersInteger extends PveParametersCommon {
@@ -82,8 +90,12 @@ export interface PveParametersInteger extends PveParametersCommon {
     renderer?: 'bytes' | "timestamp" | 'timestamp_gmt' | 'duration' | 'fraction_as_percentage';
     title?: string; // only inside items
     // reference to an other key of the current object
-    requires?: string; // "delete" | "todisk" | "archive" | "db_dev" | "wal_dev";
+    // requires?: string; // "delete" | "todisk" | "archive" | "db_dev" | "wal_dev";
     format_description?: "N";
+    /**
+     * @since PVE 9
+     */
+    enum?: Array<`${number}`>;
 }
 
 /**
@@ -103,7 +115,7 @@ export interface PveParametersString extends PveParametersCommon {
     enum?: string[];
     default?: string | null;
     // // reference to an other key of the current object
-    requires?: string; // "delete" | "todisk" | "archive" | "db_dev" | "wal_dev";
+    // requires?: string; // "delete" | "todisk" | "archive" | "db_dev" | "wal_dev";
     pattern?: string;
     format_description?: string;
     typetext?: string; //"<boolean>" | "<string>" | "<integer>" | "<integer> (0 - N)" | "<number> (1 - N)" | "<integer> (1 - N)" | "[address=]<IP> [,priority=<integer>]"|"[[type=]<enum>] [,memory=<integer>]"|"<integer> (0 - 8)"| "<volume>"| "[meta=<volume>] [,network=<volume>] [,user=<volume>]"|"<integer> (16 - N)"| "<number> (0 - N)" | "<type>:<name>"| "<node>[:<pri>]{,<node>[:<pri>]}*"|"<name>"|"[gw=<GatewayIPv4>] [,gw6=<GatewayIPv6>] [,ip=<IPv4Format/CIDR>] [,ip6=<IPv6Format/CIDR>]"|"[file=]<volume> [,aio=<native|threads>] [,backup=<1|0>] [,bps=<bps>] [,bps_max_length=<seconds>] [,bps_rd=<bps>] [,bps_rd_max_length=<seconds>] [,bps_wr=<bps>] [,bps_wr_max_length=<seconds>] [,cache=<enum>] [,cyls=<integer>] [,detect_zeroes=<1|0>] [,discard=<ignore|on>] [,format=<enum>] [,heads=<integer>] [,iops=<iops>] [,iops_max=<iops>] [,iops_max_length=<seconds>] [,iops_rd=<iops>] [,iops_rd_max=<iops>] [,iops_rd_max_length=<seconds>] [,iops_wr=<iops>] [,iops_wr_max=<iops>] [,iops_wr_max_length=<seconds>] [,mbps=<mbps>] [,mbps_max=<mbps>] [,mbps_rd=<mbps>] [,mbps_rd_max=<mbps>] [,mbps_wr=<mbps>] [,mbps_wr_max=<mbps>] [,media=<cdrom|disk>] [,model=<model>] [,replicate=<1|0>] [,rerror=<ignore|report|stop>] [,secs=<integer>] [,serial=<serial>] [,shared=<1|0>] [,size=<DiskSize>] [,snapshot=<1|0>] [,ssd=<1|0>] [,trans=<none|lba|auto>] [,werror=<enum>] [,wwn=<wwn>]"|"size=<integer> [,name=<string>]";
@@ -112,11 +124,11 @@ export interface PveParametersString extends PveParametersCommon {
 
 export interface PveParametersBoolean extends PveParametersCommon {
     type: 'boolean';
-    default?: number | '1' | '0' | "yes" | 'off' | "0; for erasure coded pools: 1";
+    default?: number | '1' | '0' | "false" | "yes" | 'off' | "0; for erasure coded pools: 1";
     // @since PVE 7
     title?: string;
     // reference to an other key of the current object
-    requires?: string; // "delete" | "todisk" | "archive" | "db_dev" | "wal_dev";
+    // requires?: string; // "delete" | "todisk" | "archive" | "db_dev" | "wal_dev";
     typetext?: string; //"<boolean>" | "<string>" | "<integer>" | "<integer> (0 - N)" | "<number> (1 - N)" | "<integer> (1 - N)" | "[address=]<IP> [,priority=<integer>]"|"[[type=]<enum>] [,memory=<integer>]"|"<integer> (0 - 8)"| "<volume>"| "[meta=<volume>] [,network=<volume>] [,user=<volume>]"|"<integer> (16 - N)"| "<number> (0 - N)" | "<type>:<name>"| "<node>[:<pri>]{,<node>[:<pri>]}*"|"<name>"|"[gw=<GatewayIPv4>] [,gw6=<GatewayIPv6>] [,ip=<IPv4Format/CIDR>] [,ip6=<IPv6Format/CIDR>]"|"[file=]<volume> [,aio=<native|threads>] [,backup=<1|0>] [,bps=<bps>] [,bps_max_length=<seconds>] [,bps_rd=<bps>] [,bps_rd_max_length=<seconds>] [,bps_wr=<bps>] [,bps_wr_max_length=<seconds>] [,cache=<enum>] [,cyls=<integer>] [,detect_zeroes=<1|0>] [,discard=<ignore|on>] [,format=<enum>] [,heads=<integer>] [,iops=<iops>] [,iops_max=<iops>] [,iops_max_length=<seconds>] [,iops_rd=<iops>] [,iops_rd_max=<iops>] [,iops_rd_max_length=<seconds>] [,iops_wr=<iops>] [,iops_wr_max=<iops>] [,iops_wr_max_length=<seconds>] [,mbps=<mbps>] [,mbps_max=<mbps>] [,mbps_rd=<mbps>] [,mbps_rd_max=<mbps>] [,mbps_wr=<mbps>] [,mbps_wr_max=<mbps>] [,media=<cdrom|disk>] [,model=<model>] [,replicate=<1|0>] [,rerror=<ignore|report|stop>] [,secs=<integer>] [,serial=<serial>] [,shared=<1|0>] [,size=<DiskSize>] [,snapshot=<1|0>] [,ssd=<1|0>] [,trans=<none|lba|auto>] [,werror=<enum>] [,wwn=<wwn>]"|"size=<integer> [,name=<string>]";
 }
 
@@ -133,6 +145,7 @@ export interface PveParametersArray extends PveParametersCommon {
     links?: { href: string, rel: "child" }[];
     renderer?: 'yaml';
     typetext?: "<array>";// @since Proxmox 8
+    oneOf?: any; // TODO
 }
 
 export interface PveParametersObject extends PveParametersCommon {
@@ -140,7 +153,7 @@ export interface PveParametersObject extends PveParametersCommon {
     // @since PVE 7
     title?: string;
     renderer?: "yaml",
-    properties?: { [name: string]: PveParametersBaseSet | PveParametersBoolean | PveParametersEnum }; //  | PveParametersObject
+    properties?: { [name: string]: PveParametersBaseSet | PveParametersBoolean | PveParametersEnum };
     items?: PveParametersObject; // only used in Proxmox 8, looks to be an error
     /**
      * @since PVE 9
@@ -179,7 +192,10 @@ export interface PveCallDesc {
     method: PveHttpMtd,
     name: string,
     parameters: {
-        additionalProperties: 0 | 1;
+        /**
+         * Optional since PVE 9
+         */
+        additionalProperties?: 0 | 1;
         properties?: { [name: string]: PveCallParameters; }
         type?: 'object';
     };
@@ -191,6 +207,10 @@ export interface PveCallDesc {
     protected?: 0 | 1;
     proxyto?: "node" | null;
     returns: PveCallParameters;
+    /**
+     * @since PVE 9
+     */
+    download_allowed?: 1;
 }
 export interface pveApiNode {
     children?: pveApiNode[];

@@ -10468,7 +10468,8 @@ const pveapi: pveApiNode[] = [
                                                             "lrm",
                                                             "service",
                                                             "fencing"
-                                                        ]
+                                                        ],
+                                                        "type": 'enum' // ADDED
                                                     }
                                                 },
                                                 "type": "object"
@@ -14009,7 +14010,8 @@ const pveapi: pveApiNode[] = [
                                                         }
                                                     },
                                                     "type": "object"
-                                                }
+                                                },
+                                                "type": "object" // ADDED
                                             },
                                             "id": {
                                                 "description": "The logical ID of the mapping.",
@@ -27934,7 +27936,7 @@ const pveapi: pveApiNode[] = [
                                                                 "count": {
                                                                     "default": "16777216",
                                                                     "description": "Number of bytes to read.",
-                                                                    "maximum": "16777216",
+                                                                    "maximum": 16777216, // patched
                                                                     "minimum": 1,
                                                                     "optional": 1,
                                                                     "type": "integer",
@@ -58227,7 +58229,7 @@ const pveapi: pveApiNode[] = [
                                                         },
                                                         "compression": {
                                                             "description": "Decompress the downloaded file using the specified compression algorithm.",
-                                                            "enum": null,
+                                                            // "enum": null, // PATCHED
                                                             "optional": 1,
                                                             "type": "string",
                                                             "typetext": "<string>"
