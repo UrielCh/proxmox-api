@@ -1,3 +1,12 @@
+> [!WARNING]
+> **This project is no longer maintained.** It targets the Proxmox VE 8 API
+> and will not be updated for Proxmox VE 9.
+>
+> Use [`@virtbase/proxmox-api`](https://www.npmjs.com/package/@virtbase/proxmox-api)
+> instead: a maintained fork with the same `proxmox.nodes.$(node).qemu.$get()`
+> design, generated from the current Proxmox VE API schema.
+> [Migration guide](https://proxmox-api.virtbase.com/guide/upgrading)
+
 # Proxmox Api
 
 [![NPM Version](https://img.shields.io/npm/v/proxmox-api.svg?style=flat)](https://www.npmjs.org/package/proxmox-api) Typescript Api to manage proxmox servers.
